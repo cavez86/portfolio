@@ -5,51 +5,47 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-background: hsl(0 0% 3.9%);
-  --color-foreground: hsl(0 0% 98%);
+  --color-background: var(--theme-color-background);
+  --color-foreground: var(--theme-color-foreground);
 
-  --color-card: hsl(0 0% 3.9%);
-  --color-card-foreground: hsl(0 0% 98%);
+  --color-card: var(--theme-color-card);
+  --color-card-foreground: var(--theme-color-card-foreground);
 
-  --color-popover: hsl(0 0% 3.9%);
-  --color-popover-foreground: hsl(0 0% 98%);
+  --color-popover: var(--theme-color-popover);
+  --color-popover-foreground: var(--theme-color-popover-foreground);
 
-  --color-primary: hsl(0 0% 98%);
-  --color-primary-foreground: hsl(0 0% 9%);
+  --color-primary: var(--theme-color-primary);
+  --color-primary-foreground: var(--theme-color-primary-foreground);
 
-  --color-secondary: hsl(0 0% 14.9%);
-  --color-secondary-foreground: hsl(0 0% 98%);
+  --color-secondary: var(--theme-color-secondary);
+  --color-secondary-foreground: var(--theme-color-secondary-foreground);
 
-  --color-muted: hsl(0 0% 14.9%);
-  --color-muted-foreground: hsl(0 0% 63.9%);
+  --color-muted: var(--theme-color-muted);
+  --color-muted-foreground: var(--theme-color-muted-foreground);
 
-  --color-accent: hsl(0 0% 14.9%);
-  --color-accent-foreground: hsl(0 0% 98%);
+  --color-accent: var(--theme-color-accent);
+  --color-accent-foreground: var(--theme-color-accent-foreground);
 
-  --color-destructive: hsl(0 62.8% 30.6%);
-  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-destructive: var(--theme-color-destructive);
+  --color-destructive-foreground: var(--theme-color-destructive-foreground);
 
-  --color-border: hsl(0 0% 14.9%);
-  --color-input: hsl(0 0% 14.9%);
-  --color-ring: hsl(0 0% 83.1%);
+  --color-border: var(--theme-color-border);
+  --color-input: var(--theme-color-input);
+  --color-ring: var(--theme-color-ring);
 
-  --color-chart-1: hsl(220 70% 50%);
-  --color-chart-2: hsl(160 60% 45%);
-  --color-chart-3: hsl(30 80% 55%);
-  --color-chart-4: hsl(280 65% 60%);
-  --color-chart-5: hsl(340 75% 55%);
+  --color-chart-1: var(--theme-color-chart-1);
+  --color-chart-2: var(--theme-color-chart-2);
+  --color-chart-3: var(--theme-color-chart-3);
+  --color-chart-4: var(--theme-color-chart-4);
+  --color-chart-5: var(--theme-color-chart-5);
 
-  --radius-lg: var(--radius);
+  --radius-lg: var(--theme-radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 }
 
 /* Add base styles after theme definition */
 @layer base {
-  :root {
-    --body-background: radial-gradient(circle at top left, rgb(from oklch(0.7 0.15 240) r g b / 0.15), transparent 70%);
-  }
-
   body {
     @apply relative;
   }
@@ -57,40 +53,78 @@
   body::before {
     content: '';
     @apply pointer-events-none fixed top-0 left-0 z-0 h-screen w-screen;
-    background: var(--body-background);
+    background: var(--theme-body-background);
   }
 }
 
 @layer theme {
-  html.light {
-    --color-background: hsl(0 0% 100%);
-    --color-foreground: hsl(0 0% 3.9%);
+  .light {
+    --theme-color-background: hsl(0 0% 100%);
+    --theme-color-foreground: hsl(0 0% 3.9%);
 
-    --color-card: hsl(0 0% 100%);
-    --color-card-foreground: hsl(0 0% 3.9%);
+    --theme-color-card: hsl(0 0% 100%);
+    --theme-color-card-foreground: hsl(0 0% 3.9%);
 
-    --color-popover: hsl(0 0% 100%);
-    --color-popover-foreground: hsl(0 0% 3.9%);
+    --theme-color-popover: hsl(0 0% 100%);
+    --theme-color-popover-foreground: hsl(0 0% 3.9%);
 
-    --color-primary: hsl(0 0% 9%);
-    --color-primary-foreground: hsl(0 0% 98%);
+    --theme-color-primary: hsl(0 0% 9%);
+    --theme-color-primary-foreground: hsl(0 0% 98%);
 
-    --color-secondary: hsl(0 0% 96.1%);
-    --color-secondary-foreground: hsl(0 0% 9%);
+    --theme-color-secondary: hsl(0 0% 96.1%);
+    --theme-color-secondary-foreground: hsl(0 0% 9%);
 
-    --color-muted: hsl(0 0% 96.1%);
-    --color-muted-foreground: hsl(0 0% 45.1%);
+    --theme-color-muted: hsl(0 0% 96.1%);
+    --theme-color-muted-foreground: hsl(0 0% 45.1%);
 
-    --color-accent: hsl(0 0% 96.1%);
-    --color-accent-foreground: hsl(0 0% 9%);
+    --theme-color-accent: hsl(0 0% 96.1%);
+    --theme-color-accent-foreground: hsl(0 0% 9%);
 
-    --color-destructive: hsl(0 84.2% 60.2%);
-    --color-destructive-foreground: hsl(0 0% 98%);
+    --theme-color-destructive: hsl(0 84.2% 60.2%);
+    --theme-color-destructive-foreground: hsl(0 0% 98%);
 
-    --color-border: hsl(0 0% 89.8%);
-    --color-input: hsl(0 0% 89.8%);
-    --color-ring: hsl(0 0% 3.9%);
+    --theme-color-border: hsl(0 0% 89.8%);
+    --theme-color-input: hsl(0 0% 89.8%);
+    --theme-color-ring: hsl(0 0% 3.9%);
 
     --body-background: radial-gradient(circle at top left, rgb(from oklch(0.9 0.05 240) r g b / 0.1), transparent 70%);
+  }
+
+  .dark {
+    --theme-color-background: hsl(0 0% 3.9%);
+    --theme-color-foreground: hsl(0 0% 98%);
+
+    --theme-color-card: hsl(0 0% 3.9%);
+    --theme-color-card-foreground: hsl(0 0% 98%);
+
+    --theme-color-popover: hsl(0 0% 3.9%);
+    --theme-color-popover-foreground: hsl(0 0% 98%);
+
+    --theme-color-primary: hsl(0 0% 98%);
+    --theme-color-primary-foreground: hsl(0 0% 9%);
+
+    --theme-color-secondary: hsl(0 0% 14.9%);
+    --theme-color-secondary-foreground: hsl(0 0% 98%);
+
+    --theme-color-muted: hsl(0 0% 14.9%);
+    --theme-color-muted-foreground: hsl(0 0% 63.9%);
+
+    --theme-color-accent: hsl(0 0% 14.9%);
+    --theme-color-accent-foreground: hsl(0 0% 98%);
+
+    --theme-color-destructive: hsl(0 62.8% 30.6%);
+    --theme-color-destructive-foreground: hsl(0 0% 98%);
+
+    --theme-color-border: hsl(0 0% 14.9%);
+    --theme-color-input: hsl(0 0% 14.9%);
+    --theme-color-ring: hsl(0 0% 83.1%);
+
+    --theme-color-chart-1: hsl(220 70% 50%);
+    --theme-color-chart-2: hsl(160 60% 45%);
+    --theme-color-chart-3: hsl(30 80% 55%);
+    --theme-color-chart-4: hsl(280 65% 60%);
+    --theme-color-chart-5: hsl(340 75% 55%);
+
+    --body-background: radial-gradient(circle at top left, rgb(from oklch(0.7 0.15 240) r g b / 0.15), transparent 70%);
   }
 }
