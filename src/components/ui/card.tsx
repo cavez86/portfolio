@@ -8,7 +8,13 @@ const Card = ({
   ...props
 }: HTMLAttributes<HTMLDivElement> & {
   ref?: RefObject<HTMLDivElement>;
-}) => <div ref={ref} className={cn('rounded-xl border bg-card text-card-foreground shadow', className)} {...props} />;
+}) => (
+  <div
+    ref={ref}
+    className={cn('hover:theme rounded-xl border bg-card text-card-foreground shadow transition', className)}
+    {...props}
+  />
+);
 Card.displayName = 'Card';
 
 const CardHeader = ({

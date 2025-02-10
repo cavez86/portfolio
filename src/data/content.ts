@@ -31,12 +31,36 @@ export const experience = [
     position: 'Tech Lead, Full Stack Web Developer',
     period: '09/2019 - Present',
     achievements: [
-      'React & Next.js Development: Architected and implemented Next.js applications, including LIV Golf and other major sports platforms, leveraging SSR and SSG for improved performance and scalability.',
-      'TypeScript & Scalable Codebases: Developed fully typed applications, introducing utility classes and generic functions to enhance maintainability and efficiency.',
-      'Tailwind CSS & Design Systems: Contributed to a design system built with Tailwind CSS, customizing themes and extending utility classes for a cohesive UI.',
-      'State Management & API Integration: Migrated UEFA.com from Redux to Zustand, optimizing state handling and leveraging React Query for API state synchronization.',
-      'Performance Optimization: Implemented memoization strategies, reduced unnecessary re-renders, and experimented with React Compiler for advanced optimizations.',
-      'DevOps & CI/CD: Configured Jenkins and Azure DevOps pipelines using YAML and Docker, streamlining deployment workflows for Next.js applications.',
+      {
+        label: 'React & Next.js Development',
+        description:
+          'Architected and implemented Next.js applications, including LIV Golf and other major sports platforms, leveraging SSR and SSG for improved performance and scalability.',
+      },
+      {
+        label: 'TypeScript & Scalable Codebases',
+        description:
+          'Developed fully typed applications, introducing utility classes and generic functions to enhance maintainability and efficiency.',
+      },
+      {
+        label: 'Tailwind CSS & Design Systems',
+        description:
+          'Contributed to a design system built with Tailwind CSS, customizing themes and extending utility classes for a cohesive UI.',
+      },
+      {
+        label: 'State Management & API Integration',
+        description:
+          'Migrated UEFA.com from Redux to Zustand, optimizing state handling and leveraging React Query for API state synchronization.',
+      },
+      {
+        label: 'Performance Optimization',
+        description:
+          'Implemented memoization strategies, reduced unnecessary re-renders, and experimented with React Compiler for advanced optimizations.',
+      },
+      {
+        label: 'DevOps & CI/CD',
+        description:
+          'Configured Jenkins and Azure DevOps pipelines using YAML and Docker, streamlining deployment workflows for Next.js applications.',
+      },
     ],
   },
   {
