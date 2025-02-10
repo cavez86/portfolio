@@ -5,32 +5,32 @@ import { Badge } from '@/components/ui/badge';
 
 export default function Home() {
   return (
-    <main className='container mx-auto px-4 py-8'>
+    <main className="container mx-auto px-4 py-8">
       {/* Header */}
-      <Card className='mb-8'>
+      <Card className="mb-8">
         <CardHeader>
-          <CardTitle className='text-center'>
-            <h1 className='text-4xl font-bold mb-4'>Francesco Caveglia Beatris</h1>
-            <p className='text-2xl text-muted-foreground'>Full Stack Web Developer</p>
+          <CardTitle className="text-center">
+            <h1 className="mb-4 text-4xl font-bold">Francesco Caveglia Beatris</h1>
+            <p className="text-2xl text-muted-foreground">Full Stack Web Developer</p>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='flex justify-center gap-4'>
-            <Button variant='outline' asChild>
-              <a href='mailto:francesco.caveglia@yahoo.it'>
-                <Mail className='w-4 h-4 mr-2' />
+          <div className="flex justify-center gap-4">
+            <Button variant="outline" asChild>
+              <a href="mailto:francesco.caveglia@yahoo.it">
+                <Mail className="mr-2 h-4 w-4" />
                 Email
               </a>
             </Button>
-            <Button variant='outline' asChild>
-              <a href='https://www.linkedin.com/in/francesco-caveglia-beatris-25012732/'>
-                <Linkedin className='w-4 h-4 mr-2' />
+            <Button variant="outline" asChild>
+              <a href="https://www.linkedin.com/in/francesco-caveglia-beatris-25012732/">
+                <Linkedin className="mr-2 h-4 w-4" />
                 LinkedIn
               </a>
             </Button>
-            <Button variant='outline' asChild>
-              <a href='https://github.com/cavez86'>
-                <Github className='w-4 h-4 mr-2' />
+            <Button variant="outline" asChild>
+              <a href="https://github.com/cavez86">
+                <Github className="mr-2 h-4 w-4" />
                 GitHub
               </a>
             </Button>
@@ -39,12 +39,12 @@ export default function Home() {
       </Card>
 
       {/* Summary */}
-      <Card className='mb-8'>
+      <Card className="mb-8">
         <CardHeader>
           <CardTitle>Summary</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className='text-muted-foreground'>
+          <p className="text-muted-foreground">
             Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Adept at
             performance optimization, state management, and backend integration.
           </p>
@@ -52,15 +52,15 @@ export default function Home() {
       </Card>
 
       {/* Experience */}
-      <Card className='mb-8'>
+      <Card className="mb-8">
         <CardHeader>
           <CardTitle>Professional Experience</CardTitle>
         </CardHeader>
-        <CardContent className='space-y-6'>
+        <CardContent className="space-y-6">
           <div>
-            <h3 className='text-xl font-bold'>Deltatre – Torino, Italy</h3>
-            <p className='text-muted-foreground mb-2'>Tech Lead, Full Stack Web Developer (2019 - Present)</p>
-            <ul className='list-disc list-inside space-y-2 text-muted-foreground pl-4'>
+            <h3 className="text-xl font-bold">Deltatre – Torino, Italy</h3>
+            <p className="mb-2 text-muted-foreground">Tech Lead, Full Stack Web Developer (2019 - Present)</p>
+            <ul className="list-inside list-disc space-y-2 pl-4 text-muted-foreground">
               <li>Lead developer for UEFA.com and other high-profile sports websites</li>
               <li>Architected and implemented Next.js applications for major sports platforms</li>
               <li>Developed fully typed applications with TypeScript</li>
@@ -69,20 +69,20 @@ export default function Home() {
           </div>
 
           <div>
-            <h3 className='text-xl font-bold'>Teoresi</h3>
-            <p className='text-muted-foreground mb-2'>Full Stack Web Developer (2015 - 2019)</p>
-            <p className='text-muted-foreground'>Consultant for Deltatre, contributing to UEFA Euro 2016 website.</p>
+            <h3 className="text-xl font-bold">Teoresi</h3>
+            <p className="mb-2 text-muted-foreground">Full Stack Web Developer (2015 - 2019)</p>
+            <p className="text-muted-foreground">Consultant for Deltatre, contributing to UEFA Euro 2016 website.</p>
           </div>
         </CardContent>
       </Card>
 
       {/* Skills */}
-      <Card className='mb-8'>
+      <Card className="mb-8">
         <CardHeader>
           <CardTitle>Technical Skills</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='flex flex-wrap gap-2'>
+          <div className="flex flex-wrap gap-2">
             {[
               'React.js',
               'Next.js',
@@ -95,7 +95,7 @@ export default function Home() {
               'Azure DevOps',
               'Jenkins',
             ].map((skill) => (
-              <Badge key={skill} variant='secondary'>
+              <Badge key={skill} variant="secondary">
                 {skill}
               </Badge>
             ))}
@@ -109,8 +109,8 @@ export default function Home() {
           <CardTitle>Education</CardTitle>
         </CardHeader>
         <CardContent>
-          <h3 className='text-xl font-bold'>Master&apos;s Degree in Advanced Technology Physics</h3>
-          <p className='text-muted-foreground'>Università degli Studi di Torino (2008 - 2011)</p>
+          <h3 className="text-xl font-bold">Master&apos;s Degree in Advanced Technology Physics</h3>
+          <p className="text-muted-foreground">Università degli Studi di Torino (2008 - 2011)</p>
         </CardContent>
       </Card>
     </main>

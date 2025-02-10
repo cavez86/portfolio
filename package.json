@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --fix",
+    "format": "prettier . --ignore-unknown --write --log-level warn",
+    "type-check": "tsc --noEmit",
+    "test": "jest"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
