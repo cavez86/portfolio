@@ -1,118 +1,145 @@
-import { Mail, Linkedin, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { ContactIcon } from '@/components/contact-icon';
+import { personalInfo, experience, skills, softSkills, education, languages, additionalInfo } from '@/data/content';
 
 export default function Home() {
   return (
-    <main className="container mx-auto px-4 py-8">
-      {/* Header */}
-      <Card className="mb-8">
+    <main className="container mx-auto flex max-w-[1264px] flex-col gap-4 px-4 py-4 lg:gap-8 lg:py-8">
+      <Card>
         <CardHeader>
           <CardTitle className="text-center">
-            <h1 className="mb-4 text-4xl font-bold">Francesco Caveglia Beatris</h1>
-            <p className="text-2xl text-muted-foreground">Full Stack Web Developer</p>
+            <h1 className="mb-4 text-4xl font-bold">{personalInfo.name}</h1>
+            <p className="text-2xl text-muted-foreground">{personalInfo.title}</p>
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex justify-center gap-4">
-            <Button variant="outline" asChild>
-              <a href="mailto:francesco.caveglia@yahoo.it">
-                <Mail className="mr-2 h-4 w-4" />
-                Email
-              </a>
-            </Button>
-            <Button variant="outline" asChild>
-              <a href="https://www.linkedin.com/in/francesco-caveglia-beatris-25012732/">
-                <Linkedin className="mr-2 h-4 w-4" />
-                LinkedIn
-              </a>
-            </Button>
-            <Button variant="outline" asChild>
-              <a href="https://github.com/cavez86">
-                <Github className="mr-2 h-4 w-4" />
-                GitHub
-              </a>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Summary */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>Summary</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground">
-            Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Adept at
-            performance optimization, state management, and backend integration.
-          </p>
-        </CardContent>
-      </Card>
-
-      {/* Experience */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>Professional Experience</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div>
-            <h3 className="text-xl font-bold">Deltatre – Torino, Italy</h3>
-            <p className="mb-2 text-muted-foreground">Tech Lead, Full Stack Web Developer (2019 - Present)</p>
-            <ul className="list-inside list-disc space-y-2 pl-4 text-muted-foreground">
-              <li>Lead developer for UEFA.com and other high-profile sports websites</li>
-              <li>Architected and implemented Next.js applications for major sports platforms</li>
-              <li>Developed fully typed applications with TypeScript</li>
-              <li>Contributed to design systems built with Tailwind CSS</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-bold">Teoresi</h3>
-            <p className="mb-2 text-muted-foreground">Full Stack Web Developer (2015 - 2019)</p>
-            <p className="text-muted-foreground">Consultant for Deltatre, contributing to UEFA Euro 2016 website.</p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Skills */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>Technical Skills</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-wrap gap-2">
-            {[
-              'React.js',
-              'Next.js',
-              'TypeScript',
-              'Tailwind CSS',
-              'Zustand',
-              'React Query',
-              'Node.js',
-              '.NET Core',
-              'Azure DevOps',
-              'Jenkins',
-            ].map((skill) => (
-              <Badge key={skill} variant="secondary">
-                {skill}
-              </Badge>
+            {personalInfo.contacts.map((contact) => (
+              <Button key={contact.type} variant="outline" asChild>
+                <a href={contact.url}>
+                  <ContactIcon type={contact.type} className="mr-2 h-4 w-4" />
+                  {contact.label}
+                </a>
+              </Button>
             ))}
           </div>
         </CardContent>
       </Card>
 
-      {/* Education */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Education</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <h3 className="text-xl font-bold">Master&apos;s Degree in Advanced Technology Physics</h3>
-          <p className="text-muted-foreground">Università degli Studi di Torino (2008 - 2011)</p>
-        </CardContent>
-      </Card>
+      <div className="flex flex-col gap-4 lg:flex-row lg:gap-8">
+        <div className="flex flex-col gap-4 lg:w-2/3 lg:gap-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Summary</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">{personalInfo.summary}</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Professional Experience</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {experience.map((exp, index) => (
+                <div key={index}>
+                  <h3 className="text-xl font-bold">
+                    {exp.company} - {exp.location}
+                  </h3>
+                  <p className="mb-2 text-muted-foreground">
+                    {exp.position} ({exp.period})
+                  </p>
+                  {exp.achievements ? (
+                    <ul className="list-inside list-disc space-y-2 pl-4 text-muted-foreground">
+                      {exp.achievements.map((achievement, i) => (
+                        <li key={i}>{achievement}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-muted-foreground">{exp.description}</p>
+                  )}
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Technical Skills</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {skills.map((category) => (
+                  <div key={category.category}>
+                    <h3 className="mb-2 font-semibold">{category.category}</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {category.skills.map((skill) => (
+                        <Badge key={skill} variant="secondary">
+                          {skill}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="flex flex-col gap-4 lg:w-1/3 lg:gap-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Soft Skills</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-inside list-disc space-y-2 pl-4 text-muted-foreground">
+                {softSkills.map((skill, index) => (
+                  <li key={index}>{skill}</li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Education</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <h3 className="text-xl font-bold">{education.degree}</h3>
+              <p className="text-muted-foreground">
+                {education.institution} ({education.period})
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Languages</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-inside list-disc space-y-2 pl-4 text-muted-foreground">
+                {languages.map((lang, index) => (
+                  <li key={index}>
+                    {lang.language}: {lang.level}
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Additional Information</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">{additionalInfo}</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </main>
   );
 }
