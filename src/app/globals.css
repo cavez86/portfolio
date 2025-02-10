@@ -43,3 +43,16 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 }
+
+/* Add base styles after theme definition */
+@layer base {
+  body {
+    @apply relative;
+  }
+
+  body::before {
+    content: '';
+    @apply pointer-events-none fixed top-0 left-0 z-0 h-screen w-screen;
+    background: radial-gradient(circle at top left, rgb(from oklch(0.7 0.15 240) r g b / 0.15), transparent 70%);
+  }
+}
