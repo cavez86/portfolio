@@ -7,7 +7,7 @@ import { LanguagesCard } from '@/components/cards/languages-card';
 import { AdditionalInfoCard } from '@/components/cards/additional-info-card';
 
 const Home = () => (
-  <main className="container mx-auto flex max-w-[1264px] flex-col gap-4 pt-6 pb-4 lg:gap-8 lg:pb-8">
+  <main className="container mx-auto flex max-w-[1264px] flex-col gap-4 px-4 py-4 lg:gap-8 lg:pb-8">
     <div className="flex flex-col gap-4 lg:flex-row lg:gap-8">
       <div className="flex flex-col gap-4 lg:w-2/3 lg:gap-8">
         <SummaryCard />

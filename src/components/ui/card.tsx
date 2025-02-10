@@ -12,7 +12,7 @@ const Card = ({
   <div
     ref={ref}
     className={cn(
-      'text-card-foreground hover:bg-accent/50 rounded-xl border bg-transparent shadow-sm backdrop-blur-md transition',
+      'text-card-foreground hover:bg-accent/50 rounded-xl border bg-transparent shadow-sm backdrop-blur-xs backdrop-grayscale transition',
       className
     )}
     {...props}
