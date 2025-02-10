@@ -13,14 +13,14 @@ export function ExperienceCard() {
             <h3 className="text-xl font-bold">
               {exp.company} - {exp.location}
             </h3>
-            <p className="mb-2 text-muted-foreground">
+            <p className="text-muted-foreground mb-2">
               {exp.position} ({exp.period})
             </p>
             {exp.achievements ? (
-              <ul className="list-inside list-disc space-y-2 pl-4 text-muted-foreground">
+              <ul className="text-muted-foreground list-inside list-disc space-y-2 pl-4">
                 {exp.achievements.map(({ label, description }, i) => (
                   <li key={i}>
-                    <span className="font-semibold text-white">{label}:</span> {description}
+                    <span className="text-foreground font-semibold">{label}:</span> {description}
                   </li>
                 ))}
               </ul>

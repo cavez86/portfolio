@@ -46,6 +46,10 @@
 
 /* Add base styles after theme definition */
 @layer base {
+  :root {
+    --body-background: radial-gradient(circle at top left, rgb(from oklch(0.7 0.15 240) r g b / 0.15), transparent 70%);
+  }
+
   body {
     @apply relative;
   }
@@ -53,6 +57,40 @@
   body::before {
     content: '';
     @apply pointer-events-none fixed top-0 left-0 z-0 h-screen w-screen;
-    background: radial-gradient(circle at top left, rgb(from oklch(0.7 0.15 240) r g b / 0.15), transparent 70%);
+    background: var(--body-background);
+  }
+}
+
+@layer theme {
+  html.light {
+    --color-background: hsl(0 0% 100%);
+    --color-foreground: hsl(0 0% 3.9%);
+
+    --color-card: hsl(0 0% 100%);
+    --color-card-foreground: hsl(0 0% 3.9%);
+
+    --color-popover: hsl(0 0% 100%);
+    --color-popover-foreground: hsl(0 0% 3.9%);
+
+    --color-primary: hsl(0 0% 9%);
+    --color-primary-foreground: hsl(0 0% 98%);
+
+    --color-secondary: hsl(0 0% 96.1%);
+    --color-secondary-foreground: hsl(0 0% 9%);
+
+    --color-muted: hsl(0 0% 96.1%);
+    --color-muted-foreground: hsl(0 0% 45.1%);
+
+    --color-accent: hsl(0 0% 96.1%);
+    --color-accent-foreground: hsl(0 0% 9%);
+
+    --color-destructive: hsl(0 84.2% 60.2%);
+    --color-destructive-foreground: hsl(0 0% 98%);
+
+    --color-border: hsl(0 0% 89.8%);
+    --color-input: hsl(0 0% 89.8%);
+    --color-ring: hsl(0 0% 3.9%);
+
+    --body-background: radial-gradient(circle at top left, rgb(from oklch(0.9 0.05 240) r g b / 0.1), transparent 70%);
   }
 }
