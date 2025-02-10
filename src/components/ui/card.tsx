@@ -11,7 +11,7 @@ const Card = ({
 }) => (
   <div
     ref={ref}
-    className={cn('hover:theme rounded-xl border bg-card text-card-foreground shadow transition', className)}
+    className={cn('bg-card text-card-foreground hover:bg-accent/50 rounded-xl border shadow-sm transition', className)}
     {...props}
   />
 );
@@ -32,7 +32,7 @@ const CardTitle = ({
   ...props
 }: HTMLAttributes<HTMLDivElement> & {
   ref?: RefObject<HTMLDivElement>;
-}) => <div ref={ref} className={cn('font-semibold leading-none tracking-tight', className)} {...props} />;
+}) => <div ref={ref} className={cn('leading-none font-semibold tracking-tight', className)} {...props} />;
 CardTitle.displayName = 'CardTitle';
 
 const CardDescription = ({
@@ -41,7 +41,7 @@ const CardDescription = ({
   ...props
 }: HTMLAttributes<HTMLDivElement> & {
   ref?: RefObject<HTMLDivElement>;
-}) => <div ref={ref} className={cn('text-sm text-muted-foreground', className)} {...props} />;
+}) => <div ref={ref} className={cn('text-muted-foreground text-sm', className)} {...props} />;
 CardDescription.displayName = 'CardDescription';
 
 const CardContent = ({
