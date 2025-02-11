@@ -4,9 +4,9 @@ import { personalInfo } from '@/data/content';
 import { ThemeToggle } from '@/components/theme-toggle';
 
 export const Header = () => (
-  <header className="bg-background dark:bg-background/50 sticky -top-[66px] z-50 flex flex-wrap items-center justify-between gap-2 rounded-lg px-6 py-4 backdrop-blur-xl md:top-0">
+  <header className="bg-background dark:bg-background/50 sticky -top-[66px] z-50 flex flex-wrap items-center justify-between gap-2 px-6 py-4 backdrop-blur-xl md:top-0">
     <div className="flex flex-col">
-      <h1 className="text-2xl font-bold">{personalInfo.name}</h1>
+      <h1 className="text-foreground text-2xl font-bold">{personalInfo.name}</h1>
       <p className="text-muted-foreground">{personalInfo.title}</p>
     </div>
     <div className="flex flex-1 items-center justify-end gap-4">

@@ -8,7 +8,7 @@ export function SoftSkillsCard() {
         <CardTitle>Soft Skills</CardTitle>
       </CardHeader>
       <CardContent>
-        <ul className="list-inside list-disc space-y-2 pl-4 text-muted-foreground">
+        <ul className="text-muted-foreground list-disc space-y-2 pl-4">
           {softSkills.map((skill, index) => (
             <li key={index}>{skill}</li>
           ))}

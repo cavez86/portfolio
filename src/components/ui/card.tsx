@@ -35,7 +35,13 @@ const CardTitle = ({
   ...props
 }: HTMLAttributes<HTMLDivElement> & {
   ref?: RefObject<HTMLDivElement>;
-}) => <div ref={ref} className={cn('leading-none font-semibold tracking-tight', className)} {...props} />;
+}) => (
+  <div
+    ref={ref}
+    className={cn('text-card-foreground leading-none font-semibold tracking-tight', className)}
+    {...props}
+  />
+);
 CardTitle.displayName = 'CardTitle';
 
 const CardDescription = ({
