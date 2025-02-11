@@ -5,78 +5,76 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant light (&:where(.light, .light *));
 
+/* light theme */
 @theme {
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(0 0% 3.9%);
+  --color-background: rgb(184, 207, 233);
+  --color-foreground: rgb(38, 45, 64);
 
-  --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(0 0% 3.9%);
+  --color-card: rgb(255, 255, 255);
+  --color-card-foreground: rgb(38, 45, 64);
 
-  --color-popover: hsl(0 0% 100%);
-  --color-popover-foreground: hsl(0 0% 3.9%);
+  --color-popover: rgb(255, 255, 255);
+  --color-popover-foreground: rgb(38, 45, 64);
 
-  --color-primary: hsl(0 0% 9%);
-  --color-primary-foreground: hsl(0 0% 98%);
+  --color-primary: rgb(71, 105, 147);
+  --color-primary-foreground: rgb(255, 255, 255);
 
-  --color-secondary: hsl(0 0% 96.1%);
-  --color-secondary-foreground: hsl(0 0% 9%);
+  --color-secondary: rgb(207, 220, 236);
+  --color-secondary-foreground: rgb(38, 45, 64);
 
-  --color-muted: hsl(0 0% 96.1%);
-  --color-muted-foreground: hsl(0 0% 45.1%);
+  --color-muted: rgb(207, 220, 236);
+  --color-muted-foreground: rgb(92, 108, 129);
 
-  --color-accent: hsl(0 0% 96.1%);
-  --color-accent-foreground: hsl(0 0% 9%);
+  --color-accent: rgb(147, 177, 213);
+  --color-accent-foreground: rgb(38, 45, 64);
 
-  --color-destructive: hsl(0 84.2% 60.2%);
-  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-destructive: rgb(220, 96, 96);
+  --color-destructive-foreground: rgb(255, 255, 255);
 
-  --color-border: hsl(0 0% 89.8%);
-  --color-input: hsl(0 0% 89.8%);
-  --color-ring: hsl(0 0% 3.9%);
+  --color-border: rgb(184, 207, 233);
+  --color-input: rgb(207, 220, 236);
+  --color-ring: rgb(71, 105, 147);
 
-  --body-gradient: radial-gradient(circle at top left, rgb(from oklch(0.75 0.14 241.14) r g b / 0.5), transparent 70%);
-
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --body-gradient: radial-gradient(circle at top left, rgba(147, 177, 213, 0.5), transparent 70%);
 }
 
+/* dark theme */
 :root :where(.dark, .dark *) {
-  --color-background: hsl(0 0% 3.9%);
-  --color-foreground: hsl(0 0% 98%);
+  --color-background: rgb(38, 45, 64);
+  --color-foreground: rgb(224, 229, 236);
 
-  --color-card: hsl(0 0% 3.9%);
-  --color-card-foreground: hsl(0 0% 98%);
+  --color-card: rgb(38, 45, 64);
+  --color-card-foreground: rgb(224, 229, 236);
 
-  --color-popover: hsl(0 0% 3.9%);
-  --color-popover-foreground: hsl(0 0% 98%);
+  --color-popover: rgb(38, 45, 64);
+  --color-popover-foreground: rgb(224, 229, 236);
 
-  --color-primary: hsl(0 0% 98%);
-  --color-primary-foreground: hsl(0 0% 9%);
+  --color-primary: rgb(184, 207, 233);
+  --color-primary-foreground: rgb(38, 45, 64);
 
-  --color-secondary: hsl(0 0% 14.9%);
-  --color-secondary-foreground: hsl(0 0% 98%);
+  --color-secondary: rgb(51, 61, 86);
+  --color-secondary-foreground: rgb(224, 229, 236);
 
-  --color-muted: hsl(0 0% 14.9%);
-  --color-muted-foreground: hsl(0 0% 63.9%);
+  --color-muted: rgb(51, 61, 86);
+  --color-muted-foreground: rgb(147, 177, 213);
 
-  --color-accent: hsl(0 0% 14.9%);
-  --color-accent-foreground: hsl(0 0% 98%);
+  --color-accent: rgb(71, 105, 147);
+  --color-accent-foreground: rgb(224, 229, 236);
 
-  --color-destructive: hsl(0 62.8% 30.6%);
-  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-destructive: rgb(147, 52, 52);
+  --color-destructive-foreground: rgb(224, 229, 236);
 
-  --color-border: hsl(0 0% 14.9%);
-  --color-input: hsl(0 0% 14.9%);
-  --color-ring: hsl(0 0% 83.1%);
+  --color-border: rgb(51, 61, 86);
+  --color-input: rgb(51, 61, 86);
+  --color-ring: rgb(184, 207, 233);
 
-  --color-chart-1: hsl(220 70% 50%);
-  --color-chart-2: hsl(160 60% 45%);
-  --color-chart-3: hsl(30 80% 55%);
-  --color-chart-4: hsl(280 65% 60%);
-  --color-chart-5: hsl(340 75% 55%);
+  --color-chart-1: rgb(147, 177, 213);
+  --color-chart-2: rgb(71, 105, 147);
+  --color-chart-3: rgb(92, 108, 129);
+  --color-chart-4: rgb(51, 61, 86);
+  --color-chart-5: rgb(38, 45, 64);
 
-  --body-gradient: radial-gradient(circle at top left, rgb(from oklch(0.7 0.15 240) r g b / 0.15), transparent 70%);
+  --body-gradient: radial-gradient(circle at top left, rgba(71, 105, 147, 0.15), transparent 70%);
 }
 
 /* Add base styles after theme definition */
