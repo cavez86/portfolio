@@ -11,7 +11,7 @@ export const Header = () => (
     </div>
     <div className="flex flex-1 items-center justify-end gap-4">
       {personalInfo.contacts.map((contact) => (
-        <Button key={contact.type} variant="ghost" size="sm" className="rounded" asChild>
+        <Button key={contact.type} variant="ghost" size="sm" className="rounded md:text-sm" asChild>
           <a href={contact.url}>
             <ContactIcon type={contact.type} className="h-4 w-4 md:mr-2" />
             <span className="hidden md:block">{contact.label}</span>
