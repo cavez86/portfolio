@@ -9,7 +9,7 @@
     "lint": "eslint . --fix",
     "format": "prettier . --ignore-unknown --write --log-level warn",
     "type-check": "tsc --noEmit",
-    "test": "jest"
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
@@ -36,7 +36,8 @@
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.9",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.0.7"
   },
   "overrides": {
     "@types/react": "19.0.10",
