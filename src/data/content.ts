@@ -1,4 +1,4 @@
-import { ContactType } from '@/components/contact-icon';
+import { ContactType } from '@/components/ContactIcon';
 
 export const personalInfo = {
   name: 'Francesco Caveglia Beatris',
