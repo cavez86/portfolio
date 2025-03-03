@@ -6,6 +6,7 @@ import { LanguagesCard } from '@/components/cards/languages-card';
 import { AdditionalInfoCard } from '@/components/cards/additional-info-card';
 import { personalInfo } from '@/data/content';
 import TransitionWrapper from '@/components/common/TransitionWrapper';
+import { GoToTop } from '@/components/common/GoToTop';
 
 const Home = () => (
   <main className="container mx-auto flex max-w-[1264px] flex-col gap-4 px-4 py-4 lg:gap-8 lg:pb-8">
@@ -45,6 +46,7 @@ const Home = () => (
         </TransitionWrapper>
       </div>
     </div>
+    <GoToTop />
   </main>
 );
 
