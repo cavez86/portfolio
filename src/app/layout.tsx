@@ -3,6 +3,7 @@ import { Geist } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Header } from '@/components/header';
+import ScrollProgress from '@/components/common/ScrollProgress';
 
 const geist = Geist({
   subsets: ['latin'],
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geist.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ScrollProgress />
           <Header />
           {children}
         </ThemeProvider>
