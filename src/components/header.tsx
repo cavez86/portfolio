@@ -4,7 +4,7 @@ import { personalInfo } from '@/data/content';
 import { ThemeToggle } from '@/components/theme-toggle';
 
 export const Header = () => (
-  <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky -top-[66px] z-50 flex flex-wrap items-center justify-between gap-2 border-b px-6 py-4 backdrop-blur md:top-0">
+  <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 flex flex-wrap items-center justify-between gap-2 border-b px-6 py-4 backdrop-blur md:top-0">
     <div className="flex flex-1 items-center justify-end gap-4">
       {personalInfo.contacts.map((contact) => (
         <Button key={contact.type} variant="ghost" size="sm" className="rounded md:text-sm" asChild>
