@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { ContactIcon } from '@/components/contact-icon';
+import { Button } from '@/components/ui/Button';
+import { ContactIcon } from '@/components/ContactIcon';
 import { personalInfo } from '@/data/content';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export const Header = () => (
   <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 flex flex-wrap items-center justify-between gap-2 border-b px-6 py-4 backdrop-blur md:top-0">
