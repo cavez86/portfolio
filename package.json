@@ -23,7 +23,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.0.9",
-    "@types/node": "^22.13.5",
+    "@types/node": "^22.13.9",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "babel-plugin-react-compiler": "^19.0.0-beta-40c6c23-20250301",
