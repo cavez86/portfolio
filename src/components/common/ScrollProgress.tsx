@@ -1,16 +1,5 @@
-'use client';
-
-import { motion, useScroll } from 'motion/react';
-
-const ScrollProgress = () => {
-  const { scrollYProgress } = useScroll();
-
-  return (
-    <motion.div
-      className="bg-primary fixed top-0 left-0 z-60 h-1 w-full origin-top-left ease-in-out"
-      style={{ scaleX: scrollYProgress }}
-    />
-  );
-};
+const ScrollProgress = () => (
+  <div className="bg-primary animate-scale-x animation-timeline-scroll fixed top-0 left-0 z-60 h-0.5 w-full origin-top-left" />
+);
 
 export default ScrollProgress;

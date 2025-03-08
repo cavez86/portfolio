@@ -48,6 +48,16 @@
   --tw-text-shadow-lg: 4px;
   --tw-text-shadow-xl: 7px;
   --tw-text-shadow-2xl: 25px;
+
+  --animate-scale-x: scale-x linear forwards;
+  @keyframes scale-x {
+    0% {
+      transform: scaleX(0);
+    }
+    100% {
+      transform: scaleX(1);
+    }
+  }
 }
 
 /* dark theme */
@@ -90,6 +100,14 @@
 @utility text-shadow-* {
   text-shadow: 0px --value(--tw-text-shadow, [length]) calc(--value(--tw-text-shadow, [length]) * 2)
     var(--tw-shadow-color, currentColor);
+}
+
+@utility animation-timeline-scroll {
+  animation-timeline: scroll();
+}
+
+@utility animation-timeline-view {
+  animation-timeline: view();
 }
 
 /* Add base styles after theme definition */
