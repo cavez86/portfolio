@@ -12,10 +12,14 @@ const Home = () => (
   <main className="container mx-auto flex max-w-[1264px] flex-col gap-4 px-4 py-4 lg:gap-8 lg:pb-8">
     <div className="flex flex-col items-center gap-3 text-center text-balance lg:gap-6">
       <TransitionWrapper>
-        <h1 className="text-primary max-w-5xl text-3xl font-bold md:text-6xl lg:text-8xl">{personalInfo.name}</h1>
+        <h1 className="text-primary text-shadow-md max-w-5xl text-3xl font-bold md:text-6xl lg:text-8xl">
+          {personalInfo.name}
+        </h1>
       </TransitionWrapper>
       <TransitionWrapper>
-        <p className="text-muted-foreground text-xl font-medium md:text-2xl lg:text-3xl">{personalInfo.title}</p>
+        <p className="text-muted-foreground text-shadow-xs text-xl font-medium md:text-2xl lg:text-3xl">
+          {personalInfo.title}
+        </p>
       </TransitionWrapper>
     </div>
     <TransitionWrapper>

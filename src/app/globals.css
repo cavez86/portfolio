@@ -41,6 +41,13 @@
   --color-chart-3: hsl(197 37% 24%);
   --color-chart-4: hsl(43 74% 66%);
   --color-chart-5: hsl(27 87% 67%);
+
+  --tw-text-shadow-xs: 1px;
+  --tw-text-shadow-sm: 2px;
+  --tw-text-shadow-md: 3px;
+  --tw-text-shadow-lg: 4px;
+  --tw-text-shadow-xl: 7px;
+  --tw-text-shadow-2xl: 25px;
 }
 
 /* dark theme */
@@ -78,6 +85,11 @@
   --color-chart-3: hsl(30 80% 55%);
   --color-chart-4: hsl(280 65% 60%);
   --color-chart-5: hsl(340 75% 55%);
+}
+
+@utility text-shadow-* {
+  text-shadow: 0px --value(--tw-text-shadow, [length]) calc(--value(--tw-text-shadow, [length]) * 2)
+    var(--tw-shadow-color, currentColor);
 }
 
 /* Add base styles after theme definition */
