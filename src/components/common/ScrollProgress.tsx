@@ -7,7 +7,7 @@ const ScrollProgress = () => {
 
   return (
     <motion.div
-      className="bg-primary sticky top-0 left-0 z-60 h-1 w-full origin-top-left ease-in-out"
+      className="bg-primary fixed top-0 left-0 z-60 h-1 w-full origin-top-left ease-in-out"
       style={{ scaleX: scrollYProgress }}
     />
   );
