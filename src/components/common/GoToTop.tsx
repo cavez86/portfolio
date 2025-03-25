@@ -1,8 +1,8 @@
 'use client';
 
 import { ArrowUp } from 'lucide-react';
-import { useState } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
+import { useState } from 'react';
 
 export const GoToTop = () => {
   const [isVisible, setIsVisible] = useState(false);

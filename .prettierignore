@@ -1,4 +1,3 @@
-# Ignore artifacts:
-build
+dist
 coverage
-.next
+pages.gen.ts
