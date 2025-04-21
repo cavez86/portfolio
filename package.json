@@ -12,7 +12,7 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-slot": "^1.2.0",
     "lucide-react": "^0.488.0",
     "motion": "^12.6.3",
     "next": "15.3.0",
