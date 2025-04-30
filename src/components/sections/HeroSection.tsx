@@ -7,32 +7,6 @@ import { personalInfo } from '@/data/content';
 
 const HeroSection = () => (
   <section className="py-20 md:py-28">
-    {/* Animated shapes */}
-    {/* <div className="absolute inset-0 -z-5">
-      {[...Array(5)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full bg-blue-200 opacity-30 dark:bg-blue-900/20"
-          style={{
-            width: `${Math.random() * 300 + 50}px`,
-            height: `${Math.random() * 300 + 50}px`,
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            x: [0, Math.random() * 50 - 25],
-            y: [0, Math.random() * 50 - 25],
-          }}
-          transition={{
-            duration: Math.random() * 10 + 15,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
-          }}
-        />
-      ))}
-    </div> */}
-
     <div className="container mx-auto px-4">
       <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
         <motion.h1
