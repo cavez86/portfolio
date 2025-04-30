@@ -2,8 +2,8 @@ import { personalInfo } from '@/data/content';
 import { Button } from '../ui/Button';
 
 const Footer = () => (
-  <footer className="border-t border-slate-200 py-8 dark:border-slate-800">
-    <div className="container mx-auto px-4">
+  <footer className="border-t border-slate-200 px-4 py-8 dark:border-slate-800">
+    <div className="container mx-auto">
       <div className="flex flex-col items-center justify-between md:flex-row">
         <div className="mb-4 md:mb-0"></div>
 

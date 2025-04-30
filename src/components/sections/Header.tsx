@@ -4,8 +4,8 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import Link from 'next/link';
 
 export const Header = () => (
-  <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 flex flex-wrap items-center justify-between gap-2 border-b px-6 py-4 backdrop-blur md:top-0">
-    <div className="container mx-auto px-4">
+  <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 border-b px-6 py-4 backdrop-blur md:top-0">
+    <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
       <nav className="hidden items-center gap-8 md:flex">
         {/* <Link
         href="#projects"

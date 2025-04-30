@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/Button';
 import { personalInfo } from '@/data/content';
 
 const HeroSection = () => (
-  <section className="md:py-8">
-    <div className="container mx-auto px-4">
+  <section className="px-4 md:py-8">
+    <div className="container mx-auto">
       <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
         <motion.h1
           className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-5xl leading-normal font-bold text-transparent md:text-7xl dark:from-blue-400 dark:to-sky-300"
@@ -60,7 +60,7 @@ const HeroSection = () => (
       </div>
 
       <motion.div
-        className="mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-6 md:grid-cols-4"
+        className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}

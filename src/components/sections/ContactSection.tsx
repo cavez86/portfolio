@@ -8,7 +8,7 @@ import Section from '../Section';
 const ContactSection = () => (
   <Section id="contact" contentClassName="max-w-3xl">
     <motion.div
-      className="mb-16 text-center"
+      className="md: mb-6 text-center"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

@@ -9,7 +9,7 @@ import Section from '../Section';
 const LanguagesSection = () => (
   <Section contentClassName="max-w-3xl">
     <motion.div
-      className="mb-12 text-center"
+      className="mb-6 text-center md:mb-12"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
