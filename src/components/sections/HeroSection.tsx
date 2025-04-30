@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { personalInfo } from '@/data/content';
 
 const HeroSection = () => (
-  <section className="py-20 md:py-28">
+  <section className="md:py-8">
     <div className="container mx-auto px-4">
       <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
         <motion.h1
@@ -28,7 +28,7 @@ const HeroSection = () => (
         </motion.h2>
 
         <motion.p
-          className="mx-auto max-w-3xl text-lg text-slate-600 dark:text-slate-400"
+          className="mx-auto max-w-3xl text-lg text-pretty text-slate-600 dark:text-slate-400"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
