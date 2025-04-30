@@ -1,29 +1,34 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { skills } from '@/data/content';
+'use client';
 
-export function SkillsCard() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Technical Skills</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {skills.map((category) => (
-            <div key={category.category}>
-              <h3 className="mb-2 font-semibold">{category.category}</h3>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <Badge key={skill} variant="secondary">
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
+import { Card, CardContent } from '@/components/ui/Card';
+import { LucideProps } from 'lucide-react';
+import { ComponentType } from 'react';
+
+const SkillsCard = ({
+  category,
+}: {
+  category: {
+    name: string;
+    icon: ComponentType<LucideProps>;
+    skills: string[];
+  };
+}) => (
+  <Card className="h-full transition-shadow hover:shadow-md">
+    <CardContent className="p-6">
+      <div className="mb-4 flex items-center gap-3">
+        <category.icon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+        <h4 className="text-lg font-semibold text-slate-900 dark:text-white">{category.name}</h4>
+      </div>
+      <ul className="space-y-2">
+        {category.skills.map((skill, skillIndex) => (
+          <li key={skillIndex} className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400"></span>
+            {skill}
+          </li>
+        ))}
+      </ul>
+    </CardContent>
+  </Card>
+);
+
+export default SkillsCard;

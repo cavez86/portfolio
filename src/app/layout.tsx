@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
-import { Header } from '@/components/Header';
+import { Header } from '@/components/sections/Header';
 import ScrollProgress from '@/components/common/ScrollProgress';
+import Footer from '@/components/sections/Footer';
+import { GoToTop } from '@/components/common/GoToTop';
 
 const geist = Geist({
   subsets: ['latin'],
@@ -28,6 +30,8 @@ export default function RootLayout({
           <ScrollProgress />
           <Header />
           {children}
+          <Footer />
+          <GoToTop />
         </ThemeProvider>
       </body>
     </html>

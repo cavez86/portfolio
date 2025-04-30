@@ -1,27 +1,56 @@
-import { ContactType } from '@/components/ContactIcon';
+import {
+  Briefcase,
+  Clock,
+  Code,
+  Cpu,
+  Database,
+  GitBranch,
+  Github,
+  GraduationCap,
+  Layout,
+  Lightbulb,
+  Linkedin,
+  Mail,
+  Search,
+  Terminal,
+  User,
+  Users,
+} from 'lucide-react';
 
 export const personalInfo = {
   name: 'Francesco Caveglia Beatris',
   title: 'Full Stack Web Developer',
   contacts: [
     {
-      type: 'email' as ContactType,
+      type: 'email',
+      icon: Mail,
       url: 'mailto:francesco.caveglia@yahoo.it',
       label: 'Email',
+      description: 'francesco.caveglia@yahoo.it',
     },
     {
-      type: 'linkedin' as ContactType,
+      type: 'linkedin',
+      icon: Linkedin,
       url: 'https://www.linkedin.com/in/francesco-caveglia-beatris-25012732/',
       label: 'LinkedIn',
+      description: 'francesco-caveglia-beatris',
     },
     {
-      type: 'github' as ContactType,
+      type: 'github',
+      icon: Github,
       url: 'https://github.com/cavez86',
       label: 'GitHub',
+      description: 'cavez86',
     },
   ],
   summary:
     'Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Adept at performance optimization, state management, and backend integration. Passionate about delivering scalable, maintainable, and high-performance applications with a fully typed and efficient codebase. Always eager to explore new technologies and push the limits of modern web development.',
+  summaryInfo: [
+    { icon: Code, label: 'Modern Tech Stack', value: 'React, Next.js, TypeScript' },
+    { icon: Briefcase, label: 'Years Experience', value: '10+' },
+    { icon: GraduationCap, label: 'Education', value: "Master's in Physics" },
+    { icon: User, label: 'Location', value: 'Torino, Italy' },
+  ],
 };
 
 export const experience = [
@@ -81,33 +110,58 @@ export const experience = [
 
 export const skills = [
   {
-    category: 'Frontend',
+    name: 'Frontend',
+    icon: Layout,
     skills: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'CSS Custom Properties', 'Zustand', 'React Query'],
   },
   {
-    category: 'Backend',
+    name: 'Backend',
+    icon: Code,
     skills: ['REST API integration', 'Node.js', '.NET Core'],
   },
   {
-    category: 'State Management',
+    name: 'State Management',
+    icon: Database,
     skills: ['Zustand', 'React Query', 'Redux'],
   },
   {
-    category: 'Tools & Infrastructure',
-    skills: ['Webpack', 'Vite', 'Rsbuild', 'Vitest', 'Nx', 'Stencil.js', 'Semantic Release', 'Husky', 'Docker'],
+    name: 'Tools & Bundlers',
+    icon: Terminal,
+    skills: ['Webpack', 'Vite', 'Rsbuild', 'Vitest', 'Nx', 'Stencil.js', 'Semantic Release', 'Husky'],
   },
   {
-    category: 'Testing',
+    name: 'DevOps',
+    icon: GitBranch,
+    skills: ['Azure DevOps', 'Jenkins', 'Docker', 'YAML pipelines'],
+  },
+  {
+    name: 'Testing',
+    icon: Search,
     skills: ['Jest', 'React Testing Library', 'Vitest'],
   },
 ];
 
 export const softSkills = [
-  'Commitment to Code Quality & Best Practices: Strong focus on writing clean, maintainable, and scalable code',
-  'Leadership & Mentorship: Foster team growth through pair programming, technical presentations, and documentation',
-  'Problem-Solving & Innovation: Designed event bus systems and implemented performance optimizations',
-  'Communication & Teamwork: Collaborate with UX designers, architects, and API teams',
-  'Project & Time Management: Experience in Scrum/Kanban hybrid methodologies',
+  {
+    name: 'Code Quality & Best Practices',
+    icon: Cpu,
+    skills: ['Clean code', 'Maintainable architecture', 'Code reviews', 'Design patterns'],
+  },
+  {
+    name: 'Leadership & Mentorship',
+    icon: Users,
+    skills: ['Team mentorship', 'Pair programming', 'Technical presentations', 'Documentation'],
+  },
+  {
+    name: 'Project & Time Management',
+    icon: Clock,
+    skills: ['Scrum & Kanban', 'Task prioritization', 'Time management', 'Deliverable planning'],
+  },
+  {
+    name: 'Problem-Solving & Innovation',
+    icon: Lightbulb,
+    skills: ['Event bus systems', 'API synchronization', 'Performance optimization', 'Virtualized lists'],
+  },
 ];
 
 export const education = {
@@ -117,8 +171,8 @@ export const education = {
 };
 
 export const languages = [
-  { language: 'Italian', level: 'Native' },
-  { language: 'English', level: 'C2 Proficient (IELTS: 7.0)' },
+  { language: 'Italian', proficiency: 'Native', level: 100 },
+  { language: 'English', proficiency: 'C2 Proficient (IELTS: 7.0)', level: 80 },
 ];
 
 export const additionalInfo =

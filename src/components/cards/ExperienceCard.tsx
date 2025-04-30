@@ -1,35 +1,36 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { experience } from '@/data/content';
+import { Badge } from '../ui/Badge';
+import { cn } from '@/lib/utils';
 
-export function ExperienceCard() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Professional Experience</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        {experience.map((exp, index) => (
-          <div key={index}>
-            <h3 className="text-card-foreground text-xl font-bold">
-              {exp.company} - {exp.location}
-            </h3>
-            <p className="text-muted-foreground mb-2">
-              {exp.position} ({exp.period})
-            </p>
-            {exp.achievements ? (
-              <ul className="text-muted-foreground list-disc space-y-2 pl-4">
-                {exp.achievements.map(({ label, description }, i) => (
-                  <li key={i}>
-                    <span className="text-card-foreground font-semibold">{label}:</span> {description}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-muted-foreground">{exp.description}</p>
-            )}
-          </div>
-        ))}
-      </CardContent>
-    </Card>
-  );
-}
+const ExperienceCard = ({ exp, align }: { exp: (typeof experience)[number]; align: 'left' | 'right' }) => (
+  <Card className={cn(align === 'left' ? 'md:mr-4' : 'md:ml-4')}>
+    <CardContent className="p-6">
+      <div
+        className={cn(
+          'flex flex-col items-start',
+          align === 'left' ? 'md:items-start md:text-start' : 'md:items-end md:text-end'
+        )}
+      >
+        <Badge className="mb-2 inline-block w-auto bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50">
+          {exp.period}
+        </Badge>
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white">{exp.company}</h3>
+        <p className="mb-4 text-slate-600 dark:text-slate-400">{exp.position}</p>
+
+        {exp.description && (
+          <p className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300">{exp.description}</p>
+        )}
+        <ul className="list-disc space-y-2 pl-5 text-left text-slate-700 dark:text-slate-300">
+          {exp.achievements?.map((achievement, idx) => (
+            <li key={idx}>
+              <span className="font-semibold">{achievement.label}</span>: {achievement.description}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </CardContent>
+  </Card>
+);
+
+export default ExperienceCard;
