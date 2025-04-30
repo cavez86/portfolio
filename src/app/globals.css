@@ -32,20 +32,13 @@
   --color-border: hsl(214.3 31.8% 91.4%);
   --color-input: hsl(214.3 31.8% 91.4%);
   --color-ring: hsl(221.2 83.2% 53.3%);
-  --color-radius: hsl(0.5rem);
+  --color-radius: 0.5rem;
 
   --color-chart-1: hsl(12 76% 61%);
   --color-chart-2: hsl(173 58% 39%);
   --color-chart-3: hsl(197 37% 24%);
   --color-chart-4: hsl(43 74% 66%);
   --color-chart-5: hsl(27 87% 67%);
-
-  --tw-text-shadow-xs: 1px;
-  --tw-text-shadow-sm: 2px;
-  --tw-text-shadow-md: 3px;
-  --tw-text-shadow-lg: 4px;
-  --tw-text-shadow-xl: 7px;
-  --tw-text-shadow-2xl: 25px;
 
   --animate-scale-x: scale-x linear forwards;
   @keyframes scale-x {
@@ -93,11 +86,6 @@
   --color-chart-3: hsl(30 80% 55%);
   --color-chart-4: hsl(280 65% 60%);
   --color-chart-5: hsl(340 75% 55%);
-}
-
-@utility text-shadow-* {
-  text-shadow: 0px --value(--tw-text-shadow, [length]) calc(--value(--tw-text-shadow, [length]) * 2)
-    var(--tw-shadow-color, currentColor);
 }
 
 @utility animation-timeline-scroll {
