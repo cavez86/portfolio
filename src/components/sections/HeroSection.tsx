@@ -34,9 +34,9 @@ const HeroSection = () => (
     </div> */}
 
     <div className="container mx-auto px-4">
-      <div className="mx-auto max-w-4xl text-center">
+      <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
         <motion.h1
-          className="leading-md mb-6 bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-5xl font-bold text-transparent md:text-7xl dark:from-blue-400 dark:to-sky-300"
+          className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-5xl leading-normal font-bold text-transparent md:text-7xl dark:from-blue-400 dark:to-sky-300"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -45,7 +45,7 @@ const HeroSection = () => (
         </motion.h1>
 
         <motion.h2
-          className="mb-8 text-2xl font-medium text-slate-700 md:text-3xl dark:text-slate-300"
+          className="text-2xl font-medium text-slate-700 md:text-3xl dark:text-slate-300"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -54,7 +54,7 @@ const HeroSection = () => (
         </motion.h2>
 
         <motion.p
-          className="mx-auto mb-10 max-w-3xl text-lg text-slate-600 dark:text-slate-400"
+          className="mx-auto max-w-3xl text-lg text-slate-600 dark:text-slate-400"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -68,11 +68,11 @@ const HeroSection = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Link href="#projects">
+          {/* <Link href="#projects">
             <Button size="lg" className="bg-blue-600 text-white hover:bg-blue-700">
               View Projects
             </Button>
-          </Link>
+          </Link> */}
           <Link href="#contact">
             <Button
               size="lg"
