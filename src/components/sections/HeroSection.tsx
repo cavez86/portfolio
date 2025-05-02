@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Button } from '@/components/ui/utton';
+import { Button } from '@/components/ui/button';
 import { personalInfo } from '@/data/content';
 
 const HeroSection = () => (

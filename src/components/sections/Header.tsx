@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/utton';
+import { Button } from '@/components/ui/button';
 import { personalInfo } from '@/data/content';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import Link from 'next/link';
