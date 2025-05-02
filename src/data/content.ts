@@ -43,8 +43,10 @@ export const personalInfo = {
       description: 'cavez86',
     },
   ],
-  summary:
-    'Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Adept at performance optimization, state management, and backend integration. Passionate about delivering scalable, maintainable, and high-performance applications with a fully typed and efficient codebase. Always eager to explore new technologies and push the limits of modern web development.',
+  summary: `Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS.
+    Adept at performance optimization, state management, and backend integration.
+    Passionate about delivering scalable, maintainable, and high-performance applications with a fully typed and efficient codebase.
+    Always eager to explore new technologies and push the limits of modern web development.`,
   summaryInfo: [
     { icon: Code, label: 'Modern Tech Stack', value: 'React, Next.js, TypeScript' },
     { icon: Briefcase, label: 'Years Experience', value: '10+' },
