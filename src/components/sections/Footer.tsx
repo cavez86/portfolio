@@ -1,5 +1,5 @@
 import { personalInfo } from '@/data/content';
-import { Button } from '../ui/Button';
+import { Button } from '../ui/button';
 
 const Footer = () => (
   <footer className="border-t border-slate-200 px-4 py-8 dark:border-slate-800">

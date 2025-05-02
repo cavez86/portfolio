@@ -1,6 +1,6 @@
-import { Card, CardContent } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/card';
 import { experience } from '@/data/content';
-import { Badge } from '../ui/Badge';
+import { Badge } from '../ui/badge';
 import { cn } from '@/lib/utils';
 
 const ExperienceCard = ({ exp, align }: { exp: (typeof experience)[number]; align: 'left' | 'right' }) => (

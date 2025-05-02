@@ -2,11 +2,11 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/utton';
 import { personalInfo } from '@/data/content';
 
 const HeroSection = () => (
-  <section className="px-4 md:py-8">
+  <section className="px-4 py-8 md:py-16">
     <div className="container mx-auto">
       <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
         <motion.h1
