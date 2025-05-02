@@ -51,7 +51,7 @@ export const personalInfo = {
     },
     { icon: Briefcase, label: 'experience_years', value: '10+' },
     { icon: GraduationCap, label: 'education', value: 'phys_master' },
-    { icon: User, label: 'location', value: 'Torino, Italy' },
+    { icon: User, label: 'location', value: 'torino' },
   ],
 };
 

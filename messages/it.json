@@ -19,6 +19,10 @@
     "experience_years": "Anni di Esperienza",
     "education": "Istruzione",
     "phys_master": "Laurea Magistrale in Fisica",
-    "location": "Posizione"
+    "location": "Posizione",
+    "torino": "Torino, Italia"
+  },
+  "Experience": {
+    "title": "Esperienze Professionali"
   }
 }

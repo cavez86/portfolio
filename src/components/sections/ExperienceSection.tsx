@@ -5,11 +5,12 @@ import { experience } from '@/data/content';
 import { cn } from '@/lib/utils';
 import ExperienceCard from '../cards/ExperienceCard';
 import Section from '../Section';
-import { useLocale } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 const ExperienceSection = () => {
   const locale = useLocale();
   const lang = locale.toUpperCase() as 'EN' | 'IT';
+  const t = useTranslations('Experience');
 
   return (
     <Section id="experience">
@@ -20,7 +21,7 @@ const ExperienceSection = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        Professional Experience
+        {t('title')}
       </motion.h2>
 
       <div className="relative mt-6 flex flex-col gap-6 md:mt-12 md:gap-12">

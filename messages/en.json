@@ -19,6 +19,10 @@
     "experience_years": "Years of Experience",
     "education": "Education",
     "phys_master": "Master's in Physics",
-    "location": "Location"
+    "location": "Location",
+    "torino": "Torino, Italy"
+  },
+  "Experience": {
+    "title": "Professional Experience"
   }
 }
