@@ -2,10 +2,11 @@
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { usePathname, useRouter } from '@/i18n/navigation';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { routing } from '@/i18n/routing';
 
 export const LanguageSelector = () => {
+  const t = useTranslations('Header');
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
@@ -22,7 +23,7 @@ export const LanguageSelector = () => {
       <SelectContent>
         {routing.locales.map((loc) => (
           <SelectItem key={loc} value={loc}>
-            {loc.toUpperCase()} {/* Display locale code, consider using full names */}
+            <span className="text-muted-foreground">{t('language.' + loc)}</span>
           </SelectItem>
         ))}
       </SelectContent>

@@ -4,11 +4,10 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { personalInfo } from '@/data/content';
-import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 const HeroSection = () => {
-  const locale = useLocale();
-  const lang = locale.toUpperCase() as 'EN' | 'IT';
+  const t = useTranslations('Hero');
 
   return (
     <section className="px-4 py-8 md:py-16">
@@ -20,7 +19,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {personalInfo.name}
+            Francesco Caveglia Beatris
           </motion.h1>
 
           <motion.h2
@@ -29,7 +28,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            {personalInfo.title}
+            Full Stack Web Developer
           </motion.h2>
 
           <motion.p
@@ -38,7 +37,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            {personalInfo.summary[lang]}
+            {t('description')}
           </motion.p>
 
           <motion.div
@@ -58,7 +57,7 @@ const HeroSection = () => {
                 variant="outline"
                 className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
               >
-                Contact Me
+                {t('contact_me')}
               </Button>
             </Link>
           </motion.div>
@@ -76,8 +75,8 @@ const HeroSection = () => {
               className="bg-card flex flex-col items-center rounded-lg border p-4 text-center shadow-sm transition-shadow hover:shadow-md"
             >
               <item.icon className="mb-2 h-8 w-8 text-blue-600 dark:text-blue-400" />
-              <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">{item.label[lang]}</h3>
-              <p className="text-base font-semibold text-slate-900 dark:text-white">{item.value}</p>
+              <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">{t(item.label)}</h3>
+              <p className="text-base font-semibold text-slate-900 dark:text-white">{t(item.value)}</p>
             </div>
           ))}
         </motion.div>

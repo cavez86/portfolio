@@ -11,6 +11,7 @@ import ScrollProgress from '@/components/common/ScrollProgress';
 import { Header } from '@/components/sections/Header';
 import Footer from '@/components/sections/Footer';
 import { GoToTop } from '@/components/common/GoToTop';
+import IntlErrorHandlingProvider from '@/components/IntlErrorHandlingProvider';
 
 const geist = Geist({
   subsets: ['latin'],
@@ -47,13 +48,15 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body className={`${geist.variable} font-sans antialiased`}>
         <NextIntlClientProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <ScrollProgress />
-            <Header />
-            {children}
-            <Footer />
-            <GoToTop />
-          </ThemeProvider>
+          <IntlErrorHandlingProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <ScrollProgress />
+              <Header />
+              {children}
+              <Footer />
+              <GoToTop />
+            </ThemeProvider>
+          </IntlErrorHandlingProvider>
         </NextIntlClientProvider>
       </body>
     </html>

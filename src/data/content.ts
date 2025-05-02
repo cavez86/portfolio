@@ -43,25 +43,15 @@ export const personalInfo = {
       description: 'cavez86',
     },
   ],
-  summary: {
-    EN: `Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS.
-    Adept at performance optimization, state management, and backend integration.
-    Passionate about delivering scalable, maintainable, and high-performance applications with a fully typed and efficient codebase.
-    Always eager to explore new technologies and push the limits of modern web development.`,
-    IT: `Sviluppatore Web Full Stack con esperienza, specializzato in React, Next.js, TypeScript e Tailwind CSS.
-    Abile nell'ottimizzazione delle prestazioni, gestione dello stato e integrazione del backend.
-    Appassionato di fornire applicazioni scalabili, manutenibili e ad alte prestazioni con un codice completamente tipizzato ed efficiente.
-    Sempre desideroso di esplorare nuove tecnologie e superare i limiti dello sviluppo web moderno.`,
-  },
   summaryInfo: [
     {
       icon: Code,
-      label: { EN: 'Modern Tech Stack', IT: 'Stack Tecnologico Moderno' },
+      label: 'tech_stack',
       value: 'React, Next.js, TypeScript',
     },
-    { icon: Briefcase, label: { EN: 'Years Experience', IT: 'Anni di Esperienza' }, value: '10+' },
-    { icon: GraduationCap, label: { EN: 'Education', IT: 'Istruzione' }, value: "Master's in Physics" },
-    { icon: User, label: { EN: 'Location', IT: 'Posizione' }, value: 'Torino, Italy' },
+    { icon: Briefcase, label: 'experience_years', value: '10+' },
+    { icon: GraduationCap, label: 'education', value: 'phys_master' },
+    { icon: User, label: 'location', value: 'Torino, Italy' },
   ],
 };
 
