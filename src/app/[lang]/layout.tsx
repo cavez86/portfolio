@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
-import './globals.css';
+import '../globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Header } from '@/components/sections/Header';
 import ScrollProgress from '@/components/common/ScrollProgress';
 import Footer from '@/components/sections/Footer';
 import { GoToTop } from '@/components/common/GoToTop';
+import { ReactNode } from 'react';
 
 const geist = Geist({
   subsets: ['latin'],
@@ -18,13 +19,16 @@ export const metadata: Metadata = {
     'Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Based in Torino, Italy.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
+  params: Promise<{ lang: string }>;
 }>) {
+  const { lang } = await params;
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body className={`${geist.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ScrollProgress />

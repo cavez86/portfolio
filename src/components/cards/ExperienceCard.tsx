@@ -4,7 +4,15 @@ import { Badge } from '../ui/badge';
 import { cn } from '@/lib/utils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 
-const ExperienceCard = ({ exp, align }: { exp: (typeof experience)[number]; align: 'left' | 'right' }) => (
+const ExperienceCard = ({
+  exp,
+  align,
+  lang,
+}: {
+  exp: (typeof experience)[number];
+  align: 'left' | 'right';
+  lang: 'EN' | 'IT';
+}) => (
   <Card className={cn(align === 'left' ? 'md:mr-4' : 'md:ml-4')}>
     <CardContent className="p-6">
       <div
@@ -24,12 +32,14 @@ const ExperienceCard = ({ exp, align }: { exp: (typeof experience)[number]; alig
             <AccordionTrigger className="w-full text-center">More</AccordionTrigger>
             <AccordionContent>
               {exp.description && (
-                <p className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300">{exp.description}</p>
+                <p className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300">
+                  {exp.description[lang]}
+                </p>
               )}
               <ul className="list-disc space-y-2 pl-5 text-left text-slate-700 dark:text-slate-300">
                 {exp.achievements?.map((achievement, idx) => (
                   <li key={idx}>
-                    <span className="font-semibold">{achievement.label}</span>: {achievement.description}
+                    <span className="font-semibold">{achievement.label}</span>: {achievement.description[lang]}
                   </li>
                 ))}
               </ul>

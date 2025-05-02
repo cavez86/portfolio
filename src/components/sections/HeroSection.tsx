@@ -4,8 +4,9 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { personalInfo } from '@/data/content';
+import { Language } from '@/i18n/settings';
 
-const HeroSection = () => (
+const HeroSection = ({ lang }: { lang: Language }) => (
   <section className="px-4 py-8 md:py-16">
     <div className="container mx-auto">
       <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
@@ -33,7 +34,7 @@ const HeroSection = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {personalInfo.summary}
+          {personalInfo.summary[lang]}
         </motion.p>
 
         <motion.div
@@ -71,7 +72,7 @@ const HeroSection = () => (
             className="bg-card flex flex-col items-center rounded-lg border p-4 text-center shadow-sm transition-shadow hover:shadow-md"
           >
             <item.icon className="mb-2 h-8 w-8 text-blue-600 dark:text-blue-400" />
-            <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">{item.label}</h3>
+            <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">{item.label[lang]}</h3>
             <p className="text-base font-semibold text-slate-900 dark:text-white">{item.value}</p>
           </div>
         ))}

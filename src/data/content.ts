@@ -43,15 +43,25 @@ export const personalInfo = {
       description: 'cavez86',
     },
   ],
-  summary: `Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS.
+  summary: {
+    EN: `Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS.
     Adept at performance optimization, state management, and backend integration.
     Passionate about delivering scalable, maintainable, and high-performance applications with a fully typed and efficient codebase.
     Always eager to explore new technologies and push the limits of modern web development.`,
+    IT: `Sviluppatore Web Full Stack con esperienza, specializzato in React, Next.js, TypeScript e Tailwind CSS.
+    Abile nell'ottimizzazione delle prestazioni, gestione dello stato e integrazione del backend.
+    Appassionato di fornire applicazioni scalabili, manutenibili e ad alte prestazioni con un codice completamente tipizzato ed efficiente.
+    Sempre desideroso di esplorare nuove tecnologie e superare i limiti dello sviluppo web moderno.`,
+  },
   summaryInfo: [
-    { icon: Code, label: 'Modern Tech Stack', value: 'React, Next.js, TypeScript' },
-    { icon: Briefcase, label: 'Years Experience', value: '10+' },
-    { icon: GraduationCap, label: 'Education', value: "Master's in Physics" },
-    { icon: User, label: 'Location', value: 'Torino, Italy' },
+    {
+      icon: Code,
+      label: { EN: 'Modern Tech Stack', IT: 'Stack Tecnologico Moderno' },
+      value: 'React, Next.js, TypeScript',
+    },
+    { icon: Briefcase, label: { EN: 'Years Experience', IT: 'Anni di Esperienza' }, value: '10+' },
+    { icon: GraduationCap, label: { EN: 'Education', IT: 'Istruzione' }, value: "Master's in Physics" },
+    { icon: User, label: { EN: 'Location', IT: 'Posizione' }, value: 'Torino, Italy' },
   ],
 };
 
@@ -64,33 +74,45 @@ export const experience = [
     achievements: [
       {
         label: 'React & Next.js Development',
-        description:
-          'Architected and implemented Next.js applications, including LIV Golf and other major sports platforms, leveraging SSR and SSG for improved performance and scalability.',
+        description: {
+          EN: 'Architected and implemented Next.js applications, including LIV Golf and other major sports platforms, leveraging SSR and SSG for improved performance and scalability.',
+          IT: 'Progettato e implementato applicazioni Next.js, tra cui LIV Golf e altre piattaforme sportive di rilievo, sfruttando SSR e SSG per migliorare le prestazioni e la scalabilità.',
+        },
       },
       {
         label: 'TypeScript & Scalable Codebases',
-        description:
-          'Developed fully typed applications, introducing utility classes and generic functions to enhance maintainability and efficiency.',
+        description: {
+          EN: 'Developed fully typed applications, introducing utility classes and generic functions to enhance maintainability and efficiency.',
+          IT: "Progettato e implementato applicazioni completamente tipizzate, introducendo classi di utilità e funzioni generiche per migliorare la manutenibilità e l'efficienza.",
+        },
       },
       {
         label: 'Tailwind CSS & Design Systems',
-        description:
-          'Contributed to a design system built with Tailwind CSS, customizing themes and extending utility classes for a cohesive UI.',
+        description: {
+          EN: 'Contributed to a design system built with Tailwind CSS, customizing themes and extending utility classes for a cohesive UI.',
+          IT: 'Contribuito a un sistema di design costruito con Tailwind CSS, personalizzando temi e estendendo classi di utilità per un UI coeso.',
+        },
       },
       {
         label: 'State Management & API Integration',
-        description:
-          'Migrated UEFA.com from Redux to Zustand, optimizing state handling and leveraging React Query for API state synchronization.',
+        description: {
+          EN: 'Migrated UEFA.com from Redux to Zustand, optimizing state handling and leveraging React Query for API state synchronization.',
+          IT: 'Migrato UEFA.com da Redux a Zustand, ottimizzando la gestione dello stato e sfruttando React Query per la sincronizzazione dello stato API.',
+        },
       },
       {
         label: 'Performance Optimization',
-        description:
-          'Implemented memoization strategies, reduced unnecessary re-renders, and experimented with React Compiler for advanced optimizations.',
+        description: {
+          EN: 'Implemented memoization strategies, reduced unnecessary re-renders, and experimented with React Compiler for advanced optimizations.',
+          IT: 'Implementato strategie di memoizzazione, ridotto i re-render non necessari e sperimentato con React Compiler per ottimizzazioni avanzate.',
+        },
       },
       {
         label: 'DevOps & CI/CD',
-        description:
-          'Configured Jenkins and Azure DevOps pipelines using YAML and Docker, streamlining deployment workflows for Next.js applications.',
+        description: {
+          EN: 'Configured Jenkins and Azure DevOps pipelines using YAML and Docker, streamlining deployment workflows for Next.js applications.',
+          IT: 'Configurato pipeline Jenkins e Azure DevOps utilizzando YAML e Docker, semplificando i flussi di lavoro di distribuzione per le applicazioni Next.js.',
+        },
       },
     ],
   },
@@ -99,14 +121,19 @@ export const experience = [
     location: 'Torino, Italy',
     position: 'Full Stack Web Developer',
     period: '2015 - 2019',
-    description:
-      'Consultant for Deltatre, contributing to the development of the UEFA Euro 2016 website and API ecosystem.',
+    description: {
+      EN: 'Consultant for Deltatre, contributing to the development of the UEFA Euro 2016 website and API ecosystem.',
+      IT: "Consulente per Deltatre, contribuendo allo sviluppo del sito web UEFA Euro 2016 e dell'ecosistema API.",
+    },
   },
   {
     company: 'Blue Sof Consulting',
     position: 'Software Developer Apprentice',
     period: '2011 - 2014',
-    description: 'Worked on ASP.NET MVC, C#, and SQL Server for enterprise web solutions.',
+    description: {
+      EN: 'Worked on ASP.NET MVC, C#, and SQL Server for enterprise web solutions.',
+      IT: 'Lavorato su ASP.NET MVC, C# e SQL Server per soluzioni web aziendali.',
+    },
   },
 ];
 

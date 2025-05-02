@@ -5,8 +5,9 @@ import { experience } from '@/data/content';
 import { cn } from '@/lib/utils';
 import ExperienceCard from '../cards/ExperienceCard';
 import Section from '../Section';
+import { Language } from '@/i18n/settings';
 
-const ExperienceSection = () => (
+const ExperienceSection = ({ lang }: { lang: Language }) => (
   <Section id="experience">
     <motion.h2
       className="text-center text-3xl font-bold text-slate-900 md:text-4xl dark:text-white"
@@ -43,7 +44,7 @@ const ExperienceSection = () => (
               index % 2 === 0 ? 'right-0' : 'left-0'
             )}
           ></div>
-          <ExperienceCard exp={exp} align={index % 2 === 0 ? 'right' : 'left'} />
+          <ExperienceCard exp={exp} align={index % 2 === 0 ? 'right' : 'left'} lang={lang} />
         </motion.div>
       ))}
     </div>

@@ -2,17 +2,12 @@ import { Button } from '@/components/ui/button';
 import { personalInfo } from '@/data/content';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import Link from 'next/link';
+import { LanguageSelector } from '@/components/common/LanguageSelector';
 
 export const Header = () => (
   <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 border-b px-6 py-4 backdrop-blur md:top-0">
     <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
       <nav className="hidden items-center gap-8 md:flex">
-        {/* <Link
-        href="#projects"
-        className="text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
-      >
-        Projects
-      </Link> */}
         <Link
           href="#experience"
           className="text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
@@ -41,6 +36,7 @@ export const Header = () => (
             </a>
           </Button>
         ))}
+        <LanguageSelector />
         <div className="ml-auto md:ml-2 md:border-l md:pl-4">
           <ThemeToggle />
         </div>
