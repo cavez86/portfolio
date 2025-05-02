@@ -1,34 +1,11 @@
-import { defaultLocale, locales } from '@/i18n/settings';
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import acceptLanguage from 'accept-language';
+import createMiddleware from 'next-intl/middleware';
+import { routing } from './i18n/routing';
 
-acceptLanguage.languages(locales);
-
-const getLocale = (req: NextRequest) => {
-  const acceptLang = req.headers.get('accept-language') || '';
-  const primary = acceptLanguage.get(acceptLang) || defaultLocale;
-  return locales.includes(primary) ? primary : defaultLocale;
-};
-
-export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-
-  if (locales.some((loc) => pathname === `/${loc}` || pathname.startsWith(`/${loc}/`))) {
-    return;
-  }
-
-  const locale = getLocale(req);
-
-  req.nextUrl.pathname = `/${locale}${pathname}`;
-  return NextResponse.redirect(req.nextUrl);
-}
+export default createMiddleware(routing);
 
 export const config = {
-  matcher: [
-    // Skip all internal paths (_next)
-    '/((?!_next).*)',
-    // Optional: only run on root (/) URL
-    // '/'
-  ],
+  // Match all pathnames except for
+  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
+  // - … the ones containing a dot (e.g. `favicon.ico`)
+  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
 };

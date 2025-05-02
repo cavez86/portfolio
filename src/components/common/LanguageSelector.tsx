@@ -1,36 +1,28 @@
 'use client';
 
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-
-const supportedLocales = ['en', 'it'];
+import { usePathname, useRouter } from '@/i18n/navigation';
+import { useLocale } from 'next-intl';
+import { routing } from '@/i18n/routing';
 
 export const LanguageSelector = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const locale = useLocale();
 
-  // Extract current locale from pathname (e.g., /en/about -> en)
-  const currentLocale = pathname.split('/')[1];
-
-  const onSelectLocale = (newLocale: string) => {
-    // Reconstruct the path without the locale prefix
-    const segments = pathname.split('/');
-    segments[1] = newLocale;
-    const newPath = segments.join('/');
-    const search = searchParams.toString() ? `?${searchParams.toString()}` : '';
-    router.push(`${newPath}${search}`);
+  const handleChange = (newLocale: string) => {
+    router.replace(pathname, { locale: newLocale });
   };
 
   return (
-    <Select value={currentLocale} onValueChange={onSelectLocale}>
-      <SelectTrigger className="w-[70px]">
-        <SelectValue placeholder="Lang" />
+    <Select onValueChange={handleChange} defaultValue={locale}>
+      <SelectTrigger className="w-fit">
+        <SelectValue placeholder="Language" />
       </SelectTrigger>
       <SelectContent>
-        {supportedLocales.map((locale) => (
-          <SelectItem key={locale} value={locale}>
-            {locale.toUpperCase()}
+        {routing.locales.map((loc) => (
+          <SelectItem key={loc} value={loc}>
+            {loc.toUpperCase()} {/* Display locale code, consider using full names */}
           </SelectItem>
         ))}
       </SelectContent>
