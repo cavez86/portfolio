@@ -1,7 +1,7 @@
 {
   "Metadata": {
-    "title": "Francesco Caveglia Beatris - Full Stack Web Developer",
-    "description": "Sviluppatore Web Full Stack specializzato in React, Next.js, TypeScript e Tailwind CSS. Basato a Torino, Italia."
+    "title": "Francesco Caveglia Beatris - Sviluppatore Web Full Stack",
+    "description": "Sviluppatore Web Full Stack specializzato in React, Next.js, TypeScript e Tailwind CSS. Con sede a Torino, Italia."
   },
   "Header": {
     "experience": "Esperienze",
@@ -13,16 +13,38 @@
     }
   },
   "Hero": {
-    "description": "Sviluppatore Web Full Stack con esperienza, specializzato in React, Next.js, TypeScript e Tailwind CSS. Abile nell'ottimizzazione delle prestazioni, gestione dello stato e integrazione del backend. Appassionato di fornire applicazioni scalabili, manutenibili e ad alte prestazioni con un codice completamente tipizzato ed efficiente. Sempre desideroso di esplorare nuove tecnologie e superare i limiti dello sviluppo web moderno.",
-    "contact_me": "Scrivimi",
+    "description": "Professionista con consolidata esperienza nello sviluppo web full-stack, specializzato in React, Next.js, TypeScript e Tailwind CSS. Dedito all'ottimizzazione delle prestazioni, nella gestione dello stato e nell'integrazione del backend. Appassionato nel collaborare a progetti innovativi e stimolanti che spingono i confini delle tecnologie web moderne. Dedito a rimanere all'avanguardia nello sviluppo, sperimentando costantemente nuove tecnologie e perseguendo un codice pulito, manutenibile e performante.",
+    "contact_me": "Contattami",
     "tech_stack": "Stack Tecnologico Moderno",
-    "experience_years": "Anni di Esperienza",
+    "experience_years": "Anni di esperienza",
     "education": "Istruzione",
     "phys_master": "Laurea Magistrale in Fisica",
-    "location": "Posizione",
+    "location": "Località",
     "torino": "Torino, Italia"
   },
   "Experience": {
-    "title": "Esperienze Professionali"
+    "title": "Esperienze Professionali",
+    "more": "Altro",
+    "present": "Oggi"
+  },
+  "Skills": {
+    "title": "Competenze & Esperienze",
+    "description": "Competenze tecniche e soft skills alla base del mio lavoro",
+    "technical": "Competenze Tecniche",
+    "soft": "Competenze Trasversali",
+    "code_quality": "Qualità del Codice & Best Practices",
+    "leadership_mentorship": "Leadership & Mentorship",
+    "time_management": "Gestione Progetti & Tempo",
+    "problem_solving": "Problem Solving & Innovazione"
+  },
+  "Languages": {
+    "title": "Lingue",
+    "description": "Abilità comunicative in diverse lingue"
+  },
+  "Contact": {
+    "title": "Contattami",
+    "description": "Recapiti e informazioni di contatto",
+    "availability": "Disponibilità",
+    "availability_text": "Disponibile per opportunità lavorative da remoto o ibride."
   }
 }

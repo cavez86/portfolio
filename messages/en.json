@@ -13,7 +13,7 @@
     }
   },
   "Hero": {
-    "description": "Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Adept at performance optimization, state management, and backend integration. Passionate about delivering scalable, maintainable, and high-performance applications with a fully typed and efficient codebase. Always eager to explore new technologies and push the limits of modern web development.",
+    "description": "Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Adept at performance optimization, state management, and backend integration. Passionate about working on innovative and challenging projects that push the boundaries of modern web technologies. Dedicated to staying at the forefront of development, continuously experimenting with new technologies, and striving for clean, maintainable, and high-performance code.",
     "contact_me": "Contact Me",
     "tech_stack": "Modern Tech Stack",
     "experience_years": "Years of Experience",
@@ -23,6 +23,28 @@
     "torino": "Torino, Italy"
   },
   "Experience": {
-    "title": "Professional Experience"
+    "title": "Professional Experience",
+    "more": "More",
+    "present": "Present"
+  },
+  "Skills": {
+    "title": "Skills & Expertise",
+    "description": "Technical proficiencies and soft skills that drive my work",
+    "technical": "Technical Skills",
+    "soft": "Soft Skills",
+    "code_quality": "Code Quality & Best Practices",
+    "leadership_mentorship": "Leadership & Mentorship",
+    "time_management": "Project & Time Management",
+    "problem_solving": "Problem Solving & Innovation"
+  },
+  "Languages": {
+    "title": "Languages",
+    "description": "Communication skills across multiple languages"
+  },
+  "Contact": {
+    "title": "Get In Touch",
+    "description": "Contact Information",
+    "availability": "Availability",
+    "availability_text": "Open to remote and hybrid opportunities."
   }
 }

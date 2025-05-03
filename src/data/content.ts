@@ -60,7 +60,7 @@ export const experience = [
     company: 'Deltatre',
     location: 'Torino, Italy',
     position: 'Tech Lead, Full Stack Web Developer',
-    period: '09/2019 - Present',
+    period: { from: '09/2019', to: 'present' },
     achievements: [
       {
         label: 'React & Next.js Development',
@@ -110,7 +110,7 @@ export const experience = [
     company: 'Teoresi',
     location: 'Torino, Italy',
     position: 'Full Stack Web Developer',
-    period: '2015 - 2019',
+    period: { from: '2015', to: '2019' },
     description: {
       EN: 'Consultant for Deltatre, contributing to the development of the UEFA Euro 2016 website and API ecosystem.',
       IT: "Consulente per Deltatre, contribuendo allo sviluppo del sito web UEFA Euro 2016 e dell'ecosistema API.",
@@ -119,7 +119,7 @@ export const experience = [
   {
     company: 'Blue Sof Consulting',
     position: 'Software Developer Apprentice',
-    period: '2011 - 2014',
+    period: { from: '2011', to: '2014' },
     description: {
       EN: 'Worked on ASP.NET MVC, C#, and SQL Server for enterprise web solutions.',
       IT: 'Lavorato su ASP.NET MVC, C# e SQL Server per soluzioni web aziendali.',
@@ -162,24 +162,44 @@ export const skills = [
 
 export const softSkills = [
   {
-    name: 'Code Quality & Best Practices',
+    name: 'code_quality',
     icon: Cpu,
-    skills: ['Clean code', 'Maintainable architecture', 'Code reviews', 'Design patterns'],
+    skills: [
+      { EN: 'Clean code', IT: 'Codice pulito' },
+      { EN: 'Maintainable architecture', IT: 'Architettura manutenibile' },
+      { EN: 'Code reviews', IT: 'Revisione del codice' },
+      { EN: 'Design patterns', IT: 'Pattern di design' },
+    ],
   },
   {
-    name: 'Leadership & Mentorship',
+    name: 'leadership_mentorship',
     icon: Users,
-    skills: ['Team mentorship', 'Pair programming', 'Technical presentations', 'Documentation'],
+    skills: [
+      { EN: 'Team mentorship', IT: 'Mentorship di squadra' },
+      { EN: 'Pair programming', IT: 'Programmazione in coppia' },
+      { EN: 'Technical presentations', IT: 'Presentazioni tecniche' },
+      { EN: 'Documentation', IT: 'Documentazione' },
+    ],
   },
   {
-    name: 'Project & Time Management',
+    name: 'time_management',
     icon: Clock,
-    skills: ['Scrum & Kanban', 'Task prioritization', 'Time management', 'Deliverable planning'],
+    skills: [
+      { EN: 'Scrum & Kanban', IT: 'Scrum e Kanban' },
+      { EN: 'Task prioritization', IT: 'Prioritizzazione dei compiti' },
+      { EN: 'Time management', IT: 'Gestione del tempo' },
+      { EN: 'Deliverable planning', IT: 'Pianificazione dei deliverable' },
+    ],
   },
   {
-    name: 'Problem-Solving & Innovation',
+    name: 'problem_solving',
     icon: Lightbulb,
-    skills: ['Event bus systems', 'API synchronization', 'Performance optimization', 'Virtualized lists'],
+    skills: [
+      { EN: 'Event bus systems', IT: 'Sistemi di bus degli eventi' },
+      { EN: 'API synchronization', IT: 'Sincronizzazione API' },
+      { EN: 'Performance optimization', IT: 'Ottimizzazione delle prestazioni' },
+      { EN: 'Virtualized lists', IT: 'Liste virtualizzate' },
+    ],
   },
 ];
 
@@ -190,9 +210,10 @@ export const education = {
 };
 
 export const languages = [
-  { language: 'Italian', proficiency: 'Native', level: 100 },
-  { language: 'English', proficiency: 'C2 Proficient (IELTS: 7.0)', level: 80 },
+  { language: { EN: 'Italian', IT: 'Italiano' }, proficiency: { EN: 'Native', IT: 'Nativo' }, level: 100 },
+  {
+    language: { EN: 'English', IT: 'Inglese' },
+    proficiency: { EN: 'C2 Proficient (IELTS: 7.0)', IT: 'C2 Competente (IELTS: 7.0)' },
+    level: 80,
+  },
 ];
-
-export const additionalInfo =
-  'Open to remote and hybrid opportunities. Passionate about working on innovative and challenging projects that push the boundaries of modern web technologies. Dedicated to staying at the forefront of development, continuously experimenting with new technologies, and striving for clean, maintainable, and high-performance code.';
