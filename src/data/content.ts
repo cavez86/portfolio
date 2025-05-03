@@ -43,70 +43,88 @@ export const personalInfo = {
       description: 'cavez86',
     },
   ],
-  summary: `Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS.
-    Adept at performance optimization, state management, and backend integration.
-    Passionate about delivering scalable, maintainable, and high-performance applications with a fully typed and efficient codebase.
-    Always eager to explore new technologies and push the limits of modern web development.`,
   summaryInfo: [
-    { icon: Code, label: 'Modern Tech Stack', value: 'React, Next.js, TypeScript' },
-    { icon: Briefcase, label: 'Years Experience', value: '10+' },
-    { icon: GraduationCap, label: 'Education', value: "Master's in Physics" },
-    { icon: User, label: 'Location', value: 'Torino, Italy' },
+    {
+      icon: Code,
+      label: 'tech_stack',
+      value: 'React, Next.js, TypeScript',
+    },
+    { icon: Briefcase, label: 'experience_years', value: '10+' },
+    { icon: GraduationCap, label: 'education', value: 'phys_master' },
+    { icon: User, label: 'location', value: 'torino' },
   ],
 };
 
 export const experience = [
   {
     company: 'Deltatre',
-    location: 'Torino, Italy',
+    location: 'torino',
     position: 'Tech Lead, Full Stack Web Developer',
-    period: '09/2019 - Present',
+    period: { from: '09/2019', to: 'present' },
     achievements: [
       {
         label: 'React & Next.js Development',
-        description:
-          'Architected and implemented Next.js applications, including LIV Golf and other major sports platforms, leveraging SSR and SSG for improved performance and scalability.',
+        description: {
+          EN: 'Designed and implemented modern Next.js applications for major sports platforms (including LIV Golf, DP World Tour, GAA and others), using SSR and SSG to boost performance and scalability.',
+          IT: 'Progettato e implementato applicazioni moderne in Next.js per piattaforme sportive di rilievo, come LIV Golf, DP World Tour, GAA e altre, sfruttando il rendering lato server (SSR) e la generazione statica (SSG) per aumentare le prestazioni e la scalabilità.',
+        },
       },
       {
         label: 'TypeScript & Scalable Codebases',
-        description:
-          'Developed fully typed applications, introducing utility classes and generic functions to enhance maintainability and efficiency.',
+        description: {
+          EN: 'Developed fully typed applications, introducing utility classes and generic functions to enhance maintainability and efficiency.',
+          IT: "Progettato e implementato applicazioni completamente tipizzate, introducendo classi di utilità e funzioni generiche per migliorare la manutenibilità e l'efficienza.",
+        },
       },
       {
         label: 'Tailwind CSS & Design Systems',
-        description:
-          'Contributed to a design system built with Tailwind CSS, customizing themes and extending utility classes for a cohesive UI.',
+        description: {
+          EN: 'Contributed to a design system built with Tailwind CSS, customizing themes and extending utility classes for a cohesive UI.',
+          IT: 'Contribuito a un sistema di design costruito con Tailwind CSS, personalizzando temi e estendendo classi di utilità per un UI coeso.',
+        },
       },
       {
         label: 'State Management & API Integration',
-        description:
-          'Migrated UEFA.com from Redux to Zustand, optimizing state handling and leveraging React Query for API state synchronization.',
+        description: {
+          EN: 'Migrated UEFA.com from Redux to Zustand, optimizing state handling and leveraging React Query for API state synchronization.',
+          IT: 'Migrato UEFA.com da Redux a Zustand, ottimizzando la gestione dello stato e sfruttando React Query per la sincronizzazione dello stato API.',
+        },
       },
       {
         label: 'Performance Optimization',
-        description:
-          'Implemented memoization strategies, reduced unnecessary re-renders, and experimented with React Compiler for advanced optimizations.',
+        description: {
+          EN: 'Applied memoization strategies to reduce unnecessary re-renders.',
+          IT: 'Implementate strategie di memoizzazione per ridurre i re-render superflui.',
+        },
       },
       {
         label: 'DevOps & CI/CD',
-        description:
-          'Configured Jenkins and Azure DevOps pipelines using YAML and Docker, streamlining deployment workflows for Next.js applications.',
+        description: {
+          EN: 'Configured Jenkins and Azure DevOps pipelines with YAML and Docker to streamline deployment workflows for Dotnet and Next.js applications.',
+          IT: 'Configurate pipeline su Jenkins e Azure DevOps utilizzando YAML e Docker, per snellire i flussi di distribuzione delle applicazioni Dotnet e Next.js.',
+        },
       },
     ],
   },
   {
     company: 'Teoresi',
-    location: 'Torino, Italy',
+    location: 'torino',
     position: 'Full Stack Web Developer',
-    period: '2015 - 2019',
-    description:
-      'Consultant for Deltatre, contributing to the development of the UEFA Euro 2016 website and API ecosystem.',
+    period: { from: '2015', to: '2019' },
+    description: {
+      EN: 'Consultant for Deltatre, contributing to the development of the UEFA Euro 2016 website and its API ecosystem.',
+      IT: 'Consulente per Deltatre, ho lavorato allo sviluppo del sito web UEFA Euro 2016 e del suo ecosistema API.',
+    },
   },
   {
     company: 'Blue Sof Consulting',
+    location: 'torino',
     position: 'Software Developer Apprentice',
-    period: '2011 - 2014',
-    description: 'Worked on ASP.NET MVC, C#, and SQL Server for enterprise web solutions.',
+    period: { from: '2011', to: '2014' },
+    description: {
+      EN: 'Gained valuable experience working with ASP.NET MVC, C#, and SQL Server to deliver enterprise-grade web solutions.',
+      IT: 'Acquisita esperienza preziosa lavorando con ASP.NET MVC, C# e SQL Server per realizzare soluzioni web di livello enterprise.',
+    },
   },
 ];
 
@@ -145,24 +163,44 @@ export const skills = [
 
 export const softSkills = [
   {
-    name: 'Code Quality & Best Practices',
+    name: 'code_quality',
     icon: Cpu,
-    skills: ['Clean code', 'Maintainable architecture', 'Code reviews', 'Design patterns'],
+    skills: [
+      { EN: 'Clean code', IT: 'Codice pulito' },
+      { EN: 'Maintainable architecture', IT: 'Architettura manutenibile' },
+      { EN: 'Code reviews', IT: 'Revisione del codice' },
+      { EN: 'Design patterns', IT: 'Pattern di design' },
+    ],
   },
   {
-    name: 'Leadership & Mentorship',
+    name: 'leadership_mentorship',
     icon: Users,
-    skills: ['Team mentorship', 'Pair programming', 'Technical presentations', 'Documentation'],
+    skills: [
+      { EN: 'Team mentorship', IT: 'Mentorship di squadra' },
+      { EN: 'Pair programming', IT: 'Programmazione in coppia' },
+      { EN: 'Technical presentations', IT: 'Presentazioni tecniche' },
+      { EN: 'Documentation', IT: 'Documentazione' },
+    ],
   },
   {
-    name: 'Project & Time Management',
+    name: 'time_management',
     icon: Clock,
-    skills: ['Scrum & Kanban', 'Task prioritization', 'Time management', 'Deliverable planning'],
+    skills: [
+      { EN: 'Scrum & Kanban', IT: 'Scrum e Kanban' },
+      { EN: 'Task prioritization', IT: 'Prioritizzazione dei compiti' },
+      { EN: 'Time management', IT: 'Gestione del tempo' },
+      { EN: 'Deliverable planning', IT: 'Pianificazione dei deliverable' },
+    ],
   },
   {
-    name: 'Problem-Solving & Innovation',
+    name: 'problem_solving',
     icon: Lightbulb,
-    skills: ['Event bus systems', 'API synchronization', 'Performance optimization', 'Virtualized lists'],
+    skills: [
+      { EN: 'Event bus systems', IT: 'Sistemi di bus degli eventi' },
+      { EN: 'API synchronization', IT: 'Sincronizzazione API' },
+      { EN: 'Performance optimization', IT: 'Ottimizzazione delle prestazioni' },
+      { EN: 'Virtualized lists', IT: 'Liste virtualizzate' },
+    ],
   },
 ];
 
@@ -173,9 +211,10 @@ export const education = {
 };
 
 export const languages = [
-  { language: 'Italian', proficiency: 'Native', level: 100 },
-  { language: 'English', proficiency: 'C2 Proficient (IELTS: 7.0)', level: 80 },
+  { language: { EN: 'Italian', IT: 'Italiano' }, proficiency: { EN: 'Native', IT: 'Nativo' }, level: 100 },
+  {
+    language: { EN: 'English', IT: 'Inglese' },
+    proficiency: { EN: 'C2 Proficient (IELTS: 7.0)', IT: 'C2 Competente (IELTS: 7.0)' },
+    level: 80,
+  },
 ];
-
-export const additionalInfo =
-  'Open to remote and hybrid opportunities. Passionate about working on innovative and challenging projects that push the boundaries of modern web technologies. Dedicated to staying at the forefront of development, continuously experimenting with new technologies, and striving for clean, maintainable, and high-performance code.';
