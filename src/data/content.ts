@@ -58,15 +58,15 @@ export const personalInfo = {
 export const experience = [
   {
     company: 'Deltatre',
-    location: 'Torino, Italy',
+    location: 'torino',
     position: 'Tech Lead, Full Stack Web Developer',
     period: { from: '09/2019', to: 'present' },
     achievements: [
       {
         label: 'React & Next.js Development',
         description: {
-          EN: 'Architected and implemented Next.js applications, including LIV Golf and other major sports platforms, leveraging SSR and SSG for improved performance and scalability.',
-          IT: 'Progettato e implementato applicazioni Next.js, tra cui LIV Golf e altre piattaforme sportive di rilievo, sfruttando SSR e SSG per migliorare le prestazioni e la scalabilità.',
+          EN: 'Designed and implemented modern Next.js applications for major sports platforms (including LIV Golf, DP World Tour, GAA and others), using SSR and SSG to boost performance and scalability.',
+          IT: 'Progettato e implementato applicazioni moderne in Next.js per piattaforme sportive di rilievo, come LIV Golf, DP World Tour, GAA e altre, sfruttando il rendering lato server (SSR) e la generazione statica (SSG) per aumentare le prestazioni e la scalabilità.',
         },
       },
       {
@@ -93,36 +93,37 @@ export const experience = [
       {
         label: 'Performance Optimization',
         description: {
-          EN: 'Implemented memoization strategies, reduced unnecessary re-renders, and experimented with React Compiler for advanced optimizations.',
-          IT: 'Implementato strategie di memoizzazione, ridotto i re-render non necessari e sperimentato con React Compiler per ottimizzazioni avanzate.',
+          EN: 'Applied memoization strategies to reduce unnecessary re-renders.',
+          IT: 'Implementate strategie di memoizzazione per ridurre i re-render superflui.',
         },
       },
       {
         label: 'DevOps & CI/CD',
         description: {
-          EN: 'Configured Jenkins and Azure DevOps pipelines using YAML and Docker, streamlining deployment workflows for Next.js applications.',
-          IT: 'Configurato pipeline Jenkins e Azure DevOps utilizzando YAML e Docker, semplificando i flussi di lavoro di distribuzione per le applicazioni Next.js.',
+          EN: 'Configured Jenkins and Azure DevOps pipelines with YAML and Docker to streamline deployment workflows for Dotnet and Next.js applications.',
+          IT: 'Configurate pipeline su Jenkins e Azure DevOps utilizzando YAML e Docker, per snellire i flussi di distribuzione delle applicazioni Dotnet e Next.js.',
         },
       },
     ],
   },
   {
     company: 'Teoresi',
-    location: 'Torino, Italy',
+    location: 'torino',
     position: 'Full Stack Web Developer',
     period: { from: '2015', to: '2019' },
     description: {
-      EN: 'Consultant for Deltatre, contributing to the development of the UEFA Euro 2016 website and API ecosystem.',
-      IT: "Consulente per Deltatre, contribuendo allo sviluppo del sito web UEFA Euro 2016 e dell'ecosistema API.",
+      EN: 'Consultant for Deltatre, contributing to the development of the UEFA Euro 2016 website and its API ecosystem.',
+      IT: 'Consulente per Deltatre, ho lavorato allo sviluppo del sito web UEFA Euro 2016 e del suo ecosistema API.',
     },
   },
   {
     company: 'Blue Sof Consulting',
+    location: 'torino',
     position: 'Software Developer Apprentice',
     period: { from: '2011', to: '2014' },
     description: {
-      EN: 'Worked on ASP.NET MVC, C#, and SQL Server for enterprise web solutions.',
-      IT: 'Lavorato su ASP.NET MVC, C# e SQL Server per soluzioni web aziendali.',
+      EN: 'Gained valuable experience working with ASP.NET MVC, C#, and SQL Server to deliver enterprise-grade web solutions.',
+      IT: 'Acquisita esperienza preziosa lavorando con ASP.NET MVC, C# e SQL Server per realizzare soluzioni web di livello enterprise.',
     },
   },
 ];

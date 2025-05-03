@@ -29,6 +29,7 @@ const ExperienceCard = ({
             {t(exp.period.from)} - {t(exp.period.to)}
           </Badge>
           <h3 className="text-xl font-bold text-slate-900 dark:text-white">{exp.company}</h3>
+          <p className="mb-2 text-xs text-slate-600 dark:text-slate-400">{t(exp.location)}</p>
           <p className="mb-4 text-slate-600 dark:text-slate-400">{exp.position}</p>
 
           <Accordion className="w-full" type="single" collapsible>

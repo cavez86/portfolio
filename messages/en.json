@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "Francesco Caveglia Beatris - Full Stack Web Developer",
-    "description": "Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Based in Torino, Italy."
+    "description": "Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Based in Turin, Italy."
   },
   "Header": {
     "experience": "Experience",
@@ -13,17 +13,18 @@
     }
   },
   "Hero": {
-    "description": "Experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Adept at performance optimization, state management, and backend integration. Passionate about working on innovative and challenging projects that push the boundaries of modern web technologies. Dedicated to staying at the forefront of development, continuously experimenting with new technologies, and striving for clean, maintainable, and high-performance code.",
+    "description": "I am an experienced Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. I am passionate about taking on innovative and challenging projects that push the boundaries of modern web technologies. I remain dedicated to staying at the forefront of development, continuously experimenting with new technologies, and writing clean, maintainable, and high-performance code.",
     "contact_me": "Contact Me",
     "tech_stack": "Modern Tech Stack",
     "experience_years": "Years of Experience",
     "education": "Education",
     "phys_master": "Master's in Physics",
     "location": "Location",
-    "torino": "Torino, Italy"
+    "torino": "Turin, Italy"
   },
   "Experience": {
     "title": "Professional Experience",
+    "torino": "Turin, Italy",
     "more": "More",
     "present": "Present"
   },
