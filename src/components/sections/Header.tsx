@@ -1,30 +1,30 @@
+import { Link } from 'waku';
+
+import { LanguageSelector } from '@/components/common/LanguageSelector';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { personalInfo } from '@/data/content';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import Link from 'next/link';
-import { LanguageSelector } from '@/components/common/LanguageSelector';
-import { getTranslations } from 'next-intl/server';
 
 export const Header = async () => {
-  const t = await getTranslations('Header');
+  const t = await getTranslation('Header');
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 border-b px-6 py-4 backdrop-blur md:top-0">
       <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
         <nav className="hidden items-center gap-8 md:flex">
           <Link
-            href="#experience"
+            to="#experience"
             className="text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
           >
             {t('experience')}
           </Link>
           <Link
-            href="#skills"
+            to="#skills"
             className="text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
           >
             {t('skills')}
           </Link>
           <Link
-            href="#contact"
+            to="#contact"
             className="text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
           >
             {t('contact')}

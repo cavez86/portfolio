@@ -1,13 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { skills, softSkills } from '@/data/content';
+import { useTranslation } from 'react-i18next';
+
 import SkillsCard from '../cards/SkillsCard';
 import Section from '../Section';
-import { useTranslations } from 'next-intl';
+
+import { skills, softSkills } from '@/data/content';
 
 const SkillsSection = () => {
-  const t = useTranslations('Skills');
+  const { t } = useTranslation('Skills');
 
   return (
     <Section id="skills" contentClassName="max-w-5xl flex flex-col gap-6 md:gap-12">

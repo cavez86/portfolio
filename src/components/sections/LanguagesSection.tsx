@@ -1,16 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
 import { Globe } from 'lucide-react';
-import { languages } from '@/data/content';
+import { useTranslation } from 'react-i18next';
+
 import Section from '../Section';
-import { useLocale, useTranslations } from 'next-intl';
+
+import { Card, CardContent } from '@/components/ui/card';
+import { languages } from '@/data/content';
 
 const LanguagesSection = () => {
-  const locale = useLocale();
-  const loc = locale.toUpperCase() as 'EN' | 'IT';
-  const t = useTranslations('Languages');
+  const { t, i18n } = useTranslation('Languages');
+  const loc = i18n.language.toUpperCase() as 'EN' | 'IT';
 
   return (
     <Section contentClassName="max-w-3xl">
@@ -49,7 +50,7 @@ const LanguagesSection = () => {
                       <div
                         className="h-2.5 rounded-full bg-blue-600 dark:bg-blue-400"
                         style={{ width: `${lang.level}%` }}
-                      ></div>
+                      />
                     </div>
                   </div>
                 </div>

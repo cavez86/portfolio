@@ -1,13 +1,9 @@
-import HeroSection from '@/components/sections/HeroSection';
-import SkillsSection from '@/components/sections/SkillsSection';
-import ExperienceSection from '@/components/sections/ExperienceSection';
-import LanguagesSection from '@/components/sections/LanguagesSection';
 import ContactSection from '@/components/sections/ContactSection';
-import { routing } from '@/i18n/routing';
-
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
+import ExperienceSection from '@/components/sections/ExperienceSection';
+import HeroSection from '@/components/sections/HeroSection';
+import LanguagesSection from '@/components/sections/LanguagesSection';
+import SkillsSection from '@/components/sections/SkillsSection';
+import { languages } from '@/lib/i18n';
 
 const Home = () => (
   <main className="relative flex flex-col gap-10 py-4 md:gap-16 md:py-16 lg:gap-20">
@@ -22,3 +18,10 @@ const Home = () => (
 );
 
 export default Home;
+
+export const getConfig = () => {
+  return {
+    render: 'static',
+    staticPaths: languages.map((locale) => ({ locale })),
+  } as const;
+};

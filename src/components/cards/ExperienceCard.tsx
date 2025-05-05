@@ -1,9 +1,11 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { experience } from '@/data/content';
-import { Badge } from '../ui/badge';
-import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
-import { useTranslations } from 'next-intl';
+import { Badge } from '../ui/badge';
+
+import { Card, CardContent } from '@/components/ui/card';
+import type { experience } from '@/data/content';
+import { cn } from '@/lib/utils';
 
 const ExperienceCard = ({
   exp,
@@ -14,7 +16,7 @@ const ExperienceCard = ({
   align: 'left' | 'right';
   lang: 'EN' | 'IT';
 }) => {
-  const t = useTranslations('Experience');
+  const { t } = useTranslation('Experience');
 
   return (
     <Card className={cn(align === 'left' ? 'md:mr-4' : 'md:ml-4')}>

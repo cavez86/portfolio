@@ -1,13 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'waku';
+
 import { Button } from '@/components/ui/button';
 import { personalInfo } from '@/data/content';
-import { useTranslations } from 'next-intl';
 
 const HeroSection = () => {
-  const t = useTranslations('Hero');
+  const { t, i18n } = useTranslation('Hero');
 
   return (
     <section className="px-4 py-8 md:py-16">
@@ -51,7 +52,7 @@ const HeroSection = () => {
               View Projects
             </Button>
           </Link> */}
-            <Link href="#contact">
+            <Link to="#contact">
               <Button
                 size="lg"
                 variant="outline"

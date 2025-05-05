@@ -1,44 +1,55 @@
-import '../styles.css';
-
+import '../globals.css';
 import type { ReactNode } from 'react';
+import { unstable_notFound as notFound } from 'waku/router/server';
 
+import { GoToTop } from '@/components/common/GoToTop';
 import ScrollProgress from '@/components/common/ScrollProgress';
-import { Header } from '@/components/Header';
+import IntlErrorHandlingProvider from '@/components/IntlErrorHandlingProvider';
+import Footer from '@/components/sections/Footer';
+import { Header } from '@/components/sections/Header';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { routing } from '@/i18n/routing';
 
-type RootLayoutProps = { children: ReactNode };
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  // Validate that the incoming `locale` parameter is valid
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
-const RootLayout = async ({ children }: RootLayoutProps) => {
-  const data = await getData();
+  // Enable static rendering
+  setRequestLocale(locale);
 
   return (
-    <html>
+    <html lang={locale} suppressHydrationWarning>
       <head>
-        <title>{data.description}</title>
-        <meta name="description" content={data.description} />
-        <link rel="icon" type="image/png" href={data.icon} />
+        <title>{t('title')}</title>
+        <meta name="description" content={t('description')} />
+        <link rel="icon" type="image/png" href="/favicon.ico" />
       </head>
       <body className="text-secondary-foreground font-sans antialiased">
-        <ThemeProvider>
-          <ScrollProgress />
-          <Header />
-          <main>{children}</main>
-        </ThemeProvider>
+        <NextIntlClientProvider>
+          <IntlErrorHandlingProvider>
+            <ThemeProvider defaultTheme="system">
+              <ScrollProgress />
+              <Header />
+              {children}
+              <Footer />
+              <GoToTop />
+            </ThemeProvider>
+          </IntlErrorHandlingProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
-};
-
-export default RootLayout;
-
-const getData = () => {
-  const data = {
-    description: 'An internet website!',
-    icon: '/images/favicon.png',
-  };
-
-  return data;
-};
+}
 
 export const getConfig = () => {
   return {

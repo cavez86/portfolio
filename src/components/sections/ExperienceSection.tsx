@@ -1,16 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { experience } from '@/data/content';
-import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
+
 import ExperienceCard from '../cards/ExperienceCard';
 import Section from '../Section';
-import { useTranslations, useLocale } from 'next-intl';
+
+import { experience } from '@/data/content';
+import { cn } from '@/lib/utils';
 
 const ExperienceSection = () => {
-  const locale = useLocale();
-  const lang = locale.toUpperCase() as 'EN' | 'IT';
-  const t = useTranslations('Experience');
+  const { t, i18n } = useTranslation('Experience');
+  const lang = i18n.language.toUpperCase() as 'EN' | 'IT';
 
   return (
     <Section id="experience">
@@ -26,7 +27,7 @@ const ExperienceSection = () => {
 
       <div className="relative mt-6 flex flex-col gap-6 md:mt-12 md:gap-12">
         {/* Timeline line */}
-        <div className="absolute top-0 bottom-0 left-0 hidden w-px transform bg-slate-200 md:left-1/2 md:block dark:bg-slate-700"></div>
+        <div className="absolute top-0 bottom-0 left-0 hidden w-px transform bg-slate-200 md:left-1/2 md:block dark:bg-slate-700" />
 
         {experience.map((exp, index) => (
           <motion.div
@@ -42,13 +43,13 @@ const ExperienceSection = () => {
                 'absolute top-6 hidden h-3 w-3 transform rounded-full bg-blue-600 md:block dark:bg-blue-400',
                 index % 2 === 0 ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'
               )}
-            ></div>
+            />
             <div
               className={cn(
                 'absolute top-7 hidden h-[2px] w-12 translate-y-1/2 transform bg-blue-600 md:block dark:bg-blue-400',
                 index % 2 === 0 ? 'right-0' : 'left-0'
               )}
-            ></div>
+            />
             <ExperienceCard exp={exp} align={index % 2 === 0 ? 'right' : 'left'} lang={lang} />
           </motion.div>
         ))}

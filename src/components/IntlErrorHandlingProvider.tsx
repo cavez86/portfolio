@@ -1,7 +1,7 @@
 'use client';
 
 import { NextIntlClientProvider, useLocale } from 'next-intl';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export default function IntlErrorHandlingProvider({ children }: { children: ReactNode }) {
   const locale = useLocale();

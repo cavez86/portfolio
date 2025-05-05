@@ -90,12 +90,6 @@ export default eslintTs.config(
       'react-hooks/rules-of-hooks': 'error',
       'react/button-has-type': 'error',
       'react/display-name': 'warn',
-      'react/function-component-definition': [
-        'warn',
-        {
-          namedComponents: 'arrow-function',
-        },
-      ],
       'react/jsx-boolean-value': 'warn',
       'react/jsx-curly-brace-presence': [
         'warn',

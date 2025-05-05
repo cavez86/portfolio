@@ -1,13 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+
+import Section from '../Section';
+
 import { Card, CardContent } from '@/components/ui/card';
 import { personalInfo } from '@/data/content';
-import Section from '../Section';
-import { useTranslations } from 'next-intl';
 
 const ContactSection = () => {
-  const t = useTranslations('Contact');
+  const { t } = useTranslation('Contact');
 
   return (
     <Section id="contact" contentClassName="max-w-3xl">

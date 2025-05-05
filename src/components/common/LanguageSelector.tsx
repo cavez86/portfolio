@@ -1,18 +1,17 @@
 'use client';
 
+import { useTranslation } from 'react-i18next';
+import { useRouter } from 'waku';
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { usePathname, useRouter } from '@/i18n/navigation';
-import { useLocale, useTranslations } from 'next-intl';
-import { routing } from '@/i18n/routing';
 
 export const LanguageSelector = () => {
-  const t = useTranslations('Header');
-  const router = useRouter();
-  const pathname = usePathname();
-  const locale = useLocale();
+  const { t, i18n } = useTranslation('Header');
+  const { path, replace } = useRouter();
+  const locale = i18n.language;
 
   const handleChange = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale });
+    replace(path, { locale: newLocale });
   };
 
   return (
@@ -21,9 +20,9 @@ export const LanguageSelector = () => {
         <SelectValue placeholder="Language" />
       </SelectTrigger>
       <SelectContent>
-        {routing.locales.map((loc) => (
+        {i18n.languages.map((loc) => (
           <SelectItem key={loc} value={loc}>
-            <span className="text-muted-foreground">{t('language.' + loc)}</span>
+            <span className="text-muted-foreground">{t(`language.${loc}`)}</span>
           </SelectItem>
         ))}
       </SelectContent>

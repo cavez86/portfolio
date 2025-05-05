@@ -1,11 +1,12 @@
-import { personalInfo } from '@/data/content';
 import { Button } from '../ui/button';
+
+import { personalInfo } from '@/data/content';
 
 const Footer = () => (
   <footer className="border-t border-slate-200 px-4 py-8 dark:border-slate-800">
     <div className="container mx-auto">
       <div className="flex flex-col items-center justify-between md:flex-row">
-        <div className="mb-4 md:mb-0"></div>
+        <div className="mb-4 md:mb-0" />
 
         <div className="flex items-center space-x-4">
           {personalInfo.contacts.map((contact) => (
