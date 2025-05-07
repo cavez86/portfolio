@@ -1,14 +1,17 @@
-import '../globals.css';
 import type { ReactNode } from 'react';
-import { unstable_notFound as notFound } from 'waku/router/server';
+import { unstable_redirect as redirect } from 'waku/router/server';
 
 import { GoToTop } from '@/components/common/GoToTop';
 import ScrollProgress from '@/components/common/ScrollProgress';
-import IntlErrorHandlingProvider from '@/components/IntlErrorHandlingProvider';
 import Footer from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import { ThemeProvider } from '@/components/ThemeProvider';
-import { routing } from '@/i18n/routing';
+import { fallbackLng, languages } from '@/lib/i18n/constants';
+import { getTranslation } from '@/lib/i18n/getTranslation';
+
+// import '@/lib/i18n';
+
+import '@/globals.css';
 
 export default async function RootLayout({
   children,
@@ -18,14 +21,11 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  const { t } = getTranslation('Metadata');
   // Validate that the incoming `locale` parameter is valid
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
+  if (!languages.includes(locale)) {
+    redirect(`/${fallbackLng}/`);
   }
-
-  // Enable static rendering
-  setRequestLocale(locale);
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -35,17 +35,13 @@ export default async function RootLayout({
         <link rel="icon" type="image/png" href="/favicon.ico" />
       </head>
       <body className="text-secondary-foreground font-sans antialiased">
-        <NextIntlClientProvider>
-          <IntlErrorHandlingProvider>
-            <ThemeProvider defaultTheme="system">
-              <ScrollProgress />
-              <Header />
-              {children}
-              <Footer />
-              <GoToTop />
-            </ThemeProvider>
-          </IntlErrorHandlingProvider>
-        </NextIntlClientProvider>
+        <ThemeProvider defaultTheme="system">
+          <ScrollProgress />
+          <Header />
+          {children}
+          <Footer />
+          <GoToTop />
+        </ThemeProvider>
       </body>
     </html>
   );

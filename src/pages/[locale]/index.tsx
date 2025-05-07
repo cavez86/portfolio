@@ -3,7 +3,7 @@ import ExperienceSection from '@/components/sections/ExperienceSection';
 import HeroSection from '@/components/sections/HeroSection';
 import LanguagesSection from '@/components/sections/LanguagesSection';
 import SkillsSection from '@/components/sections/SkillsSection';
-import { languages } from '@/lib/i18n';
+import { languages } from '@/lib/i18n/constants';
 
 const Home = () => (
   <main className="relative flex flex-col gap-10 py-4 md:gap-16 md:py-16 lg:gap-20">
@@ -22,6 +22,6 @@ export default Home;
 export const getConfig = () => {
   return {
     render: 'static',
-    staticPaths: languages.map((locale) => ({ locale })),
+    staticPaths: languages.map((locale) => `/${locale}/`),
   } as const;
 };

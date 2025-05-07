@@ -2,13 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'waku';
 
 import { Button } from '@/components/ui/button';
 import { personalInfo } from '@/data/content';
 
 const HeroSection = () => {
-  const { t, i18n } = useTranslation('Hero');
+  const { t } = useTranslation('Hero');
 
   return (
     <section className="px-4 py-8 md:py-16">
@@ -52,7 +51,7 @@ const HeroSection = () => {
               View Projects
             </Button>
           </Link> */}
-            <Link to="#contact">
+            <a href="#contact">
               <Button
                 size="lg"
                 variant="outline"
@@ -60,7 +59,7 @@ const HeroSection = () => {
               >
                 {t('contact_me')}
               </Button>
-            </Link>
+            </a>
           </motion.div>
         </div>
 

@@ -1,34 +1,33 @@
-import { Link } from 'waku';
-
 import { LanguageSelector } from '@/components/common/LanguageSelector';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { personalInfo } from '@/data/content';
+import { getTranslation } from '@/lib/i18n/getTranslation';
 
-export const Header = async () => {
-  const t = await getTranslation('Header');
+export const Header = () => {
+  const { t } = getTranslation('Header');
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 border-b px-6 py-4 backdrop-blur md:top-0">
       <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
         <nav className="hidden items-center gap-8 md:flex">
-          <Link
-            to="#experience"
+          <a
+            href="#experience"
             className="text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
           >
             {t('experience')}
-          </Link>
-          <Link
-            to="#skills"
+          </a>
+          <a
+            href="#skills"
             className="text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
           >
             {t('skills')}
-          </Link>
-          <Link
-            to="#contact"
+          </a>
+          <a
+            href="#contact"
             className="text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
           >
             {t('contact')}
-          </Link>
+          </a>
         </nav>
         <div className="flex flex-1 items-center justify-end gap-4">
           {personalInfo.contacts.map((contact) => (

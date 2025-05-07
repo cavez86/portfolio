@@ -11,7 +11,8 @@ export const LanguageSelector = () => {
   const locale = i18n.language;
 
   const handleChange = (newLocale: string) => {
-    replace(path, { locale: newLocale });
+    const newPath = path.replace(`/${locale}`, `/${newLocale}`);
+    replace(newPath as `/${string}`);
   };
 
   return (
