@@ -3,13 +3,11 @@
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Globe } from 'lucide-react';
-import { languages } from '@/data/content';
-import Section from '../Section';
-import { useLocale, useTranslations } from 'next-intl';
+import Section from '../../Section';
+import { useTranslations } from 'next-intl';
+import { Language } from '@/payload-types';
 
-const LanguagesSection = () => {
-  const locale = useLocale();
-  const loc = locale.toUpperCase() as 'EN' | 'IT';
+const LanguagesSection = ({ languages }: { languages: Language[] }) => {
   const t = useTranslations('Languages');
 
   return (
@@ -42,8 +40,8 @@ const LanguagesSection = () => {
                   </div>
                   <div className="flex-1">
                     <div className="mb-2 flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{lang.language[loc]}</h3>
-                      <span className="text-sm text-slate-500 dark:text-slate-400">{lang.proficiency[loc]}</span>
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{lang.language}</h3>
+                      <span className="text-sm text-slate-500 dark:text-slate-400">{lang.proficiency}</span>
                     </div>
                     <div className="h-2.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
                       <div

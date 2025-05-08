@@ -1,15 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { experience } from '@/data/content';
 import { cn } from '@/lib/utils';
-import ExperienceCard from '../cards/ExperienceCard';
-import Section from '../Section';
-import { useTranslations, useLocale } from 'next-intl';
+import ExperienceCard from '../../cards/ExperienceCard';
+import Section from '../../Section';
+import { useTranslations } from 'next-intl';
+import { Experience } from '@/payload-types';
 
-const ExperienceSection = () => {
-  const locale = useLocale();
-  const lang = locale.toUpperCase() as 'EN' | 'IT';
+const ExperienceSection = ({ experience }: { experience: Experience[] }) => {
   const t = useTranslations('Experience');
 
   return (
@@ -49,7 +47,7 @@ const ExperienceSection = () => {
                 index % 2 === 0 ? 'right-0' : 'left-0'
               )}
             ></div>
-            <ExperienceCard exp={exp} align={index % 2 === 0 ? 'right' : 'left'} lang={lang} />
+            <ExperienceCard exp={exp} align={index % 2 === 0 ? 'right' : 'left'} />
           </motion.div>
         ))}
       </div>

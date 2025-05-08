@@ -1,17 +1,22 @@
 import { iconNames } from '@/components/common/Icon';
 import type { CollectionConfig } from 'payload';
 
-export const Skills: CollectionConfig = {
-  slug: 'skills',
+export const Contacts: CollectionConfig = {
+  slug: 'contacts',
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'label',
   },
   access: {
     read: () => true,
   },
   fields: [
     {
-      name: 'name',
+      name: 'label',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'url',
       type: 'text',
       required: true,
     },
@@ -21,16 +26,8 @@ export const Skills: CollectionConfig = {
       options: iconNames,
     },
     {
-      name: 'skills',
-      type: 'array',
-      fields: [
-        {
-          name: 'skill',
-          label: 'Skill',
-          type: 'text',
-          required: true,
-        },
-      ],
+      name: 'description',
+      type: 'text',
     },
   ],
 };

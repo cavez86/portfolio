@@ -17,6 +17,7 @@ export const Experience: CollectionConfig = {
     {
       name: 'location',
       type: 'text',
+      localized: true,
     },
     {
       name: 'position',
@@ -51,12 +52,14 @@ export const Experience: CollectionConfig = {
           name: 'description',
           type: 'textarea',
           required: true,
+          localized: true,
         },
       ],
     },
     {
       name: 'description',
       type: 'textarea',
+      localized: true,
     },
   ],
 };

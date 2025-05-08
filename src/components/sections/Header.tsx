@@ -1,12 +1,15 @@
 import { Button } from '@/components/ui/button';
-import { personalInfo } from '@/data/content';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import Link from 'next/link';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
 import { getTranslations } from 'next-intl/server';
+import Icon, { IconName } from '../common/Icon';
+import { getLocalizedCollection } from '../utils/db';
 
 export const Header = async () => {
   const t = await getTranslations('Header');
+  const contacts = await getLocalizedCollection('contacts');
+
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 border-b px-6 py-4 backdrop-blur md:top-0">
       <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
@@ -31,10 +34,10 @@ export const Header = async () => {
           </Link>
         </nav>
         <div className="flex flex-1 items-center justify-end gap-4">
-          {personalInfo.contacts.map((contact) => (
-            <Button key={contact.type} variant="ghost" size="sm" className="rounded md:text-sm" asChild>
+          {contacts.docs.map((contact) => (
+            <Button key={contact.url} variant="ghost" size="sm" className="rounded md:text-sm" asChild>
               <a href={contact.url}>
-                <contact.icon className="h-4 w-4 md:mr-2" />
+                <Icon name={contact.icon as IconName} className="h-4 w-4 md:mr-2" />
                 <span className="hidden md:block">{contact.label}</span>
               </a>
             </Button>

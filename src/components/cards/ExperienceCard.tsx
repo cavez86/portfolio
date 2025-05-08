@@ -1,19 +1,11 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { experience } from '@/data/content';
 import { Badge } from '../ui/badge';
 import { cn } from '@/lib/utils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { useTranslations } from 'next-intl';
+import { Experience } from '@/payload-types';
 
-const ExperienceCard = ({
-  exp,
-  align,
-  lang,
-}: {
-  exp: (typeof experience)[number];
-  align: 'left' | 'right';
-  lang: 'EN' | 'IT';
-}) => {
+const ExperienceCard = ({ exp, align }: { exp: Experience; align: 'left' | 'right' }) => {
   const t = useTranslations('Experience');
 
   return (
@@ -26,10 +18,10 @@ const ExperienceCard = ({
           )}
         >
           <Badge className="mb-2 inline-block w-auto bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50">
-            {t(exp.period.from)} - {t(exp.period.to)}
+            {exp.period.from} - {exp.period.to ?? t('present')}
           </Badge>
           <h3 className="text-xl font-bold text-slate-900 dark:text-white">{exp.company}</h3>
-          <p className="mb-2 text-xs text-slate-600 dark:text-slate-400">{t(exp.location)}</p>
+          <p className="mb-2 text-xs text-slate-600 dark:text-slate-400">{exp.location}</p>
           <p className="mb-4 text-slate-600 dark:text-slate-400">{exp.position}</p>
 
           <Accordion className="w-full" type="single" collapsible>
@@ -38,13 +30,13 @@ const ExperienceCard = ({
               <AccordionContent>
                 {exp.description && (
                   <p className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300">
-                    {exp.description[lang]}
+                    {exp.description}
                   </p>
                 )}
                 <ul className="list-disc space-y-2 pl-5 text-left text-slate-700 dark:text-slate-300">
                   {exp.achievements?.map((achievement, idx) => (
                     <li key={idx}>
-                      <span className="font-semibold">{achievement.label}</span>: {achievement.description[lang]}
+                      <span className="font-semibold">{achievement.label}</span>: {achievement.description}
                     </li>
                   ))}
                 </ul>

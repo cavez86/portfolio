@@ -14,6 +14,7 @@ export const Languages: CollectionConfig = {
       label: 'Language',
       type: 'text',
       required: true,
+      localized: true,
       unique: true, // Ensure that each language is unique
     },
     {
@@ -21,6 +22,7 @@ export const Languages: CollectionConfig = {
       label: 'Proficiency',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'level',

@@ -2,12 +2,15 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
+    "predev": "pnpm payload-types",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --fix",
     "format": "prettier . --ignore-unknown --write --log-level warn",
+    "payload-types": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
     "type-check": "tsc --noEmit",
     "test": "vitest run --passWithNoTests",
     "prepare": "husky"
@@ -17,6 +20,7 @@
     "@payloadcms/next": "^3.37.0",
     "@payloadcms/payload-cloud": "^3.37.0",
     "@payloadcms/richtext-lexical": "^3.37.0",
+    "@payloadcms/translations": "^3.37.0",
     "@radix-ui/react-accordion": "^1.2.8",
     "@radix-ui/react-select": "^2.2.2",
     "@radix-ui/react-slot": "^1.2.0",
