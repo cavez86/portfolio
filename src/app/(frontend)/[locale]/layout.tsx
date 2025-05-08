@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
-import '../globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
@@ -12,6 +11,8 @@ import { Header } from '@/components/sections/Header';
 import Footer from '@/components/sections/Footer';
 import { GoToTop } from '@/components/common/GoToTop';
 import IntlErrorHandlingProvider from '@/components/IntlErrorHandlingProvider';
+
+import '../../globals.css';
 
 const geist = Geist({
   subsets: ['latin'],
