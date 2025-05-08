@@ -6,6 +6,7 @@ on:
       - main
 
 env:
+  HUSKY: 0
   CI: true
 
 jobs:
