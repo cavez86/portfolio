@@ -3,10 +3,11 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { personalInfo } from '@/data/content';
 import { useTranslations } from 'next-intl';
+import { PersonalInfo, SummaryInfo } from '@/payload-types';
+import Icon, { IconName } from '@/components/common/Icon';
 
-const HeroSection = () => {
+const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo; summaryInfo: SummaryInfo[] }) => {
   const t = useTranslations('Hero');
 
   return (
@@ -19,7 +20,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Francesco Caveglia Beatris
+            {personalInfo.name}
           </motion.h1>
 
           <motion.h2
@@ -28,7 +29,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Full Stack Web Developer
+            {personalInfo.title}
           </motion.h2>
 
           <motion.p
@@ -37,7 +38,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            {t('description')}
+            {personalInfo.description}
           </motion.p>
 
           <motion.div
@@ -69,12 +70,12 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          {personalInfo.summaryInfo.map((item, index) => (
+          {summaryInfo.map((item, index) => (
             <div
               key={index}
               className="bg-card flex flex-col items-center rounded-lg border p-4 text-center shadow-sm transition-shadow hover:shadow-md"
             >
-              <item.icon className="mb-2 h-8 w-8 text-blue-600 dark:text-blue-400" />
+              <Icon name={item.icon as IconName} className="mb-2 h-8 w-8 text-blue-600 dark:text-blue-400" />
               <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">{t(item.label)}</h3>
               <p className="text-base font-semibold text-slate-900 dark:text-white">{t(item.value)}</p>
             </div>

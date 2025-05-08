@@ -2,11 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
-import { personalInfo } from '@/data/content';
-import Section from '../Section';
+import Section from '../../Section';
 import { useTranslations } from 'next-intl';
+import { Contact } from '@/payload-types';
+import Icon, { IconName } from '@/components/common/Icon';
 
-const ContactSection = () => {
+const ContactSectionView = ({ contacts }: { contacts: Contact[] }) => {
   const t = useTranslations('Contact');
 
   return (
@@ -32,16 +33,16 @@ const ContactSection = () => {
             <h3 className="mb-6 text-xl font-bold text-slate-900 dark:text-white">{t('description')}</h3>
 
             <div className="space-y-6">
-              {personalInfo.contacts.map((contact) => (
+              {contacts.map((contact) => (
                 <a
-                  key={contact.type}
+                  key={contact.url}
                   href={contact.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
-                    <contact.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    <Icon name={contact.icon as IconName} className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
                     <p className="font-medium">{contact.label}</p>
@@ -62,4 +63,4 @@ const ContactSection = () => {
   );
 };
 
-export default ContactSection;
+export default ContactSectionView;
