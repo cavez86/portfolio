@@ -1,5 +1,6 @@
-import { iconNames } from '@/components/common/Icon';
 import type { CollectionConfig } from 'payload';
+
+import { iconNames } from '@/components/common/Icon';
 
 export const Contacts: CollectionConfig = {
   slug: 'contacts',

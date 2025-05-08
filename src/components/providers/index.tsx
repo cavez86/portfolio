@@ -1,7 +1,8 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { ReactNode } from 'react';
-import IntlErrorHandlingProvider from './IntlErrorHandlingProvider';
+
 import DayJsProvider from './DayJsProvider';
+import IntlErrorHandlingProvider from './IntlErrorHandlingProvider';
 import { ThemeProvider } from './ThemeProvider';
 
 const MainProvider = ({ children }: { children: ReactNode }) => (

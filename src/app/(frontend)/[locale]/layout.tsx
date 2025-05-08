@@ -1,18 +1,20 @@
-import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { routing } from '@/i18n/routing';
-import { notFound } from 'next/navigation';
-import { hasLocale } from 'next-intl';
-import { ReactNode } from 'react';
-import ScrollProgress from '@/components/common/ScrollProgress';
-import { Header } from '@/components/sections/Header';
-import Footer from '@/components/sections/Footer';
-import { GoToTop } from '@/components/common/GoToTop';
+import '../../globals.css';
+
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import type { Metadata } from 'next';
+import { Geist } from 'next/font/google';
+import { notFound } from 'next/navigation';
+import { hasLocale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { ReactNode } from 'react';
+
+import { GoToTop } from '@/components/common/GoToTop';
+import ScrollProgress from '@/components/common/ScrollProgress';
 import MainProvider from '@/components/providers';
-import '../../globals.css';
+import Footer from '@/components/sections/Footer';
+import { Header } from '@/components/sections/Header';
+import { routing } from '@/i18n/routing';
 
 const geist = Geist({
   subsets: ['latin'],

@@ -1,4 +1,5 @@
 import { getLocalizedCollection } from '@/components/utils/db';
+
 import LanguagesSectionView from './LanguagesSectionView';
 
 const LanguagesSection = async () => {

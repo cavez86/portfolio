@@ -1,8 +1,8 @@
-import HeroSection from '@/components/sections/HeroSection';
-import SkillsSection from '@/components/sections/SkillsSection';
-import ExperienceSection from '@/components/sections/ExperienceSection';
-import LanguagesSection from '@/components/sections/LanguagesSection';
 import ContactSection from '@/components/sections/ContactSection';
+import ExperienceSection from '@/components/sections/ExperienceSection';
+import HeroSection from '@/components/sections/HeroSection';
+import LanguagesSection from '@/components/sections/LanguagesSection';
+import SkillsSection from '@/components/sections/SkillsSection';
 import { routing } from '@/i18n/routing';
 
 export function generateStaticParams() {

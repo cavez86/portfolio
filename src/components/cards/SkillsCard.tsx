@@ -1,8 +1,10 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Skill, SoftSkill } from '@/payload-types';
-import { useTranslations } from 'next-intl';
+
 import Icon, { IconName } from '../common/Icon';
 
 const SkillsCard = ({ category }: { category: Skill | SoftSkill }) => {

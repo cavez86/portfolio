@@ -1,8 +1,9 @@
 'use client';
 
+import { useLocale, useTranslations } from 'next-intl';
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { usePathname, useRouter } from '@/i18n/navigation';
-import { useLocale, useTranslations } from 'next-intl';
 import { routing } from '@/i18n/routing';
 
 export const LanguageSelector = () => {

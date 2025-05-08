@@ -1,11 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
 import { Globe } from 'lucide-react';
-import Section from '../../Section';
 import { useTranslations } from 'next-intl';
+
+import { Card, CardContent } from '@/components/ui/card';
 import { Language } from '@/payload-types';
+
+import Section from '../../Section';
 
 const LanguagesSection = ({ languages }: { languages: Language[] }) => {
   const t = useTranslations('Languages');

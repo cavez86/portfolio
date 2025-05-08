@@ -1,4 +1,5 @@
 import { getLocalizedCollection } from '@/components/utils/db';
+
 import ExperienceSectionView from './ExperienceSectionView';
 
 const ExperienceSection = async () => {

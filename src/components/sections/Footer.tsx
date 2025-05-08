@@ -1,6 +1,6 @@
+import Icon, { IconName } from '../common/Icon';
 import { Button } from '../ui/button';
 import { getLocalizedCollection } from '../utils/db';
-import Icon, { IconName } from '../common/Icon';
 
 const Footer = async () => {
   const contacts = await getLocalizedCollection('contacts');

@@ -1,11 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+
 import { cn } from '@/lib/utils';
+import { Experience } from '@/payload-types';
+
 import ExperienceCard from '../../cards/ExperienceCard';
 import Section from '../../Section';
-import { useTranslations } from 'next-intl';
-import { Experience } from '@/payload-types';
 
 const ExperienceSection = ({ experience }: { experience: Experience[] }) => {
   const t = useTranslations('Experience');

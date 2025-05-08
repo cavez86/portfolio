@@ -1,4 +1,5 @@
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
+
 import HeroSectionView from './HeroSectionView';
 
 const HeroSection = async () => {

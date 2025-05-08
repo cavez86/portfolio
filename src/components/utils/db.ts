@@ -1,7 +1,8 @@
-import { Locale } from '@/i18n/routing';
 import config from '@payload-config';
 import { getLocale } from 'next-intl/server';
 import { CollectionSlug, getPayload, GlobalSlug } from 'payload';
+
+import { Locale } from '@/i18n/routing';
 
 export const getLocalizedGlobal = async <TSlug extends GlobalSlug>(slug: TSlug) => {
   const locale = (await getLocale()) as Locale;

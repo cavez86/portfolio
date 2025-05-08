@@ -1,10 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+
+import { Skill, SoftSkill } from '@/payload-types';
+
 import SkillsCard from '../../cards/SkillsCard';
 import Section from '../../Section';
-import { useTranslations } from 'next-intl';
-import { Skill, SoftSkill } from '@/payload-types';
 
 const SkillsSection = ({ skills, softSkills }: { skills: Skill[]; softSkills: SoftSkill[] }) => {
   const t = useTranslations('Skills');

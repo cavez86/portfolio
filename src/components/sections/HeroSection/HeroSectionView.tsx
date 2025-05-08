@@ -2,10 +2,11 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
-import { PersonalInfo, SummaryInfo } from '@/payload-types';
+
 import Icon, { IconName } from '@/components/common/Icon';
+import { Button } from '@/components/ui/button';
+import { PersonalInfo, SummaryInfo } from '@/payload-types';
 
 const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo; summaryInfo: SummaryInfo[] }) => {
   const t = useTranslations('Hero');

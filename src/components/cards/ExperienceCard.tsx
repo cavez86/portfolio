@@ -1,10 +1,12 @@
 import dayjs from 'dayjs';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '../ui/badge';
-import { cn } from '@/lib/utils';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { useTranslations } from 'next-intl';
+
+import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import { Experience } from '@/payload-types';
+
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
+import { Badge } from '../ui/badge';
 
 const ExperienceCard = ({ exp, align }: { exp: Experience; align: 'left' | 'right' }) => {
   const t = useTranslations('Experience');

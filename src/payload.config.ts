@@ -2,21 +2,21 @@
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres';
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
-import path from 'path';
-import { buildConfig } from 'payload';
-import { fileURLToPath } from 'url';
-import sharp from 'sharp';
-
 import { en } from '@payloadcms/translations/languages/en';
 import { it } from '@payloadcms/translations/languages/it';
+import path from 'path';
+import { buildConfig } from 'payload';
+import sharp from 'sharp';
+import { fileURLToPath } from 'url';
 
-import { Users } from '@/collections/Users';
-import { PersonalInfo } from '@/collections/PersonalInfo';
+import { Education } from '@/collections/Education';
 import { Experience } from '@/collections/Experience';
+import { Languages } from '@/collections/Languages';
+import { PersonalInfo } from '@/collections/PersonalInfo';
 import { Skills } from '@/collections/Skills';
 import { SoftSkills } from '@/collections/SoftSkills';
-import { Education } from '@/collections/Education';
-import { Languages } from '@/collections/Languages';
+import { Users } from '@/collections/Users';
+
 import { Contacts } from './collections/Contacts';
 import { SummaryInfo } from './collections/SummaryInfo';
 

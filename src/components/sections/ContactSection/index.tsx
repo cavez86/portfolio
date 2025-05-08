@@ -1,4 +1,5 @@
 import { getLocalizedCollection } from '@/components/utils/db';
+
 import ContactSectionView from './ContactSectionView';
 
 const ContactSection = async () => {

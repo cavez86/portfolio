@@ -1,4 +1,5 @@
 import { getLocalizedCollection } from '@/components/utils/db';
+
 import SkillsSectionView from './SkillsSectionView';
 
 const SkillsSection = async () => {

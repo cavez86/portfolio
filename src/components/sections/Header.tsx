@@ -1,8 +1,10 @@
-import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/ThemeToggle';
 import Link from 'next/link';
-import { LanguageSelector } from '@/components/common/LanguageSelector';
 import { getTranslations } from 'next-intl/server';
+
+import { LanguageSelector } from '@/components/common/LanguageSelector';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { Button } from '@/components/ui/button';
+
 import Icon, { IconName } from '../common/Icon';
 import { getLocalizedCollection } from '../utils/db';
 
