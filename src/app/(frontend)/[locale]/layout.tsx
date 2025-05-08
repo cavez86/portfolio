@@ -10,8 +10,9 @@ import { Header } from '@/components/sections/Header';
 import Footer from '@/components/sections/Footer';
 import { GoToTop } from '@/components/common/GoToTop';
 import { Analytics } from '@vercel/analytics/react';
-import '../../globals.css';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import MainProvider from '@/components/providers';
+import '../../globals.css';
 
 const geist = Geist({
   subsets: ['latin'],
@@ -54,6 +55,7 @@ export default async function RootLayout({
           <Footer />
           <GoToTop />
           <Analytics />
+          <SpeedInsights />
         </MainProvider>
       </body>
     </html>
