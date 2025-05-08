@@ -29,13 +29,13 @@ export const Experience: CollectionConfig = {
       type: 'group',
       fields: [
         {
-          name: 'from',
-          type: 'text',
+          name: 'dateFrom',
+          type: 'date',
           required: true,
         },
         {
-          name: 'to',
-          type: 'text',
+          name: 'dateTo',
+          type: 'date',
         },
       ],
     },

@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '../ui/badge';
 import { cn } from '@/lib/utils';
@@ -18,7 +19,7 @@ const ExperienceCard = ({ exp, align }: { exp: Experience; align: 'left' | 'righ
           )}
         >
           <Badge className="mb-2 inline-block w-auto bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50">
-            {exp.period.from} - {exp.period.to ?? t('present')}
+            {`${dayjs(exp.period.dateFrom).format('YYYY')} - ${exp.period.dateTo ? dayjs(exp.period.dateTo).format('YYYY') : t('present')}`}
           </Badge>
           <h3 className="text-xl font-bold text-slate-900 dark:text-white">{exp.company}</h3>
           <p className="mb-2 text-xs text-slate-600 dark:text-slate-400">{exp.location}</p>

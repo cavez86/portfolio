@@ -219,8 +219,8 @@ export interface Experience {
   location?: string | null;
   position: string;
   period: {
-    from: string;
-    to?: string | null;
+    dateFrom: string;
+    dateTo?: string | null;
   };
   achievements?:
     | {
@@ -459,8 +459,8 @@ export interface ExperienceSelect<T extends boolean = true> {
   period?:
     | T
     | {
-        from?: T;
-        to?: T;
+        dateFrom?: T;
+        dateTo?: T;
       };
   achievements?:
     | T

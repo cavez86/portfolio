@@ -23,7 +23,7 @@ export const LanguageSelector = () => {
       <SelectContent>
         {routing.locales.map((loc) => (
           <SelectItem key={loc} value={loc}>
-            <span className="text-muted-foreground">{t('language.' + loc)}</span>
+            <span className="text-muted-foreground">{t(`language.${loc}`)}</span>
           </SelectItem>
         ))}
       </SelectContent>

@@ -1,18 +1,17 @@
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
-import { ThemeProvider } from '@/components/ThemeProvider';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
-import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { hasLocale } from 'next-intl';
 import { ReactNode } from 'react';
 import ScrollProgress from '@/components/common/ScrollProgress';
 import { Header } from '@/components/sections/Header';
 import Footer from '@/components/sections/Footer';
 import { GoToTop } from '@/components/common/GoToTop';
-import IntlErrorHandlingProvider from '@/components/IntlErrorHandlingProvider';
 
 import '../../globals.css';
+import MainProvider from '@/components/providers';
 
 const geist = Geist({
   subsets: ['latin'],
@@ -48,17 +47,13 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${geist.variable} font-sans antialiased`}>
-        <NextIntlClientProvider>
-          <IntlErrorHandlingProvider>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              <ScrollProgress />
-              <Header />
-              {children}
-              <Footer />
-              <GoToTop />
-            </ThemeProvider>
-          </IntlErrorHandlingProvider>
-        </NextIntlClientProvider>
+        <MainProvider>
+          <ScrollProgress />
+          <Header />
+          {children}
+          <Footer />
+          <GoToTop />
+        </MainProvider>
       </body>
     </html>
   );

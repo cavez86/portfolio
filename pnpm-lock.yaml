@@ -37,6 +37,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       framer-motion:
         specifier: ^12.10.1
         version: 12.10.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -3361,6 +3364,10 @@ packages:
   dateformat@4.6.3:
     resolution:
       { integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA== }
+
+  dayjs@1.11.13:
+    resolution:
+      { integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg== }
 
   debug@3.2.7:
     resolution:
@@ -9517,6 +9524,8 @@ snapshots:
   date-fns@4.1.0: {}
 
   dateformat@4.6.3: {}
+
+  dayjs@1.11.13: {}
 
   debug@3.2.7:
     dependencies:
