@@ -6,9 +6,11 @@ import { ReactNode } from 'react';
 
 const DayJsProvider = ({ children }: { children: ReactNode }) => {
   const locale = useLocale();
-  import(`dayjs/locale/${locale}`).then(() => {
+
+  import(`dayjs/locale/${locale}.js`).then(() => {
     dayjs.locale(locale); // Set the locale for dayjs globally
   });
+
   return <>{children}</>;
 };
 
