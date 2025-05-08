@@ -16,7 +16,7 @@ const ExperienceSection = ({ experience }: { experience: Experience[] }) => {
     <Section id="experience">
       <motion.h2
         className="text-center text-3xl font-bold text-slate-900 md:text-4xl dark:text-white"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0.1, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
@@ -32,7 +32,7 @@ const ExperienceSection = ({ experience }: { experience: Experience[] }) => {
           <motion.div
             key={index}
             className={cn('relative md:w-1/2', index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:ml-auto md:pl-12')}
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0.1, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}

@@ -16,7 +16,7 @@ const SkillsSection = ({ skills, softSkills }: { skills: Skill[]; softSkills: So
       <div className="text-center">
         <motion.h2
           className="mb-2 text-3xl font-bold text-slate-900 md:mb-4 md:text-4xl dark:text-white"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0.1, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
@@ -25,7 +25,7 @@ const SkillsSection = ({ skills, softSkills }: { skills: Skill[]; softSkills: So
         </motion.h2>
         <motion.p
           className="text-lg text-slate-600 dark:text-slate-400"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0.1, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -40,7 +40,7 @@ const SkillsSection = ({ skills, softSkills }: { skills: Skill[]; softSkills: So
           {skills.map((category, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0.1, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -57,7 +57,7 @@ const SkillsSection = ({ skills, softSkills }: { skills: Skill[]; softSkills: So
           {softSkills.map((category, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0.1, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}

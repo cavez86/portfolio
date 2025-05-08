@@ -17,8 +17,8 @@ const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo
         <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
           <motion.h1
             className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-5xl leading-normal font-bold text-transparent md:text-7xl dark:from-blue-400 dark:to-sky-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0.1, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
             {personalInfo.name}
@@ -26,8 +26,8 @@ const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo
 
           <motion.h2
             className="text-2xl font-medium text-slate-700 md:text-3xl dark:text-slate-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0.1, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             {personalInfo.title}
@@ -35,8 +35,9 @@ const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo
 
           <motion.p
             className="mx-auto max-w-3xl text-lg text-pretty text-slate-600 dark:text-slate-400"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0.1, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             {personalInfo.description}
@@ -44,8 +45,9 @@ const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo
 
           <motion.div
             className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0.1, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             {/* <Link href="#projects">
@@ -67,8 +69,9 @@ const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo
 
         <motion.div
           className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0.1, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           {summaryInfo.map((item, index) => (

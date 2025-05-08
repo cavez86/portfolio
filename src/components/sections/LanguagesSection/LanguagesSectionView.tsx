@@ -16,7 +16,7 @@ const LanguagesSection = ({ languages }: { languages: Language[] }) => {
     <Section contentClassName="max-w-3xl">
       <motion.div
         className="mb-6 text-center md:mb-12"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0.1, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
@@ -29,7 +29,7 @@ const LanguagesSection = ({ languages }: { languages: Language[] }) => {
         {languages.map((lang, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0.1, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -46,10 +46,13 @@ const LanguagesSection = ({ languages }: { languages: Language[] }) => {
                       <span className="text-sm text-slate-500 dark:text-slate-400">{lang.proficiency}</span>
                     </div>
                     <div className="h-2.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
-                      <div
+                      <motion.div
                         className="h-2.5 rounded-full bg-blue-600 dark:bg-blue-400"
-                        style={{ width: `${lang.level}%` }}
-                      ></div>
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${lang.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: index * 0.5 }}
+                      ></motion.div>
                     </div>
                   </div>
                 </div>
