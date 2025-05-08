@@ -9,7 +9,7 @@ import ScrollProgress from '@/components/common/ScrollProgress';
 import { Header } from '@/components/sections/Header';
 import Footer from '@/components/sections/Footer';
 import { GoToTop } from '@/components/common/GoToTop';
-
+import { Analytics } from '@vercel/analytics/react';
 import '../../globals.css';
 import MainProvider from '@/components/providers';
 
@@ -53,6 +53,7 @@ export default async function RootLayout({
           {children}
           <Footer />
           <GoToTop />
+          <Analytics />
         </MainProvider>
       </body>
     </html>
