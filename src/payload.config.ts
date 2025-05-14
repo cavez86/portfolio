@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres';
+import { resendAdapter } from '@payloadcms/email-resend';
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { en } from '@payloadcms/translations/languages/en';
@@ -30,6 +31,11 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  email: resendAdapter({
+    defaultFromAddress: 'portfolio@resend.dev',
+    defaultFromName: 'Payload CMS',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
   i18n: {
     supportedLanguages: { en, it },
   },

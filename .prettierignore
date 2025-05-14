@@ -2,5 +2,6 @@
 build
 coverage
 .next
-src/payload-types.ts
+payload-types.ts
+src/app/(payload)/admin/importMap.js
 pnpm-*.yaml
