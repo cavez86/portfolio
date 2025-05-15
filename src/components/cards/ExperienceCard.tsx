@@ -1,15 +1,18 @@
 import dayjs from 'dayjs';
+import { Maximize2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Experience } from '@/payload-types';
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { Badge } from '../ui/badge';
+import { Button } from '../ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 
 const ExperienceCard = ({ exp, align }: { exp: Experience; align: 'left' | 'right' }) => {
   const t = useTranslations('Experience');
+  const periodLabel = `${dayjs(exp.period.dateFrom).format('YYYY')} - ${exp.period.dateTo ? dayjs(exp.period.dateTo).format('YYYY') : t('present')}`;
 
   return (
     <Card className={cn(align === 'left' ? 'md:mr-4' : 'md:ml-4')}>
@@ -21,31 +24,35 @@ const ExperienceCard = ({ exp, align }: { exp: Experience; align: 'left' | 'righ
           )}
         >
           <Badge className="mb-2 inline-block w-auto bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50">
-            {`${dayjs(exp.period.dateFrom).format('YYYY')} - ${exp.period.dateTo ? dayjs(exp.period.dateTo).format('YYYY') : t('present')}`}
+            {periodLabel}
           </Badge>
           <h3 className="text-xl font-bold text-slate-900 dark:text-white">{exp.company}</h3>
           <p className="mb-2 text-xs text-slate-600 dark:text-slate-400">{exp.location}</p>
           <p className="mb-4 text-slate-600 dark:text-slate-400">{exp.position}</p>
 
-          <Accordion className="w-full" type="single" collapsible>
-            <AccordionItem value="details">
-              <AccordionTrigger className="w-full text-center">{t('more')}</AccordionTrigger>
-              <AccordionContent>
-                {exp.description && (
-                  <p className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300">
-                    {exp.description}
-                  </p>
-                )}
-                <ul className="list-disc space-y-2 pl-5 text-left text-slate-700 dark:text-slate-300">
-                  {exp.achievements?.map((achievement, idx) => (
-                    <li key={idx}>
-                      <span className="font-semibold">{achievement.label}</span>: {achievement.description}
-                    </li>
-                  ))}
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                {t('more')} <Maximize2 />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="md:max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>{exp.company}</DialogTitle>
+                <DialogDescription>{periodLabel}</DialogDescription>
+              </DialogHeader>
+              {exp.description && (
+                <p className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300">{exp.description}</p>
+              )}
+              <ul className="list-disc space-y-2 pl-5 text-left text-slate-700 dark:text-slate-300">
+                {exp.achievements?.map((achievement, idx) => (
+                  <li key={idx}>
+                    <span className="font-semibold">{achievement.label}</span>: {achievement.description}
+                  </li>
+                ))}
+              </ul>
+            </DialogContent>
+          </Dialog>
         </div>
       </CardContent>
     </Card>
