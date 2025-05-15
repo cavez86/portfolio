@@ -49,7 +49,7 @@ const ExperienceSection = ({ experience }: { experience: Experience[] }) => {
                 index % 2 === 0 ? 'right-0' : 'left-0'
               )}
             ></div>
-            <ExperienceCard exp={exp} align={index % 2 === 0 ? 'right' : 'left'} />
+            <ExperienceCard exp={exp} flipAlignment={index % 2 === 0} />
           </motion.div>
         ))}
       </div>
