@@ -36,7 +36,7 @@ export const Header = async () => {
           </Link>
         </nav>
         <div className="flex flex-1 items-center justify-end gap-4">
-          {contacts.docs.map((contact) => (
+          {contacts.map((contact) => (
             <Button key={contact.url} variant="ghost" size="sm" className="rounded md:text-sm" asChild>
               <a href={contact.url}>
                 <Icon name={contact.icon as IconName} className="h-4 w-4 md:mr-2" />

@@ -1,11 +1,16 @@
 import { getLocalizedCollection } from '@/components/utils/db';
 
 import ContactSectionView from './ContactSectionView';
+import { Suspense } from 'react';
 
-const ContactSection = async () => {
-  const contacts = await getLocalizedCollection('contacts');
+const ContactSection = () => {
+  const contactsPromise = getLocalizedCollection('contacts');
 
-  return <ContactSectionView contacts={contacts.docs} />;
+  return (
+    <Suspense>
+      <ContactSectionView contacts={contactsPromise} />
+    </Suspense>
+  );
 };
 
 export default ContactSection;

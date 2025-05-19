@@ -1,11 +1,16 @@
 import { getLocalizedCollection } from '@/components/utils/db';
 
 import LanguagesSectionView from './LanguagesSectionView';
+import { Suspense } from 'react';
 
-const LanguagesSection = async () => {
-  const languages = await getLocalizedCollection('languages');
+const LanguagesSection = () => {
+  const languagesPromise = getLocalizedCollection('languages');
 
-  return <LanguagesSectionView languages={languages.docs} />;
+  return (
+    <Suspense>
+      <LanguagesSectionView languages={languagesPromise} />
+    </Suspense>
+  );
 };
 
 export default LanguagesSection;

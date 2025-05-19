@@ -8,8 +8,10 @@ import { Experience } from '@/payload-types';
 
 import ExperienceCard from '../../cards/ExperienceCard';
 import Section from '../../Section';
+import { use } from 'react';
 
-const ExperienceSection = ({ experience }: { experience: Experience[] }) => {
+const ExperienceSection = ({ data }: { data: Promise<Experience[]> }) => {
+  const experience = use(data);
   const t = useTranslations('Experience');
 
   return (

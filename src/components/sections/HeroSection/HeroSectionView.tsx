@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -8,7 +9,15 @@ import Icon, { IconName } from '@/components/common/Icon';
 import { Button } from '@/components/ui/button';
 import { PersonalInfo, SummaryInfo } from '@/payload-types';
 
-const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo; summaryInfo: SummaryInfo[] }) => {
+const HeroSection = ({
+  personalInfo,
+  summaryInfo,
+}: {
+  personalInfo: Promise<PersonalInfo>;
+  summaryInfo: Promise<SummaryInfo[]>;
+}) => {
+  const personalInfoData = use(personalInfo);
+  const summaryInfoData = use(summaryInfo);
   const t = useTranslations('Hero');
 
   return (
@@ -21,7 +30,7 @@ const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            {personalInfo.name}
+            {personalInfoData.name}
           </motion.h1>
 
           <motion.h2
@@ -30,7 +39,7 @@ const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            {personalInfo.title}
+            {personalInfoData.title}
           </motion.h2>
 
           <motion.p
@@ -40,7 +49,7 @@ const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            {personalInfo.description}
+            {personalInfoData.description}
           </motion.p>
 
           <motion.div
@@ -50,11 +59,6 @@ const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            {/* <Link href="#projects">
-            <Button size="lg" className="bg-blue-600 text-white hover:bg-blue-700">
-              View Projects
-            </Button>
-          </Link> */}
             <Link href="#contact">
               <Button
                 size="lg"
@@ -74,7 +78,7 @@ const HeroSection = ({ personalInfo, summaryInfo }: { personalInfo: PersonalInfo
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          {summaryInfo.map((item, index) => (
+          {summaryInfoData.map((item, index) => (
             <div
               key={index}
               className="bg-card flex flex-col items-center rounded-lg border p-4 text-center shadow-sm transition-shadow hover:shadow-md"

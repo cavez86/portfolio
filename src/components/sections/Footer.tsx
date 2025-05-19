@@ -11,7 +11,7 @@ const Footer = async () => {
           <div className="mb-4 md:mb-0"></div>
 
           <div className="flex items-center space-x-4">
-            {contacts.docs.map((contact) => (
+            {contacts.map((contact) => (
               <Button key={contact.url} variant="ghost" size="lg" className="rounded md:text-sm" asChild>
                 <a
                   href={contact.url}

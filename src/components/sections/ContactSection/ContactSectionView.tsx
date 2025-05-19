@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
@@ -9,7 +10,8 @@ import { Contact } from '@/payload-types';
 
 import Section from '../../Section';
 
-const ContactSectionView = ({ contacts }: { contacts: Contact[] }) => {
+const ContactSectionView = ({ contacts }: { contacts: Promise<Contact[]> }) => {
+  const contactsData = use(contacts);
   const t = useTranslations('Contact');
 
   return (
@@ -35,7 +37,7 @@ const ContactSectionView = ({ contacts }: { contacts: Contact[] }) => {
             <h3 className="mb-6 text-xl font-bold text-slate-900 dark:text-white">{t('description')}</h3>
 
             <div className="space-y-6">
-              {contacts.map((contact) => (
+              {contactsData.map((contact) => (
                 <a
                   key={contact.url}
                   href={contact.url}
