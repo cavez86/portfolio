@@ -1,12 +1,17 @@
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
 
 import HeroSectionView from './HeroSectionView';
+import { Suspense } from 'react';
 
-const HeroSection = async () => {
-  const personalInfo = await getLocalizedGlobal('personal-info');
-  const summaryInfo = await getLocalizedCollection('summary-info');
+const HeroSection = () => {
+  const personalInfoPromise = getLocalizedGlobal('personal-info');
+  const summaryInfoPromise = getLocalizedCollection('summary-info');
 
-  return <HeroSectionView personalInfo={personalInfo} summaryInfo={summaryInfo.docs} />;
+  return (
+    <Suspense>
+      <HeroSectionView personalInfo={personalInfoPromise} summaryInfo={summaryInfoPromise} />
+    </Suspense>
+  );
 };
 
 export default HeroSection;

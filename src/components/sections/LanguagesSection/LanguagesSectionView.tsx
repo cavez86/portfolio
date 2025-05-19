@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import { motion } from 'framer-motion';
 import { Globe } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -9,7 +10,8 @@ import { Language } from '@/payload-types';
 
 import Section from '../../Section';
 
-const LanguagesSection = ({ languages }: { languages: Language[] }) => {
+const LanguagesSection = ({ languages }: { languages: Promise<Language[]> }) => {
+  const languagesData = use(languages);
   const t = useTranslations('Languages');
 
   return (
@@ -26,7 +28,7 @@ const LanguagesSection = ({ languages }: { languages: Language[] }) => {
       </motion.div>
 
       <div className="grid gap-6">
-        {languages.map((lang, index) => (
+        {languagesData.map((lang, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0.1, y: 20 }}

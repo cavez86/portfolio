@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
@@ -8,7 +9,9 @@ import { Skill, SoftSkill } from '@/payload-types';
 import SkillsCard from '../../cards/SkillsCard';
 import Section from '../../Section';
 
-const SkillsSection = ({ skills, softSkills }: { skills: Skill[]; softSkills: SoftSkill[] }) => {
+const SkillsSection = ({ skills, softSkills }: { skills: Promise<Skill[]>; softSkills: Promise<SoftSkill[]> }) => {
+  const skillsData = use(skills);
+  const softSkillsData = use(softSkills);
   const t = useTranslations('Skills');
 
   return (
@@ -37,7 +40,7 @@ const SkillsSection = ({ skills, softSkills }: { skills: Skill[]; softSkills: So
       <div className="flex flex-col gap-4 md:gap-8">
         <h3 className="text-center text-2xl font-bold text-slate-800 dark:text-slate-200">{t('technical')}</h3>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {skills.map((category, index) => (
+          {skillsData.map((category, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0.1, y: 20 }}
@@ -54,7 +57,7 @@ const SkillsSection = ({ skills, softSkills }: { skills: Skill[]; softSkills: So
       <div className="flex flex-col gap-4 md:gap-8">
         <h3 className="text-center text-2xl font-bold text-slate-800 dark:text-slate-200">{t('soft')}</h3>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {softSkills.map((category, index) => (
+          {softSkillsData.map((category, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0.1, y: 20 }}

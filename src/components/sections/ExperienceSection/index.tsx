@@ -1,11 +1,16 @@
 import { getLocalizedCollection } from '@/components/utils/db';
 
 import ExperienceSectionView from './ExperienceSectionView';
+import { Suspense } from 'react';
 
 const ExperienceSection = async () => {
-  const experience = await getLocalizedCollection('experience', ['-period.dateFrom']);
+  const experiencePromise = getLocalizedCollection('experience', ['-period.dateFrom']);
 
-  return <ExperienceSectionView experience={experience.docs} />;
+  return (
+    <Suspense>
+      <ExperienceSectionView data={experiencePromise} />
+    </Suspense>
+  );
 };
 
 export default ExperienceSection;

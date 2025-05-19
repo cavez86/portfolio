@@ -13,5 +13,5 @@ export const getLocalizedGlobal = async <TSlug extends GlobalSlug>(slug: TSlug) 
 export const getLocalizedCollection = async <TSlug extends CollectionSlug>(collection: TSlug, sort: Sort = ['-ID']) => {
   const locale = (await getLocale()) as Locale;
   const payload = await getPayload({ config });
-  return await payload.find({ collection, sort, locale });
+  return payload.find({ collection, sort, locale }).then(({ docs }) => docs);
 };
