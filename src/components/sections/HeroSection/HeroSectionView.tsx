@@ -1,9 +1,9 @@
 'use client';
 
-import { use } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { use } from 'react';
 
 import Icon, { IconName } from '@/components/common/Icon';
 import { Button } from '@/components/ui/button';

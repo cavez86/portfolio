@@ -2,13 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import { use } from 'react';
 
 import { cn } from '@/lib/utils';
 import { Experience } from '@/payload-types';
 
 import ExperienceCard from '../../cards/ExperienceCard';
 import Section from '../../Section';
-import { use } from 'react';
 
 const ExperienceSection = ({ data }: { data: Promise<Experience[]> }) => {
   const experience = use(data);

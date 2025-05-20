@@ -1,8 +1,8 @@
 'use client';
 
-import { use } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import { use } from 'react';
 
 import Icon, { IconName } from '@/components/common/Icon';
 import { Card, CardContent } from '@/components/ui/card';
@@ -33,7 +33,7 @@ const ContactSectionView = ({ contacts }: { contacts: Promise<Contact[]> }) => {
         transition={{ duration: 0.5 }}
       >
         <Card>
-          <CardContent className="p-6">
+          <CardContent>
             <h3 className="mb-6 text-xl font-bold text-slate-900 dark:text-white">{t('description')}</h3>
 
             <div className="space-y-6">

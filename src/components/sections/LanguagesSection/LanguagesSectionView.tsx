@@ -1,9 +1,9 @@
 'use client';
 
-import { use } from 'react';
 import { motion } from 'framer-motion';
 import { Globe } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { use } from 'react';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Language } from '@/payload-types';
@@ -37,7 +37,7 @@ const LanguagesSection = ({ languages }: { languages: Promise<Language[]> }) => 
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <Card>
-              <CardContent className="p-6">
+              <CardContent>
                 <div className="flex items-center gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
                     <Globe className="h-6 w-6 text-blue-600 dark:text-blue-400" />

@@ -14,10 +14,15 @@ const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment
   const periodLabel = `${dayjs(exp.period.dateFrom).format('YYYY')} - ${exp.period.dateTo ? dayjs(exp.period.dateTo).format('YYYY') : t('present')}`;
 
   return (
-    <Card className={cn(flipAlignment ? 'md:ml-4' : 'md:mr-4')}>
-      <Dialog>
-        <DialogTrigger asChild>
-          <CardContent className="group/card cursor-pointer p-6 hover:bg-slate-100 dark:hover:bg-slate-800">
+    <Dialog>
+      <DialogTrigger asChild>
+        <Card
+          className={cn(
+            flipAlignment ? 'md:ml-4' : 'md:mr-4',
+            'group/card cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800'
+          )}
+        >
+          <CardContent>
             <div
               className={cn(
                 'relative flex flex-col items-start',
@@ -39,25 +44,25 @@ const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment
               <p className="mb-4 text-slate-600 dark:text-slate-400">{exp.position}</p>
             </div>
           </CardContent>
-        </DialogTrigger>
-        <DialogContent className="md:max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>{exp.company}</DialogTitle>
-            <DialogDescription>{periodLabel}</DialogDescription>
-          </DialogHeader>
-          {exp.description && (
-            <p className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300">{exp.description}</p>
-          )}
-          <ul className="list-disc space-y-2 pl-5 text-left text-slate-700 dark:text-slate-300">
-            {exp.achievements?.map((achievement, idx) => (
-              <li key={idx}>
-                <span className="font-semibold">{achievement.label}</span>: {achievement.description}
-              </li>
-            ))}
-          </ul>
-        </DialogContent>
-      </Dialog>
-    </Card>
+        </Card>
+      </DialogTrigger>
+      <DialogContent className="md:max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>{exp.company}</DialogTitle>
+          <DialogDescription>{periodLabel}</DialogDescription>
+        </DialogHeader>
+        {exp.description && (
+          <p className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300">{exp.description}</p>
+        )}
+        <ul className="list-disc space-y-2 pl-5 text-left text-slate-700 dark:text-slate-300">
+          {exp.achievements?.map((achievement, idx) => (
+            <li key={idx}>
+              <span className="font-semibold">{achievement.label}</span>: {achievement.description}
+            </li>
+          ))}
+        </ul>
+      </DialogContent>
+    </Dialog>
   );
 };
 

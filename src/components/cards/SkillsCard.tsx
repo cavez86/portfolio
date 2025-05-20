@@ -12,7 +12,7 @@ const SkillsCard = ({ category }: { category: Skill | SoftSkill }) => {
 
   return (
     <Card className="h-full transition-shadow hover:shadow-md">
-      <CardContent className="p-6">
+      <CardContent>
         <div className="mb-4 flex items-center gap-3">
           <Icon name={category.icon as IconName} className="h-6 w-6 text-blue-600 dark:text-blue-400" />
           <h4 className="text-lg font-semibold text-slate-900 dark:text-white">{t(category.name)}</h4>

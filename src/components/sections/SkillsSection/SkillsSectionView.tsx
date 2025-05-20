@@ -1,8 +1,8 @@
 'use client';
 
-import { use } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import { use } from 'react';
 
 import { Skill, SoftSkill } from '@/payload-types';
 
