@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { Maximize2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Markdown from 'react-markdown';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -51,16 +52,18 @@ const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment
           <DialogTitle>{exp.company}</DialogTitle>
           <DialogDescription>{periodLabel}</DialogDescription>
         </DialogHeader>
-        {exp.description && (
-          <p className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300">{exp.description}</p>
-        )}
-        <ul className="list-disc space-y-2 pl-5 text-left text-slate-700 dark:text-slate-300">
+        <ul className="list-disc space-y-2 pl-5 text-left text-slate-700 dark:text-slate-300 [&_a]:underline">
           {exp.achievements?.map((achievement, idx) => (
             <li key={idx}>
-              <span className="font-semibold">{achievement.label}</span>: {achievement.description}
+              <span className="font-semibold">{achievement.label}</span>: <Markdown>{achievement.description}</Markdown>
             </li>
           ))}
         </ul>
+        {exp.description && (
+          <div className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300 [&_a]:underline">
+            <Markdown>{exp.description}</Markdown>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );
