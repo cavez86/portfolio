@@ -56,10 +56,5 @@ export const Experience: CollectionConfig = {
         },
       ],
     },
-    {
-      name: 'description',
-      type: 'textarea',
-      localized: true,
-    },
   ],
 };

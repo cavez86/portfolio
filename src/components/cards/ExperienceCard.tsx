@@ -59,11 +59,6 @@ const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment
             </li>
           ))}
         </ul>
-        {exp.description && (
-          <div className="list-disc space-y-2 text-slate-700 md:list-none dark:text-slate-300 [&_a]:underline">
-            <Markdown>{exp.description}</Markdown>
-          </div>
-        )}
       </DialogContent>
     </Dialog>
   );

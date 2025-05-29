@@ -229,7 +229,6 @@ export interface Experience {
         id?: string | null;
       }[]
     | null;
-  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -469,7 +468,6 @@ export interface ExperienceSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
-  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }
