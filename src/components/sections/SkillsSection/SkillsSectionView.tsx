@@ -39,7 +39,7 @@ const SkillsSection = ({ skills, softSkills }: { skills: Promise<Skill[]>; softS
 
       <div className="flex flex-col gap-4 md:gap-8">
         <h3 className="text-center text-2xl font-bold text-slate-800 dark:text-slate-200">{t('technical')}</h3>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="flex flex-wrap gap-6">
           {skillsData.map((category, index) => (
             <motion.div
               key={index}
@@ -47,6 +47,7 @@ const SkillsSection = ({ skills, softSkills }: { skills: Promise<Skill[]>; softS
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="min-w-[300px] flex-1"
             >
               <SkillsCard category={category} />
             </motion.div>
@@ -56,7 +57,7 @@ const SkillsSection = ({ skills, softSkills }: { skills: Promise<Skill[]>; softS
 
       <div className="flex flex-col gap-4 md:gap-8">
         <h3 className="text-center text-2xl font-bold text-slate-800 dark:text-slate-200">{t('soft')}</h3>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="flex flex-wrap gap-6">
           {softSkillsData.map((category, index) => (
             <motion.div
               key={index}
@@ -64,6 +65,7 @@ const SkillsSection = ({ skills, softSkills }: { skills: Promise<Skill[]>; softS
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="min-w-[300px] flex-1"
             >
               <SkillsCard category={category} />
             </motion.div>
