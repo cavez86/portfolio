@@ -26,5 +26,10 @@ export const PersonalInfo: GlobalConfig = {
       type: 'text',
       localized: true,
     },
+    {
+      name: 'notes',
+      type: 'text',
+      localized: true,
+    },
   ],
 };
