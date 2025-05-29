@@ -47,6 +47,7 @@ export const Experience: CollectionConfig = {
           name: 'label',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'description',
