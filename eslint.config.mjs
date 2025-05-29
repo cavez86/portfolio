@@ -27,6 +27,15 @@ const eslintConfig = [
       'prefer-template': 'warn',
       'simple-import-sort/imports': 'warn',
       'simple-import-sort/exports': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+        },
+      ],
     },
   },
 ];
