@@ -1,14 +1,16 @@
-import { getLocalizedCollection } from '@/components/utils/db';
+import { Suspense } from 'react';
+
+import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
 
 import ContactSectionView from './ContactSectionView';
-import { Suspense } from 'react';
 
 const ContactSection = () => {
   const contactsPromise = getLocalizedCollection('contacts');
+  const personalInfoPromise = getLocalizedGlobal('personal-info');
 
   return (
     <Suspense>
-      <ContactSectionView contacts={contactsPromise} />
+      <ContactSectionView contacts={contactsPromise} personalInfo={personalInfoPromise} />
     </Suspense>
   );
 };

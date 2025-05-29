@@ -566,6 +566,7 @@ export interface PersonalInfo {
   name: string;
   title: string;
   description?: string | null;
+  availability?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -577,6 +578,7 @@ export interface PersonalInfoSelect<T extends boolean = true> {
   name?: T;
   title?: T;
   description?: T;
+  availability?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

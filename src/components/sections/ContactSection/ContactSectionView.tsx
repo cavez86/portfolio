@@ -6,12 +6,19 @@ import { use } from 'react';
 
 import Icon, { IconName } from '@/components/common/Icon';
 import { Card, CardContent } from '@/components/ui/card';
-import { Contact } from '@/payload-types';
+import { Contact, PersonalInfo } from '@/payload-types';
 
 import Section from '../../Section';
 
-const ContactSectionView = ({ contacts }: { contacts: Promise<Contact[]> }) => {
+const ContactSectionView = ({
+  contacts,
+  personalInfo,
+}: {
+  contacts: Promise<Contact[]>;
+  personalInfo: Promise<PersonalInfo>;
+}) => {
   const contactsData = use(contacts);
+  const personalInfoData = use(personalInfo);
   const t = useTranslations('Contact');
 
   return (
@@ -56,10 +63,12 @@ const ContactSectionView = ({ contacts }: { contacts: Promise<Contact[]> }) => {
               ))}
             </div>
 
-            <div className="mt-8">
-              <h4 className="mb-3 font-medium text-slate-900 dark:text-white">{t('availability')}</h4>
-              <p className="text-slate-600 dark:text-slate-400">{t('availability_text')}</p>
-            </div>
+            {personalInfoData.availability && (
+              <div className="mt-8">
+                <h4 className="mb-3 font-medium text-slate-900 dark:text-white">{t('availability')}</h4>
+                <p className="text-slate-600 dark:text-slate-400">{personalInfoData.availability}</p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </motion.div>

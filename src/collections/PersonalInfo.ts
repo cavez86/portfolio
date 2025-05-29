@@ -21,5 +21,10 @@ export const PersonalInfo: GlobalConfig = {
       type: 'textarea',
       localized: true,
     },
+    {
+      name: 'availability',
+      type: 'text',
+      localized: true,
+    },
   ],
 };
