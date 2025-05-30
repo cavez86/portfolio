@@ -35,5 +35,28 @@
     "description": "Recapiti e informazioni di contatto",
     "availability": "Disponibilità",
     "availability_text": "Disponibile per opportunità lavorative da remoto o ibride."
+  },
+  "Error": {
+    "403": {
+      "title": "Accesso Negato",
+      "subtitle": "Non hai i permessi per accedere a questa risorsa",
+      "description": "Potresti dover effettuare il login o contattare un amministratore per l'accesso."
+    },
+    "404": {
+      "title": "Pagina Non Trovata",
+      "subtitle": "La pagina che stai cercando non esiste",
+      "description": "Potrebbe essere stata spostata, cancellata o hai inserito un URL sbagliato."
+    },
+    "500": {
+      "title": "Errore Interno del Server",
+      "subtitle": "Qualcosa è andato storto dal nostro lato",
+      "description": "Stiamo riscontrando difficoltà tecniche. Riprova più tardi."
+    },
+    "back_home": "Torna alla Home",
+    "try_again": "Riprova",
+    "go_back": "Torna Indietro"
+  },
+  "Loading": {
+    "loading": "Caricamento..."
   }
 }

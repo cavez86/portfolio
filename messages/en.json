@@ -35,5 +35,28 @@
     "description": "Contact Information",
     "availability": "Availability",
     "availability_text": "Open to remote and hybrid opportunities."
+  },
+  "Error": {
+    "403": {
+      "title": "Access Forbidden",
+      "subtitle": "You don't have permission to access this resource",
+      "description": "You may need to log in or contact an administrator for access."
+    },
+    "404": {
+      "title": "Page Not Found",
+      "subtitle": "The page you're looking for doesn't exist",
+      "description": "It might have been moved, deleted, or you entered the wrong URL."
+    },
+    "500": {
+      "title": "Internal Server Error",
+      "subtitle": "Something went wrong on our end",
+      "description": "We're experiencing technical difficulties. Please try again later."
+    },
+    "back_home": "Back to Home",
+    "try_again": "Try Again",
+    "go_back": "Go Back"
+  },
+  "Loading": {
+    "loading": "Loading..."
   }
 }
