@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint . --fix",
     "format": "prettier . --ignore-unknown --write --log-level warn",
-    "payload-types": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
+    "payload": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
     "type-check": "tsc --noEmit",
     "test": "vitest run --passWithNoTests",
     "prepare": "husky"
