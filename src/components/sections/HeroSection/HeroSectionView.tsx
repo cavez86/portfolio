@@ -1,5 +1,7 @@
 'use client';
 
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
+import { RichText } from '@payloadcms/richtext-lexical/react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -43,13 +45,13 @@ const HeroSection = ({
           </motion.h2>
 
           <motion.p
-            className="mx-auto max-w-3xl text-lg text-pretty text-slate-600 dark:text-slate-400"
+            className="mx-auto text-lg text-pretty text-slate-600 dark:text-slate-400"
             initial={{ opacity: 0.1, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            {personalInfoData.description}
+            <RichText data={personalInfoData.description as SerializedEditorState} />
           </motion.p>
 
           <motion.div

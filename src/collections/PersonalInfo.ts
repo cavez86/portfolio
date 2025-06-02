@@ -18,16 +18,11 @@ export const PersonalInfo: GlobalConfig = {
     },
     {
       name: 'description',
-      type: 'textarea',
+      type: 'richText',
       localized: true,
     },
     {
       name: 'availability',
-      type: 'text',
-      localized: true,
-    },
-    {
-      name: 'notes',
       type: 'text',
       localized: true,
     },
