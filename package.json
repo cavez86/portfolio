@@ -48,7 +48,7 @@
     "@next/eslint-plugin-next": "^15.3.3",
     "@tailwindcss/postcss": "^4.1.10",
     "@types/node": "^24.0.3",
-    "@types/react": "19.1.7",
+    "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
     "class-variance-authority": "^0.7.1",
