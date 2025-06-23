@@ -30,7 +30,7 @@
     "accept-language": "^3.0.20",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
-    "framer-motion": "^12.18.1",
+    "framer-motion": "^12.19.1",
     "graphql": "^16.11.0",
     "lucide-react": "^0.515.0",
     "motion": "^12.18.1",
