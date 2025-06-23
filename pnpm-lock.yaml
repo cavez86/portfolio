@@ -24,8 +24,8 @@ importers:
         specifier: ^3.42.0
         version: 3.42.0(@faceless-ui/modal@3.0.0-beta.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@faceless-ui/scroll-info@2.0.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@payloadcms/next@3.42.0(@types/react@19.1.8)(graphql@16.11.0)(monaco-editor@0.52.2)(next@15.3.3(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.42.0(bufferutil@4.0.9)(graphql@16.11.0)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3))(@types/react@19.1.8)(monaco-editor@0.52.2)(next@15.3.3(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.42.0(bufferutil@4.0.9)(graphql@16.11.0)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)(yjs@13.6.26)
       '@payloadcms/translations':
-        specifier: ^3.42.0
-        version: 3.42.0
+        specifier: ^3.43.0
+        version: 3.43.0
       '@radix-ui/react-accordion':
         specifier: ^1.2.8
         version: 1.2.11(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1537,6 +1537,9 @@ packages:
 
   '@payloadcms/translations@3.42.0':
     resolution: {integrity: sha512-L0ulc8Qhml+5ctpAHh25amRw5Nm1vyMgi6V6oVHd2hE6pDKZqDCMy9MaZfQOsP6fyDM8qxzxZcvtGMx/lfVNSQ==}
+
+  '@payloadcms/translations@3.43.0':
+    resolution: {integrity: sha512-0SEw/JdQKSIFQbQ9v3CVyS2dMkOWUEjdCH8785jXrgOIJFph9RLzK5WRS3UUOZ0Sxc/pnUCI51FweYy1WbWcVg==}
 
   '@payloadcms/ui@3.42.0':
     resolution: {integrity: sha512-d/lOCTBBi3idljS4LS2yGyGKNV8z21utQAEhN3UYZwtasYcDXS9Qi+pxePm8P8OhOvK0pXdZz1BX6FyCCeKlDQ==}
@@ -3871,8 +3874,8 @@ packages:
   lexical@0.28.0:
     resolution: {integrity: sha512-dLE3O1PZg0TlZxRQo9YDpjCjDUj8zluGyBO9MHdjo21qZmMUNrxQPeCRt8fn2s5l4HKYFQ1YNgl7k1pOJB/vZQ==}
 
-  lib0@0.2.108:
-    resolution: {integrity: sha512-+3eK/B0SqYoZiQu9fNk4VEc6EX8cb0Li96tPGKgugzoGj/OdRdREtuTLvUW+mtinoB2mFiJjSqOJBIaMkAGhxQ==}
+  lib0@0.2.109:
+    resolution: {integrity: sha512-jP0gbnyW0kwlx1Atc4dcHkBbrVAkdHjuyHxtClUPYla7qCmwIif1qZ6vQeJdR5FrOVdn26HvQT0ko01rgW7/Xw==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -7092,6 +7095,10 @@ snapshots:
     dependencies:
       date-fns: 4.1.0
 
+  '@payloadcms/translations@3.43.0':
+    dependencies:
+      date-fns: 4.1.0
+
   '@payloadcms/ui@3.42.0(@types/react@19.1.8)(monaco-editor@0.52.2)(next@15.3.3(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.42.0(bufferutil@4.0.9)(graphql@16.11.0)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)':
     dependencies:
       '@date-fns/tz': 1.2.0
@@ -9612,7 +9619,7 @@ snapshots:
 
   lexical@0.28.0: {}
 
-  lib0@0.2.108:
+  lib0@0.2.109:
     dependencies:
       isomorphic.js: 0.2.5
 
@@ -11377,7 +11384,7 @@ snapshots:
 
   yjs@13.6.26:
     dependencies:
-      lib0: 0.2.108
+      lib0: 0.2.109
 
   yocto-queue@0.1.0: {}
 
