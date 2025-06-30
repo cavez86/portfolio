@@ -63,8 +63,8 @@ importers:
         specifier: ^0.522.0
         version: 0.522.0(react@19.1.0)
       motion:
-        specifier: ^12.19.1
-        version: 12.19.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^12.20.1
+        version: 12.20.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next:
         specifier: 15.3.4
         version: 15.3.4(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4)
@@ -3462,6 +3462,20 @@ packages:
       react-dom:
         optional: true
 
+  framer-motion@12.20.1:
+    resolution: {integrity: sha512-NW2t2GHQcNvLHq18JyNVY15VKrwru+nkNyhLdqf4MbxbGhxZcSDi68iNcAy6O1nG0yYAQJbLioBIH1Kmg8Xr1g==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -4148,11 +4162,14 @@ packages:
   motion-dom@12.19.0:
     resolution: {integrity: sha512-m96uqq8VbwxFLU0mtmlsIVe8NGGSdpBvBSHbnnOJQxniPaabvVdGgxSamhuDwBsRhwX7xPxdICgVJlOpzn/5bw==}
 
+  motion-dom@12.20.1:
+    resolution: {integrity: sha512-XyveLJ9dmQTmaEsP9RlcuoNFxWlRIGdasdPJBB4aOwPr8bRcJdhltudAbiEjRQBmsGD30sjJdaEjhkHsAHapLQ==}
+
   motion-utils@12.19.0:
     resolution: {integrity: sha512-BuFTHINYmV07pdWs6lj6aI63vr2N4dg0vR+td0rtrdpWOhBzIkEklZyLcvKBoEtwSqx8Jg06vUB5RS0xDiUybw==}
 
-  motion@12.19.1:
-    resolution: {integrity: sha512-OhoHWrht+zwDPccr2wGltJdwgz2elFBBt/sLei2g0hwICvy2hOBFUkA4Ylup3VnDgz+vUtecf694EV7bJK4XjA==}
+  motion@12.20.1:
+    resolution: {integrity: sha512-UPUsh8jVxmcTPWqcdU5ZcNhO8EU4sfG+UcvKAUXFIwUE1oZJFxtyDui9tD7zlVau1eIBXqZ4Qe0hK2r8pOjDcQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -9214,6 +9231,15 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
+  framer-motion@12.20.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      motion-dom: 12.20.1
+      motion-utils: 12.19.0
+      tslib: 2.8.1
+    optionalDependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
   fsevents@2.3.3:
     optional: true
 
@@ -10042,11 +10068,15 @@ snapshots:
     dependencies:
       motion-utils: 12.19.0
 
+  motion-dom@12.20.1:
+    dependencies:
+      motion-utils: 12.19.0
+
   motion-utils@12.19.0: {}
 
-  motion@12.19.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  motion@12.20.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      framer-motion: 12.19.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      framer-motion: 12.20.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tslib: 2.8.1
     optionalDependencies:
       react: 19.1.0
