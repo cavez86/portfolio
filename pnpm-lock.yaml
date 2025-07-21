@@ -24,8 +24,8 @@ importers:
         specifier: ^3.42.0
         version: 3.42.0(@faceless-ui/modal@3.0.0-beta.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@faceless-ui/scroll-info@2.0.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@payloadcms/next@3.42.0(@types/react@19.1.8)(graphql@16.11.0)(monaco-editor@0.52.2)(next@15.3.5(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.42.0(bufferutil@4.0.9)(graphql@16.11.0)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3))(@types/react@19.1.8)(monaco-editor@0.52.2)(next@15.3.5(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.42.0(bufferutil@4.0.9)(graphql@16.11.0)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)(yjs@13.6.26)
       '@payloadcms/translations':
-        specifier: ^3.47.0
-        version: 3.47.0
+        specifier: ^3.48.0
+        version: 3.48.0
       '@radix-ui/react-accordion':
         specifier: ^1.2.8
         version: 1.2.11(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1541,8 +1541,8 @@ packages:
   '@payloadcms/translations@3.42.0':
     resolution: {integrity: sha512-L0ulc8Qhml+5ctpAHh25amRw5Nm1vyMgi6V6oVHd2hE6pDKZqDCMy9MaZfQOsP6fyDM8qxzxZcvtGMx/lfVNSQ==}
 
-  '@payloadcms/translations@3.47.0':
-    resolution: {integrity: sha512-sGiBDH+LKaXvRbc2bR1rh0n8DfGNCSpFGJjxpT+dxw7jRnRLWdF9xqoOoo7AP5jjA9mgPlcGbqqCLfXHKGdKEg==}
+  '@payloadcms/translations@3.48.0':
+    resolution: {integrity: sha512-YFEEyrCWK96q8uZ0OK9SU80ywSqc0S3dh+vAfI4mPzs2OPG//CHgbtz1d5X1r3e7A7CY/MzzGMVgf++fmRz2gQ==}
 
   '@payloadcms/ui@3.42.0':
     resolution: {integrity: sha512-d/lOCTBBi3idljS4LS2yGyGKNV8z21utQAEhN3UYZwtasYcDXS9Qi+pxePm8P8OhOvK0pXdZz1BX6FyCCeKlDQ==}
@@ -3884,8 +3884,8 @@ packages:
   lexical@0.28.0:
     resolution: {integrity: sha512-dLE3O1PZg0TlZxRQo9YDpjCjDUj8zluGyBO9MHdjo21qZmMUNrxQPeCRt8fn2s5l4HKYFQ1YNgl7k1pOJB/vZQ==}
 
-  lib0@0.2.111:
-    resolution: {integrity: sha512-NZPvycjIPaSY1DV9uz88RJYFwrul6kLMtZGIw1T1zE6i1E9q17XElZJPfWVn2iVDQTLLqhJijghuVxKS/z8EHQ==}
+  lib0@0.2.114:
+    resolution: {integrity: sha512-gcxmNFzA4hv8UYi8j43uPlQ7CGcyMJ2KQb5kZASw6SnAKAf10hK12i2fjrS3Cl/ugZa5Ui6WwIu1/6MIXiHttQ==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -7110,7 +7110,7 @@ snapshots:
     dependencies:
       date-fns: 4.1.0
 
-  '@payloadcms/translations@3.47.0':
+  '@payloadcms/translations@3.48.0':
     dependencies:
       date-fns: 4.1.0
 
@@ -9638,7 +9638,7 @@ snapshots:
 
   lexical@0.28.0: {}
 
-  lib0@0.2.111:
+  lib0@0.2.114:
     dependencies:
       isomorphic.js: 0.2.5
 
@@ -11404,7 +11404,7 @@ snapshots:
 
   yjs@13.6.26:
     dependencies:
-      lib0: 0.2.111
+      lib0: 0.2.114
 
   yocto-queue@0.1.0: {}
 
