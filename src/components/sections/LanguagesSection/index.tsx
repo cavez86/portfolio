@@ -1,7 +1,8 @@
+import { Suspense } from 'react';
+
 import { getLocalizedCollection } from '@/components/utils/db';
 
 import LanguagesSectionView from './LanguagesSectionView';
-import { Suspense } from 'react';
 
 const LanguagesSection = () => {
   const languagesPromise = getLocalizedCollection('languages');

@@ -1,7 +1,8 @@
+import { Suspense } from 'react';
+
 import { getLocalizedCollection } from '@/components/utils/db';
 
 import SkillsSectionView from './SkillsSectionView';
-import { Suspense } from 'react';
 
 const SkillsSection = () => {
   const skillsPromise = getLocalizedCollection('skills');

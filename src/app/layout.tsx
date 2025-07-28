@@ -5,7 +5,6 @@ import { hasLocale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { ReactNode } from 'react';
 
-import MainProvider from '@/components/providers';
 import { routing } from '@/i18n/routing';
 
 const geist = Geist({
@@ -29,10 +28,8 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body className={`${geist.variable} font-sans antialiased`}>
-        <MainProvider>{children}</MainProvider>
-      </body>
+    <html suppressHydrationWarning>
+      <body className={`${geist.variable} font-sans antialiased`}>{children}</body>
     </html>
   );
 }

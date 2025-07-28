@@ -1,5 +1,7 @@
-import ErrorPage from '@/components/ErrorPage';
+'use client';
 
-export default async function NotFound() {
-  return <ErrorPage errorCode={404} />;
+import Error from 'next/error';
+
+export default function NotFound() {
+  return <Error statusCode={404} />;
 }

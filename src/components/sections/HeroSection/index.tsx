@@ -1,7 +1,8 @@
+import { Suspense } from 'react';
+
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
 
 import HeroSectionView from './HeroSectionView';
-import { Suspense } from 'react';
 
 const HeroSection = () => {
   const personalInfoPromise = getLocalizedGlobal('personal-info');

@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocale, useTranslations } from 'next-intl';
+import { Locale, useLocale, useTranslations } from 'next-intl';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { usePathname, useRouter } from '@/i18n/navigation';
@@ -12,12 +12,12 @@ export const LanguageSelector = () => {
   const pathname = usePathname();
   const locale = useLocale();
 
-  const handleChange = (newLocale: string) => {
+  const handleChange = (newLocale: Locale) => {
     router.replace(pathname, { locale: newLocale });
   };
 
   return (
-    <Select onValueChange={handleChange} defaultValue={locale}>
+    <Select onValueChange={handleChange} value={locale}>
       <SelectTrigger className="w-fit">
         <SelectValue placeholder="Language" />
       </SelectTrigger>
