@@ -21,7 +21,7 @@
     "@payloadcms/payload-cloud": "^3.49.0",
     "@payloadcms/richtext-lexical": "^3.49.0",
     "@payloadcms/translations": "^3.49.1",
-    "@radix-ui/react-accordion": "^1.2.8",
+    "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-dialog": "^1.1.13",
     "@radix-ui/react-select": "^2.2.2",
     "@radix-ui/react-slot": "^1.2.0",
