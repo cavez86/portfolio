@@ -44,7 +44,7 @@ const HeroSection = ({
             {personalInfoData.title}
           </motion.h2>
 
-          <motion.p
+          <motion.div
             className="mx-auto text-lg text-pretty text-slate-600 dark:text-slate-400"
             initial={{ opacity: 0.1, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -52,7 +52,7 @@ const HeroSection = ({
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <RichText data={personalInfoData.description as SerializedEditorState} />
-          </motion.p>
+          </motion.div>
 
           <motion.div
             className="flex flex-wrap justify-center gap-4"
