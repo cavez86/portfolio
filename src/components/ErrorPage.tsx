@@ -2,8 +2,8 @@
 
 import { Home, RefreshCw } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 

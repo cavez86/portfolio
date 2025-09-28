@@ -1,8 +1,7 @@
 // @ts-check
 import { FlatCompat } from '@eslint/eslintrc';
-import { defineConfig } from 'eslint/config';
 import prettier from 'eslint-plugin-prettier/recommended';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import { defineConfig } from 'eslint/config';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -19,13 +18,8 @@ const eslintConfig = defineConfig(
   },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
-    plugins: {
-      'simple-import-sort': simpleImportSort,
-    },
     rules: {
       'prefer-template': 'warn',
-      'simple-import-sort/imports': 'warn',
-      'simple-import-sort/exports': 'warn',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {

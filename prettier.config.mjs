@@ -11,7 +11,7 @@ const config = {
   singleQuote: true,
   trailingComma: 'es5',
   endOfLine: 'auto',
-  plugins: ['prettier-plugin-tailwindcss'],
+  plugins: ['prettier-plugin-tailwindcss', 'prettier-plugin-organize-imports'],
 };
 
 export default config;

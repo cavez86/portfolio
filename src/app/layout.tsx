@@ -1,8 +1,8 @@
 import './globals.css';
 
-import { Geist } from 'next/font/google';
 import { hasLocale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
+import { Geist } from 'next/font/google';
 import { ReactNode } from 'react';
 
 import { routing } from '@/i18n/routing';

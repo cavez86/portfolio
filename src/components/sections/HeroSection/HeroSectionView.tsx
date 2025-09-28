@@ -3,8 +3,8 @@
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
 import { RichText } from '@payloadcms/richtext-lexical/react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { use } from 'react';
 
 import Icon, { IconName } from '@/components/common/Icon';
