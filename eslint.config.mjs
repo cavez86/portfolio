@@ -1,7 +1,7 @@
 // @ts-check
-
 import { FlatCompat } from '@eslint/eslintrc';
-import prettier from 'eslint-config-prettier';
+import { defineConfig } from 'eslint/config';
+import prettier from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -13,12 +13,11 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-const eslintConfig = [
+const eslintConfig = defineConfig(
   {
     ignores: ['node_modules', 'build', 'coverage', '.next', 'next-env.d.ts'],
   },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
-  prettier,
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
@@ -38,6 +37,7 @@ const eslintConfig = [
       ],
     },
   },
-];
+  prettier
+);
 
 export default eslintConfig;
