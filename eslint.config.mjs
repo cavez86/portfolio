@@ -1,22 +1,14 @@
-// @ts-check
-import { FlatCompat } from '@eslint/eslintrc';
+// @ts-ckeck
+
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
 import prettier from 'eslint-plugin-prettier/recommended';
-import { defineConfig } from 'eslint/config';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = defineConfig(
-  {
-    ignores: ['node_modules', 'build', 'coverage', '.next', 'next-env.d.ts'],
-  },
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+const eslintConfig = defineConfig([
+  globalIgnores(['node_modules', 'build', 'coverage', '.next', 'next-env.d.ts']),
+  ...nextVitals,
+  ...nextTs,
   {
     rules: {
       'prefer-template': 'warn',
@@ -31,7 +23,7 @@ const eslintConfig = defineConfig(
       ],
     },
   },
-  prettier
-);
+  prettier,
+]);
 
 export default eslintConfig;
