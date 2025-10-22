@@ -1,4 +1,4 @@
-// @ts-ckeck
+// @ts-check
 
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
