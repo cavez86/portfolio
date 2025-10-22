@@ -6,9 +6,9 @@ import prettier from 'eslint-plugin-prettier/recommended';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 const eslintConfig = defineConfig([
-  globalIgnores(['node_modules', 'build', 'coverage', '.next', 'next-env.d.ts']),
   ...nextVitals,
   ...nextTs,
+  globalIgnores(['.next/**', 'out/**', 'build/**', 'coverage/**', 'node_modules/**', 'next-env.d.ts']),
   {
     rules: {
       'prefer-template': 'warn',
