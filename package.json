@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "next dev",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint . --fix",
     "format": "prettier . --ignore-unknown --write --log-level warn",
@@ -34,8 +34,8 @@
     "graphql": "^16.11.0",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
-    "next": "15.5.6",
-    "next-intl": "^4.3.12",
+    "next": "16.0.0",
+    "next-intl": "^4.4.0",
     "next-themes": "^0.4.6",
     "payload": "^3.60.0",
     "react": "19.2.0",
@@ -44,8 +44,7 @@
     "sharp": "^0.34.4"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@next/eslint-plugin-next": "15.5.6",
+    "@next/eslint-plugin-next": "16.0.0",
     "@tailwindcss/postcss": "^4.1.15",
     "@types/node": "^24.9.0",
     "@types/react": "19.2.2",
@@ -53,7 +52,7 @@
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "class-variance-authority": "^0.7.1",
     "eslint": "^9.38.0",
-    "eslint-config-next": "15.5.6",
+    "eslint-config-next": "16.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-hooks": "7.0.0",
@@ -75,5 +74,11 @@
   "volta": {
     "node": "22.20.0"
   },
-  "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d"
+  "packageManager": "pnpm@10.19.0+sha512.c9fc7236e92adf5c8af42fd5bf1612df99c2ceb62f27047032f4720b33f8eacdde311865e91c411f2774f618d82f320808ecb51718bfa82c060c4ba7c76a32b8",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.2.2",
+      "@types/react-dom": "19.2.2"
+    }
+  }
 }
