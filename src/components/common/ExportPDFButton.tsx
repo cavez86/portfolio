@@ -2,37 +2,38 @@
 
 import { Download } from 'lucide-react';
 import { useLocale } from 'next-intl';
-import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { trpc } from '@/lib/trpc/client';
 
 export const ExportPDFButton = () => {
   const locale = useLocale();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { isLoading, refetch } = trpc.pdf.exportPDF.useQuery(
+    { locale },
+    {
+      enabled: false, // Don't run on mount
+      retry: false,
+    }
+  );
 
   const handleExport = async () => {
     try {
-      setIsLoading(true);
-      const response = await fetch(`/api/export-pdf?locale=${locale}`);
+      const result = await refetch();
 
-      if (!response.ok) {
+      if (!result.data) {
         throw new Error('Failed to generate PDF');
       }
 
-      // Get the filename from the Content-Disposition header or use a default
-      const contentDisposition = response.headers.get('Content-Disposition');
-      let filename = 'portfolio.pdf';
-
-      if (contentDisposition) {
-        // More robust filename extraction using regex
-        const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
-        if (filenameMatch && filenameMatch[1]) {
-          filename = filenameMatch[1].replace(/['"]/g, '');
-        }
+      // Convert base64 to blob
+      const pdfData = result.data.pdfData;
+      const byteCharacters = atob(pdfData);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
       }
-
-      // Create a blob from the response
-      const blob = await response.blob();
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
 
       // Create a temporary URL for the blob
       const url = window.URL.createObjectURL(blob);
@@ -40,7 +41,7 @@ export const ExportPDFButton = () => {
       // Create a temporary link element and trigger the download
       const link = document.createElement('a');
       link.href = url;
-      link.download = filename;
+      link.download = result.data.filename;
       document.body.appendChild(link);
       link.click();
 
@@ -52,8 +53,6 @@ export const ExportPDFButton = () => {
       // TODO: Replace with proper toast notification system
       // Using alert as a temporary solution until UI notification system is implemented
       alert('Failed to export PDF. Please try again.');
-    } finally {
-      setIsLoading(false);
     }
   };
 
