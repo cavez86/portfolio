@@ -56,11 +56,21 @@ export async function GET(request: NextRequest) {
     // Render PDF to buffer
     const pdfBuffer = await renderToBuffer(pdfDocument);
 
+    // Sanitize filename: remove/replace unsafe characters
+    const sanitizeFilename = (name: string): string => {
+      return name
+        .replace(/[^a-zA-Z0-9\s-_]/g, '') // Remove special characters
+        .replace(/\s+/g, '_') // Replace spaces with underscores
+        .substring(0, 50); // Limit length
+    };
+
+    const safeFilename = sanitizeFilename(personalInfo.name) || 'portfolio';
+
     // Return PDF with appropriate headers
     return new Response(Buffer.from(pdfBuffer), {
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="${personalInfo.name.replace(/\s+/g, '_')}_CV.pdf"`,
+        'Content-Disposition': `attachment; filename="${safeFilename}_CV.pdf"`,
       },
     });
   } catch (error) {

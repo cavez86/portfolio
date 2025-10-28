@@ -21,9 +21,15 @@ export const ExportPDFButton = () => {
 
       // Get the filename from the Content-Disposition header or use a default
       const contentDisposition = response.headers.get('Content-Disposition');
-      const filename = contentDisposition
-        ? contentDisposition.split('filename=')[1].replace(/"/g, '')
-        : 'portfolio.pdf';
+      let filename = 'portfolio.pdf';
+
+      if (contentDisposition) {
+        // More robust filename extraction using regex
+        const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+        if (filenameMatch && filenameMatch[1]) {
+          filename = filenameMatch[1].replace(/['"]/g, '');
+        }
+      }
 
       // Create a blob from the response
       const blob = await response.blob();
@@ -43,6 +49,8 @@ export const ExportPDFButton = () => {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error exporting PDF:', error);
+      // TODO: Replace with proper toast notification system
+      // Using alert as a temporary solution until UI notification system is implemented
       alert('Failed to export PDF. Please try again.');
     } finally {
       setIsLoading(false);

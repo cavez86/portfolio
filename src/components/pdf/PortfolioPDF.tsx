@@ -3,17 +3,23 @@ import dayjs from 'dayjs';
 
 import type { Contact, Education, Experience, Language, PersonalInfo, Skill, SoftSkill } from '@/payload-types';
 
-// Register fonts (optional - using default Helvetica)
-Font.register({
-  family: 'Roboto',
-  fonts: [
-    { src: 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf' },
-    {
-      src: 'https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9vAx05IsDqlA.ttf',
-      fontWeight: 'bold',
-    },
-  ],
-});
+// Register fonts with fallback to default Helvetica
+// Using external fonts with try/catch to handle potential failures gracefully
+try {
+  Font.register({
+    family: 'Roboto',
+    fonts: [
+      { src: 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf' },
+      {
+        src: 'https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9vAx05IsDqlA.ttf',
+        fontWeight: 'bold',
+      },
+    ],
+  });
+} catch (error) {
+  console.warn('Failed to load Roboto font, falling back to default fonts:', error);
+  // Font will fallback to Helvetica (default) if registration fails
+}
 
 // Create styles
 const styles = StyleSheet.create({
@@ -179,41 +185,50 @@ interface PortfolioPDFProps {
   languages: Language[];
 }
 
-// Helper function to convert rich text to plain text
+// Helper function to convert rich text to plain text with robust error handling
 const convertRichTextToPlainText = (richText: unknown): string => {
-  if (
-    !richText ||
-    typeof richText !== 'object' ||
-    !('root' in richText) ||
-    !richText.root ||
-    typeof richText.root !== 'object' ||
-    !('children' in richText.root)
-  ) {
-    return '';
+  try {
+    if (
+      !richText ||
+      typeof richText !== 'object' ||
+      !('root' in richText) ||
+      !richText.root ||
+      typeof richText.root !== 'object' ||
+      !('children' in richText.root) ||
+      !Array.isArray(richText.root.children)
+    ) {
+      return '';
+    }
+
+    const extractText = (children: unknown[]): string => {
+      return children
+        .map((child) => {
+          // Type guard for text nodes
+          if (
+            child &&
+            typeof child === 'object' &&
+            'type' in child &&
+            child.type === 'text' &&
+            'text' in child &&
+            typeof child.text === 'string'
+          ) {
+            return child.text;
+          }
+          // Type guard for nodes with children
+          if (child && typeof child === 'object' && 'children' in child && Array.isArray(child.children)) {
+            return extractText(child.children);
+          }
+          return '';
+        })
+        .filter(Boolean) // Remove empty strings
+        .join(' ');
+    };
+
+    return extractText(richText.root.children);
+  } catch (error) {
+    console.error('Error converting rich text to plain text:', error);
+    return ''; // Return empty string on error instead of failing
   }
-
-  const extractText = (children: unknown[]): string => {
-    return children
-      .map((child) => {
-        if (
-          child &&
-          typeof child === 'object' &&
-          'type' in child &&
-          child.type === 'text' &&
-          'text' in child &&
-          typeof child.text === 'string'
-        ) {
-          return child.text;
-        }
-        if (child && typeof child === 'object' && 'children' in child && Array.isArray(child.children)) {
-          return extractText(child.children);
-        }
-        return '';
-      })
-      .join(' ');
-  };
-
-  return extractText(richText.root.children as unknown[]);
 };
 
 export const PortfolioPDF = ({
