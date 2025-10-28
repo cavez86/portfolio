@@ -2,6 +2,7 @@
 
 import { Download } from 'lucide-react';
 import { useLocale } from 'next-intl';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { trpc } from '@/lib/trpc/client';
@@ -48,11 +49,16 @@ export const ExportPDFButton = () => {
       // Clean up
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+
+      // Show success toast
+      toast.success('PDF exported successfully', {
+        description: `${result.data.filename} has been downloaded.`,
+      });
     } catch (error) {
       console.error('Error exporting PDF:', error);
-      // TODO: Replace with proper toast notification system
-      // Using alert as a temporary solution until UI notification system is implemented
-      alert('Failed to export PDF. Please try again.');
+      toast.error('Failed to export PDF', {
+        description: 'Please try again or contact support if the problem persists.',
+      });
     }
   };
 

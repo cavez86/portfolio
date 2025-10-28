@@ -1,6 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { ReactNode } from 'react';
 
+import { Toaster } from '@/components/ui/sonner';
 import { TRPCProvider } from '@/lib/trpc/client';
 
 import DayJsProvider from './DayJsProvider';
@@ -12,7 +13,10 @@ const MainProvider = ({ children }: { children: ReactNode }) => (
     <IntlErrorHandlingProvider>
       <DayJsProvider>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TRPCProvider>{children}</TRPCProvider>
+          <TRPCProvider>
+            {children}
+            <Toaster />
+          </TRPCProvider>
         </ThemeProvider>
       </DayJsProvider>
     </IntlErrorHandlingProvider>
