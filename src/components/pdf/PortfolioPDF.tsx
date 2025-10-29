@@ -14,6 +14,10 @@ try {
         src: 'https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9vAx05IsDqlA.ttf',
         fontWeight: 'bold',
       },
+      {
+        src: 'https://fonts.gstatic.com/s/roboto/v30/KFOkCnqEu92Fr1Mu51xIIzIXKMny.ttf',
+        fontStyle: 'italic',
+      },
     ],
   });
 } catch (error) {
