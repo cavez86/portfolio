@@ -3,17 +3,30 @@ import { StyleSheet } from '@react-pdf/renderer';
 // PDF styles using built-in Helvetica font for better compatibility
 export const pdfStyles = StyleSheet.create({
   page: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     backgroundColor: '#FFFFFF',
     padding: 40,
     fontFamily: 'Helvetica',
     fontSize: 10,
     lineHeight: 1.5,
   },
+  mainContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    gap: 20,
+  },
+  sidebar: {
+    width: '30%',
+    paddingRight: 15,
+    borderRight: '2 solid #E2E8F0',
+  },
+  mainContent: {
+    flex: 1,
+    paddingLeft: 15,
+  },
   header: {
     marginBottom: 20,
     paddingBottom: 15,
-    borderBottom: '2 solid #2563EB',
   },
   name: {
     fontSize: 28,
@@ -33,15 +46,14 @@ export const pdfStyles = StyleSheet.create({
     lineHeight: 1.6,
   },
   contactInfo: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
+    flexDirection: 'column',
+    gap: 5,
     marginTop: 5,
   },
   contactItem: {
     fontSize: 9,
     color: '#64748B',
-    marginRight: 15,
+    marginBottom: 3,
   },
   section: {
     marginTop: 15,
@@ -144,12 +156,5 @@ export const pdfStyles = StyleSheet.create({
   institution: {
     fontSize: 10,
     color: '#64748B',
-  },
-  twoColumnContainer: {
-    flexDirection: 'row',
-    gap: 15,
-  },
-  column: {
-    flex: 1,
   },
 });
