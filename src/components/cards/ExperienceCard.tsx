@@ -35,7 +35,7 @@ const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment
                   'absolute top-0 h-3 w-3 text-blue-800 opacity-50 transition dark:text-blue-300',
                   'group-hover/card:scale-150 group-hover/card:opacity-100',
                   'right-0',
-                  flipAlignment ? 'md:left-0 md:right-auto' : 'md:right-0'
+                  flipAlignment && 'md:left-0 md:right-auto'
                 )}
               />
               <Badge className="mb-2 inline-block w-auto bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50">
