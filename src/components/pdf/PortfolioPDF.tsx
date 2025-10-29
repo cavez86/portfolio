@@ -1,37 +1,15 @@
-import { Document, Font, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import dayjs from 'dayjs';
 
 import type { Contact, Education, Experience, Language, PersonalInfo, Skill, SoftSkill } from '@/payload-types';
 
-// Register fonts with fallback to default Helvetica
-// Using external fonts with try/catch to handle potential failures gracefully
-try {
-  Font.register({
-    family: 'Roboto',
-    fonts: [
-      { src: 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf' },
-      {
-        src: 'https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9vAx05IsDqlA.ttf',
-        fontWeight: 'bold',
-      },
-      {
-        src: 'https://fonts.gstatic.com/s/roboto/v30/KFOkCnqEu92Fr1Mu51xIIzIXKMny.ttf',
-        fontStyle: 'italic',
-      },
-    ],
-  });
-} catch (error) {
-  console.warn('Failed to load Roboto font, falling back to default fonts:', error);
-  // Font will fallback to Helvetica (default) if registration fails
-}
-
-// Create styles
+// Create styles using built-in Helvetica font for better compatibility
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
     padding: 40,
-    fontFamily: 'Roboto',
+    fontFamily: 'Helvetica',
     fontSize: 10,
     lineHeight: 1.5,
   },
