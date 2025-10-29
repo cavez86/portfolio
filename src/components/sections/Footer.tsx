@@ -1,3 +1,4 @@
+import { ExportPDFButton } from '../common/ExportPDFButton';
 import Icon, { IconName } from '../common/Icon';
 import { Button } from '../ui/button';
 import { getLocalizedCollection } from '../utils/db';
@@ -7,8 +8,10 @@ const Footer = async () => {
   return (
     <footer className="border-t border-slate-200 px-4 py-8 dark:border-slate-800">
       <div className="container mx-auto">
-        <div className="flex flex-col items-center justify-between md:flex-row">
-          <div className="mb-4 md:mb-0"></div>
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <div className="flex items-center">
+            <ExportPDFButton />
+          </div>
 
           <div className="flex items-center space-x-4">
             {contacts.map((contact) => (

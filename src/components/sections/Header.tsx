@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 
-import { ExportPDFButton } from '@/components/common/ExportPDFButton';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
@@ -45,7 +44,6 @@ export const Header = async () => {
               </a>
             </Button>
           ))}
-          <ExportPDFButton />
           <LanguageSelector />
           <div className="ml-auto md:ml-2 md:border-l md:pl-4">
             <ThemeToggle />
