@@ -19,12 +19,12 @@ export const pdfStyles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#1E3A8A',
-    marginBottom: 5,
+    marginBottom: 8,
   },
   title: {
     fontSize: 16,
     color: '#64748B',
-    marginBottom: 10,
+    marginBottom: 12,
   },
   description: {
     fontSize: 10,
@@ -110,14 +110,19 @@ export const pdfStyles = StyleSheet.create({
   skillsList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 5,
+    gap: 6,
+    alignItems: 'center',
   },
   skillItem: {
     fontSize: 9,
     color: '#475569',
     backgroundColor: '#F1F5F9',
-    padding: '3 8',
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingLeft: 8,
+    paddingRight: 8,
     borderRadius: 3,
+    marginBottom: 2,
   },
   languageItem: {
     flexDirection: 'row',
