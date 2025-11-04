@@ -88,7 +88,7 @@ export const PortfolioPDF = ({
               <View style={styles.contactInfo}>
                 {contacts.map((contact, idx) => (
                   <Text key={idx} style={styles.contactItem}>
-                    {contact.label}: {contact.url}
+                    • {contact.url}
                   </Text>
                 ))}
               </View>
