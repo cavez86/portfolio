@@ -8,7 +8,6 @@ export const pdfStyles = StyleSheet.create({
     padding: 40,
     fontFamily: 'Helvetica',
     fontSize: 10,
-    lineHeight: 1.5,
   },
   mainContainer: {
     flexDirection: 'row',
@@ -33,11 +32,13 @@ export const pdfStyles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#1E3A8A',
     marginBottom: 5,
+    lineHeight: 1.2,
   },
   title: {
     fontSize: 16,
     color: '#64748B',
     marginBottom: 10,
+    lineHeight: 1.3,
   },
   description: {
     fontSize: 10,
@@ -47,13 +48,13 @@ export const pdfStyles = StyleSheet.create({
   },
   contactInfo: {
     flexDirection: 'column',
-    gap: 5,
     marginTop: 5,
   },
   contactItem: {
     fontSize: 9,
     color: '#64748B',
-    marginBottom: 3,
+    marginBottom: 5,
+    lineHeight: 1.4,
   },
   section: {
     marginTop: 15,
@@ -79,20 +80,24 @@ export const pdfStyles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     color: '#0F172A',
+    lineHeight: 1.3,
   },
   position: {
     fontSize: 11,
     color: '#334155',
     marginBottom: 2,
+    lineHeight: 1.3,
   },
   period: {
     fontSize: 9,
     color: '#64748B',
+    lineHeight: 1.3,
   },
   location: {
     fontSize: 9,
     color: '#64748B',
     fontStyle: 'italic',
+    lineHeight: 1.3,
   },
   achievementsList: {
     marginTop: 5,
@@ -103,6 +108,7 @@ export const pdfStyles = StyleSheet.create({
     color: '#475569',
     marginBottom: 3,
     paddingLeft: 10,
+    lineHeight: 1.4,
   },
   skillsContainer: {
     flexDirection: 'row',
@@ -117,33 +123,40 @@ export const pdfStyles = StyleSheet.create({
     fontSize: 11,
     fontWeight: 'bold',
     color: '#334155',
-    marginBottom: 4,
+    marginBottom: 6,
+    lineHeight: 1.3,
   },
   skillsList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 5,
+    marginBottom: 4,
   },
   skillItem: {
     fontSize: 9,
     color: '#475569',
     backgroundColor: '#F1F5F9',
-    padding: '3 8',
+    padding: '4 8',
     borderRadius: 3,
+    marginRight: 5,
+    marginBottom: 5,
+    lineHeight: 1.2,
   },
   languageItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 5,
-    paddingBottom: 5,
+    marginBottom: 8,
+    paddingBottom: 3,
+    alignItems: 'center',
   },
   languageName: {
     fontSize: 10,
     color: '#334155',
+    lineHeight: 1.3,
   },
   languageProficiency: {
     fontSize: 9,
     color: '#64748B',
+    lineHeight: 1.3,
   },
   educationItem: {
     marginBottom: 8,
@@ -152,9 +165,11 @@ export const pdfStyles = StyleSheet.create({
     fontSize: 11,
     fontWeight: 'bold',
     color: '#334155',
+    lineHeight: 1.3,
   },
   institution: {
     fontSize: 10,
     color: '#64748B',
+    lineHeight: 1.3,
   },
 });
