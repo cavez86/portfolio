@@ -86,11 +86,15 @@ export const PortfolioPDF = ({
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>CONTACTS</Text>
               <View style={styles.contactInfo}>
-                {contacts.map((contact, idx) => (
-                  <Text key={idx} style={styles.contactItem}>
-                    • {contact.url}
-                  </Text>
-                ))}
+                {contacts.map((contact, idx) => {
+                  // Remove mailto: prefix from email URLs
+                  const displayUrl = contact.url.replace(/^mailto:/i, '');
+                  return (
+                    <Text key={idx} style={styles.contactItem}>
+                      • {contact.label}: {displayUrl}
+                    </Text>
+                  );
+                })}
               </View>
             </View>
           )}

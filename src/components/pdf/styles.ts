@@ -39,7 +39,7 @@ export const pdfStyles = StyleSheet.create({
     color: '#64748B',
     marginBottom: 10,
     lineHeight: 1.3,
-    textWrap: 'balance',
+    textWrap: 'pretty',
   },
   description: {
     fontSize: 10,
