@@ -1,15 +1,21 @@
-'use client';
-
 import dayjs from 'dayjs';
-import { useLocale } from 'next-intl';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const DayJsProvider = ({ children }: { children: ReactNode }) => {
-  const locale = useLocale();
+  const { i18n } = useTranslation();
+  const locale = i18n.language;
 
-  import(`dayjs/locale/${locale}.js`).then(() => {
-    dayjs.locale(locale); // Set the locale for dayjs globally
-  });
+  useEffect(() => {
+    import(`dayjs/locale/${locale}.js`)
+      .then(() => {
+        dayjs.locale(locale); // Set the locale for dayjs globally
+      })
+      .catch(() => {
+        // Fallback to English if locale not found
+        dayjs.locale('en');
+      });
+  }, [locale]);
 
   return <>{children}</>;
 };

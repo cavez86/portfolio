@@ -15,4 +15,10 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  optimizeDeps: {
+    exclude: ['payload', '@payloadcms/next'],
+  },
+  ssr: {
+    noExternal: ['payload', '@payloadcms/next'],
+  },
 });
