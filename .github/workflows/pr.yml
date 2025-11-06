@@ -26,11 +26,14 @@ jobs:
       - name: Run ESLint
         run: pnpm lint
 
-      - name: Check TypeScript types
-        run: pnpm type-check
-
       - name: Run Prettier
         run: pnpm format
+
+      - name: Build project
+        run: pnpm build
+
+      - name: Check TypeScript types
+        run: pnpm type-check
 
       - name: Run tests
         run: pnpm test
