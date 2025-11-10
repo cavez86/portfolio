@@ -12,9 +12,9 @@ import Footer from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import { routing } from '@/i18n/routing';
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  const t = await getTranslations({ locale: locale as Locale, namespace: 'Metadata' });
 
   return {
     title: t('title'),
@@ -27,7 +27,7 @@ export default async function LocaleLayout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
