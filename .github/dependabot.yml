@@ -5,7 +5,7 @@
 
 version: 2
 updates:
-  - package-ecosystem: 'npm' # See documentation for possible values
+  - package-ecosystem: 'npm' # Bun uses npm registry, so 'npm' is correct
     directory: '/' # Location of package manifests
     schedule:
       interval: 'weekly'
