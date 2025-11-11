@@ -3,8 +3,8 @@
  * @type {import('lint-staged').Configuration}
  */
 const config = {
-  '*': 'pnpm format',
-  '*.?(c|m){j,t}s?(x)': 'pnpm lint',
+  '*': 'bun format',
+  '*.?(c|m){j,t}s?(x)': 'bun lint',
   '**/*.?(c|m)ts?(x)': () => 'tsc -p tsconfig.json --noEmit',
 };
 
