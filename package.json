@@ -77,14 +77,5 @@
   },
   "browserslist": [
     "defaults"
-  ],
-  "packageManager": "bun@1.1.38",
-  "trustedDependencies": [
-    "@payloadcms/db-postgres",
-    "@payloadcms/email-resend",
-    "@payloadcms/next",
-    "@payloadcms/richtext-lexical",
-    "esbuild",
-    "sharp"
   ]
 }
