@@ -78,6 +78,5 @@
   },
   "browserslist": [
     "defaults"
-  ],
-  "packageManager": "bun@1.1.38"
+  ]
 }
