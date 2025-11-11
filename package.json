@@ -81,7 +81,7 @@
   "volta": {
     "node": "22.20.0"
   },
-  "packageManager": "pnpm@10.21.0",
+  "packageManager": "pnpm@10.19.0",
   "pnpm": {
     "overrides": {
       "@types/react": "19.2.2",
