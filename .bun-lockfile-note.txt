@@ -1,0 +1,9 @@
+NOTE: The bun.lockb file needs to be generated on a system where Bun can run properly.
+
+To generate it:
+1. Install Bun: curl -fsSL https://bun.sh/install | bash
+2. Run: bun install
+3. Commit the generated bun.lockb file
+
+This file could not be generated in the current CI environment due to platform-specific limitations,
+but will be created automatically when the first developer or CI system runs 'bun install' successfully.
