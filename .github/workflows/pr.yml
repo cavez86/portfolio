@@ -23,7 +23,21 @@ jobs:
           bun-version: 1.1.38
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: |
+          if [ -f bun.lockb ]; then
+            bun install --frozen-lockfile
+          else
+            echo "⚠️  bun.lockb not found, generating it..."
+            bun install
+          fi
+
+      - name: Check if lockfile was generated
+        run: |
+          if [ -f bun.lockb ] && ! git diff --quiet bun.lockb 2>/dev/null; then
+            echo "⚠️  bun.lockb was generated/modified. Please commit it to the repository."
+            echo "Run: git add bun.lockb && git commit -m 'Add bun.lockb'"
+            git diff --stat bun.lockb 2>/dev/null || echo "New file: bun.lockb"
+          fi
 
       - name: Run ESLint
         run: bun run lint
