@@ -3,10 +3,10 @@ import { resendAdapter } from '@payloadcms/email-resend';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { en } from '@payloadcms/translations/languages/en';
 import { it } from '@payloadcms/translations/languages/it';
-import path from 'path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
-import { fileURLToPath } from 'url';
 
 import { Education } from '@/collections/Education';
 import { Experience } from '@/collections/Experience';
