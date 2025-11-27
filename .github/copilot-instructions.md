@@ -8,16 +8,16 @@ rendering, and PDF generation capabilities.
 
 **Key Technologies:**
 
-- **Runtime:** Node.js 22.20.0 (specified in `package.json` volta field)
-- **Package Manager:** pnpm 10.19.0 (REQUIRED - do not use npm or yarn)
-- **Framework:** Next.js 16.0.1 with App Router and React 19.2.0
-- **CMS:** PayloadCMS 3.60.0 with Vercel Postgres adapter
+- **Runtime:** Node.js >= 24 (specified in `package.json` volta field)
+- **Package Manager:** pnpm (REQUIRED - do not use npm or yarn)
+- **Framework:** Next.js 16 with App Router and React 19
+- **CMS:** PayloadCMS with Vercel Postgres adapter
 - **Styling:** Tailwind CSS v4 (via @tailwindcss/postcss)
 - **UI Components:** shadcn/ui (Radix UI primitives)
-- **State Management:** tRPC 11.1.1 with React Query
+- **State Management:** tRPC 11 with React Query
 - **i18n:** next-intl supporting English and Italian
-- **Testing:** Vitest 4.0.6
-- **Linting/Formatting:** ESLint 9.38.0, Prettier 3.6.2
+- **Testing:** Vitest
+- **Linting/Formatting:** ESLint, Prettier
 
 ## Critical Setup Requirements
 
@@ -30,7 +30,7 @@ pnpm install --frozen-lockfile --strict-peer-dependencies
 ```
 
 - Takes approximately 40-50 seconds
-- Must use pnpm (install globally: `npm install -g pnpm@10.19.0`)
+- Must use pnpm (install globally: `npm install -g pnpm`)
 - The `--frozen-lockfile` and `--strict-peer-dependencies` flags are required by CI
 
 ### 2. Build Limitations
@@ -173,7 +173,7 @@ pnpm payload [command]  # Access Payload CLI (requires PAYLOAD_CONFIG_PATH env v
 
 ### 2. pnpm Not Found
 
-Install globally: `npm install -g pnpm@10.19.0`
+Install globally: `npm install -g pnpm`
 
 ### 3. Dependency Installation Warnings
 
