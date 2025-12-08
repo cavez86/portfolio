@@ -34,7 +34,7 @@
     "dayjs": "^1.11.19",
     "framer-motion": "^12.23.25",
     "graphql": "^16.12.0",
-    "lucide-react": "^0.555.0",
+    "lucide-react": "^0.556.0",
     "motion": "^12.23.25",
     "next": "16.0.7",
     "next-intl": "^4.5.7",
