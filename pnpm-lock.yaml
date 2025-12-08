@@ -27,8 +27,8 @@ importers:
         specifier: ^3.65.0
         version: 3.65.0(@faceless-ui/modal@3.0.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@faceless-ui/scroll-info@2.0.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@payloadcms/next@3.65.0(@types/react@19.2.7)(graphql@16.12.0)(monaco-editor@0.52.2)(next@16.0.7(@babel/core@7.28.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.77.4))(payload@3.65.0(bufferutil@4.0.9)(graphql@16.12.0)(typescript@5.9.3)(utf-8-validate@6.0.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3))(@types/react@19.2.7)(monaco-editor@0.52.2)(next@16.0.7(@babel/core@7.28.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.77.4))(payload@3.65.0(bufferutil@4.0.9)(graphql@16.12.0)(typescript@5.9.3)(utf-8-validate@6.0.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)(yjs@13.6.26)
       '@payloadcms/translations':
-        specifier: ^3.65.0
-        version: 3.65.0
+        specifier: ^3.67.0
+        version: 3.67.0
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -1119,6 +1119,9 @@ packages:
 
   '@payloadcms/translations@3.65.0':
     resolution: {integrity: sha512-wjKY0jHdudLeMZwSfJi2yQxyeRV6AkOgV9k2NuiltvwglYjBXM35XP15Bq9UYYS5UJ9nhajK1WZdHRn5qJ0gEA==}
+
+  '@payloadcms/translations@3.67.0':
+    resolution: {integrity: sha512-CiwMdiDpGfra6z72ys6JtrtpSSQx//pp2gbS3QfpPesPXI3PqztpjxwOVWkh37CaTUr7lCqltzfZElwA3pGpvw==}
 
   '@payloadcms/ui@3.65.0':
     resolution: {integrity: sha512-wMuhyc1wgfMUW9vPVOFxB1cxSs5ER4lRQW3ChuUkSezmFkJvv2ixlDop6C31y2E40Ek2Z+AwvcGmaNio5hWZUQ==}
@@ -5979,6 +5982,10 @@ snapshots:
       - yjs
 
   '@payloadcms/translations@3.65.0':
+    dependencies:
+      date-fns: 4.1.0
+
+  '@payloadcms/translations@3.67.0':
     dependencies:
       date-fns: 4.1.0
 
