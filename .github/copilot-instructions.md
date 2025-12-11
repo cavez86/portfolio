@@ -8,8 +8,8 @@ rendering, and PDF generation capabilities.
 
 **Key Technologies:**
 
-- **Runtime:** Bun 1.1.38 (JavaScript/TypeScript runtime and package manager)
-- **Package Manager:** Bun 1.1.38 (bundled with Bun runtime)
+- **Runtime:** Bun 1.3.2 (JavaScript/TypeScript runtime and package manager)
+- **Package Manager:** Bun 1.3.2 (bundled with Bun runtime)
 - **Framework:** Next.js 16.0.1 with App Router and React 19.2.0
 - **CMS:** PayloadCMS 3.60.0 with Vercel Postgres adapter
 - **Styling:** Tailwind CSS v4 (via @tailwindcss/postcss)
