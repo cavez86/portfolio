@@ -35,7 +35,7 @@
     "framer-motion": "^12.23.25",
     "graphql": "^16.12.0",
     "lucide-react": "^0.556.0",
-    "motion": "^12.23.25",
+    "motion": "^12.23.26",
     "next": "16.0.10",
     "next-intl": "^4.5.8",
     "next-themes": "^0.4.6",
