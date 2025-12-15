@@ -42,7 +42,7 @@
     "payload": "^3.65.0",
     "posthog-js": "^1.302.2",
     "posthog-node": "^5.17.2",
-    "react": "19.2.1",
+    "react": "19.2.3",
     "react-dom": "19.2.1",
     "react-markdown": "^10.1.0",
     "sharp": "^0.34.5",
