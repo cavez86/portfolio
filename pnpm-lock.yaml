@@ -90,8 +90,8 @@ importers:
         specifier: ^3.65.0
         version: 3.68.5(graphql@16.12.0)(typescript@5.9.3)
       posthog-js:
-        specifier: ^1.310.0
-        version: 1.310.0
+        specifier: ^1.310.2
+        version: 1.310.2
       posthog-node:
         specifier: ^5.18.0
         version: 5.18.0
@@ -6581,15 +6581,15 @@ packages:
   postgres-range@1.1.4:
     resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
 
-  posthog-js@1.310.0:
-    resolution: {integrity: sha512-ODhxtHm8Ppcs77hi7c61Yk/h2QQxFkfFLg+yCL8dRdB4rev9eQywdoYGuH2KRGChT/En7tByawboPYEJ0Uh/FA==}
+  posthog-js@1.310.2:
+    resolution: {integrity: sha512-e5fpjv0j3Bd92qzRULZQjLDjeWnoxkAOo2kpsVhoQw7L6zmgC7etuDVZfZXpKfFY9545LYXJGjJwkbtzBHylAw==}
 
   posthog-node@5.18.0:
     resolution: {integrity: sha512-SLBEs+sCThxzTGSSDEe97nZHuFFYh6DupObR1yQdvQND3CJh0ogZ0Sa1Vb+Tbrnf0cWbfBC9XNkm44yhaWf3aA==}
     engines: {node: '>=20'}
 
-  preact@10.28.0:
-    resolution: {integrity: sha512-rytDAoiXr3+t6OIP3WGlDd0ouCUG1iCWzkcY3++Nreuoi17y6T5i/zRhe6uYfoVcxq6YU+sBtJouuRDsq8vvqA==}
+  preact@10.28.1:
+    resolution: {integrity: sha512-u1/ixq/lVQI0CakKNvLDEcW5zfCjUQfZdK9qqWuIJtsezuyG6pk9TWj75GMuI/EzRSZB/VAE43sNWWZfiy8psw==}
 
   precinct@12.2.0:
     resolution: {integrity: sha512-NFBMuwIfaJ4SocE9YXPU/n4AcNSoFMVFjP72nvl3cx69j/ke61/hPOWFREVxLkFhhEGnA8ZuVfTqJBa+PK3b5w==}
@@ -15295,19 +15295,19 @@ snapshots:
 
   postgres-range@1.1.4: {}
 
-  posthog-js@1.310.0:
+  posthog-js@1.310.2:
     dependencies:
       '@posthog/core': 1.9.0
       core-js: 3.47.0
       fflate: 0.4.8
-      preact: 10.28.0
+      preact: 10.28.1
       web-vitals: 4.2.4
 
   posthog-node@5.18.0:
     dependencies:
       '@posthog/core': 1.9.0
 
-  preact@10.28.0: {}
+  preact@10.28.1: {}
 
   precinct@12.2.0(supports-color@10.2.2):
     dependencies:
