@@ -75,8 +75,8 @@ importers:
         specifier: ^0.562.0
         version: 0.562.0(react@19.2.3)
       motion:
-        specifier: ^12.23.26
-        version: 12.23.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        specifier: ^12.24.0
+        version: 12.24.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       next:
         specifier: 16.1.1
         version: 16.1.1(@babel/core@7.28.5)(@opentelemetry/api@1.8.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.77.4)
@@ -4720,6 +4720,20 @@ packages:
       react-dom:
         optional: true
 
+  framer-motion@12.24.0:
+    resolution: {integrity: sha512-ggTMRkIDPc76lHmM+dRT1MmVfFV6t/y+jkWjWuzR7FG5xRvnAAl/5wFPjzSkLE8Nu5E5uIQRCNxmIXtWJVo6XQ==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   fresh@0.5.2:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
@@ -5525,8 +5539,8 @@ packages:
   lexical@0.35.0:
     resolution: {integrity: sha512-3VuV8xXhh5xJA6tzvfDvE0YBCMkIZUmxtRilJQDDdCgJCc+eut6qAv2qbN+pbqvarqcQqPN1UF+8YvsjmyOZpw==}
 
-  lib0@0.2.116:
-    resolution: {integrity: sha512-4zsosjzmt33rx5XjmFVYUAeLNh+BTeDTiwGdLt4muxiir2btsc60Nal0EvkvDRizg+pnlK1q+BtYi7M+d4eStw==}
+  lib0@0.2.117:
+    resolution: {integrity: sha512-DeXj9X5xDCjgKLU/7RR+/HQEVzuuEUiwldwOGsHK/sfAfELGWEyTcf0x+uOvCvK3O2zPmZePXWL85vtia6GyZw==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -5966,11 +5980,17 @@ packages:
   motion-dom@12.23.23:
     resolution: {integrity: sha512-n5yolOs0TQQBRUFImrRfs/+6X4p3Q4n1dUEqt/H58Vx7OW6RF+foWEgmTVDhIWJIMXOuNNL0apKH2S16en9eiA==}
 
+  motion-dom@12.24.0:
+    resolution: {integrity: sha512-RD2kZkFd/GH4fITI8IJvypGgn0vIu5vkrJaXIAkYqORGs5P0CKDHKNvswmoY1H+tbUAOPSh6VtUqoAmc/3Gvig==}
+
+  motion-utils@12.23.28:
+    resolution: {integrity: sha512-0W6cWd5Okoyf8jmessVK3spOmbyE0yTdNKujHctHH9XdAE4QDuZ1/LjSXC68rrhsJU+TkzXURC5OdSWh9ibOwQ==}
+
   motion-utils@12.23.6:
     resolution: {integrity: sha512-eAWoPgr4eFEOFfg2WjIsMoqJTW6Z8MTUCgn/GZ3VRpClWBdnbjryiA3ZSNLyxCTmCQx4RmYX6jX1iWHbenUPNQ==}
 
-  motion@12.23.26:
-    resolution: {integrity: sha512-Ll8XhVxY8LXMVYTCfme27WH2GjBrCIzY4+ndr5QKxsK+YwCtOi2B/oBi5jcIbik5doXuWT/4KKDOVAZJkeY5VQ==}
+  motion@12.24.0:
+    resolution: {integrity: sha512-FAnpl/DhCFct3p+T2hCjAY95w+3EggUk3b8Ql4jQ6mmdRbEaGD1000goqWeEYVoD7mqx9H0As9ORmRADD4LQAw==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -13104,6 +13124,15 @@ snapshots:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
 
+  framer-motion@12.24.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+    dependencies:
+      motion-dom: 12.24.0
+      motion-utils: 12.23.28
+      tslib: 2.8.1
+    optionalDependencies:
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+
   fresh@0.5.2: {}
 
   from2@2.3.0:
@@ -13940,7 +13969,7 @@ snapshots:
 
   lexical@0.35.0: {}
 
-  lib0@0.2.116:
+  lib0@0.2.117:
     dependencies:
       isomorphic.js: 0.2.5
 
@@ -14532,11 +14561,17 @@ snapshots:
     dependencies:
       motion-utils: 12.23.6
 
+  motion-dom@12.24.0:
+    dependencies:
+      motion-utils: 12.23.28
+
+  motion-utils@12.23.28: {}
+
   motion-utils@12.23.6: {}
 
-  motion@12.23.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+  motion@12.24.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
-      framer-motion: 12.23.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      framer-motion: 12.24.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       tslib: 2.8.1
     optionalDependencies:
       react: 19.2.3
@@ -16937,7 +16972,7 @@ snapshots:
 
   yjs@13.6.28:
     dependencies:
-      lib0: 0.2.116
+      lib0: 0.2.117
 
   yn@3.1.1: {}
 
