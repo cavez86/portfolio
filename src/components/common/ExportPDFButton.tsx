@@ -68,7 +68,7 @@ export const ExportPDFButton = () => {
       size="lg"
       onClick={handleExport}
       disabled={isLoading}
-      className="rounded text-slate-600 transition-colors hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 md:text-sm"
+      className="text-foreground transition-all hover:text-primary md:text-sm"
     >
       <Download className="h-5 w-5" />
       <span>{isLoading ? 'Exporting...' : 'Export PDF'}</span>

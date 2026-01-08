@@ -12,7 +12,7 @@ interface ErrorPageProps {
   handleTryAgain?: () => void;
 }
 
-export default function ErrorPage({ errorCode, handleTryAgain }: ErrorPageProps) {
+export default function ErrorPage({ errorCode, handleTryAgain }: Readonly<ErrorPageProps>) {
   const t = useTranslations('Error');
   const router = useRouter();
 
@@ -55,7 +55,7 @@ export default function ErrorPage({ errorCode, handleTryAgain }: ErrorPageProps)
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-4 text-4xl font-bold text-slate-900 dark:text-white"
+          className="mb-4 text-4xl font-bold font-mono uppercase tracking-wider text-foreground"
         >
           {t(`${errorCode}.title`)}
         </motion.h1>
@@ -64,7 +64,7 @@ export default function ErrorPage({ errorCode, handleTryAgain }: ErrorPageProps)
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-4 text-xl text-slate-600 dark:text-slate-300"
+          className="mb-4 text-xl text-foreground"
         >
           {t(`${errorCode}.subtitle`)}
         </motion.h2>
@@ -73,7 +73,7 @@ export default function ErrorPage({ errorCode, handleTryAgain }: ErrorPageProps)
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mb-8 text-slate-500 dark:text-slate-400"
+          className="mb-8 text-muted-foreground"
         >
           {t(`${errorCode}.description`)}
         </motion.p>

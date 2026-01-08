@@ -4,42 +4,43 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant light (&:where(.light, .light *));
 
-/* light theme */
+/* light theme - Terminal style */
 @theme {
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(222.2 84% 4.9%);
+  /* Light terminal theme (inverted) */
+  --color-background: oklch(0.95 0.01 120); /* Very light gray with slight green tint */
+  --color-foreground: oklch(0.35 0.05 150); /* Dark green-gray for text */
 
-  --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(222.2 84% 4.9%);
+  --color-card: oklch(0.97 0.005 120); /* Almost white with tiny green tint */
+  --color-card-foreground: oklch(0.35 0.05 150);
 
-  --color-popover: hsl(0 0% 100%);
-  --color-popover-foreground: hsl(222.2 84% 4.9%);
+  --color-popover: oklch(0.97 0.005 120);
+  --color-popover-foreground: oklch(0.35 0.05 150);
 
-  --color-primary: hsl(249, 86%, 45%);
-  --color-primary-foreground: hsl(210 40% 98%);
+  --color-primary: oklch(0.55 0.18 145); /* Green terminal color */
+  --color-primary-foreground: oklch(0.98 0.005 120);
 
-  --color-secondary: hsl(210 40% 96.1%);
-  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
+  --color-secondary: oklch(0.88 0.01 120); /* Light gray-green */
+  --color-secondary-foreground: oklch(0.35 0.05 150);
 
-  --color-muted: hsl(210 40% 96.1%);
-  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+  --color-muted: oklch(0.9 0.01 120);
+  --color-muted-foreground: oklch(0.5 0.04 150);
 
-  --color-accent: hsl(210 40% 96.1%);
-  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
+  --color-accent: oklch(64.683% 0.1846 148.565); /* Green accent */
+  --color-accent-foreground: oklch(0.98 0.005 120);
 
-  --color-destructive: hsl(0 84.2% 60.2%);
-  --color-destructive-foreground: hsl(210 40% 98%);
+  --color-destructive: oklch(0.55 0.2 25); /* Red-orange */
+  --color-destructive-foreground: oklch(0.98 0.005 120);
 
-  --color-border: hsl(214.3 31.8% 91.4%);
-  --color-input: hsl(214.3 31.8% 91.4%);
-  --color-ring: hsl(221.2 83.2% 53.3%);
-  --color-radius: 0.5rem;
+  --color-border: oklch(0.75 0.02 140); /* Medium gray-green border */
+  --color-input: oklch(0.92 0.01 120);
+  --color-ring: oklch(0.55 0.18 145); /* Green ring matching primary */
+  --color-radius: 0.25rem; /* Sharper corners for terminal feel */
 
-  --color-chart-1: hsl(12 76% 61%);
-  --color-chart-2: hsl(173 58% 39%);
-  --color-chart-3: hsl(197 37% 24%);
-  --color-chart-4: hsl(43 74% 66%);
-  --color-chart-5: hsl(27 87% 67%);
+  --color-chart-1: oklch(0.65 0.15 145); /* Green */
+  --color-chart-2: oklch(0.65 0.15 195); /* Cyan */
+  --color-chart-3: oklch(0.65 0.15 275); /* Blue */
+  --color-chart-4: oklch(0.75 0.12 85); /* Yellow-green */
+  --color-chart-5: oklch(0.6 0.18 25); /* Orange-red */
 
   --animate-scale-x: scale-x linear forwards;
   @keyframes scale-x {
@@ -76,41 +77,42 @@
   }
 }
 
-/* dark theme */
+/* dark theme - Terminal style (primary theme) */
 :root :where(.dark, .dark *) {
-  --color-background: hsl(222.2 84% 4.9%);
-  --color-foreground: hsl(210 40% 98%);
+  /* Classic terminal colors - dark background with bright green text */
+  --color-background: oklch(0.15 0.01 150); /* Very dark gray-green (like old CRT monitors) */
+  --color-foreground: oklch(0.85 0.15 145); /* Bright neon green text */
 
-  --color-card: hsl(222.2 84% 4.9%);
-  --color-card-foreground: hsl(210 40% 98%);
+  --color-card: oklch(0.18 0.01 150); /* Slightly lighter than background */
+  --color-card-foreground: oklch(0.85 0.15 145);
 
-  --color-popover: hsl(222.2 84% 4.9%);
-  --color-popover-foreground: hsl(210 40% 98%);
+  --color-popover: oklch(0.12 0.01 150); /* Darker than background for depth */
+  --color-popover-foreground: oklch(0.85 0.15 145);
 
-  --color-primary: hsl(194, 91%, 60%);
-  --color-primary-foreground: hsl(222.2 47.4% 11.2%);
+  --color-primary: oklch(0.8 0.18 145); /* Bright neon green - terminal primary color */
+  --color-primary-foreground: oklch(0.15 0.01 150); /* Dark text on green */
 
-  --color-secondary: hsl(217.2 32.6% 17.5%);
-  --color-secondary-foreground: hsl(210 40% 98%);
+  --color-secondary: oklch(0.25 0.02 150); /* Dark gray-green for secondary elements */
+  --color-secondary-foreground: oklch(0.75 0.12 145); /* Dimmer green */
 
-  --color-muted: hsl(217.2 32.6% 17.5%);
-  --color-muted-foreground: hsl(215 20.2% 65.1%);
+  --color-muted: oklch(0.22 0.015 150); /* Muted background */
+  --color-muted-foreground: oklch(0.55 0.08 145); /* Muted green text */
 
-  --color-accent: hsl(217.2 32.6% 17.5%);
-  --color-accent-foreground: hsl(210 40% 98%);
+  --color-accent: oklch(64.683% 0.1846 148.565); /* Green accent */
+  --color-accent-foreground: oklch(0.15 0.01 150);
 
-  --color-destructive: hsl(0 62.8% 30.6%);
-  --color-destructive-foreground: hsl(210 40% 98%);
+  --color-destructive: oklch(0.6 0.2 25); /* Red-orange for errors */
+  --color-destructive-foreground: oklch(0.95 0.01 120);
 
-  --color-border: hsl(217.2 32.6% 17.5%);
-  --color-input: hsl(217.2 32.6% 17.5%);
-  --color-ring: hsl(224.3 76.3% 48%);
+  --color-border: oklch(0.35 0.05 145); /* Green-tinted border */
+  --color-input: oklch(0.2 0.015 150); /* Dark input background */
+  --color-ring: oklch(0.8 0.18 145); /* Bright green focus ring */
 
-  --color-chart-1: hsl(220 70% 50%);
-  --color-chart-2: hsl(160 60% 45%);
-  --color-chart-3: hsl(30 80% 55%);
-  --color-chart-4: hsl(280 65% 60%);
-  --color-chart-5: hsl(340 75% 55%);
+  --color-chart-1: oklch(0.8 0.18 145); /* Bright green */
+  --color-chart-2: oklch(0.75 0.15 195); /* Cyan */
+  --color-chart-3: oklch(0.7 0.12 275); /* Blue */
+  --color-chart-4: oklch(0.85 0.15 90); /* Yellow */
+  --color-chart-5: oklch(0.65 0.2 25); /* Red-orange */
 }
 
 @utility animation-timeline-scroll {
@@ -128,6 +130,31 @@
   }
 
   body {
-    @apply bg-background min-w-[360px];
+    @apply bg-background text-foreground min-w-[360px] font-mono;
+  }
+
+  /* Terminal-style text selection */
+  ::selection {
+    background-color: oklch(0.8 0.18 145 / 0.3);
+    color: var(--color-foreground);
+  }
+
+  /* Scrollbar styling for terminal theme */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border: 2px solid var(--color-background);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
   }
 }

@@ -30,7 +30,9 @@ const ContactSectionView = ({
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="mb-4 text-3xl font-bold text-slate-900 md:text-4xl dark:text-white">{t('title')}</h2>
+        <h2 className="mb-4 text-3xl font-bold font-mono uppercase tracking-wider text-foreground md:text-4xl">
+          {t('title')}
+        </h2>
       </motion.div>
 
       <motion.div
@@ -41,7 +43,9 @@ const ContactSectionView = ({
       >
         <Card>
           <CardContent>
-            <h3 className="mb-6 text-xl font-bold text-slate-900 dark:text-white">{t('description')}</h3>
+            <h3 className="mb-6 text-xl font-bold font-mono uppercase tracking-wider text-foreground">
+              {t('description')}
+            </h3>
 
             <div className="space-y-6">
               {contactsData.map((contact) => (
@@ -50,14 +54,14 @@ const ContactSectionView = ({
                   href={contact.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
+                  className="flex items-center gap-4 text-foreground transition-all hover:text-primary"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
-                    <Icon name={contact.icon as IconName} className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                  <div className="flex h-10 w-10 items-center justify-center border-2 border-primary bg-primary/20">
+                    <Icon name={contact.icon as IconName} className="h-5 w-5 text-foreground" />
                   </div>
                   <div>
                     <p className="font-medium">{contact.label}</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">{contact.description}</p>
+                    <p className="text-sm text-muted-foreground">{contact.description}</p>
                   </div>
                 </a>
               ))}
