@@ -27,7 +27,7 @@ const HeroSection = ({
       <div className="container mx-auto">
         <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
           <motion.h1
-            className="bg-linear-to-r from-primary to-accent bg-clip-text text-5xl leading-normal font-bold font-mono uppercase tracking-wider text-transparent md:text-7xl [text-shadow:0_0_30px_var(--color-primary)]"
+            className="bg-linear-to-r from-primary to-accent bg-clip-text text-5xl leading-normal font-bold font-mono uppercase tracking-wider text-transparent md:text-7xl dark:[text-shadow:0_0_30px_var(--color-primary)]"
             initial={{ opacity: 0.1, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -79,7 +79,7 @@ const HeroSection = ({
           {summaryInfoData.map((item, index) => (
             <div
               key={index}
-              className="bg-card flex flex-col items-center border-2 border-primary/30 p-4 text-center shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all hover:border-primary/60 hover:shadow-[0_0_20px_var(--color-primary)]"
+              className="bg-card flex flex-col items-center border-2 border-primary/30 p-4 text-center transition-all hover:border-primary/60 dark:shadow-[0_0_15px_rgba(0,0,0,0.5)] dark:hover:shadow-[0_0_20px_var(--color-primary)]"
             >
               <Icon name={item.icon as IconName} className="mb-2 h-8 w-8 text-primary" />
               <h3 className="text-sm font-medium font-mono uppercase tracking-wider text-muted-foreground">

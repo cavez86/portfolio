@@ -6,40 +6,40 @@
 
 /* light theme - Terminal style */
 @theme {
-  /* Light terminal theme (inverted) */
-  --color-background: oklch(0.95 0.01 120); /* Very light gray with slight green tint */
-  --color-foreground: oklch(0.35 0.05 150); /* Dark green-gray for text */
+  /* Light terminal theme with blue colors */
+  --color-background: oklch(0.95 0.01 240); /* Very light gray with slight blue tint */
+  --color-foreground: oklch(0.35 0.05 240); /* Dark blue-gray for text */
 
-  --color-card: oklch(0.97 0.005 120); /* Almost white with tiny green tint */
-  --color-card-foreground: oklch(0.35 0.05 150);
+  --color-card: oklch(0.97 0.005 240); /* Almost white with tiny blue tint */
+  --color-card-foreground: oklch(0.35 0.05 240);
 
-  --color-popover: oklch(0.97 0.005 120);
-  --color-popover-foreground: oklch(0.35 0.05 150);
+  --color-popover: oklch(0.97 0.005 240);
+  --color-popover-foreground: oklch(0.35 0.05 240);
 
-  --color-primary: oklch(0.55 0.18 145); /* Green terminal color */
-  --color-primary-foreground: oklch(0.98 0.005 120);
+  --color-primary: oklch(0.55 0.18 240); /* Blue primary color */
+  --color-primary-foreground: oklch(0.98 0.005 240);
 
-  --color-secondary: oklch(0.88 0.01 120); /* Light gray-green */
-  --color-secondary-foreground: oklch(0.35 0.05 150);
+  --color-secondary: oklch(0.88 0.01 240); /* Light gray-blue */
+  --color-secondary-foreground: oklch(0.35 0.05 240);
 
-  --color-muted: oklch(0.9 0.01 120);
-  --color-muted-foreground: oklch(0.5 0.04 150);
+  --color-muted: oklch(0.9 0.01 240);
+  --color-muted-foreground: oklch(0.5 0.04 240);
 
-  --color-accent: oklch(64.683% 0.1846 148.565); /* Green accent */
-  --color-accent-foreground: oklch(0.98 0.005 120);
+  --color-accent: oklch(0.6 0.18 240); /* Blue accent */
+  --color-accent-foreground: oklch(0.98 0.005 240);
 
   --color-destructive: oklch(0.55 0.2 25); /* Red-orange */
-  --color-destructive-foreground: oklch(0.98 0.005 120);
+  --color-destructive-foreground: oklch(0.98 0.005 240);
 
-  --color-border: oklch(0.75 0.02 140); /* Medium gray-green border */
-  --color-input: oklch(0.92 0.01 120);
-  --color-ring: oklch(0.55 0.18 145); /* Green ring matching primary */
+  --color-border: oklch(0.75 0.02 240); /* Medium gray-blue border */
+  --color-input: oklch(0.92 0.01 240);
+  --color-ring: oklch(0.55 0.18 240); /* Blue ring matching primary */
   --color-radius: 0.25rem; /* Sharper corners for terminal feel */
 
-  --color-chart-1: oklch(0.65 0.15 145); /* Green */
+  --color-chart-1: oklch(0.65 0.15 240); /* Blue */
   --color-chart-2: oklch(0.65 0.15 195); /* Cyan */
-  --color-chart-3: oklch(0.65 0.15 275); /* Blue */
-  --color-chart-4: oklch(0.75 0.12 85); /* Yellow-green */
+  --color-chart-3: oklch(0.65 0.15 275); /* Purple */
+  --color-chart-4: oklch(0.75 0.12 85); /* Yellow */
   --color-chart-5: oklch(0.6 0.18 25); /* Orange-red */
 
   --animate-scale-x: scale-x linear forwards;
@@ -137,6 +137,11 @@
   ::selection {
     background-color: oklch(0.8 0.18 145 / 0.3);
     color: var(--color-foreground);
+  }
+
+  /* Light theme text selection with blue */
+  :root :where(.light, .light *) ::selection {
+    background-color: oklch(0.55 0.18 240 / 0.3);
   }
 
   /* Scrollbar styling for terminal theme */
