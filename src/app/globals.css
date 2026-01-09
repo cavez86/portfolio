@@ -4,7 +4,7 @@
 /* Terminal theme with customizable base color using relative colors */
 @theme {
   /* Base color can be customized by user (default: terminal green) */
-  --color-base: oklch(0.8 0.18 var(--theme-color, 145)); /* Default to green hue */
+  --color-base: oklch(from var(--theme-color) 0.8 0.18 h); /* Default to green hue */
 
   /* All theme colors derived from --color-base using CSS relative color syntax */
   --color-background: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Very dark with subtle hue tint */

@@ -6,7 +6,9 @@ import { useTranslations } from 'next-intl';
 import { useStoredState } from '@/app/hooks/useStoredState';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { ChangeEvent, useEffect } from 'react';
+import { hsvaToHslString } from '@uiw/color-convert';
+import Hue from '@uiw/react-color-hue';
+import { useEffect } from 'react';
 
 const STORAGE_KEY = 'theme-color';
 const DEFAULT_HUE = 145; // Terminal green
@@ -16,12 +18,19 @@ export function ColorPicker() {
   const [hue, setHue] = useStoredState<number>(STORAGE_KEY, DEFAULT_HUE);
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--theme-color', hue.toString());
+    document.documentElement.style.setProperty(
+      '--theme-color',
+      hsvaToHslString({
+        h: hue,
+        s: 100,
+        v: 100,
+        a: 1,
+      })
+    );
   }, [hue]);
 
-  const handleHueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newHue = Number.parseInt(e.target.value, 10);
-    setHue(newHue);
+  const handleHueChange = (newHue: { h: number }) => {
+    setHue(newHue.h);
   };
 
   const handleReset = () => {
@@ -45,25 +54,7 @@ export function ColorPicker() {
               <label htmlFor="hue-slider" className="text-sm font-medium">
                 {t('hue_label', { hue: Math.round(hue) })}
               </label>
-              <input
-                id="hue-slider"
-                type="range"
-                min="0"
-                max="360"
-                value={hue}
-                onChange={handleHueChange}
-                className="w-full accent-primary cursor-pointer"
-                style={{
-                  background: `linear-gradient(to right, 
-										hsl(0, 100%, 50%), 
-										hsl(60, 100%, 50%), 
-										hsl(120, 100%, 50%), 
-										hsl(180, 100%, 50%), 
-										hsl(240, 100%, 50%), 
-										hsl(300, 100%, 50%),
-										hsl(360, 100%, 50%))`,
-                }}
-              />
+              <Hue hue={hue} onChange={handleHueChange} />
             </div>
             <Button variant="outline" onClick={handleReset} className="w-full">
               {t('reset_button')}
