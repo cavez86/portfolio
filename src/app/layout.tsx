@@ -1,3 +1,4 @@
+import { ReactScan } from '@/components/ReactScan';
 import './globals.css';
 
 import { Geist } from 'next/font/google';
@@ -11,6 +12,7 @@ const geist = Geist({
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html suppressHydrationWarning>
+      <ReactScan />
       <body className={`${geist.variable} font-sans antialiased`}>{children}</body>
     </html>
   );

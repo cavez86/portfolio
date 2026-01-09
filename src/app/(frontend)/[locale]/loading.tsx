@@ -20,7 +20,7 @@ export default function Loading() {
           }}
           className="border-primary h-8 w-8 rounded-full border-2 border-t-transparent"
         />
-        <p className="text-slate-600 dark:text-slate-400">{t('loading')}</p>
+        <p className="text-slate-400">{t('loading')}</p>
       </motion.div>
     </div>
   );

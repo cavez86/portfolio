@@ -53,7 +53,7 @@ const LanguagesSection = ({ languages }: { languages: Promise<Language[]> }) => 
                     </div>
                     <div className="h-2.5 w-full bg-secondary">
                       <motion.div
-                        className="h-2.5 bg-primary dark:shadow-[0_0_8px_var(--color-primary)]"
+                        className="h-2.5 bg-primary shadow-[0_0_8px_var(--color-primary)]"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${lang.level}%` }}
                         viewport={{ once: true }}

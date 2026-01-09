@@ -22,7 +22,7 @@ const SkillsCard = ({ category }: { category: Skill | SoftSkill }) => {
         <ul className="space-y-2">
           {category.skills?.map((skill, skillIndex) => (
             <li key={skillIndex} className="flex items-center gap-2 text-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary dark:shadow-[0_0_4px_var(--color-primary)]"></span>
+              <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_4px_var(--color-primary)]"></span>
               {skill.skill}
             </li>
           ))}

@@ -69,8 +69,8 @@ const ContactSectionView = ({
 
             {personalInfoData.availability && (
               <div className="mt-8">
-                <h4 className="mb-3 font-medium text-slate-900 dark:text-white">{t('availability')}</h4>
-                <p className="text-slate-600 dark:text-slate-400">{personalInfoData.availability}</p>
+                <h4 className="mb-3 font-medium text-white">{t('availability')}</h4>
+                <p className="text-slate-400">{personalInfoData.availability}</p>
               </div>
             )}
           </CardContent>

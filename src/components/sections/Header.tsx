@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 
+import { ColorPicker } from '@/components/ColorPicker';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
-import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
 
 import Icon, { IconName } from '../common/Icon';
@@ -13,24 +13,24 @@ export const Header = async () => {
   const contacts = await getLocalizedCollection('contacts');
 
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 border-b-2 border-primary/30 px-6 py-4 backdrop-blur md:top-0 dark:shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
+    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 border-b-2 border-primary/30 px-6 py-4 backdrop-blur md:top-0 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
       <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
         <nav className="hidden items-center gap-8 md:flex">
           <Link
             href="#experience"
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary dark:hover:shadow-[0_0_8px_var(--color-primary)]"
+            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
           >
             {t('experience')}
           </Link>
           <Link
             href="#skills"
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary dark:hover:shadow-[0_0_8px_var(--color-primary)]"
+            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
           >
             {t('skills')}
           </Link>
           <Link
             href="#contact"
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary dark:hover:shadow-[0_0_8px_var(--color-primary)]"
+            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
           >
             {t('contact')}
           </Link>
@@ -45,9 +45,7 @@ export const Header = async () => {
             </Button>
           ))}
           <LanguageSelector />
-          <div className="ml-auto md:ml-2 md:border-l-2 md:border-primary/30 md:pl-4">
-            <ThemeToggle />
-          </div>
+          <ColorPicker />
         </div>
       </div>
     </header>

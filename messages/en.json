@@ -58,5 +58,11 @@
   },
   "Loading": {
     "loading": "Loading..."
+  },
+  "ColorPicker": {
+    "title": "Customize Theme Color",
+    "description": "Choose your preferred terminal hue. The default is green.",
+    "hue_label": "Hue: {hue}°",
+    "reset_button": "Reset to Default"
   }
 }

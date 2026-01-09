@@ -1,46 +1,47 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@custom-variant dark (&:where(.dark, .dark *));
-@custom-variant light (&:where(.light, .light *));
-
-/* light theme - Terminal style */
+/* Terminal theme with customizable base color using relative colors */
 @theme {
-  /* Light terminal theme with blue colors */
-  --color-background: oklch(0.95 0.01 240); /* Very light gray with slight blue tint */
-  --color-foreground: oklch(0.35 0.05 240); /* Dark blue-gray for text */
+  /* Base color can be customized by user (default: terminal green) */
+  --color-base: oklch(0.8 0.18 var(--theme-color, 145)); /* Default to green hue */
 
-  --color-card: oklch(0.97 0.005 240); /* Almost white with tiny blue tint */
-  --color-card-foreground: oklch(0.35 0.05 240);
+  /* All theme colors derived from --color-base using CSS relative color syntax */
+  --color-background: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Very dark with subtle hue tint */
+  --color-foreground: oklch(from var(--color-base) 0.85 0.15 h); /* Bright neon text */
 
-  --color-popover: oklch(0.97 0.005 240);
-  --color-popover-foreground: oklch(0.35 0.05 240);
+  --color-card: oklch(from var(--color-base) 0.18 0.01 calc(h + 5)); /* Slightly lighter than background */
+  --color-card-foreground: oklch(from var(--color-base) 0.85 0.15 h);
 
-  --color-primary: oklch(0.55 0.18 240); /* Blue primary color */
-  --color-primary-foreground: oklch(0.98 0.005 240);
+  --color-popover: oklch(from var(--color-base) 0.12 0.01 calc(h + 5)); /* Darker than background for depth */
+  --color-popover-foreground: oklch(from var(--color-base) 0.85 0.15 h);
 
-  --color-secondary: oklch(0.88 0.01 240); /* Light gray-blue */
-  --color-secondary-foreground: oklch(0.35 0.05 240);
+  --color-primary: var(--color-base); /* Bright neon - terminal primary color */
+  --color-primary-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Dark text on primary */
 
-  --color-muted: oklch(0.9 0.01 240);
-  --color-muted-foreground: oklch(0.5 0.04 240);
+  --color-secondary: oklch(from var(--color-base) 0.25 0.02 calc(h + 5)); /* Dark for secondary elements */
+  --color-secondary-foreground: oklch(from var(--color-base) 0.75 0.12 h); /* Dimmer accent */
 
-  --color-accent: oklch(0.6 0.18 240); /* Blue accent */
-  --color-accent-foreground: oklch(0.98 0.005 240);
+  --color-muted: oklch(from var(--color-base) 0.22 0.015 calc(h + 5)); /* Muted background */
+  --color-muted-foreground: oklch(from var(--color-base) 0.55 0.08 h); /* Muted text */
 
-  --color-destructive: oklch(0.55 0.2 25); /* Red-orange */
-  --color-destructive-foreground: oklch(0.98 0.005 240);
+  --color-accent: oklch(from var(--color-base) 0.65 0.18 calc(h + 3)); /* Accent color */
+  --color-accent-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5));
 
-  --color-border: oklch(0.75 0.02 240); /* Medium gray-blue border */
-  --color-input: oklch(0.92 0.01 240);
-  --color-ring: oklch(0.55 0.18 240); /* Blue ring matching primary */
+  --color-destructive: oklch(0.6 0.2 25); /* Red-orange for errors */
+  --color-destructive-foreground: oklch(0.95 0.01 120);
+
+  --color-border: oklch(from var(--color-base) 0.35 0.05 h); /* Hue-tinted border */
+  --color-input: oklch(from var(--color-base) 0.2 0.015 calc(h + 5)); /* Dark input background */
+  --color-ring: var(--color-base); /* Bright focus ring */
+
   --color-radius: 0.25rem; /* Sharper corners for terminal feel */
 
-  --color-chart-1: oklch(0.65 0.15 240); /* Blue */
-  --color-chart-2: oklch(0.65 0.15 195); /* Cyan */
-  --color-chart-3: oklch(0.65 0.15 275); /* Purple */
-  --color-chart-4: oklch(0.75 0.12 85); /* Yellow */
-  --color-chart-5: oklch(0.6 0.18 25); /* Orange-red */
+  --color-chart-1: var(--color-base); /* Primary color */
+  --color-chart-2: oklch(from var(--color-base) 0.75 0.15 calc(h + 50)); /* Shifted hue */
+  --color-chart-3: oklch(from var(--color-base) 0.7 0.12 calc(h + 130)); /* Complementary */
+  --color-chart-4: oklch(from var(--color-base) 0.85 0.15 calc(h - 55)); /* Triadic */
+  --color-chart-5: oklch(0.65 0.2 25); /* Red-orange */
 
   --animate-scale-x: scale-x linear forwards;
   @keyframes scale-x {
@@ -77,44 +78,6 @@
   }
 }
 
-/* dark theme - Terminal style (primary theme) */
-:root :where(.dark, .dark *) {
-  /* Classic terminal colors - dark background with bright green text */
-  --color-background: oklch(0.15 0.01 150); /* Very dark gray-green (like old CRT monitors) */
-  --color-foreground: oklch(0.85 0.15 145); /* Bright neon green text */
-
-  --color-card: oklch(0.18 0.01 150); /* Slightly lighter than background */
-  --color-card-foreground: oklch(0.85 0.15 145);
-
-  --color-popover: oklch(0.12 0.01 150); /* Darker than background for depth */
-  --color-popover-foreground: oklch(0.85 0.15 145);
-
-  --color-primary: oklch(0.8 0.18 145); /* Bright neon green - terminal primary color */
-  --color-primary-foreground: oklch(0.15 0.01 150); /* Dark text on green */
-
-  --color-secondary: oklch(0.25 0.02 150); /* Dark gray-green for secondary elements */
-  --color-secondary-foreground: oklch(0.75 0.12 145); /* Dimmer green */
-
-  --color-muted: oklch(0.22 0.015 150); /* Muted background */
-  --color-muted-foreground: oklch(0.55 0.08 145); /* Muted green text */
-
-  --color-accent: oklch(64.683% 0.1846 148.565); /* Green accent */
-  --color-accent-foreground: oklch(0.15 0.01 150);
-
-  --color-destructive: oklch(0.6 0.2 25); /* Red-orange for errors */
-  --color-destructive-foreground: oklch(0.95 0.01 120);
-
-  --color-border: oklch(0.35 0.05 145); /* Green-tinted border */
-  --color-input: oklch(0.2 0.015 150); /* Dark input background */
-  --color-ring: oklch(0.8 0.18 145); /* Bright green focus ring */
-
-  --color-chart-1: oklch(0.8 0.18 145); /* Bright green */
-  --color-chart-2: oklch(0.75 0.15 195); /* Cyan */
-  --color-chart-3: oklch(0.7 0.12 275); /* Blue */
-  --color-chart-4: oklch(0.85 0.15 90); /* Yellow */
-  --color-chart-5: oklch(0.65 0.2 25); /* Red-orange */
-}
-
 @utility animation-timeline-scroll {
   animation-timeline: scroll();
 }
@@ -135,13 +98,8 @@
 
   /* Terminal-style text selection */
   ::selection {
-    background-color: oklch(0.8 0.18 145 / 0.3);
+    background-color: oklch(from var(--color-base) l c h / 0.3);
     color: var(--color-foreground);
-  }
-
-  /* Light theme text selection with blue */
-  :root :where(.light, .light *) ::selection {
-    background-color: oklch(0.55 0.18 240 / 0.3);
   }
 
   /* Scrollbar styling for terminal theme */

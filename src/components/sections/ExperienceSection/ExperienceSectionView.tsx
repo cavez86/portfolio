@@ -41,7 +41,7 @@ const ExperienceSection = ({ data }: { data: Promise<Experience[]> }) => {
           >
             <div
               className={cn(
-                'absolute top-6 hidden h-3 w-3 transform rounded-full bg-primary md:block dark:shadow-[0_0_8px_var(--color-primary)]',
+                'absolute top-6 hidden h-3 w-3 transform rounded-full bg-primary md:block shadow-[0_0_8px_var(--color-primary)]',
                 index % 2 === 0 ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'
               )}
             ></div>

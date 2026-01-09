@@ -9,6 +9,7 @@ import MainProvider from '@/components/providers';
 import Footer from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import { routing } from '@/i18n/routing';
+import { Toaster } from 'sonner';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -37,15 +38,16 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body>
-        <MainProvider>
+      <MainProvider>
+        <body>
           <ScrollProgress />
           <Header />
           {children}
           <Footer />
           <GoToTop />
-        </MainProvider>
-      </body>
+          <Toaster />
+        </body>
+      </MainProvider>
     </html>
   );
 }
