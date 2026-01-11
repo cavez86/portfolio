@@ -45,3 +45,4 @@ package-lock.json
 
 # Local Netlify folder
 .netlify
+.env.local
