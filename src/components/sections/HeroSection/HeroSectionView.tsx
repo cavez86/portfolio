@@ -27,7 +27,7 @@ const HeroSection = ({
       <div className="container mx-auto">
         <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
           <motion.h1
-            className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-5xl leading-normal font-bold text-transparent md:text-7xl dark:from-blue-400 dark:to-sky-300"
+            className="bg-linear-to-r from-primary to-accent bg-clip-text text-5xl leading-normal font-bold font-mono uppercase tracking-wider text-transparent md:text-7xl [text-shadow:0_0_30px_var(--color-primary)]"
             initial={{ opacity: 0.1, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -36,7 +36,7 @@ const HeroSection = ({
           </motion.h1>
 
           <motion.h2
-            className="text-2xl font-medium text-slate-700 md:text-3xl dark:text-slate-300"
+            className="text-2xl font-medium font-mono uppercase tracking-wider text-accent md:text-3xl"
             initial={{ opacity: 0.1, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -45,7 +45,7 @@ const HeroSection = ({
           </motion.h2>
 
           <motion.div
-            className="mx-auto text-lg text-pretty text-slate-600 dark:text-slate-400"
+            className="mx-auto text-lg text-pretty text-muted-foreground"
             initial={{ opacity: 0.1, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -62,11 +62,7 @@ const HeroSection = ({
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <Link href="#contact">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-600 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
-              >
+              <Button size="lg" variant="outline">
                 {t('contact_me')}
               </Button>
             </Link>
@@ -83,11 +79,13 @@ const HeroSection = ({
           {summaryInfoData.map((item, index) => (
             <div
               key={index}
-              className="bg-card flex flex-col items-center rounded-lg border p-4 text-center shadow-sm transition-shadow hover:shadow-md"
+              className="bg-card flex flex-col items-center border-2 border-primary/30 p-4 text-center transition-all hover:border-primary/60 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_var(--color-primary)]"
             >
-              <Icon name={item.icon as IconName} className="mb-2 h-8 w-8 text-blue-600 dark:text-blue-400" />
-              <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">{t(item.label)}</h3>
-              <p className="text-base font-semibold text-slate-900 dark:text-white">{t(item.value)}</p>
+              <Icon name={item.icon as IconName} className="mb-2 h-8 w-8 text-primary" />
+              <h3 className="text-sm font-medium font-mono uppercase tracking-wider text-muted-foreground">
+                {t(item.label)}
+              </h3>
+              <p className="text-base font-semibold font-mono text-foreground">{t(item.value)}</p>
             </div>
           ))}
         </motion.div>

@@ -58,5 +58,11 @@
   },
   "Loading": {
     "loading": "Caricamento..."
+  },
+  "ColorPicker": {
+    "title": "Personalizza Colore del Tema",
+    "description": "Scegli la tonalità terminale preferita. Il valore predefinito è verde.",
+    "hue_label": "Tonalità: {hue}°",
+    "reset_button": "Ripristina Predefinito"
   }
 }

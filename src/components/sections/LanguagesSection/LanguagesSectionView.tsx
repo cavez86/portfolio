@@ -23,8 +23,10 @@ const LanguagesSection = ({ languages }: { languages: Promise<Language[]> }) => 
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="mb-4 text-3xl font-bold text-slate-900 md:text-4xl dark:text-white">{t('title')}</h2>
-        <p className="text-lg text-slate-600 dark:text-slate-400">{t('description')}</p>
+        <h2 className="mb-4 text-3xl font-bold font-mono uppercase tracking-wider text-foreground md:text-4xl">
+          {t('title')}
+        </h2>
+        <p className="text-lg text-muted-foreground">{t('description')}</p>
       </motion.div>
 
       <div className="grid gap-6">
@@ -39,17 +41,19 @@ const LanguagesSection = ({ languages }: { languages: Promise<Language[]> }) => 
             <Card>
               <CardContent>
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
-                    <Globe className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  <div className="flex h-12 w-12 items-center justify-center border-2 border-primary bg-primary/20">
+                    <Globe className="h-6 w-6 text-primary" />
                   </div>
                   <div className="flex-1">
                     <div className="mb-2 flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{lang.language}</h3>
-                      <span className="text-sm text-slate-500 dark:text-slate-400">{lang.proficiency}</span>
+                      <h3 className="text-lg font-semibold font-mono uppercase tracking-wider text-foreground">
+                        {lang.language}
+                      </h3>
+                      <span className="text-sm text-muted-foreground">{lang.proficiency}</span>
                     </div>
-                    <div className="h-2.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
+                    <div className="h-2.5 w-full bg-secondary">
                       <motion.div
-                        className="h-2.5 rounded-full bg-blue-600 dark:bg-blue-400"
+                        className="h-2.5 bg-primary shadow-[0_0_8px_var(--color-primary)]"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${lang.level}%` }}
                         viewport={{ once: true }}

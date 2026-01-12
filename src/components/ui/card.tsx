@@ -6,7 +6,11 @@ function Card({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="card"
-      className={cn('bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm', className)}
+      className={cn(
+        'bg-card text-card-foreground flex flex-col gap-6 border-2 border-primary/30 py-6 transition-all',
+        'shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:border-primary/60 hover:shadow-[0_0_20px_var(--color-primary)]',
+        className
+      )}
       {...props}
     />
   );
@@ -26,7 +30,13 @@ function CardHeader({ className, ...props }: ComponentProps<'div'>) {
 }
 
 function CardTitle({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="card-title" className={cn('leading-none font-semibold', className)} {...props} />;
+  return (
+    <div
+      data-slot="card-title"
+      className={cn('leading-none font-semibold font-mono uppercase tracking-wider text-primary', className)}
+      {...props}
+    />
+  );
 }
 
 function CardDescription({ className, ...props }: ComponentProps<'div'>) {

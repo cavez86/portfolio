@@ -1,45 +1,47 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@custom-variant dark (&:where(.dark, .dark *));
-@custom-variant light (&:where(.light, .light *));
-
-/* light theme */
+/* Terminal theme with customizable base color using relative colors */
 @theme {
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(222.2 84% 4.9%);
+  /* Base color can be customized by user (default: terminal green) */
+  --color-base: oklch(from var(--theme-color) 0.8 0.18 h); /* Default to green hue */
 
-  --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(222.2 84% 4.9%);
+  /* All theme colors derived from --color-base using CSS relative color syntax */
+  --color-background: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Very dark with subtle hue tint */
+  --color-foreground: oklch(from var(--color-base) 0.85 0.15 h); /* Bright neon text */
 
-  --color-popover: hsl(0 0% 100%);
-  --color-popover-foreground: hsl(222.2 84% 4.9%);
+  --color-card: oklch(from var(--color-base) 0.18 0.01 calc(h + 5)); /* Slightly lighter than background */
+  --color-card-foreground: oklch(from var(--color-base) 0.85 0.15 h);
 
-  --color-primary: hsl(249, 86%, 45%);
-  --color-primary-foreground: hsl(210 40% 98%);
+  --color-popover: oklch(from var(--color-base) 0.12 0.01 calc(h + 5)); /* Darker than background for depth */
+  --color-popover-foreground: oklch(from var(--color-base) 0.85 0.15 h);
 
-  --color-secondary: hsl(210 40% 96.1%);
-  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
+  --color-primary: var(--color-base); /* Bright neon - terminal primary color */
+  --color-primary-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Dark text on primary */
 
-  --color-muted: hsl(210 40% 96.1%);
-  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+  --color-secondary: oklch(from var(--color-base) 0.25 0.02 calc(h + 5)); /* Dark for secondary elements */
+  --color-secondary-foreground: oklch(from var(--color-base) 0.75 0.12 h); /* Dimmer accent */
 
-  --color-accent: hsl(210 40% 96.1%);
-  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
+  --color-muted: oklch(from var(--color-base) 0.22 0.015 calc(h + 5)); /* Muted background */
+  --color-muted-foreground: oklch(from var(--color-base) 0.55 0.08 h); /* Muted text */
 
-  --color-destructive: hsl(0 84.2% 60.2%);
-  --color-destructive-foreground: hsl(210 40% 98%);
+  --color-accent: oklch(from var(--color-base) 0.65 0.18 calc(h + 3)); /* Accent color */
+  --color-accent-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5));
 
-  --color-border: hsl(214.3 31.8% 91.4%);
-  --color-input: hsl(214.3 31.8% 91.4%);
-  --color-ring: hsl(221.2 83.2% 53.3%);
-  --color-radius: 0.5rem;
+  --color-destructive: oklch(0.6 0.2 25); /* Red-orange for errors */
+  --color-destructive-foreground: oklch(0.95 0.01 120);
 
-  --color-chart-1: hsl(12 76% 61%);
-  --color-chart-2: hsl(173 58% 39%);
-  --color-chart-3: hsl(197 37% 24%);
-  --color-chart-4: hsl(43 74% 66%);
-  --color-chart-5: hsl(27 87% 67%);
+  --color-border: oklch(from var(--color-base) 0.35 0.05 h); /* Hue-tinted border */
+  --color-input: oklch(from var(--color-base) 0.2 0.015 calc(h + 5)); /* Dark input background */
+  --color-ring: var(--color-base); /* Bright focus ring */
+
+  --color-radius: 0.25rem; /* Sharper corners for terminal feel */
+
+  --color-chart-1: var(--color-base); /* Primary color */
+  --color-chart-2: oklch(from var(--color-base) 0.75 0.15 calc(h + 50)); /* Shifted hue */
+  --color-chart-3: oklch(from var(--color-base) 0.7 0.12 calc(h + 130)); /* Complementary */
+  --color-chart-4: oklch(from var(--color-base) 0.85 0.15 calc(h - 55)); /* Triadic */
+  --color-chart-5: oklch(0.65 0.2 25); /* Red-orange */
 
   --animate-scale-x: scale-x linear forwards;
   @keyframes scale-x {
@@ -76,43 +78,6 @@
   }
 }
 
-/* dark theme */
-:root :where(.dark, .dark *) {
-  --color-background: hsl(222.2 84% 4.9%);
-  --color-foreground: hsl(210 40% 98%);
-
-  --color-card: hsl(222.2 84% 4.9%);
-  --color-card-foreground: hsl(210 40% 98%);
-
-  --color-popover: hsl(222.2 84% 4.9%);
-  --color-popover-foreground: hsl(210 40% 98%);
-
-  --color-primary: hsl(194, 91%, 60%);
-  --color-primary-foreground: hsl(222.2 47.4% 11.2%);
-
-  --color-secondary: hsl(217.2 32.6% 17.5%);
-  --color-secondary-foreground: hsl(210 40% 98%);
-
-  --color-muted: hsl(217.2 32.6% 17.5%);
-  --color-muted-foreground: hsl(215 20.2% 65.1%);
-
-  --color-accent: hsl(217.2 32.6% 17.5%);
-  --color-accent-foreground: hsl(210 40% 98%);
-
-  --color-destructive: hsl(0 62.8% 30.6%);
-  --color-destructive-foreground: hsl(210 40% 98%);
-
-  --color-border: hsl(217.2 32.6% 17.5%);
-  --color-input: hsl(217.2 32.6% 17.5%);
-  --color-ring: hsl(224.3 76.3% 48%);
-
-  --color-chart-1: hsl(220 70% 50%);
-  --color-chart-2: hsl(160 60% 45%);
-  --color-chart-3: hsl(30 80% 55%);
-  --color-chart-4: hsl(280 65% 60%);
-  --color-chart-5: hsl(340 75% 55%);
-}
-
 @utility animation-timeline-scroll {
   animation-timeline: scroll();
 }
@@ -128,6 +93,31 @@
   }
 
   body {
-    @apply bg-background min-w-[360px];
+    @apply bg-background text-foreground min-w-[360px] font-mono;
+  }
+
+  /* Terminal-style text selection */
+  ::selection {
+    background-color: oklch(from var(--color-base) l c h / 0.3);
+    color: var(--color-foreground);
+  }
+
+  /* Scrollbar styling for terminal theme */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border: 2px solid var(--color-background);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
   }
 }

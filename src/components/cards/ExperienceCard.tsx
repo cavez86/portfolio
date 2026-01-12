@@ -17,12 +17,7 @@ const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Card
-          className={cn(
-            flipAlignment ? 'md:ml-4' : 'md:mr-4',
-            'group/card cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800'
-          )}
-        >
+        <Card className={cn(flipAlignment ? 'md:ml-4' : 'md:mr-4', 'group/card cursor-pointer hover:bg-card/80')}>
           <CardContent>
             <div
               className={cn(
@@ -32,18 +27,16 @@ const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment
             >
               <Maximize2
                 className={cn(
-                  'absolute top-0 h-3 w-3 text-blue-800 opacity-50 transition dark:text-blue-300',
+                  'absolute top-0 h-3 w-3 text-primary opacity-50 transition',
                   'group-hover/card:scale-150 group-hover/card:opacity-100',
                   'right-0',
                   flipAlignment && 'md:left-0 md:right-auto'
                 )}
               />
-              <Badge className="mb-2 inline-block w-auto bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50">
-                {periodLabel}
-              </Badge>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white">{exp.company}</h3>
-              <p className="mb-2 text-xs text-slate-600 dark:text-slate-400">{exp.location}</p>
-              <p className="mb-4 text-slate-600 dark:text-slate-400">{exp.position}</p>
+              <Badge className="mb-2 inline-block w-auto">{periodLabel}</Badge>
+              <h3 className="text-xl font-bold font-mono uppercase tracking-wider text-foreground">{exp.company}</h3>
+              <p className="mb-2 text-xs text-muted-foreground">{exp.location}</p>
+              <p className="mb-4 text-muted-foreground">{exp.position}</p>
             </div>
           </CardContent>
         </Card>
@@ -53,7 +46,7 @@ const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment
           <DialogTitle>{exp.company}</DialogTitle>
           <DialogDescription>{periodLabel}</DialogDescription>
         </DialogHeader>
-        <ul className="list-disc space-y-2 pl-5 text-left text-slate-700 dark:text-slate-300 [&_a]:underline">
+        <ul className="list-disc space-y-2 pl-5 text-left text-foreground [&_a]:underline [&_a]:text-accent [&_a]:hover:text-primary">
           {exp.achievements?.map((achievement, idx) => (
             <li key={idx}>
               <span className="font-semibold">{achievement.label}</span>: <Markdown>{achievement.description}</Markdown>

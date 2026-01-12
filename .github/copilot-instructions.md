@@ -14,7 +14,7 @@ rendering, and PDF generation capabilities.
 - **CMS:** PayloadCMS with Vercel Postgres adapter
 - **Styling:** Tailwind CSS v4 (via @tailwindcss/postcss)
 - **UI Components:** shadcn/ui (Radix UI primitives)
-- **State Management:** tRPC 11 with React Query
+- **State Management:** tRPC 11 with React Query, Custom React Context for theme
 - **i18n:** next-intl supporting English and Italian
 - **Testing:** Vitest
 - **Linting/Formatting:** ESLint, Prettier
@@ -99,8 +99,8 @@ Husky is configured with a pre-commit hook that runs `lint-staged`:
   - `admin/[[...segments]]/page.tsx` - Admin UI
   - `api/` - Payload API routes
 - `api/trpc/[trpc]/` - tRPC API endpoints
-- `layout.tsx` - Root layout with Geist font loading
-- `globals.css` - Tailwind CSS v4 theme with light/dark modes
+- `layout.tsx` - Root layout with Geist font loading and theme flash prevention
+- `globals.css` - Tailwind CSS v4 dark theme with CSS relative colors based on user-customizable hue
 
 #### `src/collections/` - PayloadCMS Collections (10 files)
 
@@ -109,7 +109,7 @@ Data models: Users, Contacts, Education, Experience, Languages, Media, PersonalI
 #### `src/components/` - React Components
 
 - `ui/` - shadcn/ui components (Badge, Button, Card, Dialog, etc.)
-- `common/` - Shared components (Icon, LanguageSelector, ScrollProgress, etc.)
+- `common/` - Shared components (ColorPicker, Icon, LanguageSelector, ScrollProgress, etc.)
 - `sections/` - Page sections (HeroSection, SkillsSection, ContactSection, etc.)
 - `cards/` - Data cards (ExperienceCard, SkillsCard)
 - `providers/` - Context providers (ThemeProvider, IntlErrorHandlingProvider)
@@ -126,6 +126,10 @@ Data models: Users, Contacts, Education, Experience, Languages, Media, PersonalI
 - `routing.ts` - Locale configuration (en, it)
 - `navigation.ts` - i18n-aware navigation helpers
 - `request.ts` - Server-side request handling
+
+#### `src/hooks/` - Custom React Hooks
+
+- `useStoredState.ts` - Generic hook for localStorage-backed state management
 
 #### Other Important Directories
 
@@ -203,7 +207,13 @@ Use these TypeScript path aliases (defined in `tsconfig.json`):
 
 - Use Tailwind CSS v4 utility classes
 - Theme colors are defined in `src/app/globals.css`
-- Dark mode is handled via `next-themes` with `.dark` class
+- **Theme System:** Dark-only theme with user-customizable base hue (default: 145° terminal green)
+  - CSS relative colors using `oklch(from var(--theme-color) ...)` syntax derive all theme colors from base hue
+  - `ColorPicker` component allows users to adjust hue via slider (0-360°)
+  - Theme preference persisted in localStorage with key `theme-color`
+  - Custom `ThemeProvider` (React Context) manages theme state
+  - Flash prevention script in root layout loads theme before hydration
+  - **Do NOT use `dark:` class prefixes** - single dark theme only
 
 ### Adding Components
 
@@ -224,6 +234,19 @@ Currently, the project has no test files but is configured for Vitest. When addi
 - Place test files adjacent to source files with `.test.ts` or `.spec.ts` extension
 - Run tests with `pnpm test`
 - CI runs tests with `--passWithNoTests` flag
+
+## Maintaining These Instructions
+
+**When making significant project changes, update this file to reflect the new state:**
+
+- Add new dependencies or remove deprecated ones from Key Technologies
+- Update project structure when files/directories are added, removed, or reorganized
+- Document new patterns, conventions, or architectural decisions
+- Add new common issues and their workarounds
+- Update environment variables and configuration requirements
+- Keep code style guidelines current with actual practices
+
+**This ensures future work benefits from documented context and avoids confusion.**
 
 ## Trust These Instructions
 
