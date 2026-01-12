@@ -34,7 +34,7 @@
     "accept-language": "^3.0.20",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
-    "framer-motion": "^12.24.0",
+    "framer-motion": "^12.26.1",
     "graphql": "^16.12.0",
     "lucide-react": "^0.562.0",
     "motion": "^12.24.0",
