@@ -96,8 +96,8 @@ importers:
         specifier: ^1.319.0
         version: 1.319.0
       posthog-node:
-        specifier: ^5.20.0
-        version: 5.20.0
+        specifier: ^5.21.2
+        version: 5.21.2
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -1998,6 +1998,9 @@ packages:
   '@pnpm/tabtab@0.5.4':
     resolution: {integrity: sha512-bWLDlHsBlgKY/05wDN/V3ETcn5G2SV/SiA2ZmNvKGGlmVX4G5li7GRDhHcgYvHJHyJ8TUStqg2xtHmCs0UbAbg==}
     engines: {node: '>=18'}
+
+  '@posthog/core@1.10.0':
+    resolution: {integrity: sha512-Xk3JQ+cdychsvftrV3G9ZrN9W329lbyFW0pGJXFGKFQf8qr4upw2SgNg9BVorjSrfhoXZRnJGt/uNF4nGFBL5A==}
 
   '@posthog/core@1.9.1':
     resolution: {integrity: sha512-kRb1ch2dhQjsAapZmu6V66551IF2LnCbc1rnrQqnR7ArooVyJN9KOPXre16AJ3ObJz2eTfuP7x25BMyS2Y5Exw==}
@@ -6674,8 +6677,8 @@ packages:
   posthog-js@1.319.0:
     resolution: {integrity: sha512-0LFqLEhZzA8s1TrhYxsKsKmYV0n3FpNrWaT8rMjL87TRXtpy3XtsvbZKa97X6MFly5CK9CdhgKSNNyX7j12MrQ==}
 
-  posthog-node@5.20.0:
-    resolution: {integrity: sha512-LkR5KfrvEQTnUtNKN97VxFB00KcYG1Iz8iKg8r0e/i7f1eQhg1WSZO+Jp1B4bvtHCmdpIE4HwYbvCCzFoCyjVg==}
+  posthog-node@5.21.2:
+    resolution: {integrity: sha512-Jehlu0KguL1LLyUczCt86OtA5INmeStK3zcgbv1BSyMcNxs0HP3GQogBrYhwhqHsk6JopiFFVpJyZEoXOUMhGw==}
     engines: {node: '>=20'}
 
   preact@10.28.2:
@@ -7575,6 +7578,7 @@ packages:
   tar@7.5.2:
     resolution: {integrity: sha512-7NyxrTE4Anh8km8iEy7o0QYPs+0JKBTj5ZaqHg6B39erLg0qYXN3BijtShwbsNSvQ+LN75+KV+C4QR/f6Gwnpg==}
     engines: {node: '>=18'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   terminal-link@4.0.0:
     resolution: {integrity: sha512-lk+vH+MccxNqgVqSnkMVKx4VLJfnLjDBGzH16JVZjKE2DoxP57s6/vt6JmXV5I3jBcfGrxNrYtC+mPtU7WJztA==}
@@ -10317,6 +10321,10 @@ snapshots:
       untildify: 4.0.0
     transitivePeerDependencies:
       - supports-color
+
+  '@posthog/core@1.10.0':
+    dependencies:
+      cross-spawn: 7.0.6
 
   '@posthog/core@1.9.1':
     dependencies:
@@ -15511,9 +15519,9 @@ snapshots:
       query-selector-shadow-dom: 1.0.1
       web-vitals: 4.2.4
 
-  posthog-node@5.20.0:
+  posthog-node@5.21.2:
     dependencies:
-      '@posthog/core': 1.9.1
+      '@posthog/core': 1.10.0
 
   preact@10.28.2: {}
 
