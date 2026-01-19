@@ -41,7 +41,7 @@
     "next": "16.1.1",
     "next-intl": "^4.7.0",
     "payload": "^3.65.0",
-    "posthog-js": "^1.319.0",
+    "posthog-js": "^1.330.0",
     "posthog-node": "^5.20.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
