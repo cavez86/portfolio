@@ -20,11 +20,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Pnpm
-        uses: pnpm/action-setup@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
         with:
-          run_install: |
-            - args: [--frozen-lockfile, --strict-peer-dependencies]
+          cache: true
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
       - name: Run ESLint
         run: pnpm lint
