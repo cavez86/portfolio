@@ -57,8 +57,8 @@ importers:
         specifier: 11.8.0
         version: 11.8.0(typescript@5.9.3)
       '@uiw/color-convert':
-        specifier: ^2.9.2
-        version: 2.9.2(@babel/runtime@7.28.6)
+        specifier: ^2.9.4
+        version: 2.9.4(@babel/runtime@7.28.6)
       '@uiw/react-color-hue':
         specifier: ^2.9.2
         version: 2.9.2(@babel/runtime@7.28.6)(react-dom@19.2.3(react@19.2.4))(react@19.2.4)
@@ -2926,6 +2926,11 @@ packages:
 
   '@uiw/color-convert@2.9.2':
     resolution: {integrity: sha512-ibw9OS29S7GlL+vDwU3p5XG3vhR7XdzUecydpZbakUeg2Td6nfsnrCAX9sbLwQ73p0abO42v+V4qRaWq+7/BjQ==}
+    peerDependencies:
+      '@babel/runtime': '>=7.19.0'
+
+  '@uiw/color-convert@2.9.4':
+    resolution: {integrity: sha512-iFqdh+yCwGGZz0CJOBAiF7Yj31QlF9oquGqIQSvDkRqiEFmPLhXXH7/HMQriuJpweoPkyzsXoX7g006AILB85w==}
     peerDependencies:
       '@babel/runtime': '>=7.19.0'
 
@@ -7557,6 +7562,7 @@ packages:
   tar@7.5.6:
     resolution: {integrity: sha512-xqUeu2JAIJpXyvskvU3uvQW8PAmHrtXp2KDuMJwQqW8Sqq0CaZBAQ+dKS3RBXVhU4wC5NjAdKrmh84241gO9cA==}
     engines: {node: '>=18'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   terminal-link@4.0.0:
     resolution: {integrity: sha512-lk+vH+MccxNqgVqSnkMVKx4VLJfnLjDBGzH16JVZjKE2DoxP57s6/vt6JmXV5I3jBcfGrxNrYtC+mPtU7WJztA==}
@@ -11227,6 +11233,10 @@ snapshots:
       eslint-visitor-keys: 4.2.1
 
   '@uiw/color-convert@2.9.2(@babel/runtime@7.28.6)':
+    dependencies:
+      '@babel/runtime': 7.28.6
+
+  '@uiw/color-convert@2.9.4(@babel/runtime@7.28.6)':
     dependencies:
       '@babel/runtime': 7.28.6
 
