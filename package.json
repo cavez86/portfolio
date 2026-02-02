@@ -38,7 +38,7 @@
     "graphql": "^16.12.0",
     "lucide-react": "^0.563.0",
     "motion": "^12.30.0",
-    "next": "16.1.5",
+    "next": "16.1.6",
     "next-intl": "^4.8.2",
     "payload": "^3.65.0",
     "posthog-js": "^1.335.3",
