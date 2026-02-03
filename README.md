@@ -1,14 +1,14 @@
 # Portfolio Website
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/59264e8f-6ddd-4c40-8262-ccf476aa6ec4/deploy-status)](https://app.netlify.com/projects/cavez-portfolio/deploys)
-
-A modern, feature-rich portfolio website built with Next.js 16, PayloadCMS, and TypeScript. Includes
-internationalization (English/Italian), server-side rendering, and PDF generation capabilities.
+A modern, feature-rich portfolio website built with Next.js 16, PayloadCMS, and TypeScript. Deployed on **Cloudflare
+Workers** using OpenNext.js. Includes internationalization (English/Italian), server-side rendering, and PDF generation
+capabilities.
 
 ## Tech Stack
 
-- **Runtime:** Node.js >= 24
+- **Runtime:** Node.js >= 24 (local dev) / Cloudflare Workers (production)
 - **Framework:** Next.js 16 with App Router & React 19
+- **Deployment:** Cloudflare Workers via OpenNext.js
 - **CMS:** PayloadCMS with Vercel Postgres adapter
 - **Styling:** Tailwind CSS v4
 - **UI Components:** shadcn/ui (Radix UI)
@@ -32,9 +32,7 @@ This must be run first before any other commands.
 
 ## Development
 
-### Using pnpm
-
-Start the development server:
+Start the Next.js development server:
 
 ```bash
 pnpm dev
@@ -42,19 +40,16 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Using Netlify CLI
+### Preview in Cloudflare Workers Runtime
 
-Alternatively, run the project using Netlify CLI:
+To test your app locally in the Cloudflare Workers runtime (instead of Node.js):
 
 ```bash
-# Install Netlify CLI globally (if not already installed)
-npm install -g netlify-cli
-
-# Run the development server
-netlify dev
+pnpm preview
 ```
 
-The dev server will start on [http://localhost:3000](http://localhost:3000) by default.
+This builds your app and serves it locally using the Workers runtime, allowing you to test exactly how it will behave in
+production.
 
 ## Code Quality Commands
 
@@ -73,14 +68,52 @@ Run these commands locally before committing to ensure CI passes.
 pnpm build             # Build for production
 ```
 
-**Note:** The build may fail in sandboxed environments due to Google Fonts access. Use `pnpm type-check` to validate
-TypeScript without building.
+\*\*NDeployment
 
-## Project Structure
+### Deploy to Cloudflare Workers
 
-### Collections (Data Models)
+Deploy your app to Cloudflare:
 
-- Users, Contacts, Education, Experience, Languages, Media, PersonalInfo, Skills, SoftSkills, SummaryInfo
+```bash
+pnpm deploy            # Build and deploy in one command
+```
+
+Or upload a new version without immediate deployment:
+
+```bash
+pnpm upload            # Build and upload new version
+```
+
+### Building Only
+
+```bash
+### Local Development (.dev.vars)
+
+For local development, add variables to `.dev.vars`:
+
+```
+
+NEXTJS_ENV=development DATABASE_URL=your_postgres_url PAYLOAD_SECRET=your_secret RESEND_API_KEY=your_api_key
+
+```
+
+### Production (Cloudflare Dashboard)
+
+Set production environment variables in the [Cloudflare Dashboard](https://dash.cloudflare.com) under your Worker's settings.
+
+Common variables:
+
+- `DATABASE_URL` - Vercel Postgres connection
+- `PAYLOAD_SECRET` - Payload admin authentication
+- `RESEND_API_KEY` - Email service API key
+- `NEXTJS_ENV` - Environment for loading .env files (defaults to "production"
+### Cloudflare Configuration
+
+- **wrangler.jsonc** - Worker configuration (bindings, compatibility flags)
+- **open-next.config.ts** - OpenNext.js configuration with R2 incremental cache
+- **.dev.vars** - Local environment variables (not committed)
+
+To enable R2 caching, uncomment the R2 bucket configuration in `wrangler.jsonc` and create a bucket in the Cloudflare dashboardn, Experience, Languages, Media, PersonalInfo, Skills, SoftSkills, SummaryInfo
 
 ### Key Directories
 
@@ -105,3 +138,4 @@ TypeScript aliases (defined in `tsconfig.json`):
 
 - `@/*` → `./src/*`
 - `@payload-config` → `./src/payload.config.ts`
+```
