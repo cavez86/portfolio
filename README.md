@@ -1,7 +1,5 @@
 # Portfolio Website
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/59264e8f-6ddd-4c40-8262-ccf476aa6ec4/deploy-status)](https://app.netlify.com/projects/cavez-portfolio/deploys)
-
 A modern, feature-rich portfolio website built with Next.js 16, PayloadCMS, and TypeScript. Includes
 internationalization (English/Italian), server-side rendering, and PDF generation capabilities.
 
@@ -41,20 +39,6 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Using Netlify CLI
-
-Alternatively, run the project using Netlify CLI:
-
-```bash
-# Install Netlify CLI globally (if not already installed)
-npm install -g netlify-cli
-
-# Run the development server
-netlify dev
-```
-
-The dev server will start on [http://localhost:3000](http://localhost:3000) by default.
 
 ## Code Quality Commands
 
