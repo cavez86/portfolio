@@ -181,7 +181,7 @@ Install globally: `npm install -g pnpm`
 
 ### 3. Dependency Installation Warnings
 
-The warning about ignored build scripts for `sharp`, etc. is normal and can be ignored.
+The warning about ignored build scripts for `@vercel/speed-insights`, `sharp`, etc. is normal and can be ignored.
 
 ### 4. TypeScript Type Errors in .next Directory
 
