@@ -1,0 +1,51 @@
+/* Glassmorphism & Neumorphism Theme */
+[data-theme='glassmorphic'] {
+  --color-background: hsl(240 20% 15%);
+  --color-foreground: hsl(0 0% 98%);
+  --color-primary: hsl(280 60% 65%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(240 20% 25%);
+  --color-secondary-foreground: hsl(0 0% 90%);
+  --color-muted: hsl(240 20% 20%);
+  --color-muted-foreground: hsl(0 0% 70%);
+  --color-accent: hsl(320 60% 60%);
+  --color-accent-foreground: hsl(0 0% 100%);
+  --color-destructive: hsl(0 62.8% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(0 0% 100% / 0.3);
+  --color-input: hsl(0 0% 100% / 0.1);
+  --color-ring: hsl(280 60% 65%);
+  --color-card: hsl(0 0% 100% / 0.1);
+  --color-card-foreground: hsl(0 0% 98%);
+  --color-popover: hsl(0 0% 100% / 0.15);
+  --color-popover-foreground: hsl(0 0% 98%);
+  --color-radius: 1.5rem;
+}
+
+[data-theme='glassmorphic'] body {
+  background: linear-gradient(135deg, hsl(240 40% 20%), hsl(280 40% 25%));
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+}
+
+[data-theme='glassmorphic'] .border {
+  border-width: 1px;
+}
+
+[data-theme='glassmorphic'] h1,
+[data-theme='glassmorphic'] h2,
+[data-theme='glassmorphic'] h3 {
+  text-transform: none;
+  font-weight: 600;
+}
+
+/* Glass effect */
+[data-theme='glassmorphic'] .bg-card,
+[data-theme='glassmorphic'] .bg-popover,
+[data-theme='glassmorphic'] header {
+  backdrop-filter: blur(20px) saturate(180%);
+  background: linear-gradient(135deg, hsl(0 0% 100% / 0.15), hsl(0 0% 100% / 0.05)) !important;
+}

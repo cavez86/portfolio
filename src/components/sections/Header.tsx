@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { ColorPicker } from '@/components/ColorPicker';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
+import { ThemeSelector } from '@/components/ThemeSelector';
 import { Button } from '@/components/ui/button';
 
 import Icon, { IconName } from '../common/Icon';
@@ -45,6 +46,7 @@ export const Header = async () => {
             </Button>
           ))}
           <LanguageSelector />
+          <ThemeSelector />
           <ColorPicker />
         </div>
       </div>

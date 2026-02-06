@@ -1,0 +1,46 @@
+/* Kinetic Typography & Motion Design Theme */
+[data-theme='kinetic'] {
+  --color-background: hsl(0 0% 10%);
+  --color-foreground: hsl(0 0% 98%);
+  --color-primary: hsl(180 100% 50%);
+  --color-primary-foreground: hsl(0 0% 10%);
+  --color-secondary: hsl(240 20% 25%);
+  --color-secondary-foreground: hsl(0 0% 90%);
+  --color-muted: hsl(0 0% 15%);
+  --color-muted-foreground: hsl(0 0% 60%);
+  --color-accent: hsl(300 100% 60%);
+  --color-accent-foreground: hsl(0 0% 100%);
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(0 0% 30%);
+  --color-input: hsl(0 0% 15%);
+  --color-ring: hsl(180 100% 50%);
+  --color-card: hsl(0 0% 12%);
+  --color-card-foreground: hsl(0 0% 98%);
+  --color-popover: hsl(0 0% 12%);
+  --color-popover-foreground: hsl(0 0% 98%);
+  --color-radius: 0.75rem;
+}
+
+[data-theme='kinetic'] body {
+  font-family:
+    'Inter',
+    -apple-system,
+    sans-serif;
+  font-feature-settings: 'ss01', 'ss02', 'cv01', 'cv02';
+}
+
+[data-theme='kinetic'] h1,
+[data-theme='kinetic'] h2,
+[data-theme='kinetic'] h3 {
+  font-weight: 800;
+  text-transform: none;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme='kinetic'] * {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -1,4 +1,9 @@
 import './globals.css';
+import './themes/accessible.css';
+import './themes/brutalist.css';
+import './themes/editorial.css';
+import './themes/glassmorphic.css';
+import './themes/kinetic.css';
 
 import { Geist } from 'next/font/google';
 import { ReactNode } from 'react';

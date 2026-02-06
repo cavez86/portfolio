@@ -1,0 +1,48 @@
+/* Editorial Magazine Layout Theme */
+[data-theme='editorial'] {
+  --color-background: #f9f7f4;
+  --color-foreground: #1a1a1a;
+  --color-primary: #c41e3a;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #666666;
+  --color-secondary-foreground: #ffffff;
+  --color-muted: #e8e6e3;
+  --color-muted-foreground: #666666;
+  --color-accent: #c41e3a;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #c41e3a;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #d4d2cf;
+  --color-input: #ffffff;
+  --color-ring: #c41e3a;
+  --color-card: #ffffff;
+  --color-card-foreground: #1a1a1a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #1a1a1a;
+  --color-radius: 0.25rem;
+}
+
+[data-theme='editorial'] body {
+  font-family:
+    'Source Sans Pro',
+    -apple-system,
+    sans-serif;
+}
+
+[data-theme='editorial'] h1,
+[data-theme='editorial'] h2,
+[data-theme='editorial'] h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: -0.02em;
+}
+
+[data-theme='editorial'] * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+[data-theme='editorial'] .border {
+  border-width: 1px;
+}

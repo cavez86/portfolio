@@ -64,5 +64,12 @@
     "description": "Choose your preferred terminal hue. The default is green.",
     "hue_label": "Hue: {hue}°",
     "reset_button": "Reset to Default"
+  },
+  "ThemeSelector": {
+    "button": "Theme",
+    "title": "Select Design Theme",
+    "description": "Choose from 5 unique design alternatives showcasing different visual identities",
+    "select_theme": "Select a design theme",
+    "current_theme": "Current theme"
   }
 }

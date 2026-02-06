@@ -64,5 +64,12 @@
     "description": "Scegli la tonalità terminale preferita. Il valore predefinito è verde.",
     "hue_label": "Tonalità: {hue}°",
     "reset_button": "Ripristina Predefinito"
+  },
+  "ThemeSelector": {
+    "button": "Tema",
+    "title": "Seleziona Tema Design",
+    "description": "Scegli tra 5 alternative di design uniche che mostrano diverse identità visive",
+    "select_theme": "Seleziona un tema di design",
+    "current_theme": "Tema corrente"
   }
 }

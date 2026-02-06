@@ -1,0 +1,63 @@
+/* Accessible & Inclusive Universal Design Theme */
+[data-theme='accessible'] {
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --color-primary: #0056b3;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #6c757d;
+  --color-secondary-foreground: #ffffff;
+  --color-muted: #f8f9fa;
+  --color-muted-foreground: #495057;
+  --color-accent: #0056b3;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #b31200;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #000000;
+  --color-input: #ffffff;
+  --color-ring: #0056b3;
+  --color-card: #ffffff;
+  --color-card-foreground: #000000;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #000000;
+  --color-radius: 0.25rem;
+}
+
+[data-theme='accessible'] body {
+  font-family:
+    'Atkinson Hyperlegible',
+    -apple-system,
+    sans-serif;
+  line-height: 1.6;
+}
+
+[data-theme='accessible'] h1,
+[data-theme='accessible'] h2,
+[data-theme='accessible'] h3 {
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+[data-theme='accessible'] * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+[data-theme='accessible'] .border {
+  border-width: 2px;
+}
+
+[data-theme='accessible'] *:focus-visible {
+  outline: 4px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* High contrast for accessibility */
+[data-theme='accessible'] a {
+  text-decoration: underline;
+}
+
+[data-theme='accessible'] button {
+  min-height: 44px;
+  min-width: 44px;
+}

@@ -5,12 +5,15 @@ import { TRPCProvider } from '@/lib/trpc/client';
 
 import DayJsProvider from './DayJsProvider';
 import IntlErrorHandlingProvider from './IntlErrorHandlingProvider';
+import { ThemeProvider } from './ThemeProvider';
 
 const MainProvider = ({ children }: { children: ReactNode }) => (
   <NextIntlClientProvider>
     <IntlErrorHandlingProvider>
       <DayJsProvider>
-        <TRPCProvider>{children}</TRPCProvider>
+        <ThemeProvider>
+          <TRPCProvider>{children}</TRPCProvider>
+        </ThemeProvider>
       </DayJsProvider>
     </IntlErrorHandlingProvider>
   </NextIntlClientProvider>
