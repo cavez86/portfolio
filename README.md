@@ -1,7 +1,16 @@
 # Portfolio Website
 
 A modern, feature-rich portfolio website built with Next.js 16, PayloadCMS, and TypeScript. Includes
-internationalization (English/Italian), server-side rendering, and PDF generation capabilities.
+internationalization (English/Italian), server-side rendering, PDF generation capabilities, and **6 unique design
+themes** showcasing different visual identities.
+
+## Features
+
+- 🎨 **6 Design Themes**: Switch between Terminal, Brutalist, Glassmorphic, Editorial, Kinetic, and Accessible designs
+- 🌍 **Internationalization**: Full support for English and Italian
+- 📄 **PDF Export**: Generate and download portfolio as PDF
+- 🎯 **User Customization**: Adjustable color hues and theme preferences
+- ♿ **Accessibility**: Includes WCAG AAA compliant theme option
 
 ## Tech Stack
 
@@ -89,3 +98,9 @@ TypeScript aliases (defined in `tsconfig.json`):
 
 - `@/*` → `./src/*`
 - `@payload-config` → `./src/payload.config.ts`
+
+## Documentation
+
+- **[DESIGN_REVIEW.md](./DESIGN_REVIEW.md)** - Comprehensive design review with detailed specifications for all 5
+  alternatives
+- **[THEME_SYSTEM.md](./THEME_SYSTEM.md)** - Theme system documentation and usage guide
