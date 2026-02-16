@@ -60,8 +60,8 @@ importers:
         specifier: ^2.9.5
         version: 2.9.5(@babel/runtime@7.28.6)
       '@uiw/react-color-hue':
-        specifier: ^2.9.4
-        version: 2.9.4(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^2.9.5
+        version: 2.9.5(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@vercel/analytics':
         specifier: ^1.6.1
         version: 1.6.1(next@16.1.6(@babel/core@7.28.6)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(react@19.2.4)
@@ -2328,32 +2328,27 @@ packages:
     resolution: {integrity: sha512-VFlhGSl4opC0bprJiItPQ1RfUhGDIBokcPwaFH4yiBCaNPeld/9VeXbiPO1cLyorQi1G1vL+ecBk1x8o1axORA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@uiw/color-convert@2.9.4':
-    resolution: {integrity: sha512-iFqdh+yCwGGZz0CJOBAiF7Yj31QlF9oquGqIQSvDkRqiEFmPLhXXH7/HMQriuJpweoPkyzsXoX7g006AILB85w==}
-    peerDependencies:
-      '@babel/runtime': '>=7.19.0'
-
   '@uiw/color-convert@2.9.5':
     resolution: {integrity: sha512-h0PJU/wEfuCPYwY4Lcj8soGKndXq/NIOMkOfKajW4C8JmuyMbsViXSQs3c8c7auztxhQyKMDoSQ8U8kprlLUYw==}
     peerDependencies:
       '@babel/runtime': '>=7.19.0'
 
-  '@uiw/react-color-alpha@2.9.4':
-    resolution: {integrity: sha512-TgPdJ79PCHYT1R6h9EC3f4dXCFjPA0XigiCTmPlwMpY5CEcXs6as6yYkPPYwlOpvKRtroQuRCPtXuMbjtHRmTQ==}
+  '@uiw/react-color-alpha@2.9.5':
+    resolution: {integrity: sha512-PC+qf/qJi1V0QwYBAOqWHJrTVXFWU0a1Ai0dKnX9v+++kj1oO44K8W7W6tK7xvTmCDzRY57RTE+6qXAMC3u7cQ==}
     peerDependencies:
       '@babel/runtime': '>=7.19.0'
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
 
-  '@uiw/react-color-hue@2.9.4':
-    resolution: {integrity: sha512-C5bHJ5MMBTkzTFXDWBjVQMOkcoqFMK9Uw3fd4KojYL7GMSSDd1eOlMaHoz2HfRPd5WplCyAMovB4YqHsWcDWew==}
+  '@uiw/react-color-hue@2.9.5':
+    resolution: {integrity: sha512-S+ejC6oz6pbSzY8CzUX3eZJzA8tTEErXeG4KGgabGiv4bpjXX1BxEN7aLkADVSmucYhI4kHfUItld0RIHWnViA==}
     peerDependencies:
       '@babel/runtime': '>=7.19.0'
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
 
-  '@uiw/react-drag-event-interactive@2.9.4':
-    resolution: {integrity: sha512-I5AZquK4C4LN24OvixRwk4krFaEYAGOaGRD3pgtByfQv4br3igb/94wt3cxz/EMKSzOM1aSAH857ipHBYpOSXg==}
+  '@uiw/react-drag-event-interactive@2.9.5':
+    resolution: {integrity: sha512-2LK/lsWsNLG9is1uJ/p14JVOR+YfCu8gpHFJ+2m+I/DPXVOln7VGoYPzcS6hwYOt9tPPJF4uqonnIUCBQ4Xa2w==}
     peerDependencies:
       '@babel/runtime': '>=7.19.0'
       react: '>=16.9.0'
@@ -7538,31 +7533,27 @@ snapshots:
       '@typescript-eslint/types': 8.54.0
       eslint-visitor-keys: 4.2.1
 
-  '@uiw/color-convert@2.9.4(@babel/runtime@7.28.6)':
-    dependencies:
-      '@babel/runtime': 7.28.6
-
   '@uiw/color-convert@2.9.5(@babel/runtime@7.28.6)':
     dependencies:
       '@babel/runtime': 7.28.6
 
-  '@uiw/react-color-alpha@2.9.4(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@uiw/react-color-alpha@2.9.5(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@babel/runtime': 7.28.6
-      '@uiw/color-convert': 2.9.4(@babel/runtime@7.28.6)
-      '@uiw/react-drag-event-interactive': 2.9.4(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@uiw/color-convert': 2.9.5(@babel/runtime@7.28.6)
+      '@uiw/react-drag-event-interactive': 2.9.5(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  '@uiw/react-color-hue@2.9.4(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@uiw/react-color-hue@2.9.5(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@babel/runtime': 7.28.6
-      '@uiw/color-convert': 2.9.4(@babel/runtime@7.28.6)
-      '@uiw/react-color-alpha': 2.9.4(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@uiw/color-convert': 2.9.5(@babel/runtime@7.28.6)
+      '@uiw/react-color-alpha': 2.9.5(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  '@uiw/react-drag-event-interactive@2.9.4(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@uiw/react-drag-event-interactive@2.9.5(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@babel/runtime': 7.28.6
       react: 19.2.4
