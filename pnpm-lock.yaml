@@ -57,8 +57,8 @@ importers:
         specifier: 11.8.0
         version: 11.8.0(typescript@5.9.3)
       '@uiw/color-convert':
-        specifier: ^2.9.4
-        version: 2.9.4(@babel/runtime@7.28.6)
+        specifier: ^2.9.5
+        version: 2.9.5(@babel/runtime@7.28.6)
       '@uiw/react-color-hue':
         specifier: ^2.9.4
         version: 2.9.4(@babel/runtime@7.28.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -2336,6 +2336,11 @@ packages:
 
   '@uiw/color-convert@2.9.4':
     resolution: {integrity: sha512-iFqdh+yCwGGZz0CJOBAiF7Yj31QlF9oquGqIQSvDkRqiEFmPLhXXH7/HMQriuJpweoPkyzsXoX7g006AILB85w==}
+    peerDependencies:
+      '@babel/runtime': '>=7.19.0'
+
+  '@uiw/color-convert@2.9.5':
+    resolution: {integrity: sha512-h0PJU/wEfuCPYwY4Lcj8soGKndXq/NIOMkOfKajW4C8JmuyMbsViXSQs3c8c7auztxhQyKMDoSQ8U8kprlLUYw==}
     peerDependencies:
       '@babel/runtime': '>=7.19.0'
 
@@ -7548,6 +7553,10 @@ snapshots:
       eslint-visitor-keys: 4.2.1
 
   '@uiw/color-convert@2.9.4(@babel/runtime@7.28.6)':
+    dependencies:
+      '@babel/runtime': 7.28.6
+
+  '@uiw/color-convert@2.9.5(@babel/runtime@7.28.6)':
     dependencies:
       '@babel/runtime': 7.28.6
 
