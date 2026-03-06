@@ -1,2 +1,7 @@
 User-agent: *
-Disallow: /
+Allow: /
+
+# Block Payload CMS admin and API endpoints
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
