@@ -40,7 +40,7 @@
     "graphql": "^16.13.0",
     "lucide-react": "^0.576.0",
     "motion": "^12.35.2",
-    "next": "16.1.6",
+    "next": "16.2.1",
     "next-intl": "^4.8.3",
     "payload": "^3.65.0",
     "posthog-js": "^1.357.0",
@@ -54,7 +54,7 @@
     "zod": "4.3.6"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "16.1.6",
+    "@next/eslint-plugin-next": "16.2.1",
     "@tailwindcss/postcss": "^4.2.1",
     "@types/node": "^25.3.3",
     "@types/react": "19.2.9",
@@ -62,7 +62,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "class-variance-authority": "^0.7.1",
     "eslint": "^9.39.1",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "16.2.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react-hooks": "7.0.1",
