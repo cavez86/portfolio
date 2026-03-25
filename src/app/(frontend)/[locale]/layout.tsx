@@ -1,8 +1,11 @@
+import '../../globals.css';
+
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { hasLocale, Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Geist } from 'next/font/google';
 import { locale } from 'next/root-params';
 import { ReactNode } from 'react';
 
@@ -13,6 +16,11 @@ import Footer from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import { routing } from '@/i18n/routing';
 import { Toaster } from 'sonner';
+
+const geist = Geist({
+  subsets: ['latin'],
+  variable: '--font-geist',
+});
 
 export async function generateMetadata(): Promise<Metadata> {
   const currentLocale = (await locale()) as Locale;
@@ -36,7 +44,7 @@ export default async function LocaleLayout({ children }: { children: ReactNode }
   return (
     <html lang={currentLocale} suppressHydrationWarning>
       <MainProvider>
-        <body>
+        <body className={`${geist.variable} font-sans antialiased`}>
           <ScrollProgress />
           <Header />
           {children}
