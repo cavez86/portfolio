@@ -84,8 +84,8 @@ importers:
         specifier: ^16.13.0
         version: 16.13.0
       lucide-react:
-        specifier: ^0.576.0
-        version: 0.576.0(react@19.2.4)
+        specifier: ^1.6.0
+        version: 1.6.0(react@19.2.4)
       motion:
         specifier: ^12.35.2
         version: 12.35.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -116,6 +116,9 @@ importers:
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
+      simple-icons:
+        specifier: ^16.13.0
+        version: 16.13.0
       sonner:
         specifier: ^2.0.7
         version: 2.0.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -3404,20 +3407,6 @@ packages:
       react-dom:
         optional: true
 
-  framer-motion@12.35.2:
-    resolution: {integrity: sha512-dhfuEMaNo0hc+AEqyHiIfiJRNb9U9UQutE9FoKm5pjf7CMitp9xPEF1iWZihR1q86LBmo6EJ7S8cN8QXEy49AA==}
-    peerDependencies:
-      '@emotion/is-prop-valid': '*'
-      react: ^18.0.0 || ^19.0.0
-      react-dom: ^18.0.0 || ^19.0.0
-    peerDependenciesMeta:
-      '@emotion/is-prop-valid':
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
-
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -3983,8 +3972,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@0.576.0:
-    resolution: {integrity: sha512-koNxU14BXrxUfZQ9cUaP0ES1uyPZKYDjk31FQZB6dQ/x+tXk979sVAn9ppZ/pVeJJyOxVM8j1E+8QEuSc02Vug==}
+  lucide-react@1.6.0:
+    resolution: {integrity: sha512-YxLKVCOF5ZDI1AhKQE5IBYMY9y/Nr4NT15+7QEWpsTSVCdn4vmZhww+6BP76jWYjQx8rSz1Z+gGme1f+UycWEw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -4132,9 +4121,6 @@ packages:
 
   monaco-editor@0.55.1:
     resolution: {integrity: sha512-jz4x+TJNFHwHtwuV9vA9rMujcZRb0CEilTEwG2rRSpe/A7Jdkuj8xPKttCgOh+v/lkHy7HsZ64oj+q3xoAFl9A==}
-
-  motion-dom@12.35.2:
-    resolution: {integrity: sha512-pWXFMTwvGDbx1Fe9YL5HZebv2NhvGBzRtiNUv58aoK7+XrsuaydQ0JGRKK2r+bTKlwgSWwWxHbP5249Qr/BNpg==}
 
   motion-dom@12.35.2:
     resolution: {integrity: sha512-pWXFMTwvGDbx1Fe9YL5HZebv2NhvGBzRtiNUv58aoK7+XrsuaydQ0JGRKK2r+bTKlwgSWwWxHbP5249Qr/BNpg==}
@@ -4847,6 +4833,10 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  simple-icons@16.13.0:
+    resolution: {integrity: sha512-N4AMZvFERU5YLEtUudtUesiM2H4O5xQ9qfS3K0oOV5II5KVtxOUAlmZ7KqBgiTSGBgCVkuLD/Z9dJKBtnI3kKQ==}
+    engines: {node: '>=0.12.18'}
 
   simple-swizzle@0.2.4:
     resolution: {integrity: sha512-nAu1WFPQSMNr2Zn9PGSZK9AGn4t/y97lEm+MXTtUDwfP0ksAIX4nO+6ruD9Jwut4C49SB1Ws+fbXsm/yScWOHw==}
@@ -8683,15 +8673,6 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  framer-motion@12.35.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
-    dependencies:
-      motion-dom: 12.35.2
-      motion-utils: 12.29.2
-      tslib: 2.8.1
-    optionalDependencies:
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-
   fsevents@2.3.3:
     optional: true
 
@@ -9234,7 +9215,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.576.0(react@19.2.4):
+  lucide-react@1.6.0(react@19.2.4):
     dependencies:
       react: 19.2.4
 
@@ -9554,10 +9535,6 @@ snapshots:
     dependencies:
       dompurify: 3.2.7
       marked: 14.0.0
-
-  motion-dom@12.35.2:
-    dependencies:
-      motion-utils: 12.29.2
 
   motion-dom@12.35.2:
     dependencies:
@@ -10372,6 +10349,8 @@ snapshots:
   siginfo@2.0.0: {}
 
   signal-exit@4.1.0: {}
+
+  simple-icons@16.13.0: {}
 
   simple-swizzle@0.2.4:
     dependencies:
