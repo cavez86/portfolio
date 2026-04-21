@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
     viewTransition: true,
+    rootParams: true,
   },
   typescript: {
     ignoreBuildErrors: true,
