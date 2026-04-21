@@ -38,7 +38,7 @@
     "dayjs": "^1.11.19",
     "framer-motion": "^12.35.2",
     "graphql": "^16.13.0",
-    "lucide-react": "^1.6.0",
+    "lucide-react": "^1.8.0",
     "motion": "^12.35.2",
     "next": "16.2.1",
     "next-intl": "^4.8.3",
@@ -49,7 +49,7 @@
     "react-dom": "19.2.4",
     "react-markdown": "^10.1.0",
     "sharp": "^0.34.5",
-    "simple-icons": "^16.13.0",
+    "simple-icons": "^16.17.0",
     "sonner": "^2.0.7",
     "superjson": "2.2.6",
     "zod": "4.3.6"
