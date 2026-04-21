@@ -15,6 +15,7 @@ import MainProvider from '@/components/providers';
 import Footer from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import { routing } from '@/i18n/routing';
+import { cn } from '@/lib/utils';
 import { Toaster } from 'sonner';
 
 const geist = Geist({
@@ -44,7 +45,7 @@ export default async function LocaleLayout({ children }: { children: ReactNode }
   return (
     <html lang={currentLocale} suppressHydrationWarning>
       <MainProvider>
-        <body className={`${geist.variable} font-sans antialiased`}>
+        <body className={cn(geist.variable, 'font-sans antialiased')}>
           <ScrollProgress />
           <Header />
           {children}
