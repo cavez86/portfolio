@@ -45,7 +45,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ```bash
 pnpm lint              # Run ESLint with auto-fix
 pnpm format            # Format code with Prettier
-pnpm type-check        # TypeScript validation (no build)
+pnpm typecheck        # TypeScript validation (no build)
 pnpm test              # Run Vitest tests
 ```
 
@@ -57,7 +57,7 @@ Run these commands locally before committing to ensure CI passes.
 pnpm build             # Build for production
 ```
 
-**Note:** The build may fail in sandboxed environments due to Google Fonts access. Use `pnpm type-check` to validate
+**Note:** The build may fail in sandboxed environments due to Google Fonts access. Use `pnpm typecheck` to validate
 TypeScript without building.
 
 ## Project Structure

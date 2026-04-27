@@ -10,6 +10,16 @@ const eslintConfig = defineConfig([
   ...nextTs,
   globalIgnores(['.next/**', 'out/**', 'build/**', 'coverage/**', 'node_modules/**', 'next-env.d.ts']),
   {
+    settings: {
+      react: {
+        version: '19',
+      },
+    },
+    languageOptions: {
+      parserOptions: {
+        warnOnUnsupportedTypeScriptVersion: false,
+      },
+    },
     rules: {
       'prefer-template': 'warn',
       '@typescript-eslint/no-unused-vars': [

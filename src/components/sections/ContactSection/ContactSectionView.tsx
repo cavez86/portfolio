@@ -1,30 +1,24 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
-import { use } from 'react';
+import { getTranslations } from 'next-intl/server';
 
 import Icon, { IconName } from '@/components/common/Icon';
+import { Motion } from '@/components/common/Motion';
 import { Card, CardContent } from '@/components/ui/card';
-import { Contact, PersonalInfo } from '@/payload-types';
+import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
 
 import Section from '../../Section';
 
-const ContactSectionView = ({
-  contacts,
-  personalInfo,
-}: {
-  contacts: Promise<Contact[]>;
-  personalInfo: Promise<PersonalInfo>;
-}) => {
-  const contactsData = use(contacts);
-  const personalInfoData = use(personalInfo);
-  const t = useTranslations('Contact');
+const ContactSectionView = async () => {
+  const [contactsData, personalInfoData, t] = await Promise.all([
+    getLocalizedCollection('contacts'),
+    getLocalizedGlobal('personal-info'),
+    getTranslations('Contact'),
+  ]);
 
   return (
     <Section id="contact" contentClassName="max-w-3xl">
-      <motion.div
-        className="md: mb-6 text-center"
+      <Motion
+        type="div"
+        className="mb-6 text-center"
         initial={{ opacity: 0.1, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -33,9 +27,10 @@ const ContactSectionView = ({
         <h2 className="mb-4 text-3xl font-bold font-mono uppercase tracking-wider text-foreground md:text-4xl">
           {t('title')}
         </h2>
-      </motion.div>
+      </Motion>
 
-      <motion.div
+      <Motion
+        type="div"
         initial={{ opacity: 0.1, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
@@ -75,7 +70,7 @@ const ContactSectionView = ({
             )}
           </CardContent>
         </Card>
-      </motion.div>
+      </Motion>
     </Section>
   );
 };

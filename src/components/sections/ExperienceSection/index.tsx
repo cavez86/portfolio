@@ -1,15 +1,13 @@
 import { Suspense } from 'react';
 
-import { getLocalizedCollection } from '@/components/utils/db';
+import { ExperienceSectionSkeleton } from '@/components/sections/SectionSkeleton';
 
 import ExperienceSectionView from './ExperienceSectionView';
 
-const ExperienceSection = async () => {
-  const experiencePromise = getLocalizedCollection('experience', ['-period.dateFrom']);
-
+const ExperienceSection = () => {
   return (
-    <Suspense>
-      <ExperienceSectionView data={experiencePromise} />
+    <Suspense fallback={<ExperienceSectionSkeleton />}>
+      <ExperienceSectionView />
     </Suspense>
   );
 };

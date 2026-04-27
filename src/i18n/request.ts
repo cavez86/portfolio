@@ -1,12 +1,14 @@
 import { hasLocale } from 'next-intl';
 import { getRequestConfig, RequestConfig } from 'next-intl/server';
+import * as rootParams from 'next/root-params';
 
 import { routing } from './routing';
 
-export default getRequestConfig(async ({ requestLocale }): Promise<RequestConfig> => {
-  // Typically corresponds to the `[locale]` segment
-  const requested = await requestLocale;
-  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
+export default getRequestConfig(async ({ locale }): Promise<RequestConfig> => {
+  if (!locale) {
+    const paramValue = await rootParams.locale();
+    locale = hasLocale(routing.locales, paramValue) ? paramValue : routing.defaultLocale;
+  }
 
   return {
     locale,
