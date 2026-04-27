@@ -3,10 +3,10 @@ import Link from 'next/link';
 
 import { ColorPicker } from '@/components/ColorPicker';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 
-import Icon, { IconName } from '../common/Icon';
-import { getLocalizedCollection } from '../utils/db';
+import Icon from '@/components/common/Icon';
+import { getLocalizedCollection } from '@/components/utils/db';
 
 export const Header = async () => {
   const t = await getTranslations('Header');
@@ -37,12 +37,16 @@ export const Header = async () => {
         </nav>
         <div className="flex flex-1 items-center justify-end gap-4">
           {contacts.map((contact) => (
-            <Button key={contact.url} variant="ghost" size="sm" className="md:text-sm" asChild>
-              <a href={contact.url}>
-                <Icon name={contact.icon as IconName} className="h-4 w-4 md:mr-2" />
-                <span className="hidden md:block">{contact.label}</span>
-              </a>
-            </Button>
+            <a
+              key={contact.url}
+              href={contact.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ size: 'sm', variant: 'ghost', className: 'md:text-sm' })}
+            >
+              {contact.icon && <Icon name={contact.icon} className="h-4 w-4 md:mr-2" />}
+              <span className="hidden md:block">{contact.label}</span>
+            </a>
           ))}
           <LanguageSelector />
           <ColorPicker />

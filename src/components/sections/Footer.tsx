@@ -1,7 +1,7 @@
-import { ExportPDFButton } from '../common/ExportPDFButton';
-import Icon, { IconName } from '../common/Icon';
-import { Button } from '../ui/button';
-import { getLocalizedCollection } from '../utils/db';
+import { ExportPDFButton } from '@/components/common/ExportPDFButton';
+import Icon from '@/components/common/Icon';
+import { buttonVariants } from '@/components/ui/button';
+import { getLocalizedCollection } from '@/components/utils/db';
 
 const Footer = async () => {
   'use cache';
@@ -16,17 +16,20 @@ const Footer = async () => {
 
           <div className="flex items-center space-x-4">
             {contacts.map((contact) => (
-              <Button key={contact.url} variant="ghost" size="lg" className="md:text-sm" asChild>
-                <a
-                  href={contact.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-all hover:text-primary"
-                  aria-label={contact.label}
-                >
-                  <Icon name={contact.icon as IconName} className="h-5 w-5" />
-                </a>
-              </Button>
+              <a
+                key={contact.url}
+                href={contact.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonVariants({
+                  variant: 'ghost',
+                  size: 'lg',
+                  className: 'transition-all hover:text-primary md:text-sm',
+                })}
+                aria-label={contact.label}
+              >
+                {contact.icon && <Icon name={contact.icon} className="h-5 w-5" />}
+              </a>
             ))}
           </div>
         </div>

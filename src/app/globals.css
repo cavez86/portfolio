@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
 
 /* Terminal theme with customizable base color using relative colors */
 @theme {
@@ -89,7 +92,7 @@
 /* Add base styles after theme definition */
 @layer base {
   * {
-    @apply border-border transition-discrete;
+    @apply border-border outline-ring/50 transition-discrete;
   }
 
   body {
@@ -119,5 +122,8 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-primary);
+  }
+  html {
+    @apply font-sans;
   }
 }

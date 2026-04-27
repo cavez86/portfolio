@@ -2,10 +2,9 @@ import { getTranslations } from 'next-intl/server';
 
 import Icon, { IconName } from '@/components/common/Icon';
 import { Motion } from '@/components/common/Motion';
+import Section from '@/components/Section';
 import { Card, CardContent } from '@/components/ui/card';
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
-
-import Section from '../../Section';
 
 const ContactSectionView = async () => {
   const [contactsData, personalInfoData, t] = await Promise.all([

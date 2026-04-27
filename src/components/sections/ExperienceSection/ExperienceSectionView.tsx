@@ -1,11 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 
+import ExperienceCard from '@/components/cards/ExperienceCard';
 import { Motion } from '@/components/common/Motion';
+import Section from '@/components/Section';
 import { getLocalizedCollection } from '@/components/utils/db';
 import { cn } from '@/lib/utils';
-
-import ExperienceCard from '../../cards/ExperienceCard';
-import Section from '../../Section';
 
 const ExperienceSection = async () => {
   const [experience, t] = await Promise.all([

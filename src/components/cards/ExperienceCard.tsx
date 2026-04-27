@@ -23,7 +23,7 @@ const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger className="w-full">
         <Card className={cn(flipAlignment ? 'md:ml-4' : 'md:mr-4', 'group/card cursor-pointer hover:bg-card/80')}>
           <CardContent>
             <div
