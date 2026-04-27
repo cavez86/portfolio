@@ -5,17 +5,17 @@ import {
   Cpu,
   Database,
   GitBranch,
-  Github,
   GraduationCap,
   Layout,
   Lightbulb,
-  Linkedin,
   Mail,
   Search,
   Terminal,
   User,
   Users,
 } from 'lucide-react';
+
+import { FaGithub as Github, FaLinkedin as Linkedin } from 'react-icons/fa';
 
 const icons = {
   Briefcase,

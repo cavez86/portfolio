@@ -1,22 +1,21 @@
-'use client';
+import { getTranslations } from 'next-intl/server';
 
-import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
-import { use } from 'react';
-
+import ExperienceCard from '@/components/cards/ExperienceCard';
+import { Motion } from '@/components/common/Motion';
+import Section from '@/components/Section';
+import { getLocalizedCollection } from '@/components/utils/db';
 import { cn } from '@/lib/utils';
-import { Experience } from '@/payload-types';
 
-import ExperienceCard from '../../cards/ExperienceCard';
-import Section from '../../Section';
-
-const ExperienceSection = ({ data }: { data: Promise<Experience[]> }) => {
-  const experience = use(data);
-  const t = useTranslations('Experience');
+const ExperienceSection = async () => {
+  const [experience, t] = await Promise.all([
+    getLocalizedCollection('experience', ['-period.dateFrom']),
+    getTranslations('Experience'),
+  ]);
 
   return (
     <Section id="experience">
-      <motion.h2
+      <Motion
+        type="h2"
         className="text-center text-3xl font-bold font-mono uppercase tracking-wider text-foreground md:text-4xl"
         initial={{ opacity: 0.1, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -24,14 +23,14 @@ const ExperienceSection = ({ data }: { data: Promise<Experience[]> }) => {
         transition={{ duration: 0.5 }}
       >
         {t('title')}
-      </motion.h2>
+      </Motion>
 
       <div className="relative mt-6 flex flex-col gap-6 md:mt-12 md:gap-12">
-        {/* Timeline line */}
         <div className="absolute top-0 bottom-0 left-0 hidden w-px transform bg-border md:left-1/2 md:block"></div>
 
         {experience.map((exp, index) => (
-          <motion.div
+          <Motion
+            type="div"
             key={index}
             className={cn('relative md:w-1/2', index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:ml-auto md:pl-12')}
             initial={{ opacity: 0.1, x: -20 }}
@@ -52,7 +51,7 @@ const ExperienceSection = ({ data }: { data: Promise<Experience[]> }) => {
               )}
             ></div>
             <ExperienceCard exp={exp} flipAlignment={index % 2 === 0} />
-          </motion.div>
+          </Motion>
         ))}
       </div>
     </Section>

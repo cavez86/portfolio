@@ -1,50 +1,46 @@
-'use client';
-
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
 import { RichText } from '@payloadcms/richtext-lexical/react';
-import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
-import { use } from 'react';
 
 import Icon, { IconName } from '@/components/common/Icon';
+import { Motion } from '@/components/common/Motion';
 import { Button } from '@/components/ui/button';
-import { PersonalInfo, SummaryInfo } from '@/payload-types';
+import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
 
-const HeroSection = ({
-  personalInfo,
-  summaryInfo,
-}: {
-  personalInfo: Promise<PersonalInfo>;
-  summaryInfo: Promise<SummaryInfo[]>;
-}) => {
-  const personalInfoData = use(personalInfo);
-  const summaryInfoData = use(summaryInfo);
-  const t = useTranslations('Hero');
+const HeroSection = async () => {
+  const [personalInfoData, summaryInfoData, t] = await Promise.all([
+    getLocalizedGlobal('personal-info'),
+    getLocalizedCollection('summary-info'),
+    getTranslations('Hero'),
+  ]);
 
   return (
     <section className="px-4 py-8 md:py-16">
       <div className="container mx-auto">
         <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
-          <motion.h1
+          <Motion
+            type="h1"
             className="bg-linear-to-r from-primary to-accent bg-clip-text text-5xl leading-normal font-bold font-mono uppercase tracking-wider text-transparent md:text-7xl [text-shadow:0_0_30px_var(--color-primary)]"
             initial={{ opacity: 0.1, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
             {personalInfoData.name}
-          </motion.h1>
+          </Motion>
 
-          <motion.h2
+          <Motion
+            type="h2"
             className="text-2xl font-medium font-mono uppercase tracking-wider text-accent md:text-3xl"
             initial={{ opacity: 0.1, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             {personalInfoData.title}
-          </motion.h2>
+          </Motion>
 
-          <motion.div
+          <Motion
+            type="div"
             className="mx-auto text-lg text-pretty text-muted-foreground"
             initial={{ opacity: 0.1, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -52,9 +48,10 @@ const HeroSection = ({
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <RichText data={personalInfoData.description as SerializedEditorState} />
-          </motion.div>
+          </Motion>
 
-          <motion.div
+          <Motion
+            type="div"
             className="flex flex-wrap justify-center gap-4"
             initial={{ opacity: 0.1, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -66,10 +63,11 @@ const HeroSection = ({
                 {t('contact_me')}
               </Button>
             </Link>
-          </motion.div>
+          </Motion>
         </div>
 
-        <motion.div
+        <Motion
+          type="div"
           className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4"
           initial={{ opacity: 0.1, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -88,7 +86,7 @@ const HeroSection = ({
               <p className="text-base font-semibold font-mono text-foreground">{t(item.value)}</p>
             </div>
           ))}
-        </motion.div>
+        </Motion>
       </div>
     </section>
   );

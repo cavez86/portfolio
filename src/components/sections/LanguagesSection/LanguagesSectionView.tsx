@@ -1,22 +1,19 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import { Globe } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { use } from 'react';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { Language } from '@/payload-types';
 
-import Section from '../../Section';
+import { Motion } from '@/components/common/Motion';
+import Section from '@/components/Section';
+import { getLocalizedCollection } from '@/components/utils/db';
+import { getTranslations } from 'next-intl/server';
 
-const LanguagesSection = ({ languages }: { languages: Promise<Language[]> }) => {
-  const languagesData = use(languages);
-  const t = useTranslations('Languages');
+const LanguagesSection = async () => {
+  const [languagesData, t] = await Promise.all([getLocalizedCollection('languages'), getTranslations('Languages')]);
 
   return (
     <Section contentClassName="max-w-3xl">
-      <motion.div
+      <Motion
+        type="div"
         className="mb-6 text-center md:mb-12"
         initial={{ opacity: 0.1, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -27,11 +24,12 @@ const LanguagesSection = ({ languages }: { languages: Promise<Language[]> }) => 
           {t('title')}
         </h2>
         <p className="text-lg text-muted-foreground">{t('description')}</p>
-      </motion.div>
+      </Motion>
 
       <div className="grid gap-6">
         {languagesData.map((lang, index) => (
-          <motion.div
+          <Motion
+            type="div"
             key={index}
             initial={{ opacity: 0.1, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -52,19 +50,16 @@ const LanguagesSection = ({ languages }: { languages: Promise<Language[]> }) => 
                       <span className="text-sm text-muted-foreground">{lang.proficiency}</span>
                     </div>
                     <div className="h-2.5 w-full bg-secondary">
-                      <motion.div
-                        className="h-2.5 bg-primary shadow-[0_0_8px_var(--color-primary)]"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${lang.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: index * 0.5 }}
-                      ></motion.div>
+                      <div
+                        className="h-2.5 bg-primary shadow-[0_0_8px_var(--color-primary)] transition-[width] duration-1000"
+                        style={{ width: `${lang.level}%`, transitionDelay: `${index * 0.5}s` }}
+                      ></div>
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </Motion>
         ))}
       </div>
     </Section>

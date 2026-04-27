@@ -3,17 +3,17 @@ import Link from 'next/link';
 
 import { ColorPicker } from '@/components/ColorPicker';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 
-import Icon, { IconName } from '../common/Icon';
-import { getLocalizedCollection } from '../utils/db';
+import Icon from '@/components/common/Icon';
+import { getLocalizedCollection } from '@/components/utils/db';
 
 export const Header = async () => {
   const t = await getTranslations('Header');
   const contacts = await getLocalizedCollection('contacts');
 
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky -top-[66px] z-50 border-b-2 border-primary/30 px-6 py-4 backdrop-blur md:top-0 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
+    <header className="bg-background/95 supports-backdrop-filter:bg-background/80 sticky -top-16.5 z-50 border-b-2 border-primary/30 px-6 py-4 backdrop-blur md:top-0 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
       <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
         <nav className="hidden items-center gap-8 md:flex">
           <Link
@@ -37,12 +37,16 @@ export const Header = async () => {
         </nav>
         <div className="flex flex-1 items-center justify-end gap-4">
           {contacts.map((contact) => (
-            <Button key={contact.url} variant="ghost" size="sm" className="md:text-sm" asChild>
-              <a href={contact.url}>
-                <Icon name={contact.icon as IconName} className="h-4 w-4 md:mr-2" />
-                <span className="hidden md:block">{contact.label}</span>
-              </a>
-            </Button>
+            <a
+              key={contact.url}
+              href={contact.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ size: 'sm', variant: 'ghost', className: 'md:text-sm' })}
+            >
+              {contact.icon && <Icon name={contact.icon} className="h-4 w-4 md:mr-2" />}
+              <span className="hidden md:block">{contact.label}</span>
+            </a>
           ))}
           <LanguageSelector />
           <ColorPicker />

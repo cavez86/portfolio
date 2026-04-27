@@ -39,11 +39,9 @@ export function ColorPicker() {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="relative gap-2">
-          <Palette className="h-4 w-4" />
-          <div className="h-3 w-3 rounded-full border border-border bg-base" aria-hidden="true" />
-        </Button>
+      <DialogTrigger render={<Button variant="outline" size="sm" className="relative gap-2" />}>
+        <Palette className="h-4 w-4" />
+        <div className="h-3 w-3 rounded-full border border-border bg-base" aria-hidden="true" />
       </DialogTrigger>
       <DialogContent className="max-w-75 sm:max-w-100">
         <DialogTitle>{t('title')}</DialogTitle>
