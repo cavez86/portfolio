@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  --theme-color: hsl(145, 100%, 50%); /* Default theme color (green) */
+}
+
 /* Terminal theme with customizable base color using relative colors */
 @theme {
   /* Base color can be customized by user (default: terminal green) */

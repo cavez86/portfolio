@@ -5,15 +5,13 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Geist } from 'next/font/google';
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 
 import { GoToTop } from '@/components/common/GoToTop';
 import ScrollProgress from '@/components/common/ScrollProgress';
 import MainProvider from '@/components/providers';
 import Footer from '@/components/sections/Footer';
-import FooterSkeleton from '@/components/sections/FooterSkeleton';
 import { Header } from '@/components/sections/Header';
-import HeaderSkeleton from '@/components/sections/HeaderSkeleton';
 import { cn } from '@/lib/utils';
 import { Toaster } from 'sonner';
 
@@ -40,13 +38,9 @@ export default async function LocaleLayout({ children }: { children: ReactNode }
       <MainProvider>
         <body className={cn(geist.variable, 'font-sans antialiased')}>
           <ScrollProgress />
-          <Suspense fallback={<HeaderSkeleton />}>
-            <Header />
-          </Suspense>
+          <Header />
           {children}
-          <Suspense fallback={<FooterSkeleton />}>
-            <Footer />
-          </Suspense>
+          <Footer />
           <GoToTop />
           <Toaster />
           <Analytics />

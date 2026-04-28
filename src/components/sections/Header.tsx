@@ -9,6 +9,7 @@ import Icon from '@/components/common/Icon';
 import { getLocalizedCollection } from '@/components/utils/db';
 
 export const Header = async () => {
+  'use cache';
   const t = await getTranslations('Header');
   const contacts = await getLocalizedCollection('contacts');
 

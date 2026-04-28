@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 import { useStoredState } from '@/app/hooks/useStoredState';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { hsvaToHslString } from '@uiw/color-convert';
 import Hue from '@uiw/react-color-hue';
 import { useEffect } from 'react';
 
@@ -18,15 +17,7 @@ export function ColorPicker() {
   const [hue, setHue] = useStoredState<number>(STORAGE_KEY, DEFAULT_HUE);
 
   useEffect(() => {
-    document.documentElement.style.setProperty(
-      '--theme-color',
-      hsvaToHslString({
-        h: hue,
-        s: 100,
-        v: 100,
-        a: 1,
-      })
-    );
+    document.documentElement.style.setProperty('--theme-color', `hsl(${hue}, 100%, 50%)`);
   }, [hue]);
 
   const handleHueChange = (newHue: { h: number }) => {
