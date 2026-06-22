@@ -93,8 +93,8 @@ importers:
         specifier: ^1.382.0
         version: 1.382.0
       posthog-node:
-        specifier: ^5.36.4
-        version: 5.36.4
+        specifier: ^5.38.2
+        version: 5.38.2
       react:
         specifier: 19.2.6
         version: 19.2.6
@@ -1827,8 +1827,14 @@ packages:
   '@posthog/core@1.30.10':
     resolution: {integrity: sha512-R7Z5jDB3ugwfSujMmRd5osPPR6L6BqfcaSNcYOekzRMZ4Jklq74p05xByP09EnUvKXb5czI+RQVCITTWRWuFXw==}
 
+  '@posthog/core@1.35.4':
+    resolution: {integrity: sha512-DowOjN83tGtg4NPv0tmExjXiIWapHDDTv0ZZHg70XBjH5o/AB3DkMVMvj5ODIi1Y5bw7eMETidGvRwWH0/g3wA==}
+
   '@posthog/types@1.382.0':
     resolution: {integrity: sha512-iK4OcSgvtmS9FZ9EUpvwlRZmHCLXaZ3+6dbRjkE7q9LL0zHLewxJH84H6uGvCw8aGzxs5rIliZqPHgimTcQEaw==}
+
+  '@posthog/types@1.390.2':
+    resolution: {integrity: sha512-WcfKz2GNn2vfDX8vXmJYbKxegPxVWHuDQ/pHdAn0HoZDXDFnEp/+x3qBQA+fEvtbPjjtjgAt2wIgJMlM7asx7g==}
 
   '@preact/signals-core@1.14.1':
     resolution: {integrity: sha512-vxPpfXqrwUe9lpjqfYNjAF/0RF/eFGeLgdJzdmIIZjpOnTmGmAB4BjWone562mJGMRP4frU6iZ6ei3PDsu52Ng==}
@@ -4990,8 +4996,8 @@ packages:
   posthog-js@1.382.0:
     resolution: {integrity: sha512-lXwVlNdPLkhDft48ZgLQ5Jf4RsuQVwz7Hr7luD4DAG+4wDGA+k9eE2no36r3Z1w4uK0EmIf9lmav6+4RsmP7nA==}
 
-  posthog-node@5.36.4:
-    resolution: {integrity: sha512-N+1WiypMHf3SO3NNoXTUFRzX98TuM5w4bDCm8RenYPf0rvX6r8v+yH6IzL1g/Me+wWA5+sfE1JZ6kGV6pWTZyQ==}
+  posthog-node@5.38.2:
+    resolution: {integrity: sha512-eiKpU+vX4hVuHbO/EosvPHsmh2AVIdoVmWss/uUOs1t4b0ViCblw2o8OIFqHxKj3mYRnSOBlX0Dw3wBvcCaYpA==}
     engines: {node: ^20.20.0 || >=22.22.0}
     peerDependencies:
       rxjs: ^7.0.0
@@ -7741,7 +7747,13 @@ snapshots:
     dependencies:
       '@posthog/types': 1.382.0
 
+  '@posthog/core@1.35.4':
+    dependencies:
+      '@posthog/types': 1.390.2
+
   '@posthog/types@1.382.0': {}
+
+  '@posthog/types@1.390.2': {}
 
   '@preact/signals-core@1.14.1': {}
 
@@ -11140,9 +11152,9 @@ snapshots:
       query-selector-shadow-dom: 1.0.1
       web-vitals: 5.3.0
 
-  posthog-node@5.36.4:
+  posthog-node@5.38.2:
     dependencies:
-      '@posthog/core': 1.30.10
+      '@posthog/core': 1.35.4
 
   powershell-utils@0.1.0: {}
 
