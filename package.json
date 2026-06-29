@@ -33,7 +33,7 @@
     "clsx": "2.1.1",
     "dayjs": "1.11.21",
     "framer-motion": "12.42.0",
-    "graphql": "16.14.1",
+    "graphql": "17.0.1",
     "lucide-react": "1.22.0",
     "motion": "12.40.0",
     "next": "16.2.9",
