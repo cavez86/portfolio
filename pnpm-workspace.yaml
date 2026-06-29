@@ -1,13 +1,17 @@
-packages:
-  - .
-
-onlyBuiltDependencies:
-  - sharp
+allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
+  core-js: false
+  esbuild: false
+  msw: false
+  sharp: true
+  unrs-resolver: false
 
 supportedArchitectures:
   os:
     - current
     - linux
+    - win32
   cpu:
     - current
     - x64
