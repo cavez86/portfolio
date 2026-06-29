@@ -18,4 +18,3 @@ supportedArchitectures:
   libc:
     - current
     - glibc
-
