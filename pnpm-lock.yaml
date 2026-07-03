@@ -12,8 +12,8 @@ importers:
         specifier: 1.6.0
         version: 1.6.0(@date-fns/tz@1.2.0)(@types/react@19.2.17)(date-fns@4.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@payloadcms/db-postgres':
-        specifier: 3.84.1
-        version: 3.84.1(payload@3.84.1(graphql@17.0.1)(typescript@6.0.3))
+        specifier: 3.85.1
+        version: 3.85.1(payload@3.84.1(graphql@17.0.1)(typescript@6.0.3))
       '@payloadcms/email-resend':
         specifier: 3.85.1
         version: 3.85.1(payload@3.84.1(graphql@17.0.1)(typescript@6.0.3))
@@ -1626,15 +1626,15 @@ packages:
     resolution: {integrity: sha512-tmmZ3lQxAe/k/+rNnXQRawJ4NjxO2hqiOLTHvWchtGZULp4RyFeh6aU4XdOYBFe2KE1oShQTv4AblOs2iOrNnQ==}
     engines: {node: '>= 10.0.0'}
 
-  '@payloadcms/db-postgres@3.84.1':
-    resolution: {integrity: sha512-/r1+7k58529ziTwqzySXsZb4x3FcfQIQH8R6gXLM3bTU9JA8wfLBraIgSyVKl6B3p+/EQYcaQ1DUlfrzVRxo1A==}
+  '@payloadcms/db-postgres@3.85.1':
+    resolution: {integrity: sha512-mAuSYbdJRlixzJO9IXasub3iE6c3wuSIhsLrPpOY1qGJmioFMYa9z1KhCMmDHEV5oAfKHBl0/XY1SR+FfHj7tQ==}
     peerDependencies:
-      payload: 3.84.1
+      payload: 3.85.1
 
-  '@payloadcms/drizzle@3.84.1':
-    resolution: {integrity: sha512-n/1fgH3fh6omGNecjhOJ32wrxio5ph2VhfQDwMvSEViTUPD9JXp0yJiOUEqzYK/cxoRQWfwBIbvgzpC/a6FsEw==}
+  '@payloadcms/drizzle@3.85.1':
+    resolution: {integrity: sha512-TVvw+tdvINf1y9bhkwjhGYguDybT3BJpTFzftKrsu034HqlN8ecc84ii35PXeiSsPciVWVgfgwAg9TSHQv4DFg==}
     peerDependencies:
-      payload: 3.84.1
+      payload: 3.85.1
 
   '@payloadcms/email-resend@3.85.1':
     resolution: {integrity: sha512-yUXcCXb2tJ0ktAzfGlmgo7CLhUDgSwWoc6S+BAkmsDSW89TUYFWzByUT1M+eJpoxIDByQ8x/ghndOyqgVbWoEg==}
@@ -7168,9 +7168,9 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.5.6
       '@parcel/watcher-win32-x64': 2.5.6
 
-  '@payloadcms/db-postgres@3.84.1(payload@3.84.1(graphql@17.0.1)(typescript@6.0.3))':
+  '@payloadcms/db-postgres@3.85.1(payload@3.84.1(graphql@17.0.1)(typescript@6.0.3))':
     dependencies:
-      '@payloadcms/drizzle': 3.84.1(@types/pg@8.20.0)(payload@3.84.1(graphql@17.0.1)(typescript@6.0.3))(pg@8.20.0)
+      '@payloadcms/drizzle': 3.85.1(@types/pg@8.20.0)(payload@3.84.1(graphql@17.0.1)(typescript@6.0.3))(pg@8.20.0)
       '@types/pg': 8.20.0
       console-table-printer: 2.12.1
       drizzle-kit: 0.31.7
@@ -7179,7 +7179,7 @@ snapshots:
       pg: 8.20.0
       prompts: 2.4.2
       to-snake-case: 1.0.0
-      uuid: 11.1.0
+      uuid: 13.0.2
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -7211,7 +7211,7 @@ snapshots:
       - sqlite3
       - supports-color
 
-  '@payloadcms/drizzle@3.84.1(@types/pg@8.20.0)(payload@3.84.1(graphql@17.0.1)(typescript@6.0.3))(pg@8.20.0)':
+  '@payloadcms/drizzle@3.85.1(@types/pg@8.20.0)(payload@3.84.1(graphql@17.0.1)(typescript@6.0.3))(pg@8.20.0)':
     dependencies:
       console-table-printer: 2.12.1
       dequal: 2.0.3
@@ -7219,7 +7219,7 @@ snapshots:
       payload: 3.84.1(graphql@17.0.1)(typescript@6.0.3)
       prompts: 2.4.2
       to-snake-case: 1.0.0
-      uuid: 11.1.0
+      uuid: 13.0.2
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
