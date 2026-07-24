@@ -12,8 +12,8 @@ importers:
         specifier: 1.6.0
         version: 1.6.0(@date-fns/tz@1.2.0)(@types/react@19.2.17)(date-fns@4.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@payloadcms/db-postgres':
-        specifier: 3.85.1
-        version: 3.85.1(payload@3.85.2(graphql@17.0.2)(typescript@6.0.3))
+        specifier: 3.86.0
+        version: 3.86.0(payload@3.85.2(graphql@17.0.2)(typescript@6.0.3))
       '@payloadcms/email-resend':
         specifier: 3.86.0
         version: 3.86.0(payload@3.85.2(graphql@17.0.2)(typescript@6.0.3))
@@ -1482,15 +1482,15 @@ packages:
     resolution: {integrity: sha512-7FNeNl8NCE7aINx7WXiKQrPYZWC/hvrTsmk6zmxbI7LTXE7hVek/n8AfVgpe2y82zl3w0HvCHN0bVKMBoJcC0w==}
     engines: {node: '>= 10.0.0'}
 
-  '@payloadcms/db-postgres@3.85.1':
-    resolution: {integrity: sha512-mAuSYbdJRlixzJO9IXasub3iE6c3wuSIhsLrPpOY1qGJmioFMYa9z1KhCMmDHEV5oAfKHBl0/XY1SR+FfHj7tQ==}
+  '@payloadcms/db-postgres@3.86.0':
+    resolution: {integrity: sha512-AC0yI/QGzOmejHcI5YTUnW0QO+p4PrHONYG5eQnoskRoYnfR0JUBfz+GUaSHYocPVs02fRVAesNkF9YCVfahXQ==}
     peerDependencies:
-      payload: 3.85.1
+      payload: 3.86.0
 
-  '@payloadcms/drizzle@3.85.1':
-    resolution: {integrity: sha512-TVvw+tdvINf1y9bhkwjhGYguDybT3BJpTFzftKrsu034HqlN8ecc84ii35PXeiSsPciVWVgfgwAg9TSHQv4DFg==}
+  '@payloadcms/drizzle@3.86.0':
+    resolution: {integrity: sha512-30qtjVUd281YZTIW4zYh75w+QyniZ78oXJSGLglZBo4davNEFMjqaN68WIF+s4g3EFSNirlmkD5amzZWphW+KQ==}
     peerDependencies:
-      payload: 3.85.1
+      payload: 3.86.0
 
   '@payloadcms/email-resend@3.86.0':
     resolution: {integrity: sha512-hasyTbxeiHStVAAm+2pVvuT9xT/GI51UBphZm2+tMmlJXbQa8LyYPbpR+F0nx5Uam/nsXlFSuh21JQgX7ETfQw==}
@@ -7053,9 +7053,9 @@ snapshots:
       '@parcel/watcher-win32-arm64': 2.6.0
       '@parcel/watcher-win32-x64': 2.6.0
 
-  '@payloadcms/db-postgres@3.85.1(payload@3.85.2(graphql@17.0.2)(typescript@6.0.3))':
+  '@payloadcms/db-postgres@3.86.0(payload@3.85.2(graphql@17.0.2)(typescript@6.0.3))':
     dependencies:
-      '@payloadcms/drizzle': 3.85.1(@types/pg@8.20.0)(payload@3.85.2(graphql@17.0.2)(typescript@6.0.3))(pg@8.20.0)
+      '@payloadcms/drizzle': 3.86.0(@types/pg@8.20.0)(payload@3.85.2(graphql@17.0.2)(typescript@6.0.3))(pg@8.20.0)
       '@types/pg': 8.20.0
       console-table-printer: 2.12.1
       drizzle-kit: 0.31.7
@@ -7096,7 +7096,7 @@ snapshots:
       - sqlite3
       - supports-color
 
-  '@payloadcms/drizzle@3.85.1(@types/pg@8.20.0)(payload@3.85.2(graphql@17.0.2)(typescript@6.0.3))(pg@8.20.0)':
+  '@payloadcms/drizzle@3.86.0(@types/pg@8.20.0)(payload@3.85.2(graphql@17.0.2)(typescript@6.0.3))(pg@8.20.0)':
     dependencies:
       console-table-printer: 2.12.1
       dequal: 2.0.3
