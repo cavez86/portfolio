@@ -84,8 +84,8 @@ importers:
         specifier: 3.85.2
         version: 3.85.2(graphql@17.0.2)(typescript@6.0.3)
       posthog-js:
-        specifier: 1.404.0
-        version: 1.404.0
+        specifier: 1.407.2
+        version: 1.407.2
       posthog-node:
         specifier: 5.40.0
         version: 5.40.0
@@ -1309,6 +1309,13 @@ packages:
       '@emnapi/core': ^1.7.1
       '@emnapi/runtime': ^1.7.1
 
+  '@napi-rs/wasm-runtime@1.2.1':
+    resolution: {integrity: sha512-KjZdi8Q1wh89gsVmghvbrMgWl6ZWmRmHV6wjB7/g4Zf0dyO+hH3neZUtuDNPO00qq5YE5RITVWvrIZKRaAmzGQ==}
+    engines: {node: ^20.19.0 || ^22.13.0 || >=23.5.0}
+    peerDependencies:
+      '@emnapi/core': ^1.7.1 || ^2.0.0-alpha.3
+      '@emnapi/runtime': ^1.7.1 || ^2.0.0-alpha.3
+
   '@next/env@15.5.20':
     resolution: {integrity: sha512-dXh51Wvddf8daEyBXryZZEe1FdVxEWx9lgaTseLZUtC1XP/W8Wri+Z+VPOElHlByk23CyqHdc2oVByX7wsTWsw==}
 
@@ -1549,14 +1556,17 @@ packages:
     resolution: {integrity: sha512-SEeaJLb3qBNF/OaXnaR1NmmBbFYk1zC0ZH/52fATcRPLFg/p791YrcyFFy44Bo9sLaGuSuLp5Q6axbb/O+v/RA==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
+  '@posthog/browser-common@0.2.5':
+    resolution: {integrity: sha512-g95viLlEqPl92+ar3hEzlQbPqKB0Hp7AoYVaEmvXdjUiYfG3XP+qwzPRFmULNEGLDMSKL7T+MFHvs2/EswcE+g==}
+
   '@posthog/core@1.42.1':
     resolution: {integrity: sha512-cZojBmvf92gZAn0MGf/J2S+3t2sZqb9E2/6mjY4jJsImwz7PuYqdNj870Wx2iwwlf++wfhRuH4K4bpDy9GIoCA==}
 
-  '@posthog/core@1.45.1':
-    resolution: {integrity: sha512-tLtvzomavb2PPWdGYKsusyIzIeL2Px47v348Smibkay7sMy/83TyPk+Ptsp2NdeOgJsbuwSxWkR2+XA0aSCAaA==}
+  '@posthog/core@1.46.0':
+    resolution: {integrity: sha512-9w/bzHkf8V26YDAk7bO+Y2M0O9LMJg53lw3TOpirWRY77CEq4EQ3FkrtxP6BM48qaeZ/ILmRcfz+u1jjeTLetg==}
 
-  '@posthog/types@1.398.0':
-    resolution: {integrity: sha512-sJMkl4k+u8yS/0fjHsKqE9xTdsAh30a2WvgChiptellnVoE0e8QJKFgqOMD2sk8FaEArPdeFklAhXvmENAt3Sg==}
+  '@posthog/types@1.399.0':
+    resolution: {integrity: sha512-/WDwBzqIPko8VJ1B+0rlso2XQEz9+2sqtsY9Tqy3p1GhgTqsFakcz/PmMpAnA321LTEZVRcO6x5hAwABV4yrDw==}
 
   '@preact/signals-core@1.14.4':
     resolution: {integrity: sha512-HNB6HYeYKhQbJ1aKl+YRjrS4+QWHLKX6qKoUsfS/m0vqzsVaEBiZiaKbG/e+NKk2ch5ALQr/ihWaMHxiCuuWHA==}
@@ -2506,8 +2516,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  baseline-browser-mapping@2.11.1:
-    resolution: {integrity: sha512-HYXq73DDpCtNzOmrFsm9eSwCvWCql0RzqjpDzXN9EadiLJ4DNat0nsZ/Bzmy+Ud12mb4/zKDY0cQ805ZzN+i0A==}
+  baseline-browser-mapping@2.11.8:
+    resolution: {integrity: sha512-zAgkquC2WYF0PIc6XbNYkA2uuxxFavzgmX61R+dHDUa558V8Ejf8ozTZFR6QzM24RWu4kBcRkhJ5kpz77j9fnQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -3015,8 +3025,8 @@ packages:
   electron-to-chromium@1.5.380:
     resolution: {integrity: sha512-W6d5AbuEoRayO447cqrg6lKJIlscgRnnxOZl/08kfV71BQDoEBC7Wwis68z87LjyK6f4kWyTaubuDbhHKrZkbA==}
 
-  electron-to-chromium@1.5.395:
-    resolution: {integrity: sha512-7zt9Aw+SrmxLWLN0zhaTWZQiCdryLVrYTq5R7iZakLvi2UQPYMMsROYV/2qVCzMeCiSXHwKOU+sZ4zOVVlrtKA==}
+  electron-to-chromium@1.5.398:
+    resolution: {integrity: sha512-AsvhAxopJGh6museTDMIjn6JpDYOfgu4RLlygomt87MUwBUqTfd/1EiPtx10/LZE8xpTvkP2E9Gafq7lkLtodQ==}
 
   emoji-regex-xs@1.0.0:
     resolution: {integrity: sha512-LRlerrMYoIDrT6jgpeZ2YYl/L8EulRTt5hQcYjy5AInh7HWXKimpqx68aknBFpGL2+/IcogTcaydJEgaTmOpDg==}
@@ -4782,8 +4792,8 @@ packages:
     resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
     engines: {node: '>=0.10.0'}
 
-  posthog-js@1.404.0:
-    resolution: {integrity: sha512-8uQ6fPctCYEH6Us5nXxx79n1TkwzKx309xIYd9XquGZkFBAIZZr4znfhYQmwYKzFzdrdiHEJ7SYnSyO5q7ZGYQ==}
+  posthog-js@1.407.2:
+    resolution: {integrity: sha512-5deTvXopn+NJWEmCUw8Ix/ms3cv2+60WJ73Vgbvu2wSkZY/FIj2uqAgCnq7IewGpGC+tH7CAbPYFzH6hw8eW1w==}
 
   posthog-node@5.40.0:
     resolution: {integrity: sha512-DrLfHuauO0W6qruF80iqr5JdmLysef74XzOB4eh36oRLRhxCySLraTqsi2Pj161LZnp9/JNdRDxwT8ei8VK2YA==}
@@ -6934,7 +6944,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.3
     optional: true
 
-  '@napi-rs/wasm-runtime@1.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)':
+  '@napi-rs/wasm-runtime@1.2.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)':
     dependencies:
       '@emnapi/core': 1.11.1
       '@emnapi/runtime': 1.11.1
@@ -7276,15 +7286,20 @@ snapshots:
 
   '@pkgr/core@0.3.6': {}
 
+  '@posthog/browser-common@0.2.5':
+    dependencies:
+      '@posthog/core': 1.46.0
+      '@posthog/types': 1.399.0
+
   '@posthog/core@1.42.1':
     dependencies:
-      '@posthog/types': 1.398.0
+      '@posthog/types': 1.399.0
 
-  '@posthog/core@1.45.1':
+  '@posthog/core@1.46.0':
     dependencies:
-      '@posthog/types': 1.398.0
+      '@posthog/types': 1.399.0
 
-  '@posthog/types@1.398.0': {}
+  '@posthog/types@1.399.0': {}
 
   '@preact/signals-core@1.14.4': {}
 
@@ -7432,7 +7447,7 @@ snapshots:
     dependencies:
       '@emnapi/core': 1.11.1
       '@emnapi/runtime': 1.11.1
-      '@napi-rs/wasm-runtime': 1.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)
+      '@napi-rs/wasm-runtime': 1.2.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)
     optional: true
 
   '@rolldown/binding-win32-arm64-msvc@1.1.5':
@@ -8141,7 +8156,7 @@ snapshots:
 
   baseline-browser-mapping@2.10.42: {}
 
-  baseline-browser-mapping@2.11.1: {}
+  baseline-browser-mapping@2.11.8: {}
 
   bcp47@1.1.2: {}
 
@@ -8198,9 +8213,9 @@ snapshots:
 
   browserslist@4.28.7:
     dependencies:
-      baseline-browser-mapping: 2.11.1
+      baseline-browser-mapping: 2.11.8
       caniuse-lite: 1.0.30001806
-      electron-to-chromium: 1.5.395
+      electron-to-chromium: 1.5.398
       node-releases: 2.0.51
       update-browserslist-db: 1.2.3(browserslist@4.28.7)
 
@@ -8531,7 +8546,7 @@ snapshots:
 
   electron-to-chromium@1.5.380: {}
 
-  electron-to-chromium@1.5.395: {}
+  electron-to-chromium@1.5.398: {}
 
   emoji-regex-xs@1.0.0: {}
 
@@ -10701,10 +10716,11 @@ snapshots:
     dependencies:
       xtend: 4.0.2
 
-  posthog-js@1.404.0:
+  posthog-js@1.407.2:
     dependencies:
-      '@posthog/core': 1.45.1
-      '@posthog/types': 1.398.0
+      '@posthog/browser-common': 0.2.5
+      '@posthog/core': 1.46.0
+      '@posthog/types': 1.399.0
       core-js: 3.49.0
       dompurify: 3.4.12
       fflate: 0.4.9
