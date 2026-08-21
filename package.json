@@ -15,7 +15,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@base-ui/react": "1.6.0",
+    "@base-ui/react": "1.7.0",
     "@payloadcms/db-postgres": "3.86.0",
     "@payloadcms/email-resend": "3.86.0",
     "@payloadcms/next": "3.86.0",
