@@ -8,7 +8,7 @@ import { it } from '@payloadcms/translations/languages/it';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
 
-import { env } from '@/env';
+import '@/load-env';
 import { Education } from '@/collections/Education';
 import { Experience } from '@/collections/Experience';
 import { Languages } from '@/collections/Languages';
@@ -16,6 +16,7 @@ import { PersonalInfo } from '@/collections/PersonalInfo';
 import { Skills } from '@/collections/Skills';
 import { SoftSkills } from '@/collections/SoftSkills';
 import { Users } from '@/collections/Users';
+import { env } from '@/env';
 
 import { Contacts } from './collections/Contacts';
 import { SummaryInfo } from './collections/SummaryInfo';
