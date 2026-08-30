@@ -1,6 +1,6 @@
-import { hasLocale } from 'next-intl';
-import { getRequestConfig, RequestConfig } from 'next-intl/server';
 import * as rootParams from 'next/root-params';
+import { hasLocale } from 'next-intl';
+import { getRequestConfig, type RequestConfig } from 'next-intl/server';
 
 import { routing } from './routing';
 
@@ -11,9 +11,9 @@ export default getRequestConfig(async ({ locale }): Promise<RequestConfig> => {
   }
 
   return {
+    getMessageFallback: ({ key }) => key,
     locale,
     messages: (await import(`../../messages/${locale}.json`)).default,
-    getMessageFallback: ({ key }) => key,
     onError: (error) => {
       if (error.code === 'MISSING_MESSAGE') {
         return;

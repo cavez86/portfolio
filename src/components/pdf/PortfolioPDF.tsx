@@ -86,11 +86,11 @@ export const PortfolioPDF = ({
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>CONTACTS</Text>
               <View style={styles.contactInfo}>
-                {contacts.map((contact, idx) => {
+                {contacts.map((contact) => {
                   // Remove mailto: prefix from email URLs
                   const displayUrl = contact.url.replace(/^mailto:/i, '');
                   return (
-                    <Text key={idx} style={styles.contactItem}>
+                    <Text key={contact.id} style={styles.contactItem}>
                       • {contact.label}: {displayUrl}
                     </Text>
                   );
@@ -103,12 +103,12 @@ export const PortfolioPDF = ({
           {skills && skills.length > 0 && (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>SKILLS</Text>
-              {skills.map((skillCategory, idx) => (
-                <View key={idx} style={styles.skillCategory}>
+              {skills.map((skillCategory) => (
+                <View key={skillCategory.id} style={styles.skillCategory}>
                   <Text style={styles.skillCategoryName}>{skillCategory.name}</Text>
                   <View style={styles.skillsList}>
-                    {skillCategory.skills?.map((skill: { skill: string; id?: string | null }, skillIdx: number) => (
-                      <Text key={skillIdx} style={styles.skillItem}>
+                    {skillCategory.skills?.map((skill: { skill: string; id?: string | null }) => (
+                      <Text key={skill.id ?? skill.skill} style={styles.skillItem}>
                         {skill.skill}
                       </Text>
                     ))}
@@ -122,12 +122,12 @@ export const PortfolioPDF = ({
           {softSkills && softSkills.length > 0 && (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>SOFT SKILLS</Text>
-              {softSkills.map((skillCategory, idx) => (
-                <View key={idx} style={styles.skillCategory}>
+              {softSkills.map((skillCategory) => (
+                <View key={skillCategory.id} style={styles.skillCategory}>
                   <Text style={styles.skillCategoryName}>{skillCategory.name}</Text>
                   <View style={styles.skillsList}>
-                    {skillCategory.skills?.map((skill: { skill: string; id?: string | null }, skillIdx: number) => (
-                      <Text key={skillIdx} style={styles.skillItem}>
+                    {skillCategory.skills?.map((skill: { skill: string; id?: string | null }) => (
+                      <Text key={skill.id ?? skill.skill} style={styles.skillItem}>
                         {skill.skill}
                       </Text>
                     ))}
@@ -141,8 +141,8 @@ export const PortfolioPDF = ({
           {languages && languages.length > 0 && (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>LANGUAGES</Text>
-              {languages.map((lang, idx) => (
-                <View key={idx} style={styles.languageItem}>
+              {languages.map((lang) => (
+                <View key={lang.id} style={styles.languageItem}>
                   <Text style={styles.languageName}>{lang.language}</Text>
                   <Text style={styles.languageProficiency}>{lang.proficiency}</Text>
                 </View>
@@ -164,8 +164,8 @@ export const PortfolioPDF = ({
           {experience && experience.length > 0 && (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>EXPERIENCE</Text>
-              {experience.map((exp, idx) => (
-                <View key={idx} style={styles.experienceItem}>
+              {experience.map((exp) => (
+                <View key={exp.id} style={styles.experienceItem}>
                   <View style={styles.experienceHeader}>
                     <Text style={styles.company}>{exp.company}</Text>
                     <Text style={styles.period}>
@@ -177,8 +177,11 @@ export const PortfolioPDF = ({
                   {exp.location && <Text style={styles.location}>{exp.location}</Text>}
                   {exp.achievements && exp.achievements.length > 0 && (
                     <View style={styles.achievementsList}>
-                      {exp.achievements.map((achievement, achIdx) => (
-                        <Text key={achIdx} style={styles.achievement}>
+                      {exp.achievements.map((achievement) => (
+                        <Text
+                          key={achievement.id ?? `${achievement.label}-${achievement.description}`}
+                          style={styles.achievement}
+                        >
                           • {achievement.description}
                         </Text>
                       ))}
@@ -193,8 +196,8 @@ export const PortfolioPDF = ({
           {education && education.length > 0 && (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>EDUCATION</Text>
-              {education.map((edu, idx) => (
-                <View key={idx} style={styles.educationItem}>
+              {education.map((edu) => (
+                <View key={edu.id} style={styles.educationItem}>
                   <Text style={styles.degree}>{edu.degree}</Text>
                   <Text style={styles.institution}>
                     {edu.institution} • {edu.period}

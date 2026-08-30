@@ -1,61 +1,61 @@
 import type { CollectionConfig } from 'payload';
 
 export const Experience: CollectionConfig = {
-  slug: 'experience',
-  admin: {
-    useAsTitle: 'company',
-  },
   access: {
     read: () => true,
+  },
+  admin: {
+    useAsTitle: 'company',
   },
   fields: [
     {
       name: 'company',
-      type: 'text',
       required: true,
+      type: 'text',
     },
     {
+      localized: true,
       name: 'location',
       type: 'text',
-      localized: true,
     },
     {
       name: 'position',
-      type: 'text',
       required: true,
+      type: 'text',
     },
     {
-      name: 'period',
-      type: 'group',
       fields: [
         {
           name: 'dateFrom',
-          type: 'date',
           required: true,
+          type: 'date',
         },
         {
           name: 'dateTo',
           type: 'date',
         },
       ],
+      name: 'period',
+      type: 'group',
     },
     {
-      name: 'achievements',
-      type: 'array',
       fields: [
         {
-          name: 'label',
-          type: 'text',
-          required: true,
           localized: true,
+          name: 'label',
+          required: true,
+          type: 'text',
         },
         {
-          name: 'description',
-          type: 'textarea',
-          required: true,
           localized: true,
+          name: 'description',
+          required: true,
+          type: 'textarea',
         },
       ],
+      name: 'achievements',
+      type: 'array',
     },
   ],
+  slug: 'experience',
 };

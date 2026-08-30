@@ -3,30 +3,30 @@ import type { CollectionConfig } from 'payload';
 import { iconNames } from '@/components/common/Icon';
 
 export const SummaryInfo: CollectionConfig = {
-  slug: 'summary-info',
-  admin: {
-    useAsTitle: 'label',
-  },
   access: {
     read: () => true,
+  },
+  admin: {
+    useAsTitle: 'label',
   },
   fields: [
     {
       name: 'icon',
-      type: 'select',
       options: iconNames,
+      type: 'select',
     },
     {
+      localized: true,
       name: 'label',
-      type: 'text',
       required: true,
-      localized: true,
+      type: 'text',
     },
     {
-      name: 'value',
-      type: 'text',
-      required: true,
       localized: true,
+      name: 'value',
+      required: true,
+      type: 'text',
     },
   ],
+  slug: 'summary-info',
 };

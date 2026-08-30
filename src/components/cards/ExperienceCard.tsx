@@ -2,12 +2,8 @@ import dayjs from 'dayjs';
 import { Maximize2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Markdown from 'react-markdown';
-
-import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { Experience } from '@/payload-types';
-
 import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -16,6 +12,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
+import type { Experience } from '@/payload-types';
 
 const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment: boolean }) => {
   const t = useTranslations('Experience');
@@ -54,8 +52,8 @@ const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment
           <DialogDescription>{periodLabel}</DialogDescription>
         </DialogHeader>
         <ul className="list-disc space-y-2 pl-5 text-left text-foreground [&_a]:underline [&_a]:text-accent [&_a]:hover:text-primary">
-          {exp.achievements?.map((achievement, idx) => (
-            <li key={idx}>
+          {exp.achievements?.map((achievement) => (
+            <li key={achievement.id ?? `${achievement.label}-${achievement.description}`}>
               <span className="font-semibold">{achievement.label}</span>: <Markdown>{achievement.description}</Markdown>
             </li>
           ))}

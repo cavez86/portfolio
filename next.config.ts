@@ -3,25 +3,25 @@ import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
-  reactCompiler: true,
   cacheComponents: true,
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  reactCompiler: true,
   async rewrites() {
     return [
       {
-        source: '/ingest/static/:path*',
         destination: 'https://eu-assets.i.posthog.com/static/:path*',
+        source: '/ingest/static/:path*',
       },
       {
-        source: '/ingest/:path*',
         destination: 'https://eu.i.posthog.com/:path*',
+        source: '/ingest/:path*',
       },
     ];
   },
   // This is required to support PostHog trailing slash API requests
   skipTrailingSlashRedirect: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

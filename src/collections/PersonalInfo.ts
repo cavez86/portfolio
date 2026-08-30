@@ -1,30 +1,30 @@
 import type { GlobalConfig } from 'payload';
 
 export const PersonalInfo: GlobalConfig = {
-  slug: 'personal-info',
   access: {
     read: () => true,
   },
   fields: [
     {
       name: 'name',
-      type: 'text',
       required: true,
+      type: 'text',
     },
     {
       name: 'title',
-      type: 'text',
       required: true,
+      type: 'text',
     },
     {
+      localized: true,
       name: 'description',
       type: 'richText',
-      localized: true,
     },
     {
+      localized: true,
       name: 'availability',
       type: 'text',
-      localized: true,
     },
   ],
+  slug: 'personal-info',
 };

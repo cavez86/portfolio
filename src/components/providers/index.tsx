@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { TRPCProvider } from '@/lib/trpc/client';
 

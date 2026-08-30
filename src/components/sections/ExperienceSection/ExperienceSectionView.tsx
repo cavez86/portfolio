@@ -15,12 +15,12 @@ const ExperienceSection = async () => {
   return (
     <Section id="experience">
       <Motion
-        type="h2"
         className="text-center text-3xl font-bold font-mono uppercase tracking-wider text-foreground md:text-4xl"
         initial={{ opacity: 0.1, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
         transition={{ duration: 0.5 }}
+        type="h2"
+        viewport={{ once: true }}
+        whileInView={{ opacity: 1, y: 0 }}
       >
         {t('title')}
       </Motion>
@@ -30,13 +30,13 @@ const ExperienceSection = async () => {
 
         {experience.map((exp, index) => (
           <Motion
-            type="div"
-            key={index}
             className={cn('relative md:w-1/2', index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:ml-auto md:pl-12')}
             initial={{ opacity: 0.1, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            key={exp.id}
             transition={{ duration: 0.5 }}
+            type="div"
+            viewport={{ once: true }}
+            whileInView={{ opacity: 1, x: 0 }}
           >
             <div
               className={cn(

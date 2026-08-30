@@ -1,10 +1,10 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { resendAdapter } from '@payloadcms/email-resend';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { en } from '@payloadcms/translations/languages/en';
 import { it } from '@payloadcms/translations/languages/it';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
 
@@ -24,35 +24,35 @@ const dirname = path.dirname(filename);
 
 export default buildConfig({
   admin: {
-    user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
-  },
-  email: resendAdapter({
-    defaultFromAddress: 'portfolio@resend.dev',
-    defaultFromName: 'Payload CMS',
-    apiKey: process.env.RESEND_API_KEY || '',
-  }),
-  i18n: {
-    supportedLanguages: { en, it },
-  },
-  localization: {
-    defaultLocale: 'en',
-    locales: ['en', 'it'],
-    fallback: true,
+    user: Users.slug,
   },
   collections: [Users, Contacts, SummaryInfo, Experience, Skills, SoftSkills, Education, Languages],
-  globals: [PersonalInfo],
-  editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
-  typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL,
     },
   }),
+  editor: lexicalEditor(),
+  email: resendAdapter({
+    apiKey: process.env.RESEND_API_KEY || '',
+    defaultFromAddress: 'portfolio@resend.dev',
+    defaultFromName: 'Payload CMS',
+  }),
+  globals: [PersonalInfo],
+  i18n: {
+    supportedLanguages: { en, it },
+  },
+  localization: {
+    defaultLocale: 'en',
+    fallback: true,
+    locales: ['en', 'it'],
+  },
+  secret: process.env.PAYLOAD_SECRET || '',
   sharp,
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
 });

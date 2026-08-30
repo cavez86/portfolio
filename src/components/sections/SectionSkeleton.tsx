@@ -20,8 +20,8 @@ export const HeroSectionSkeleton = () => (
       </div>
 
       <div className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4">
-        {Array.from({ length: 4 }).map((_, index) => (
-          <div key={index} className="bg-card border-2 border-primary/20 p-4 shadow-[0_0_15px_rgba(0,0,0,0.3)]">
+        {['hero-summary-1', 'hero-summary-2', 'hero-summary-3', 'hero-summary-4'].map((key) => (
+          <div className="bg-card border-2 border-primary/20 p-4 shadow-[0_0_15px_rgba(0,0,0,0.3)]" key={key}>
             <SkeletonBlock className="mx-auto mb-3 h-8 w-8" />
             <SkeletonBlock className="mx-auto mb-2 h-4 w-3/4" />
             <SkeletonBlock className="mx-auto h-5 w-1/2" />
@@ -37,8 +37,8 @@ export const ExperienceSectionSkeleton = () => (
     <div className="space-y-6 md:space-y-12">
       <SkeletonBlock className="mx-auto h-10 w-56" />
       <div className="flex flex-col gap-6 md:gap-8">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <div key={index} className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]">
+        {['experience-1', 'experience-2', 'experience-3'].map((key) => (
+          <div className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]" key={key}>
             <SkeletonBlock className="mb-4 h-6 w-2/3" />
             <SkeletonBlock className="mb-3 h-4 w-1/3" />
             <SkeletonBlock className="mb-2 h-4 w-full" />
@@ -52,25 +52,25 @@ export const ExperienceSectionSkeleton = () => (
 );
 
 export const SkillsSectionSkeleton = () => (
-  <Section id="skills" contentClassName="max-w-5xl flex flex-col gap-6 md:gap-12">
+  <Section contentClassName="max-w-5xl flex flex-col gap-6 md:gap-12" id="skills">
     <div className="space-y-4 text-center">
       <SkeletonBlock className="mx-auto h-10 w-52" />
       <SkeletonBlock className="mx-auto h-5 w-full max-w-2xl" />
     </div>
 
-    {Array.from({ length: 2 }).map((_, groupIndex) => (
-      <div key={groupIndex} className="flex flex-col gap-4 md:gap-8">
+    {['technical', 'soft'].map((groupKey) => (
+      <div className="flex flex-col gap-4 md:gap-8" key={groupKey}>
         <SkeletonBlock className="mx-auto h-8 w-44" />
         <div className="flex flex-col gap-6 md:flex-row">
-          {Array.from({ length: 2 }).map((_, cardIndex) => (
+          {['first', 'second'].map((cardKey) => (
             <div
-              key={cardIndex}
               className="bg-card min-w-75 flex-1 border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]"
+              key={cardKey}
             >
               <SkeletonBlock className="mb-4 h-6 w-1/2" />
               <div className="space-y-3">
-                {Array.from({ length: 4 }).map((_, itemIndex) => (
-                  <SkeletonBlock key={itemIndex} className="h-4 w-full" />
+                {['one', 'two', 'three', 'four'].map((itemKey) => (
+                  <SkeletonBlock className="h-4 w-full" key={itemKey} />
                 ))}
               </div>
             </div>
@@ -90,8 +90,8 @@ export const LanguagesSectionSkeleton = () => (
       </div>
 
       <div className="grid gap-6">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <div key={index} className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]">
+        {['language-1', 'language-2', 'language-3'].map((key) => (
+          <div className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]" key={key}>
             <div className="flex items-center gap-4">
               <SkeletonBlock className="h-12 w-12 shrink-0" />
               <div className="flex-1 space-y-3">
@@ -110,14 +110,14 @@ export const LanguagesSectionSkeleton = () => (
 );
 
 export const ContactSectionSkeleton = () => (
-  <Section id="contact" contentClassName="max-w-3xl">
+  <Section contentClassName="max-w-3xl" id="contact">
     <div className="space-y-6">
       <SkeletonBlock className="mx-auto h-10 w-52" />
       <div className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]">
         <SkeletonBlock className="mb-6 h-6 w-1/2" />
         <div className="space-y-6">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <div key={index} className="flex items-center gap-4">
+          {['contact-1', 'contact-2', 'contact-3'].map((key) => (
+            <div className="flex items-center gap-4" key={key}>
               <SkeletonBlock className="h-10 w-10 shrink-0" />
               <div className="flex-1 space-y-2">
                 <SkeletonBlock className="h-4 w-1/3" />

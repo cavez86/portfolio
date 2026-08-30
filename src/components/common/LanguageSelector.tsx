@@ -1,6 +1,6 @@
 'use client';
 
-import { Locale, useLocale, useTranslations } from 'next-intl';
+import { type Locale, useLocale, useTranslations } from 'next-intl';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { usePathname, useRouter } from '@/i18n/navigation';

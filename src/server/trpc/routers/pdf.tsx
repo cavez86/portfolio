@@ -1,7 +1,7 @@
 import config from '@payload-config';
 import { renderToBuffer } from '@react-pdf/renderer';
-import { hasLocale, Locale } from 'next-intl';
-import { CollectionSlug, getPayload, GlobalSlug, Sort } from 'payload';
+import { hasLocale, type Locale } from 'next-intl';
+import { type CollectionSlug, type GlobalSlug, getPayload, type Sort } from 'payload';
 import { z } from 'zod';
 
 import { PortfolioPDF } from '@/components/pdf/PortfolioPDF';
@@ -12,7 +12,7 @@ import { publicProcedure, router } from '../init';
 // Helper functions to get data
 const getLocalizedGlobal = async <TSlug extends GlobalSlug>(slug: TSlug, locale: Locale) => {
   const payload = await getPayload({ config });
-  return await payload.findGlobal({ slug, locale });
+  return await payload.findGlobal({ locale, slug });
 };
 
 const getLocalizedCollection = async <TSlug extends CollectionSlug>(
@@ -21,7 +21,7 @@ const getLocalizedCollection = async <TSlug extends CollectionSlug>(
   sort: Sort = ['-ID']
 ) => {
   const payload = await getPayload({ config });
-  return payload.find({ collection, sort, locale }).then(({ docs }) => docs);
+  return payload.find({ collection, locale, sort }).then(({ docs }) => docs);
 };
 
 // Sanitize filename: remove/replace unsafe characters
@@ -57,13 +57,13 @@ export const pdfRouter = router({
       // Generate PDF
       const pdfDocument = (
         <PortfolioPDF
-          personalInfo={personalInfo}
           contacts={contacts}
-          experience={experience}
           education={education}
+          experience={experience}
+          languages={languages}
+          personalInfo={personalInfo}
           skills={skills}
           softSkills={softSkills}
-          languages={languages}
         />
       );
 
@@ -74,8 +74,8 @@ export const pdfRouter = router({
 
       // Return PDF data as base64 string along with filename
       return {
-        pdfData: Buffer.from(pdfBuffer).toString('base64'),
         filename: `${safeFilename}_CV.pdf`,
+        pdfData: Buffer.from(pdfBuffer).toString('base64'),
       };
     }),
 });

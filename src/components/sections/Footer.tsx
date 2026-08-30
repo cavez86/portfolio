@@ -17,18 +17,18 @@ const Footer = async () => {
           <div className="flex items-center space-x-4">
             {contacts.map((contact) => (
               <a
-                key={contact.url}
-                href={contact.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={buttonVariants({
-                  variant: 'ghost',
-                  size: 'lg',
-                  className: 'transition-all hover:text-primary md:text-sm',
-                })}
                 aria-label={contact.label}
+                className={buttonVariants({
+                  className: 'transition-all hover:text-primary md:text-sm',
+                  size: 'lg',
+                  variant: 'ghost',
+                })}
+                href={contact.url}
+                key={contact.url}
+                rel="noopener noreferrer"
+                target="_blank"
               >
-                {contact.icon && <Icon name={contact.icon} className="h-5 w-5" />}
+                {contact.icon && <Icon className="h-5 w-5" name={contact.icon} />}
               </a>
             ))}
           </div>

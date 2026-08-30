@@ -1,68 +1,68 @@
 {
-  "Metadata": {
-    "title": "Francesco Caveglia Beatris - Full Stack Web Developer",
-    "description": "Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Based in Turin, Italy."
+  "ColorPicker": {
+    "description": "Choose your preferred terminal hue. The default is green.",
+    "hue_label": "Hue: {hue}°",
+    "reset_button": "Reset to Default",
+    "title": "Customize Theme Color"
+  },
+  "Contact": {
+    "availability": "Availability",
+    "availability_text": "Open to remote and hybrid opportunities.",
+    "description": "Contact Information",
+    "title": "Get In Touch"
+  },
+  "Error": {
+    "403": {
+      "description": "You may need to log in or contact an administrator for access.",
+      "subtitle": "You don't have permission to access this resource",
+      "title": "Access Forbidden"
+    },
+    "404": {
+      "description": "It might have been moved, deleted, or you entered the wrong URL.",
+      "subtitle": "The page you're looking for doesn't exist",
+      "title": "Page Not Found"
+    },
+    "500": {
+      "description": "We're experiencing technical difficulties. Please try again later.",
+      "subtitle": "Something went wrong on our end",
+      "title": "Internal Server Error"
+    },
+    "back_home": "Back to Home",
+    "go_back": "Go Back",
+    "try_again": "Try Again"
+  },
+  "Experience": {
+    "more": "More",
+    "present": "Present",
+    "title": "Professional Experience"
   },
   "Header": {
-    "experience": "Experience",
-    "skills": "Skills",
     "contact": "Contact",
+    "experience": "Experience",
     "language": {
       "en": "English",
       "it": "Italian"
-    }
+    },
+    "skills": "Skills"
   },
   "Hero": {
     "contact_me": "Contact Me"
   },
-  "Experience": {
-    "title": "Professional Experience",
-    "more": "More",
-    "present": "Present"
-  },
-  "Skills": {
-    "title": "Skills & Expertise",
-    "description": "Technical proficiencies and soft skills that drive my work",
-    "technical": "Technical Skills",
-    "soft": "Soft Skills"
-  },
   "Languages": {
-    "title": "Languages",
-    "description": "Communication skills across multiple languages"
-  },
-  "Contact": {
-    "title": "Get In Touch",
-    "description": "Contact Information",
-    "availability": "Availability",
-    "availability_text": "Open to remote and hybrid opportunities."
-  },
-  "Error": {
-    "403": {
-      "title": "Access Forbidden",
-      "subtitle": "You don't have permission to access this resource",
-      "description": "You may need to log in or contact an administrator for access."
-    },
-    "404": {
-      "title": "Page Not Found",
-      "subtitle": "The page you're looking for doesn't exist",
-      "description": "It might have been moved, deleted, or you entered the wrong URL."
-    },
-    "500": {
-      "title": "Internal Server Error",
-      "subtitle": "Something went wrong on our end",
-      "description": "We're experiencing technical difficulties. Please try again later."
-    },
-    "back_home": "Back to Home",
-    "try_again": "Try Again",
-    "go_back": "Go Back"
+    "description": "Communication skills across multiple languages",
+    "title": "Languages"
   },
   "Loading": {
     "loading": "Loading..."
   },
-  "ColorPicker": {
-    "title": "Customize Theme Color",
-    "description": "Choose your preferred terminal hue. The default is green.",
-    "hue_label": "Hue: {hue}°",
-    "reset_button": "Reset to Default"
+  "Metadata": {
+    "description": "Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Based in Turin, Italy.",
+    "title": "Francesco Caveglia Beatris - Full Stack Web Developer"
+  },
+  "Skills": {
+    "description": "Technical proficiencies and soft skills that drive my work",
+    "soft": "Soft Skills",
+    "technical": "Technical Skills",
+    "title": "Skills & Expertise"
   }
 }

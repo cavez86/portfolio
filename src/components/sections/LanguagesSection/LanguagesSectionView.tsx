@@ -1,11 +1,10 @@
 import { Globe } from 'lucide-react';
-
-import { Card, CardContent } from '@/components/ui/card';
+import { getTranslations } from 'next-intl/server';
 
 import { Motion } from '@/components/common/Motion';
 import Section from '@/components/Section';
+import { Card, CardContent } from '@/components/ui/card';
 import { getLocalizedCollection } from '@/components/utils/db';
-import { getTranslations } from 'next-intl/server';
 
 const LanguagesSection = async () => {
   const [languagesData, t] = await Promise.all([getLocalizedCollection('languages'), getTranslations('Languages')]);
@@ -13,12 +12,12 @@ const LanguagesSection = async () => {
   return (
     <Section contentClassName="max-w-3xl">
       <Motion
-        type="div"
         className="mb-6 text-center md:mb-12"
         initial={{ opacity: 0.1, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
         transition={{ duration: 0.5 }}
+        type="div"
+        viewport={{ once: true }}
+        whileInView={{ opacity: 1, y: 0 }}
       >
         <h2 className="mb-4 text-3xl font-bold font-mono uppercase tracking-wider text-foreground md:text-4xl">
           {t('title')}
@@ -29,12 +28,12 @@ const LanguagesSection = async () => {
       <div className="grid gap-6">
         {languagesData.map((lang, index) => (
           <Motion
-            type="div"
-            key={index}
             initial={{ opacity: 0.1, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            key={lang.id}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            type="div"
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileInView={{ opacity: 1, y: 0 }}
           >
             <Card>
               <CardContent>
@@ -52,7 +51,7 @@ const LanguagesSection = async () => {
                     <div className="h-2.5 w-full bg-secondary">
                       <div
                         className="h-2.5 bg-primary shadow-[0_0_8px_var(--color-primary)] transition-[width] duration-1000"
-                        style={{ width: `${lang.level}%`, transitionDelay: `${index * 0.5}s` }}
+                        style={{ transitionDelay: `${index * 0.5}s`, width: `${lang.level}%` }}
                       ></div>
                     </div>
                   </div>
