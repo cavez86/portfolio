@@ -24,21 +24,11 @@ function AccordionTrigger({ className, children, ...props }: AccordionPrimitive.
         {...props}
       >
         {children}
-<<<<<<< HEAD
-        <ChevronDown
-          data-slot="accordion-trigger-icon"
-=======
         <ChevronDownIcon
->>>>>>> 7664bd2 (chore: migrate linting to biome)
           className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
           data-slot="accordion-trigger-icon"
         />
-<<<<<<< HEAD
-        <ChevronUp
-          data-slot="accordion-trigger-icon"
-=======
         <ChevronUpIcon
->>>>>>> 7664bd2 (chore: migrate linting to biome)
           className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
           data-slot="accordion-trigger-icon"
         />
