@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -13,7 +13,7 @@ const Section = ({
   contentClassName?: string;
   children: ReactNode;
 }) => (
-  <section id={id} className={cn('px-4 py-8 border-b border-border', className)}>
+  <section className={cn('px-4 py-8 border-b border-border', className)} id={id}>
     <div className={cn('container mx-auto', contentClassName || 'max-w-4xl')}>{children}</div>
   </section>
 );

@@ -2,7 +2,7 @@
 
 import dayjs from 'dayjs';
 import { useLocale } from 'next-intl';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 const DayJsProvider = ({ children }: { children: ReactNode }) => {
   const locale = useLocale();

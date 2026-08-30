@@ -1,13 +1,12 @@
 'use client';
 
+import Hue from '@uiw/react-color-hue';
 import { Palette } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-
+import { useEffect } from 'react';
 import { useStoredState } from '@/app/hooks/useStoredState';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import Hue from '@uiw/react-color-hue';
-import { useEffect } from 'react';
 
 const STORAGE_KEY = 'theme-color';
 const DEFAULT_HUE = 145; // Terminal green
@@ -30,9 +29,9 @@ export function ColorPicker() {
 
   return (
     <Dialog>
-      <DialogTrigger render={<Button variant="outline" size="sm" className="relative gap-2" />}>
+      <DialogTrigger render={<Button className="relative gap-2" size="sm" variant="outline" />}>
         <Palette className="h-4 w-4" />
-        <div className="h-3 w-3 rounded-full border border-border bg-base" aria-hidden="true" />
+        <div aria-hidden="true" className="h-3 w-3 rounded-full border border-border bg-base" />
       </DialogTrigger>
       <DialogContent className="max-w-75 sm:max-w-100">
         <DialogTitle>{t('title')}</DialogTitle>
@@ -40,12 +39,12 @@ export function ColorPicker() {
         <div className="flex flex-col items-center gap-6 py-4">
           <div className="w-full space-y-4">
             <div className="space-y-2">
-              <label htmlFor="hue-slider" className="text-sm font-medium">
+              <label className="text-sm font-medium" htmlFor="hue-slider">
                 {t('hue_label', { hue: Math.round(hue) })}
               </label>
               <Hue hue={hue} onChange={handleHueChange} />
             </div>
-            <Button variant="outline" onClick={handleReset} className="w-full">
+            <Button className="w-full" onClick={handleReset} variant="outline">
               {t('reset_button')}
             </Button>
           </div>

@@ -1,7 +1,8 @@
 'use client';
 
-import { motion, MotionProps } from 'framer-motion';
-import React, { ElementType, JSX } from 'react';
+import { type MotionProps, motion } from 'framer-motion';
+import type React from 'react';
+import type { ElementType, JSX } from 'react';
 
 type CustomMotionProps<Tag extends keyof JSX.IntrinsicElements> = React.PropsWithChildren<
   MotionProps & {

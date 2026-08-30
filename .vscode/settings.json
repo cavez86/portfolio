@@ -1,11 +1,11 @@
 {
-  "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.localesPaths": ["./messages"],
   "tailwindCSS.classAttributes": ["class", "className", "ngClass", ".*Styles.*", ".*Classes.*"],
   "tailwindCSS.experimental.classRegex": [
     ["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
-  "i18n-ally.localesPaths": ["./messages"],
-  "i18n-ally.keystyle": "nested"
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": "./node_modules/typescript/lib"
 }

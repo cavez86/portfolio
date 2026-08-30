@@ -28,14 +28,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
-      - name: Run ESLint
-        run: pnpm lint
+      - name: Run Biome
+        run: pnpm check
 
       - name: Check TypeScript types
         run: pnpm typecheck
-
-      - name: Run Prettier
-        run: pnpm format
 
       - name: Run tests
         run: pnpm test

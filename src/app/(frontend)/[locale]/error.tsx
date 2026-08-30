@@ -9,10 +9,10 @@ interface ErrorPageProps {
   reset: () => void;
 }
 
-export default function Error({ error, reset }: ErrorPageProps) {
+export default function RouteErrorBoundary({ error: pageError, reset }: ErrorPageProps) {
   useEffect(() => {
-    console.error('Page error:', error);
-  }, [error]);
+    console.error('Page error:', pageError);
+  }, [pageError]);
 
   return <ErrorPage errorCode={500} handleTryAgain={reset} />;
 }

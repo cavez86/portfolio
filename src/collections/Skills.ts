@@ -3,35 +3,35 @@ import type { CollectionConfig } from 'payload';
 import { iconNames } from '@/components/common/Icon';
 
 export const Skills: CollectionConfig = {
-  slug: 'skills',
-  admin: {
-    useAsTitle: 'name',
-  },
   access: {
     read: () => true,
+  },
+  admin: {
+    useAsTitle: 'name',
   },
   fields: [
     {
       name: 'name',
-      type: 'text',
       required: true,
+      type: 'text',
     },
     {
       name: 'icon',
-      type: 'select',
       options: iconNames,
+      type: 'select',
     },
     {
-      name: 'skills',
-      type: 'array',
       fields: [
         {
-          name: 'skill',
           label: 'Skill',
-          type: 'text',
+          name: 'skill',
           required: true,
+          type: 'text',
         },
       ],
+      name: 'skills',
+      type: 'array',
     },
   ],
+  slug: 'skills',
 };

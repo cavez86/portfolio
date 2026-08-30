@@ -14,8 +14,8 @@ export const GoToTop = () => {
 
   const scrollToTop = () => {
     window.scrollTo({
-      top: 0,
       behavior: 'smooth',
+      top: 0,
     });
   };
 
@@ -23,14 +23,14 @@ export const GoToTop = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          onClick={scrollToTop}
-          className="bg-primary text-primary-foreground hover:bg-primary/80 fixed right-4 bottom-4 cursor-pointer rounded-full p-2 shadow-lg"
-          initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.2 }}
           aria-label="Scroll to top"
+          className="bg-primary text-primary-foreground hover:bg-primary/80 fixed right-4 bottom-4 cursor-pointer rounded-full p-2 shadow-lg"
+          exit={{ opacity: 0, scale: 0.5 }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          onClick={scrollToTop}
+          transition={{ duration: 0.2 }}
+          whileHover={{ scale: 1.1 }}
         >
           <ArrowUp size={24} />
         </motion.button>

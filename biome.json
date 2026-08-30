@@ -1,0 +1,135 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.11/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "useSortedAttributes": "on",
+        "useSortedKeys": "on"
+      }
+    },
+    "enabled": true
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "files": {
+    "ignoreUnknown": false
+  },
+  "formatter": {
+    "enabled": true,
+    "includes": [
+      "**",
+      "!**/build",
+      "!**/coverage",
+      "!**/.next",
+      "!**/payload-types.ts",
+      "!src/app/(payload)/admin/importMap.js",
+      "!**/pnpm-*.yaml"
+    ],
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "es5"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "includes": [
+      "**",
+      "!.next/**",
+      "!out/**",
+      "!build/**",
+      "!coverage/**",
+      "!node_modules/**",
+      "!next-env.d.ts",
+      "!public/**",
+      "!src/payload-types.ts"
+    ],
+    "rules": {
+      "a11y": {
+        "noAriaUnsupportedElements": "warn",
+        "useAltText": "warn",
+        "useAriaPropsForRole": "warn",
+        "useAriaPropsSupportedByRole": "warn",
+        "useValidAriaProps": "warn",
+        "useValidAriaValues": "warn"
+      },
+      "complexity": {
+        "noArguments": "error",
+        "noBannedTypes": "error",
+        "noUselessThisAlias": "error",
+        "noUselessTypeConstraint": "error",
+        "useArrowFunction": "off"
+      },
+      "correctness": {
+        "noBeforeInteractiveScriptOutsideDocument": "warn",
+        "noChildrenProp": "error",
+        "noNextAsyncClientComponent": "warn",
+        "noUnusedImports": "warn",
+        "noUnusedVariables": "warn",
+        "useExhaustiveDependencies": "warn",
+        "useHookAtTopLevel": "error",
+        "useInlineScriptId": "error",
+        "useJsxKeyInIterable": "error"
+      },
+      "nursery": {
+        "useReactCompiler": "warn"
+      },
+      "performance": {
+        "noImgElement": "warn",
+        "noSyncScripts": "warn",
+        "noUnwantedPolyfillio": "warn",
+        "useGoogleFontPreconnect": "warn"
+      },
+      "preset": "recommended",
+      "security": {
+        "noDangerouslySetInnerHtmlWithChildren": "error"
+      },
+      "style": {
+        "noCommonJs": "error",
+        "noHeadElement": "warn",
+        "noNamespace": "error",
+        "noNestedTernary": "off",
+        "useArrayLiterals": "error",
+        "useAsConstAssertion": "error",
+        "useBlockStatements": "off",
+        "useConsistentArrowReturn": "off",
+        "useConst": "error",
+        "useImportType": "error",
+        "useSpreadOverApply": "error",
+        "useTemplate": "warn"
+      },
+      "suspicious": {
+        "noCommentText": "error",
+        "noDocumentImportInPage": "error",
+        "noDuplicateEnumValues": "error",
+        "noDuplicateJsxProps": "error",
+        "noExplicitAny": "error",
+        "noExtraNonNullAssertion": "error",
+        "noHeadImportInDocument": "error",
+        "noMisleadingInstantiator": "error",
+        "noNonNullAssertedOptionalChain": "error",
+        "noTsIgnore": "error",
+        "noUnsafeDeclarationMerging": "error",
+        "noUnusedExpressions": "off",
+        "noVar": "error",
+        "useGoogleFontDisplay": "warn",
+        "useNamespaceKeyword": "error"
+      }
+    }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
+  }
+}

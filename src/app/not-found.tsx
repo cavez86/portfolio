@@ -1,7 +1,7 @@
 'use client';
 
-import Error from 'next/error';
+import NextError from 'next/error';
 
 export default function NotFound() {
-  return <Error statusCode={404} />;
+  return <NextError statusCode={404} />;
 }

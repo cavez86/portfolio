@@ -24,7 +24,7 @@ function SimpleIcon({
   icon: { path: string; title: string };
 } & React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-label={icon.title} role="img" {...props}>
+    <svg aria-label={icon.title} fill="currentColor" role="img" viewBox="0 0 24 24" {...props}>
       <path d={icon.path} />
     </svg>
   );

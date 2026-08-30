@@ -3,32 +3,32 @@ import type { CollectionConfig } from 'payload';
 import { iconNames } from '@/components/common/Icon';
 
 export const Contacts: CollectionConfig = {
-  slug: 'contacts',
-  admin: {
-    useAsTitle: 'label',
-  },
   access: {
     read: () => true,
+  },
+  admin: {
+    useAsTitle: 'label',
   },
   fields: [
     {
       name: 'label',
-      type: 'text',
       required: true,
+      type: 'text',
     },
     {
       name: 'url',
-      type: 'text',
       required: true,
+      type: 'text',
     },
     {
       name: 'icon',
-      type: 'select',
       options: iconNames,
+      type: 'select',
     },
     {
       name: 'description',
       type: 'text',
     },
   ],
+  slug: 'contacts',
 };

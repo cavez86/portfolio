@@ -13,7 +13,7 @@ internationalization (English/Italian), server-side rendering, and PDF generatio
 - **API:** tRPC 11 with React Query
 - **Internationalization:** next-intl (English, Italian)
 - **Testing:** Vitest
-- **Code Quality:** ESLint, Prettier, TypeScript
+- **Code Quality:** Biome, TypeScript
 
 ## Prerequisites
 
@@ -43,10 +43,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## Code Quality Commands
 
 ```bash
-pnpm lint              # Run ESLint with auto-fix
-pnpm format            # Format code with Prettier
-pnpm typecheck        # TypeScript validation (no build)
-pnpm test              # Run Vitest tests
+pnpm check # Check formatting, linting, and import organization
+pnpm check:fix # Apply formatting, safe lint fixes, and import organization
+pnpm typecheck # TypeScript validation (no build)
+pnpm test # Run Vitest tests
 ```
 
 Run these commands locally before committing to ensure CI passes.
@@ -54,7 +54,7 @@ Run these commands locally before committing to ensure CI passes.
 ## Building
 
 ```bash
-pnpm build             # Build for production
+pnpm build # Build for production
 ```
 
 **Note:** The build may fail in sandboxed environments due to Google Fonts access. Use `pnpm typecheck` to validate

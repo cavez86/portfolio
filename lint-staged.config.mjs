@@ -3,8 +3,7 @@
  * @type {import('lint-staged').Configuration}
  */
 const config = {
-  '*': 'pnpm format',
-  '*.?(c|m){j,t}s?(x)': 'pnpm lint',
+  '*': 'biome check --write --no-errors-on-unmatched',
   '**/*.?(c|m)ts?(x)': () => 'tsc -p tsconfig.json --noEmit',
 };
 

@@ -3,37 +3,37 @@ import type { CollectionConfig } from 'payload';
 import { iconNames } from '@/components/common/Icon';
 
 export const SoftSkills: CollectionConfig = {
-  slug: 'soft-skills',
-  admin: {
-    useAsTitle: 'name',
-  },
   access: {
     read: () => true,
   },
+  admin: {
+    useAsTitle: 'name',
+  },
   fields: [
     {
-      name: 'name',
-      type: 'text',
-      required: true,
       localized: true,
+      name: 'name',
+      required: true,
+      type: 'text',
     },
     {
       name: 'icon',
-      type: 'select',
       options: iconNames,
+      type: 'select',
     },
     {
-      name: 'skills',
-      type: 'array',
       fields: [
         {
-          name: 'skill',
           label: 'Skill',
-          type: 'text',
-          required: true,
           localized: true,
+          name: 'skill',
+          required: true,
+          type: 'text',
         },
       ],
+      name: 'skills',
+      type: 'array',
     },
   ],
+  slug: 'soft-skills',
 };

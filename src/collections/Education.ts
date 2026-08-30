@@ -1,29 +1,29 @@
 import type { CollectionConfig } from 'payload';
 
 export const Education: CollectionConfig = {
-  slug: 'education',
-  admin: {
-    useAsTitle: 'degree',
-  },
   access: {
     read: () => true,
   },
+  admin: {
+    useAsTitle: 'degree',
+  },
   fields: [
     {
-      name: 'degree',
-      type: 'text',
-      required: true,
       localized: true,
+      name: 'degree',
+      required: true,
+      type: 'text',
     },
     {
       name: 'institution',
-      type: 'text',
       required: true,
+      type: 'text',
     },
     {
       name: 'period',
-      type: 'text',
       required: true,
+      type: 'text',
     },
   ],
+  slug: 'education',
 };

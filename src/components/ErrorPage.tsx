@@ -2,8 +2,8 @@
 
 import { Home, RefreshCw } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 
@@ -44,53 +44,53 @@ export default function ErrorPage({ errorCode, handleTryAgain }: Readonly<ErrorP
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
         className="max-w-md"
+        initial={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.5 }}
       >
         <div className="mb-8 text-6xl">{getErrorIcon()}</div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-4 text-4xl font-bold font-mono uppercase tracking-wider text-foreground"
+          initial={{ opacity: 0, y: 10 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
         >
           {t(`${errorCode}.title`)}
         </motion.h1>
 
         <motion.h2
-          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
           className="mb-4 text-xl text-foreground"
+          initial={{ opacity: 0, y: 10 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
         >
           {t(`${errorCode}.subtitle`)}
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
           className="mb-8 text-muted-foreground"
+          initial={{ opacity: 0, y: 10 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
         >
           {t(`${errorCode}.description`)}
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
           className="flex flex-col gap-4 sm:flex-row sm:justify-center"
+          initial={{ opacity: 0, y: 10 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <Button onClick={handleGoHome} className="flex items-center gap-2">
+          <Button className="flex items-center gap-2" onClick={handleGoHome}>
             <Home className="size-4" />
             {t('back_home')}
           </Button>
 
           {!!handleTryAgain && (
-            <Button onClick={handleTryAgain} variant="outline" className="flex items-center gap-2">
+            <Button className="flex items-center gap-2" onClick={handleTryAgain} variant="outline">
               <RefreshCw className="size-4" />
               {t('try_again')}
             </Button>

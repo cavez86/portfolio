@@ -1,11 +1,10 @@
-import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
 import { ColorPicker } from '@/components/ColorPicker';
+import Icon from '@/components/common/Icon';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
 import { buttonVariants } from '@/components/ui/button';
-
-import Icon from '@/components/common/Icon';
 import { getLocalizedCollection } from '@/components/utils/db';
 
 export const Header = async () => {
@@ -18,20 +17,20 @@ export const Header = async () => {
       <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
         <nav className="hidden items-center gap-8 md:flex">
           <Link
-            href="#experience"
             className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
+            href="#experience"
           >
             {t('experience')}
           </Link>
           <Link
-            href="#skills"
             className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
+            href="#skills"
           >
             {t('skills')}
           </Link>
           <Link
-            href="#contact"
             className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
+            href="#contact"
           >
             {t('contact')}
           </Link>
@@ -39,13 +38,13 @@ export const Header = async () => {
         <div className="flex flex-1 items-center justify-end gap-4">
           {contacts.map((contact) => (
             <a
-              key={contact.url}
+              className={buttonVariants({ className: 'md:text-sm', size: 'sm', variant: 'ghost' })}
               href={contact.url}
-              target="_blank"
+              key={contact.url}
               rel="noopener noreferrer"
-              className={buttonVariants({ size: 'sm', variant: 'ghost', className: 'md:text-sm' })}
+              target="_blank"
             >
-              {contact.icon && <Icon name={contact.icon} className="h-4 w-4 lg:mr-2" />}
+              {contact.icon && <Icon className="h-4 w-4 lg:mr-2" name={contact.icon} />}
               <span className="hidden lg:block">{contact.label}</span>
             </a>
           ))}
