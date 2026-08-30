@@ -8,6 +8,7 @@ import { it } from '@payloadcms/translations/languages/it';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
 
+import { env } from '@/env';
 import { Education } from '@/collections/Education';
 import { Experience } from '@/collections/Experience';
 import { Languages } from '@/collections/Languages';
@@ -32,12 +33,12 @@ export default buildConfig({
   collections: [Users, Contacts, SummaryInfo, Experience, Skills, SoftSkills, Education, Languages],
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL,
+      connectionString: env.DATABASE_URL ?? env.POSTGRES_URL,
     },
   }),
   editor: lexicalEditor(),
   email: resendAdapter({
-    apiKey: process.env.RESEND_API_KEY || '',
+    apiKey: env.RESEND_API_KEY ?? '',
     defaultFromAddress: 'portfolio@resend.dev',
     defaultFromName: 'Payload CMS',
   }),
@@ -50,7 +51,7 @@ export default buildConfig({
     fallback: true,
     locales: ['en', 'it'],
   },
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: env.PAYLOAD_SECRET ?? '',
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
