@@ -14,8 +14,25 @@ import {
   User,
   Users,
 } from 'lucide-react';
+import { FaLinkedin } from 'react-icons/fa';
+import { siGithub } from 'simple-icons/icons';
 
-import { FaGithub as Github, FaLinkedin as Linkedin } from 'react-icons/fa';
+function SimpleIcon({
+  icon,
+  ...props
+}: {
+  icon: { path: string; title: string };
+} & React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-label={icon.title} role="img" {...props}>
+      <path d={icon.path} />
+    </svg>
+  );
+}
+
+function GitHub(props: React.SVGProps<SVGSVGElement>) {
+  return <SimpleIcon icon={siGithub} {...props} />;
+}
 
 const icons = {
   Briefcase,
@@ -24,11 +41,11 @@ const icons = {
   Cpu,
   Database,
   GitBranch,
-  Github,
+  Github: GitHub,
   GraduationCap,
   Layout,
   Lightbulb,
-  Linkedin,
+  Linkedin: FaLinkedin,
   Mail,
   Search,
   Terminal,

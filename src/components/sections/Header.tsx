@@ -45,8 +45,8 @@ export const Header = async () => {
               rel="noopener noreferrer"
               className={buttonVariants({ size: 'sm', variant: 'ghost', className: 'md:text-sm' })}
             >
-              {contact.icon && <Icon name={contact.icon} className="h-4 w-4 md:mr-2" />}
-              <span className="hidden md:block">{contact.label}</span>
+              {contact.icon && <Icon name={contact.icon} className="h-4 w-4 lg:mr-2" />}
+              <span className="hidden lg:block">{contact.label}</span>
             </a>
           ))}
           <LanguageSelector />
