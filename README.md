@@ -76,12 +76,15 @@ TypeScript without building.
 
 ## Environment Variables
 
-Optional for development:
+Set these in a root `.env.local` file for local development:
 
 - `DATABASE_URL` - Vercel Postgres connection
+- `POSTGRES_URL` - Alternate Postgres connection string fallback
+- `NEXT_PUBLIC_POSTHOG_KEY` - Public PostHog project key
 - `PAYLOAD_SECRET` - Payload admin authentication
 - `RESEND_API_KEY` - Email service API key
 - `PORT` - Development server port (default: 3000)
+- `VERCEL_URL` - Deployment hostname used for server-side absolute URLs
 
 ## Path Aliases
 
