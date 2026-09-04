@@ -22,7 +22,7 @@
     "accept-language": "3.0.20",
     "clsx": "2.1.1",
     "dayjs": "1.11.23",
-    "framer-motion": "12.43.0",
+    "framer-motion": "13.1.1",
     "graphql": "17.0.2",
     "lucide-react": "1.22.0",
     "motion": "12.43.0",
