@@ -4,7 +4,7 @@
   ],
   "dependencies": {
     "@base-ui/react": "1.8.0",
-    "@next/env": "16.3.6",
+    "@next/env": "16.3.8",
     "@payloadcms/db-postgres": "3.90.1",
     "@payloadcms/email-resend": "3.90.1",
     "@payloadcms/next": "3.90.1",
