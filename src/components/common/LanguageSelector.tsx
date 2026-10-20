@@ -1,6 +1,7 @@
 'use client';
 
 import { type Locale, useLocale, useTranslations } from 'next-intl';
+import posthog from 'posthog-js';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { usePathname, useRouter } from '@/i18n/navigation';
@@ -13,7 +14,8 @@ export const LanguageSelector = () => {
   const locale = useLocale();
 
   const handleChange = (newLocale: Locale | null) => {
-    if (!newLocale) return;
+    if (!newLocale || newLocale === locale) return;
+    posthog.capture('language_changed', { locale: newLocale });
     router.replace(pathname, { locale: newLocale });
   };
 

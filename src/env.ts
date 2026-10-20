@@ -3,10 +3,12 @@ import { z } from 'zod';
 
 export const env = createEnv({
   client: {
+    NEXT_PUBLIC_POSTHOG_HOST: z.string().url().optional(),
     NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1).optional(),
   },
   emptyStringAsUndefined: true,
   experimental__runtimeEnv: {
+    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
     NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
   },
   server: {

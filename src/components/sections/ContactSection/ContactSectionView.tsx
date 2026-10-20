@@ -1,10 +1,12 @@
 import { getTranslations } from 'next-intl/server';
 
-import Icon, { type IconName } from '@/components/common/Icon';
+import type { IconName } from '@/components/common/Icon';
 import { Motion } from '@/components/common/Motion';
 import Section from '@/components/Section';
 import { Card, CardContent } from '@/components/ui/card';
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
+
+import { ContactLink } from './ContactLink';
 
 const ContactSectionView = async () => {
   const [contactsData, personalInfoData, t] = await Promise.all([
@@ -43,21 +45,13 @@ const ContactSectionView = async () => {
 
             <div className="space-y-6">
               {contactsData.map((contact) => (
-                <a
-                  className="flex items-center gap-4 text-foreground transition-all hover:text-primary"
-                  href={contact.url}
+                <ContactLink
+                  description={contact.description}
+                  icon={contact.icon as IconName}
                   key={contact.url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center border-2 border-primary bg-primary/20">
-                    <Icon className="h-5 w-5 text-foreground" name={contact.icon as IconName} />
-                  </div>
-                  <div>
-                    <p className="font-medium">{contact.label}</p>
-                    <p className="text-sm text-muted-foreground">{contact.description}</p>
-                  </div>
-                </a>
+                  label={contact.label}
+                  url={contact.url}
+                />
               ))}
             </div>
 
