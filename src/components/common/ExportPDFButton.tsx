@@ -2,6 +2,7 @@
 
 import { Download } from 'lucide-react';
 import { useLocale } from 'next-intl';
+import posthog from 'posthog-js';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -49,6 +50,8 @@ export const ExportPDFButton = () => {
       // Clean up
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+
+      posthog.capture('portfolio_pdf_exported', { locale });
 
       // Show success toast
       toast.success('PDF exported successfully', {
