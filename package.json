@@ -4,7 +4,7 @@
   ],
   "dependencies": {
     "@base-ui/react": "1.8.0",
-    "@next/env": "16.4.0",
+    "@next/env": "16.4.2",
     "@payloadcms/db-postgres": "3.90.2",
     "@payloadcms/email-resend": "3.90.2",
     "@payloadcms/next": "3.90.2",
@@ -27,7 +27,7 @@
     "graphql": "17.0.2",
     "lucide-react": "1.50.0",
     "motion": "14.0.0",
-    "next": "16.4.0",
+    "next": "16.4.2",
     "next-intl": "4.14.2",
     "next-themes": "0.4.6",
     "payload": "3.90.2",
