@@ -1,5 +1,7 @@
+import { SeverityNumber } from '@opentelemetry/api-logs';
 import config from '@payload-config';
 import { renderToBuffer } from '@react-pdf/renderer';
+import { after } from 'next/server';
 import { hasLocale, type Locale } from 'next-intl';
 import { type CollectionSlug, type GlobalSlug, getPayload, type Sort } from 'payload';
 import { z } from 'zod';
@@ -7,6 +9,7 @@ import { z } from 'zod';
 import { PortfolioPDF } from '@/components/pdf/PortfolioPDF';
 import { routing } from '@/i18n/routing';
 
+import { posthogLogger, posthogLogProvider } from '../../../../instrumentation';
 import { publicProcedure, router } from '../init';
 
 // Helper functions to get data
@@ -43,6 +46,15 @@ export const pdfRouter = router({
       const localeParam = input.locale || routing.defaultLocale;
       const locale = hasLocale(routing.locales, localeParam) ? localeParam : routing.defaultLocale;
 
+      posthogLogger?.emit({
+        attributes: { locale },
+        body: 'Portfolio PDF export started',
+        severityNumber: SeverityNumber.INFO,
+      });
+      after(async () => {
+        await posthogLogProvider?.forceFlush();
+      });
+
       // Fetch all portfolio data in parallel
       const [personalInfo, contacts, experience, education, skills, softSkills, languages] = await Promise.all([
         getLocalizedGlobal('personal-info', locale),
@@ -53,6 +65,15 @@ export const pdfRouter = router({
         getLocalizedCollection('soft-skills', locale),
         getLocalizedCollection('languages', locale),
       ]);
+
+      posthogLogger?.emit({
+        attributes: {
+          collection_count: 6,
+          locale,
+        },
+        body: 'Portfolio PDF export data loaded',
+        severityNumber: SeverityNumber.INFO,
+      });
 
       // Generate PDF
       const pdfDocument = (
@@ -71,6 +92,15 @@ export const pdfRouter = router({
       const pdfBuffer = await renderToBuffer(pdfDocument);
 
       const safeFilename = sanitizeFilename(personalInfo.name) || 'portfolio';
+
+      posthogLogger?.emit({
+        attributes: {
+          locale,
+          pdf_size_bytes: pdfBuffer.byteLength,
+        },
+        body: 'Portfolio PDF export completed',
+        severityNumber: SeverityNumber.INFO,
+      });
 
       // Return PDF data as base64 string along with filename
       return {

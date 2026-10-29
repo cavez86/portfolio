@@ -26,6 +26,9 @@ const dirname = path.dirname(filename);
 
 export default buildConfig({
   admin: {
+    components: {
+      providers: ['@/components/providers/IntlErrorHandlingProvider#PostHogIdentityProvider'],
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },

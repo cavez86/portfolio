@@ -2,17 +2,29 @@ import { withPayload } from '@payloadcms/next/withPayload';
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
+const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+
 const nextConfig: NextConfig = {
   cacheComponents: true,
   reactCompiler: true,
   async rewrites() {
+    if (!posthogHost) {
+      return [];
+    }
+
+    const posthogAssetsHost = posthogHost.replace('.i.posthog.com', '-assets.i.posthog.com');
+
     return [
       {
-        destination: 'https://eu-assets.i.posthog.com/static/:path*',
+        destination: `${posthogAssetsHost}/static/:path*`,
         source: '/ingest/static/:path*',
       },
       {
-        destination: 'https://eu.i.posthog.com/:path*',
+        destination: `${posthogAssetsHost}/array/:path*`,
+        source: '/ingest/array/:path*',
+      },
+      {
+        destination: `${posthogHost}/:path*`,
         source: '/ingest/:path*',
       },
     ];
