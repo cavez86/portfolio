@@ -5,9 +5,7 @@
     "skip_to_content": "Skip to content"
   },
   "Contact": {
-    "availability": "Availability",
     "availability_text": "Open to remote and hybrid opportunities.",
-    "description": "Contact Information",
     "title": "Get In Touch"
   },
   "Error": {
@@ -50,7 +48,6 @@
     "contact_me": "Contact Me"
   },
   "Languages": {
-    "description": "Communication skills across multiple languages",
     "title": "Languages"
   },
   "Loading": {
@@ -61,7 +58,6 @@
     "title": "Francesco Caveglia Beatris - Full Stack Web Developer"
   },
   "Skills": {
-    "description": "Technical proficiencies and soft skills that drive my work",
     "soft": "Soft Skills",
     "technical": "Technical Skills",
     "title": "Skills & Expertise"

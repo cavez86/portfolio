@@ -7,11 +7,11 @@ const LanguagesSection = async () => {
   const [languagesData, t] = await Promise.all([getLocalizedCollection('languages'), getTranslations('Languages')]);
 
   return (
-    <Section heading={t('title')} id="languages" intro={t('description')}>
-      <ul className="grid gap-x-10 gap-y-10 md:grid-cols-2">
+    <Section className="pb-14 md:pb-20" heading={t('title')} id="languages">
+      <ul className="grid gap-x-10 gap-y-8 md:grid-cols-2">
         {languagesData.map((lang) => (
           <li className="border-border border-t pt-6" key={lang.id}>
-            <p className="font-display text-[clamp(2.25rem,4vw,3.75rem)] leading-none font-medium tracking-tight">
+            <p className="font-display text-[clamp(2.25rem,4vw,3.75rem)] leading-none font-medium tracking-tight [--opsz:16]">
               {lang.language}
             </p>
             <p className="mt-3 text-lg">{lang.proficiency}</p>

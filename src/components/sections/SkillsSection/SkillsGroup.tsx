@@ -45,7 +45,7 @@ const SkillsGroup = async ({
             className={cn(
               secondary
                 ? 'text-foschia text-base leading-relaxed'
-                : 'font-display text-[clamp(1.5rem,2.4vw,2.25rem)] leading-[1.25] tracking-tight'
+                : 'font-display text-[clamp(1.5rem,2.4vw,2.25rem)] leading-[1.25] font-medium tracking-tight'
             )}
           >
             {category.skills?.map((skill, index) => (

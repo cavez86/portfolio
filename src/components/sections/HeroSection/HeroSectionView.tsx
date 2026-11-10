@@ -10,7 +10,9 @@ import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/d
 import { cn } from '@/lib/utils';
 
 // Each name line is composed on its own: roman, italic, roman, staggered like a specimen's size lines.
-const nameLineStyles = ['-ml-[0.03em]', 'ml-[6vw] italic md:ml-[10vw] lg:ml-[22vw]', 'ml-[3vw] lg:ml-[7vw]'] as const;
+// On a phone each line is fitted to the full measure, so the sizes step like a specimen's size ladder
+// (--chars is the line's letter count); from md up the lines share one size and stagger.
+const nameLineStyles = ['md:-ml-[0.03em]', 'italic md:ml-[10vw] lg:ml-[22vw]', 'md:ml-[3vw] lg:ml-[7vw]'] as const;
 
 const splitName = (name: string) => {
   const words = name.trim().split(/\s+/);
@@ -29,14 +31,14 @@ const HeroSection = async () => {
   const nameLines = splitName(personalInfoData.name);
 
   return (
-    <section className="overflow-x-clip pt-6 pb-20 md:pt-10 md:pb-32">
+    <section className="overflow-x-clip pt-6 md:pt-10">
       <div className={gutter}>
-        <h1 className="font-display text-[clamp(3.5rem,min(calc((100vw_-_2.5rem)/4.4),31svh),22rem)] md:text-[clamp(3.5rem,min(calc((100vw_-_5rem)/4.5),31svh),22rem)] leading-[0.84] font-medium tracking-[-0.035em] [font-variation-settings:'opsz'_40]">
+        <h1 className="font-display text-[clamp(3.5rem,min(calc((100vw_-_2.5rem)/4.4),31svh),22rem)] md:text-[clamp(3.5rem,min(calc((100vw_-_5rem)/4.5),31svh),22rem)] leading-[0.84] font-semibold tracking-[-0.035em] [--opsz:16] md:font-medium md:[--opsz:40]">
           {nameLines.map((line, index) => (
             <span
-              className={cn('name-line', nameLineStyles[index])}
+              className={cn('name-line max-md:text-[calc((100vw-2.5rem)/(var(--chars)*0.5))]', nameLineStyles[index])}
               key={line}
-              style={{ '--line': index } as CSSProperties}
+              style={{ '--chars': line.length, '--line': index } as CSSProperties}
             >
               <span>{line}</span>{' '}
             </span>
@@ -44,7 +46,7 @@ const HeroSection = async () => {
         </h1>
 
         <div className="after-name mt-6 grid items-end gap-6 md:mt-8 lg:grid-cols-12">
-          <h2 className="font-display text-[clamp(1.5rem,2.6vw,2.5rem)] leading-[1.12] font-normal tracking-tight text-balance italic lg:col-span-8">
+          <h2 className="font-display text-[clamp(1.5rem,2.6vw,2.5rem)] leading-[1.12] font-medium tracking-tight text-balance italic lg:col-span-8">
             {personalInfoData.title}
           </h2>
           <div className="lg:col-span-4 lg:justify-self-end">
@@ -54,7 +56,7 @@ const HeroSection = async () => {
           </div>
         </div>
 
-        <div className="mt-20 grid gap-14 md:mt-28 lg:grid-cols-12 lg:gap-x-10">
+        <div className="mt-12 grid gap-10 md:mt-20 lg:grid-cols-12 lg:gap-x-10">
           <div className="prose-specimen max-w-[62ch] text-lg leading-[1.65] text-pretty lg:col-span-5">
             <RichText data={personalInfoData.description as SerializedEditorState} />
           </div>
@@ -62,11 +64,11 @@ const HeroSection = async () => {
           <dl className="order-first lg:order-last lg:col-span-7">
             {summaryInfoData.map((item) => (
               <div
-                className="border-border grid grid-cols-[6.5rem_1fr] items-baseline gap-x-5 border-t py-4 last:border-b sm:grid-cols-[9rem_1fr] md:py-5"
+                className="border-border grid grid-cols-[6.5rem_1fr] items-baseline gap-x-5 border-t py-4 last:border-b sm:grid-cols-[9rem_1fr]"
                 key={item.id}
               >
                 <dt className="text-foschia text-base leading-snug">{t(item.label)}</dt>
-                <dd className="font-display text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.1] font-normal tracking-tight text-balance">
+                <dd className="text-[clamp(1.375rem,2.2vw,2rem)] leading-[1.2] font-medium tracking-tight text-balance">
                   {t(item.value)}
                 </dd>
               </div>

@@ -118,6 +118,16 @@
     --color-ring: var(--color-inchiostro);
   }
 
+  /*
+   * Bodoni Moda's hairlines are drawn for display size. The browser's automatic optical sizing leaves them
+   * at that weight below ~48px, so the axis is pinned here: the default is the sturdy low optical size
+   * for text, and a larger heading sets --opsz higher (down to the hero name, which sets its own).
+   */
+  [class*="font-display"] {
+    font-optical-sizing: none;
+    font-variation-settings: "opsz" var(--opsz, 8);
+  }
+
   :focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 3px;

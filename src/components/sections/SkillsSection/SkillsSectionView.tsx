@@ -13,9 +13,11 @@ const SkillsSection = async () => {
   ]);
 
   return (
-    <Section heading={t('title')} id="skills" intro={t('description')}>
+    <Section heading={t('title')} id="skills">
       <SkillsGroup categories={skillsData} />
-      <h3 className="font-display mt-14 mb-5 text-2xl leading-tight tracking-tight italic md:mt-16">{t('soft')}</h3>
+      <h3 className="font-display mt-10 mb-4 text-2xl leading-tight font-medium tracking-tight italic md:mt-14">
+        {t('soft')}
+      </h3>
       <SkillsGroup categories={softSkillsData} secondary />
     </Section>
   );

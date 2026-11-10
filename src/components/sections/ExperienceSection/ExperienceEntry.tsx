@@ -33,7 +33,7 @@ const ExperienceEntry = ({ exp, axis }: { exp: Experience; axis: CareerAxis }) =
   return (
     <Dialog>
       <DialogTrigger
-        className={`group/entry hover:bg-notte focus-visible:bg-notte data-popup-open:bg-notte -mx-4 w-[calc(100%+2rem)] cursor-pointer gap-y-4 px-4 py-8 text-left transition-colors duration-200 md:py-10 ${entryGrid}`}
+        className={`group/entry hover:bg-notte focus-visible:bg-notte data-popup-open:bg-notte -mx-4 w-[calc(100%+2rem)] cursor-pointer gap-y-3 px-4 py-6 text-left transition-colors duration-200 md:py-7 ${entryGrid}`}
         type="button"
       >
         <span className="col-span-2 flex items-center gap-2 text-base font-medium tabular-nums lg:col-span-1 lg:self-start lg:pt-1.5">
@@ -54,7 +54,7 @@ const ExperienceEntry = ({ exp, axis }: { exp: Experience; axis: CareerAxis }) =
           />
         </span>
         <span className="flex min-w-0 flex-col gap-1.5">
-          <span className="font-display text-[clamp(1.75rem,3vw,2.75rem)] leading-[1.08] font-medium tracking-tight">
+          <span className="font-display text-[clamp(1.75rem,3vw,2.75rem)] leading-[1.08] font-semibold tracking-tight">
             {exp.company}
           </span>
           <span className="max-w-[48ch] text-lg leading-snug font-medium text-pretty">{exp.position}</span>
@@ -82,7 +82,7 @@ const ExperienceEntry = ({ exp, axis }: { exp: Experience; axis: CareerAxis }) =
               className="py-5 first:pt-0 last:pb-0"
               key={achievement.id ?? `${achievement.label}-${achievement.description}`}
             >
-              <p className="font-display text-xl leading-snug font-medium">{achievement.label}</p>
+              <p className="font-display text-xl leading-snug font-semibold">{achievement.label}</p>
               <div className="prose-specimen mt-2 max-w-[65ch] leading-[1.6] [&_a]:underline">
                 <Markdown>{achievement.description}</Markdown>
               </div>
