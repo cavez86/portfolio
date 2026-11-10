@@ -64,6 +64,7 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    'payload-mcp-api-keys': PayloadMcpApiKeyAuthOperations;
   };
   blocks: {};
   collections: {
@@ -75,6 +76,7 @@ export interface Config {
     'soft-skills': SoftSkill;
     education: Education;
     languages: Language;
+    'payload-mcp-api-keys': PayloadMcpApiKey;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -90,6 +92,7 @@ export interface Config {
     'soft-skills': SoftSkillsSelect<false> | SoftSkillsSelect<true>;
     education: EducationSelect<false> | EducationSelect<true>;
     languages: LanguagesSelect<false> | LanguagesSelect<true>;
+    'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -109,13 +112,31 @@ export interface Config {
   widgets: {
     collections: CollectionsWidget;
   };
-  user: User;
+  user: User | PayloadMcpApiKey;
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
 export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface PayloadMcpApiKeyAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -146,6 +167,7 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -341,6 +363,170 @@ export interface Language {
   createdAt: string;
 }
 /**
+ * API keys control which collections, resources, tools, and prompts MCP clients can access
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys".
+ */
+export interface PayloadMcpApiKey {
+  id: number;
+  /**
+   * The user that the API key is associated with.
+   */
+  user: number | User;
+  /**
+   * A useful label for the API key.
+   */
+  label?: string | null;
+  /**
+   * The purpose of the API key.
+   */
+  description?: string | null;
+  contacts?: {
+    /**
+     * Allow clients to find contacts.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create contacts.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update contacts.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete contacts.
+     */
+    delete?: boolean | null;
+  };
+  summaryInfo?: {
+    /**
+     * Allow clients to find summary-info.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create summary-info.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update summary-info.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete summary-info.
+     */
+    delete?: boolean | null;
+  };
+  experience?: {
+    /**
+     * Allow clients to find experience.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create experience.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update experience.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete experience.
+     */
+    delete?: boolean | null;
+  };
+  skills?: {
+    /**
+     * Allow clients to find skills.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create skills.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update skills.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete skills.
+     */
+    delete?: boolean | null;
+  };
+  softSkills?: {
+    /**
+     * Allow clients to find soft-skills.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create soft-skills.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update soft-skills.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete soft-skills.
+     */
+    delete?: boolean | null;
+  };
+  education?: {
+    /**
+     * Allow clients to find education.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create education.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update education.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete education.
+     */
+    delete?: boolean | null;
+  };
+  languages?: {
+    /**
+     * Allow clients to find languages.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create languages.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update languages.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete languages.
+     */
+    delete?: boolean | null;
+  };
+  personalInfo?: {
+    /**
+     * Allow clients to find personal-info global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update personal-info global.
+     */
+    update?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
+  hasAPIKey?: boolean | null;
+  collection: 'payload-mcp-api-keys';
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -395,12 +581,21 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'languages';
         value: number | Language;
+      } | null)
+    | ({
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -410,10 +605,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
+      };
   key?: string | null;
   value?:
     | {
@@ -450,6 +650,7 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -560,6 +761,83 @@ export interface LanguagesSelect<T extends boolean = true> {
   level?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys_select".
+ */
+export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
+  user?: T;
+  label?: T;
+  description?: T;
+  contacts?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  summaryInfo?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  experience?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  skills?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  softSkills?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  education?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  languages?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  personalInfo?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
+  hasAPIKey?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
