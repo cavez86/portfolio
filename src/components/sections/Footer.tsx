@@ -1,34 +1,30 @@
 import { ExportPDFButton } from '@/components/common/ExportPDFButton';
 import Icon from '@/components/common/Icon';
+import { gutter } from '@/components/Section';
 import { buttonVariants } from '@/components/ui/button';
 import { getLocalizedCollection } from '@/components/utils/db';
+import { cn } from '@/lib/utils';
 
 const Footer = async () => {
   'use cache';
   const contacts = await getLocalizedCollection('contacts');
   return (
-    <footer className="border-t-2 border-primary/30 px-4 py-8 shadow-[0_-4px_15px_rgba(0,0,0,0.5)]">
-      <div className="container mx-auto">
-        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <div className="flex items-center">
-            <ExportPDFButton />
-          </div>
+    <footer className="bg-notte pb-10 md:pb-14">
+      <div className={gutter}>
+        <div className="border-border flex flex-col items-start justify-between gap-6 border-t pt-8 sm:flex-row sm:items-center">
+          <ExportPDFButton />
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-1">
             {contacts.map((contact) => (
               <a
                 aria-label={contact.label}
-                className={buttonVariants({
-                  className: 'transition-all hover:text-primary md:text-sm',
-                  size: 'lg',
-                  variant: 'ghost',
-                })}
+                className={cn(buttonVariants({ size: 'icon-lg', variant: 'ghost' }), 'hover:bg-savoia')}
                 href={contact.url}
                 key={contact.url}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                {contact.icon && <Icon className="h-5 w-5" name={contact.icon} />}
+                {contact.icon && <Icon className="size-5" name={contact.icon} />}
               </a>
             ))}
           </div>

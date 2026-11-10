@@ -1,11 +1,11 @@
 'use client';
 
-import { Home, RefreshCw } from 'lucide-react';
-import { motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
+import { gutter } from '@/components/Section';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface ErrorPageProps {
   errorCode: 404 | 500 | 403;
@@ -28,81 +28,42 @@ export default function ErrorPage({ errorCode, handleTryAgain }: Readonly<ErrorP
     }
   };
 
-  const getErrorIcon = () => {
-    switch (errorCode) {
-      case 404:
-        return '🔍';
-      case 500:
-        return '⚠️';
-      case 403:
-        return '🔒';
-      default:
-        return '❌';
-    }
-  };
-
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
-      <motion.div
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-md"
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="mb-8 text-6xl">{getErrorIcon()}</div>
-
-        <motion.h1
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-4 text-4xl font-bold font-mono uppercase tracking-wider text-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
+    <div className="min-h-[70svh] overflow-x-clip py-16 md:py-24">
+      <div className={cn(gutter, 'grid gap-10 lg:grid-cols-12')}>
+        <p
+          aria-hidden="true"
+          className="font-display text-[clamp(8rem,28vw,24rem)] leading-[0.8] font-normal tracking-[-0.04em] italic lg:col-span-6"
         >
-          {t(`${errorCode}.title`)}
-        </motion.h1>
+          {errorCode}
+        </p>
 
-        <motion.h2
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-4 text-xl text-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          {t(`${errorCode}.subtitle`)}
-        </motion.h2>
+        <div className="flex flex-col justify-end gap-6 lg:col-span-6">
+          <h1 className="font-display text-[clamp(2.5rem,4.5vw,4rem)] leading-[1.02] font-medium tracking-tight text-balance">
+            {t(`${errorCode}.title`)}
+          </h1>
+          <p className="text-xl text-balance">{t(`${errorCode}.subtitle`)}</p>
+          <p className="text-foschia max-w-[48ch] text-pretty">{t(`${errorCode}.description`)}</p>
 
-        <motion.p
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 text-muted-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          {t(`${errorCode}.description`)}
-        </motion.p>
-
-        <motion.div
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col gap-4 sm:flex-row sm:justify-center"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <Button className="flex items-center gap-2" onClick={handleGoHome}>
-            <Home className="size-4" />
-            {t('back_home')}
-          </Button>
-
-          {!!handleTryAgain && (
-            <Button className="flex items-center gap-2" onClick={handleTryAgain} variant="outline">
-              <RefreshCw className="size-4" />
-              {t('try_again')}
+          <div className="mt-2 flex flex-wrap gap-3">
+            <Button onClick={handleGoHome} size="lg">
+              {t('back_home')}
             </Button>
-          )}
 
-          {errorCode === 404 && (
-            <Button onClick={handleGoBack} variant="outline">
-              {t('go_back')}
-            </Button>
-          )}
-        </motion.div>
-      </motion.div>
+            {!!handleTryAgain && (
+              <Button onClick={handleTryAgain} size="lg" variant="outline">
+                {t('try_again')}
+              </Button>
+            )}
+
+            {errorCode === 404 && (
+              <Button onClick={handleGoBack} size="lg" variant="outline">
+                {t('go_back')}
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -2,53 +2,52 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
-
-:root {
-  --theme-color: hsl(145, 100%, 50%); /* Default theme color (green) */
-}
-
-/* Terminal theme with customizable base color using relative colors */
+/*
+ * Blu Savoia: a type specimen on a field of Savoy blue.
+ *
+ *   savoia   #4458C8  the ground. White on it is 6.0:1.
+ *   notte    #27369A  the deeper blue: depth, hover rows, the contact band.
+ *   carta    #FAFAFF  paper-white type.
+ *   foschia  #DDE2FF  secondary type (4.9:1 on savoia, 7.4:1 on notte).
+ *   inchiostro #1B256F  ink, for the few paper-white sheets (dialog, select, toast).
+ *   oro      #FFC94D  the one warm note; only ever a small dot.
+ */
 @theme {
-  /* Base color can be customized by user (default: terminal green) */
-  --color-base: oklch(from var(--theme-color) 0.8 0.18 h); /* Default to green hue */
+  --color-savoia: #4458c8;
+  --color-notte: #27369a;
+  --color-carta: #fafaff;
+  --color-foschia: #dde2ff;
+  --color-inchiostro: #1b256f;
+  --color-oro: #ffc94d;
 
-  /* All theme colors derived from --color-base using CSS relative color syntax */
-  --color-background: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Very dark with subtle hue tint */
-  --color-foreground: oklch(from var(--color-base) 0.85 0.15 h); /* Bright neon text */
+  --color-background: var(--color-savoia);
+  --color-foreground: var(--color-carta);
 
-  --color-card: oklch(from var(--color-base) 0.18 0.01 calc(h + 5)); /* Slightly lighter than background */
-  --color-card-foreground: oklch(from var(--color-base) 0.85 0.15 h);
+  --color-popover: var(--color-carta);
+  --color-popover-foreground: var(--color-inchiostro);
 
-  --color-popover: oklch(from var(--color-base) 0.12 0.01 calc(h + 5)); /* Darker than background for depth */
-  --color-popover-foreground: oklch(from var(--color-base) 0.85 0.15 h);
+  --color-primary: var(--color-carta);
+  --color-primary-foreground: var(--color-savoia);
 
-  --color-primary: var(--color-base); /* Bright neon - terminal primary color */
-  --color-primary-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Dark text on primary */
+  --color-secondary: var(--color-notte);
+  --color-secondary-foreground: var(--color-carta);
 
-  --color-secondary: oklch(from var(--color-base) 0.25 0.02 calc(h + 5)); /* Dark for secondary elements */
-  --color-secondary-foreground: oklch(from var(--color-base) 0.75 0.12 h); /* Dimmer accent */
+  --color-muted: var(--color-notte);
+  --color-muted-foreground: var(--color-foschia);
 
-  --color-muted: oklch(from var(--color-base) 0.22 0.015 calc(h + 5)); /* Muted background */
-  --color-muted-foreground: oklch(from var(--color-base) 0.55 0.08 h); /* Muted text */
+  --color-accent: #e3e7ff;
+  --color-accent-foreground: var(--color-inchiostro);
 
-  --color-accent: oklch(from var(--color-base) 0.65 0.18 calc(h + 3)); /* Accent color */
-  --color-accent-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5));
+  --color-destructive: #b3320f;
 
-  --color-destructive: oklch(0.6 0.2 25); /* Red-orange for errors */
-  --color-destructive-foreground: oklch(0.95 0.01 120);
+  --color-border: rgb(250 250 255 / 0.3);
+  --color-input: rgb(250 250 255 / 0.45);
+  --color-ring: var(--color-carta);
 
-  --color-border: oklch(from var(--color-base) 0.35 0.05 h); /* Hue-tinted border */
-  --color-input: oklch(from var(--color-base) 0.2 0.015 calc(h + 5)); /* Dark input background */
-  --color-ring: var(--color-base); /* Bright focus ring */
-
-  --color-radius: 0.25rem; /* Sharper corners for terminal feel */
-
-  --color-chart-1: var(--color-base); /* Primary color */
-  --color-chart-2: oklch(from var(--color-base) 0.75 0.15 calc(h + 50)); /* Shifted hue */
-  --color-chart-3: oklch(from var(--color-base) 0.7 0.12 calc(h + 130)); /* Complementary */
-  --color-chart-4: oklch(from var(--color-base) 0.85 0.15 calc(h - 55)); /* Triadic */
-  --color-chart-5: oklch(0.65 0.2 25); /* Red-orange */
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 3px;
+  --radius-xl: 4px;
 
   --animate-scale-x: scale-x linear forwards;
   @keyframes scale-x {
@@ -85,6 +84,12 @@
   }
 }
 
+/* The font variables live on <body>, so these must resolve where they are used, not on :root. */
+@theme inline {
+  --font-sans: var(--font-text), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bodoni), "Bodoni 72", Didot, "Bodoni MT", serif;
+}
+
 @utility animation-timeline-scroll {
   animation-timeline: scroll();
 }
@@ -93,41 +98,144 @@
   animation-timeline: view();
 }
 
-/* Add base styles after theme definition */
 @layer base {
-  * {
-    @apply border-border outline-ring/50 transition-discrete;
+  html {
+    background-color: var(--color-savoia);
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground min-w-[360px] font-mono;
+    @apply bg-background text-foreground min-w-[360px] overflow-x-clip font-sans antialiased;
+    font-feature-settings: "kern", "liga";
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
   }
 
-  /* Terminal-style text selection */
+  /* Paper sheets (dialog, select, toast) are ink on white, so focus uses ink there. */
+  .paper {
+    --color-ring: var(--color-inchiostro);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 3px;
+  }
+
   ::selection {
-    background-color: oklch(from var(--color-base) l c h / 0.3);
-    color: var(--color-foreground);
+    background-color: var(--color-carta);
+    color: var(--color-savoia);
   }
 
-  /* Scrollbar styling for terminal theme */
+  .paper ::selection {
+    background-color: var(--color-inchiostro);
+    color: var(--color-carta);
+  }
+
   ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--color-background);
+    background: var(--color-savoia);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border: 2px solid var(--color-background);
+    background: var(--color-notte);
+    border: 3px solid var(--color-savoia);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary);
+    background: var(--color-carta);
   }
+}
+
+@layer components {
+  /* The page-load moment: the three lines of the name rise out of their rules, then the caption follows. */
+  .name-line {
+    display: block;
+    clip-path: inset(-0.1em -100vw -0.3em -100vw);
+  }
+
+  .name-line > span {
+    display: block;
+    animation: name-rise 1.1s cubic-bezier(0.19, 1, 0.22, 1) both;
+    animation-delay: calc(var(--line, 0) * 140ms + 150ms);
+  }
+
+  .after-name {
+    animation: after-name 0.9s ease-out 0.85s both;
+  }
+
+  @keyframes name-rise {
+    from {
+      transform: translateY(125%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes after-name {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .skeleton {
+    animation: skeleton-pulse 1.6s ease-in-out infinite;
+    background-color: var(--color-notte);
+  }
+
+  @keyframes skeleton-pulse {
+    50% {
+      opacity: 0.55;
+    }
+  }
+
+  /* Rendered rich text (hero summary, experience details) */
+  .prose-specimen p + p {
+    margin-top: 1.1em;
+  }
+
+  .prose-specimen strong {
+    font-weight: 600;
+  }
+
+  .prose-specimen a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
   html {
-    @apply font-sans;
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+
+  .name-line > span {
+    animation: none;
+  }
+
+  .skeleton {
+    animation: none;
+  }
+
+  .scroll-progress {
+    display: none;
   }
 }

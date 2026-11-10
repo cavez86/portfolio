@@ -1,9 +1,8 @@
 {
-  "ColorPicker": {
-    "description": "Scegli la tonalità terminale preferita. Il valore predefinito è verde.",
-    "hue_label": "Tonalità: {hue}°",
-    "reset_button": "Ripristina Predefinito",
-    "title": "Personalizza Colore del Tema"
+  "Common": {
+    "back_to_top": "Torna all'inizio",
+    "close": "Chiudi",
+    "skip_to_content": "Vai al contenuto"
   },
   "Contact": {
     "availability": "Disponibilità",
@@ -34,7 +33,8 @@
   "Experience": {
     "more": "Altro",
     "present": "Oggi",
-    "title": "Esperienze Professionali"
+    "title": "Esperienze Professionali",
+    "years": "{count, plural, one {# anno} other {# anni}}"
   },
   "Header": {
     "contact": "Contatti",
@@ -43,6 +43,7 @@
       "en": "Inglese",
       "it": "Italiano"
     },
+    "language_label": "Lingua",
     "skills": "Competenze"
   },
   "Hero": {

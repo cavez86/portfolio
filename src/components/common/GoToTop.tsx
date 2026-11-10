@@ -2,19 +2,21 @@
 
 import { ArrowUp } from 'lucide-react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 export const GoToTop = () => {
+  const t = useTranslations('Common');
   const [isVisible, setIsVisible] = useState(false);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
-    setIsVisible(latest > 300);
+    setIsVisible(latest > 600);
   });
 
   const scrollToTop = () => {
     window.scrollTo({
-      behavior: 'smooth',
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
       top: 0,
     });
   };
@@ -23,16 +25,16 @@ export const GoToTop = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          animate={{ opacity: 1, scale: 1 }}
-          aria-label="Scroll to top"
-          className="bg-primary text-primary-foreground hover:bg-primary/80 fixed right-4 bottom-4 cursor-pointer rounded-full p-2 shadow-lg"
-          exit={{ opacity: 0, scale: 0.5 }}
-          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, y: 0 }}
+          aria-label={t('back_to_top')}
+          className="bg-carta text-savoia hover:bg-foschia fixed right-4 bottom-4 z-40 flex size-11 cursor-pointer items-center justify-center rounded-sm transition-colors md:right-8 md:bottom-8"
+          exit={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 8 }}
           onClick={scrollToTop}
           transition={{ duration: 0.2 }}
-          whileHover={{ scale: 1.1 }}
+          type="button"
         >
-          <ArrowUp size={24} />
+          <ArrowUp size={22} />
         </motion.button>
       )}
     </AnimatePresence>

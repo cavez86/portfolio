@@ -2,11 +2,23 @@ import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical
 import { RichText } from '@payloadcms/richtext-lexical/react';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
+import type { CSSProperties } from 'react';
 
-import Icon, { type IconName } from '@/components/common/Icon';
-import { Motion } from '@/components/common/Motion';
-import { Button } from '@/components/ui/button';
+import { gutter } from '@/components/Section';
+import { buttonVariants } from '@/components/ui/button';
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
+import { cn } from '@/lib/utils';
+
+// Each name line is composed on its own: roman, italic, roman, staggered like a specimen's size lines.
+const nameLineStyles = ['-ml-[0.03em]', 'ml-[6vw] italic md:ml-[10vw] lg:ml-[22vw]', 'ml-[3vw] lg:ml-[7vw]'] as const;
+
+const splitName = (name: string) => {
+  const words = name.trim().split(/\s+/);
+  if (words.length >= 3) {
+    return [words[0], words[1], words.slice(2).join(' ')];
+  }
+  return words;
+};
 
 const HeroSection = async () => {
   const [personalInfoData, summaryInfoData, t] = await Promise.all([
@@ -14,79 +26,53 @@ const HeroSection = async () => {
     getLocalizedCollection('summary-info'),
     getTranslations('Hero'),
   ]);
+  const nameLines = splitName(personalInfoData.name);
 
   return (
-    <section className="px-4 py-8 md:py-16">
-      <div className="container mx-auto">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-linear-to-r from-primary to-accent bg-clip-text text-5xl leading-normal font-bold font-mono uppercase tracking-wider text-transparent md:text-7xl [text-shadow:0_0_30px_var(--color-primary)]"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ duration: 0.5 }}
-            type="h1"
-          >
-            {personalInfoData.name}
-          </Motion>
+    <section className="overflow-x-clip pt-6 pb-20 md:pt-10 md:pb-32">
+      <div className={gutter}>
+        <h1 className="font-display text-[clamp(3.5rem,min(calc((100vw_-_2.5rem)/4.4),31svh),22rem)] md:text-[clamp(3.5rem,min(calc((100vw_-_5rem)/4.5),31svh),22rem)] leading-[0.84] font-medium tracking-[-0.035em] [font-variation-settings:'opsz'_40]">
+          {nameLines.map((line, index) => (
+            <span
+              className={cn('name-line', nameLineStyles[index])}
+              key={line}
+              style={{ '--line': index } as CSSProperties}
+            >
+              <span>{line}</span>{' '}
+            </span>
+          ))}
+        </h1>
 
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-2xl font-medium font-mono uppercase tracking-wider text-accent md:text-3xl"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            type="h2"
-          >
+        <div className="after-name mt-6 grid items-end gap-6 md:mt-8 lg:grid-cols-12">
+          <h2 className="font-display text-[clamp(1.5rem,2.6vw,2.5rem)] leading-[1.12] font-normal tracking-tight text-balance italic lg:col-span-8">
             {personalInfoData.title}
-          </Motion>
-
-          <Motion
-            className="mx-auto text-lg text-pretty text-muted-foreground"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <RichText data={personalInfoData.description as SerializedEditorState} />
-          </Motion>
-
-          <Motion
-            className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <Link href="#contact">
-              <Button size="lg" variant="outline">
-                {t('contact_me')}
-              </Button>
+          </h2>
+          <div className="lg:col-span-4 lg:justify-self-end">
+            <Link className={buttonVariants({ size: 'lg' })} href="#contact">
+              {t('contact_me')}
             </Link>
-          </Motion>
+          </div>
         </div>
 
-        <Motion
-          className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4"
-          initial={{ opacity: 0.1, y: 20 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          type="div"
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
-          {summaryInfoData.map((item) => (
-            <div
-              className="bg-card flex flex-col items-center border-2 border-primary/30 p-4 text-center transition-all hover:border-primary/60 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_var(--color-primary)]"
-              key={item.id}
-            >
-              <Icon className="mb-2 h-8 w-8 text-primary" name={item.icon as IconName} />
-              <h3 className="text-sm font-medium font-mono uppercase tracking-wider text-muted-foreground">
-                {t(item.label)}
-              </h3>
-              <p className="text-base font-semibold font-mono text-foreground">{t(item.value)}</p>
-            </div>
-          ))}
-        </Motion>
+        <div className="mt-20 grid gap-14 md:mt-28 lg:grid-cols-12 lg:gap-x-10">
+          <div className="prose-specimen max-w-[62ch] text-lg leading-[1.65] text-pretty lg:col-span-5">
+            <RichText data={personalInfoData.description as SerializedEditorState} />
+          </div>
+
+          <dl className="order-first lg:order-last lg:col-span-7">
+            {summaryInfoData.map((item) => (
+              <div
+                className="border-border grid grid-cols-[6.5rem_1fr] items-baseline gap-x-5 border-t py-4 last:border-b sm:grid-cols-[9rem_1fr] md:py-5"
+                key={item.id}
+              >
+                <dt className="text-foschia text-base leading-snug">{t(item.label)}</dt>
+                <dd className="font-display text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.1] font-normal tracking-tight text-balance">
+                  {t(item.value)}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );

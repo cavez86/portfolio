@@ -1,9 +1,8 @@
 {
-  "ColorPicker": {
-    "description": "Choose your preferred terminal hue. The default is green.",
-    "hue_label": "Hue: {hue}°",
-    "reset_button": "Reset to Default",
-    "title": "Customize Theme Color"
+  "Common": {
+    "back_to_top": "Back to top",
+    "close": "Close",
+    "skip_to_content": "Skip to content"
   },
   "Contact": {
     "availability": "Availability",
@@ -34,7 +33,8 @@
   "Experience": {
     "more": "More",
     "present": "Present",
-    "title": "Professional Experience"
+    "title": "Professional Experience",
+    "years": "{count, plural, one {# year} other {# years}}"
   },
   "Header": {
     "contact": "Contact",
@@ -43,6 +43,7 @@
       "en": "English",
       "it": "Italian"
     },
+    "language_label": "Language",
     "skills": "Skills"
   },
   "Hero": {

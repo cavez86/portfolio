@@ -10,7 +10,7 @@ export function generateStaticParams() {
 }
 
 const Home = () => (
-  <main className="relative flex flex-col gap-10 pt-4 md:gap-16 md:pt-16 lg:gap-20">
+  <main id="main">
     <HeroSection />
     <ExperienceSection />
     <SkillsSection />
