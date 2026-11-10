@@ -1,28 +1,38 @@
-'use client';
+import { getTranslations } from 'next-intl/server';
 
-import { useTranslations } from 'next-intl';
 import { Primitive } from '@/components/common/Primitive';
+import { cn } from '@/lib/utils';
 import type { Skill, SoftSkill } from '@/payload-types';
 
 const glyphColors = ['text-cobalto', 'text-pomodoro', 'text-abete', 'text-inchiostro'];
 
-const SkillsCard = ({ category, index }: { category: Skill | SoftSkill; index: number }) => {
-  const t = useTranslations('Skills');
+// One category per row: its name and glyph on the left, the skills as running text on the right.
+// `secondary` sets the row quieter, for the soft skills.
+const SkillsCard = async ({
+  category,
+  index,
+  secondary = false,
+}: {
+  category: Skill | SoftSkill;
+  index: number;
+  secondary?: boolean;
+}) => {
+  const t = await getTranslations('Skills');
 
   return (
-    <div className="h-full">
-      <div className="flex items-center gap-4">
-        <Primitive className={`size-12 shrink-0 ${glyphColors[index % glyphColors.length]}`} index={index} />
-        <h4 className="type-subheading">{t(category.name)}</h4>
-      </div>
-      <ul className="mt-5 space-y-2.5 border-t-2 border-inchiostro pt-5">
-        {category.skills?.map((skill) => (
-          <li className="flex items-center gap-3 font-semibold" key={skill.id ?? skill.skill}>
-            <span aria-hidden="true" className="bg-inchiostro block size-2.5 shrink-0 rounded-full" />
-            {skill.skill}
-          </li>
-        ))}
-      </ul>
+    <div
+      className={cn(
+        'grid gap-x-10 gap-y-2 border-t-2 border-inchiostro md:grid-cols-[15rem_minmax(0,1fr)]',
+        secondary ? 'py-4' : 'py-5'
+      )}
+    >
+      <h4 className="type-subheading flex items-center gap-3 md:pt-1.5">
+        <Primitive className={cn('size-7 shrink-0', glyphColors[index % glyphColors.length])} index={index} />
+        {t(category.name)}
+      </h4>
+      <p className={cn('max-w-[40ch] text-pretty', secondary ? 'type-lead' : 'type-heading')}>
+        {category.skills?.map((skill) => skill.skill).join(', ')}
+      </p>
     </div>
   );
 };

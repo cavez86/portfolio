@@ -16,9 +16,9 @@ const HeroSection = async () => {
   ]);
 
   return (
-    <section className="bg-carta text-inchiostro px-5 pt-10 pb-16 md:px-10 md:pt-16 md:pb-24">
+    <section className="bg-carta text-inchiostro px-5 pt-6 pb-16 md:px-10 md:pt-16 md:pb-24">
       <div className="mx-auto max-w-7xl">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-6">
+        <div className="grid items-center gap-5 md:gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-6">
           <div>
             <h1 className="type-display">
               {personalInfoData.name.split(' ').map((word) => (
@@ -27,8 +27,8 @@ const HeroSection = async () => {
                 </span>
               ))}
             </h1>
-            <p className="type-lead mt-8 max-w-[28ch]">{personalInfoData.title}</p>
-            <Link className={buttonVariants({ className: 'mt-8', size: 'lg' })} href="#contact">
+            <p className="type-lead mt-4 max-w-[28ch] md:mt-8">{personalInfoData.title}</p>
+            <Link className={buttonVariants({ className: 'mt-5 md:mt-8', size: 'lg' })} href="#contact">
               {t('contact_me')}
             </Link>
           </div>

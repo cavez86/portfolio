@@ -16,28 +16,28 @@ import { getBar, positionOf, type TimelineAxis } from '../sections/ExperienceSec
 const ExperienceCard = ({ exp, axis }: { exp: Experience; axis: TimelineAxis }) => {
   const t = useTranslations('Experience');
   const periodLabel = `${dayjs(exp.period.dateFrom).format('YYYY')} - ${exp.period.dateTo ? dayjs(exp.period.dateTo).format('YYYY') : t('present')}`;
-  const bar = getBar(exp, axis);
+  const bar = getBar(exp.period, axis);
 
   return (
     <Dialog>
-      <DialogTrigger className="group/row grid w-full cursor-pointer grid-cols-[1fr_auto] items-center gap-x-4 gap-y-5 border-t-2 border-current px-0 py-6 text-left transition-colors hover:bg-carta hover:text-cobalto md:grid-cols-[14rem_minmax(0,1fr)_minmax(0,1.1fr)_auto] md:gap-x-8 md:px-4 md:py-7 [&:hover]:[--focus:var(--color-inchiostro)]">
-        <span className="type-heading col-start-1 row-start-2 whitespace-nowrap md:col-start-1 md:row-start-1">
-          {periodLabel}
+      <DialogTrigger className="group/row grid w-full cursor-pointer grid-cols-[1fr_auto] items-center gap-x-4 gap-y-4 border-t-2 border-current px-0 py-6 text-left transition-colors hover:bg-carta hover:text-cobalto md:grid-cols-[minmax(0,1.15fr)_8.5rem_minmax(0,1.1fr)_2.75rem] md:gap-x-8 md:px-4 md:py-7 [&:hover]:[--focus:var(--color-inchiostro)]">
+        <span className="col-start-1 row-start-1 flex flex-col gap-1.5">
+          <span className="type-heading">{exp.company}</span>
+          <span className="text-lg leading-snug font-medium">{exp.position}</span>
+          <span className="type-small font-medium opacity-85">{exp.location}</span>
         </span>
-        <span className="col-start-1 row-start-1 flex flex-col gap-0.5 md:col-start-2">
-          <span className="type-subheading">{exp.company}</span>
-          <span className="type-small">{exp.position}</span>
-          <span className="type-small opacity-90">{exp.location}</span>
+        <span className="type-subheading col-start-1 row-start-2 whitespace-nowrap md:col-start-2 md:row-start-1">
+          {periodLabel}
         </span>
         <span
           aria-hidden="true"
-          className="relative col-span-2 row-start-3 block h-7 md:col-span-1 md:col-start-3 md:row-start-1"
+          className="relative col-span-2 row-start-3 mx-3.5 block h-7 md:col-span-1 md:col-start-3 md:row-start-1"
         >
           {axis.ticks.map((tick) => (
             <span
               className="absolute top-0 bottom-0 block w-px bg-current opacity-30"
-              key={tick}
-              style={{ left: `${positionOf(tick, axis)}%` }}
+              key={tick.label}
+              style={{ left: `${positionOf(tick.at, axis)}%` }}
             />
           ))}
           <span
@@ -46,7 +46,7 @@ const ExperienceCard = ({ exp, axis }: { exp: Experience; axis: TimelineAxis }) 
           />
           {bar.ongoing && (
             <span
-              className="bg-carta border-pomodoro absolute top-0 block size-7 -translate-x-full rounded-full border-[6px]"
+              className="bg-carta border-pomodoro absolute top-0 block size-7 -translate-x-1/2 rounded-full border-[6px]"
               style={{ left: '100%' }}
             />
           )}

@@ -18,13 +18,7 @@ const ContactSectionView = async () => {
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20">
         <div>
           <h2 className="type-display max-w-[7ch]">{t('title')}</h2>
-          <p className="type-lead mt-8 max-w-[26ch]">{t('description')}</p>
-          {personalInfoData.availability && (
-            <div className="mt-10 max-w-[40ch]">
-              <h3 className="type-subheading">{t('availability')}</h3>
-              <p className="mt-2 text-lg font-semibold">{personalInfoData.availability}</p>
-            </div>
-          )}
+          <p className="type-lead mt-8 max-w-[26ch]">{personalInfoData.availability ?? t('availability_text')}</p>
         </div>
 
         <div className="self-end">

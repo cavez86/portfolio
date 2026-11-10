@@ -49,19 +49,14 @@ export const ExperienceSectionSkeleton = () => (
 export const SkillsSectionSkeleton = () => (
   <Section field="girasole" id="skills">
     <SkeletonBlock className="h-16 w-3/4 max-w-md md:h-24" />
-    <SkeletonBlock className="mt-6 h-7 w-2/3 max-w-sm" />
-    <div className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-      {['one', 'two', 'three', 'four', 'five', 'six'].map((cardKey) => (
-        <div key={cardKey}>
-          <div className="flex items-center gap-4">
-            <SkeletonBlock className="size-12 shrink-0" />
-            <SkeletonBlock className="h-6 w-1/2" />
-          </div>
-          <div className="mt-5 space-y-3 border-t-2 border-current pt-5">
-            {['a', 'b', 'c'].map((itemKey) => (
-              <SkeletonBlock className="h-4 w-2/3" key={itemKey} />
-            ))}
-          </div>
+    <div className="mt-12 md:mt-16">
+      {['one', 'two', 'three', 'four', 'five', 'six'].map((rowKey) => (
+        <div
+          className="grid gap-x-10 gap-y-3 border-t-2 border-inchiostro py-5 md:grid-cols-[15rem_minmax(0,1fr)]"
+          key={rowKey}
+        >
+          <SkeletonBlock className="h-6 w-1/2" />
+          <SkeletonBlock className="h-8 w-full max-w-[40ch]" />
         </div>
       ))}
     </div>
@@ -69,20 +64,15 @@ export const SkillsSectionSkeleton = () => (
 );
 
 export const LanguagesSectionSkeleton = () => (
-  <Section field="abete">
-    <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-20">
-      <div className="space-y-6">
-        <SkeletonBlock className="h-16 w-3/4 md:h-24" />
-        <SkeletonBlock className="h-7 w-2/3" />
-      </div>
-      <div className="grid grid-cols-2 gap-x-6 gap-y-12">
-        {['language-1', 'language-2'].map((key) => (
-          <div className="flex flex-col gap-5" key={key}>
-            <SkeletonBlock className="aspect-square w-full max-w-52" />
-            <SkeletonBlock className="h-8 w-1/2" />
-          </div>
-        ))}
-      </div>
+  <Section compact field="abete">
+    <SkeletonBlock className="h-16 w-3/4 max-w-md md:h-24" />
+    <div className="mt-10 grid gap-x-12 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+      {['language-1', 'language-2'].map((key) => (
+        <div className="flex items-center gap-5" key={key}>
+          <SkeletonBlock className="size-28 shrink-0 md:size-32" />
+          <SkeletonBlock className="h-8 w-1/2" />
+        </div>
+      ))}
     </div>
   </Section>
 );

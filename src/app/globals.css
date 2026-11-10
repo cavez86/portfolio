@@ -51,7 +51,7 @@
 
 /* Type scale. One family, width and weight do the work. */
 @utility type-display {
-  font-size: clamp(4.25rem, 0.5rem + 15vw, 10rem);
+  font-size: clamp(3.25rem, 0.25rem + 14vw, 10rem);
   font-weight: 800;
   font-stretch: 64%;
   line-height: 0.84;
