@@ -1,10 +1,4 @@
 {
-  "ColorPicker": {
-    "description": "Choose your preferred terminal hue. The default is green.",
-    "hue_label": "Hue: {hue}°",
-    "reset_button": "Reset to Default",
-    "title": "Customize Theme Color"
-  },
   "Contact": {
     "availability": "Availability",
     "availability_text": "Open to remote and hybrid opportunities.",
@@ -39,10 +33,13 @@
   "Header": {
     "contact": "Contact",
     "experience": "Experience",
+    "home": "Home",
     "language": {
       "en": "English",
       "it": "Italian"
     },
+    "language_label": "Language",
+    "navigation": "Main",
     "skills": "Skills"
   },
   "Hero": {

@@ -26,7 +26,7 @@ function DialogOverlay({ className, ...props }: DialogPrimitive.Backdrop.Props) 
   return (
     <DialogPrimitive.Backdrop
       className={cn(
-        'fixed inset-0 isolate z-50 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0',
+        'fixed inset-0 isolate z-50 bg-inchiostro/70 duration-150 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0',
         className
       )}
       data-slot="dialog-overlay"
@@ -48,7 +48,7 @@ function DialogContent({
       <DialogOverlay />
       <DialogPrimitive.Popup
         className={cn(
-          'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-6 rounded-xl bg-popover p-6 text-sm text-popover-foreground ring-1 ring-foreground/10 duration-100 outline-none sm:max-w-md data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
+          'fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-2rem)] w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 content-start gap-6 overflow-y-auto border-t-[12px] border-cobalto bg-popover p-6 text-base text-popover-foreground duration-200 outline-none sm:max-w-md sm:p-10 data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-bottom-8 data-closed:animate-out data-closed:fade-out-0 data-closed:slide-out-to-bottom-8',
           className
         )}
         data-slot="dialog-content"
@@ -58,7 +58,7 @@ function DialogContent({
         {showCloseButton && (
           <DialogPrimitive.Close
             data-slot="dialog-close"
-            render={<Button className="absolute top-4 right-4" size="icon-sm" variant="ghost" />}
+            render={<Button className="absolute top-4 right-4" size="icon-sm" variant="default" />}
           >
             <XIcon />
             <span className="sr-only">Close</span>
@@ -94,22 +94,13 @@ function DialogFooter({
 }
 
 function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
-  return (
-    <DialogPrimitive.Title
-      className={cn('font-heading leading-none font-medium', className)}
-      data-slot="dialog-title"
-      {...props}
-    />
-  );
+  return <DialogPrimitive.Title className={cn('type-heading', className)} data-slot="dialog-title" {...props} />;
 }
 
 function DialogDescription({ className, ...props }: DialogPrimitive.Description.Props) {
   return (
     <DialogPrimitive.Description
-      className={cn(
-        'text-sm text-muted-foreground *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground',
-        className
-      )}
+      className={cn('type-small text-muted-foreground', className)}
       data-slot="dialog-description"
       {...props}
     />

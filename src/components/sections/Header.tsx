@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-import { ColorPicker } from '@/components/ColorPicker';
 import Icon from '@/components/common/Icon';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
 import { buttonVariants } from '@/components/ui/button';
 import { getLocalizedCollection } from '@/components/utils/db';
+
+const navLink =
+  'type-small rounded-full px-3 py-2 text-base underline decoration-transparent decoration-[3px] underline-offset-[6px] transition-colors hover:decoration-pomodoro';
 
 export const Header = async () => {
   'use cache';
@@ -13,43 +15,41 @@ export const Header = async () => {
   const contacts = await getLocalizedCollection('contacts');
 
   return (
-    <header className="bg-background/95 supports-backdrop-filter:bg-background/80 sticky -top-16.5 z-50 border-b-2 border-primary/30 px-6 py-4 backdrop-blur md:top-0 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
-      <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
-        <nav className="hidden items-center gap-8 md:flex">
-          <Link
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
-            href="#experience"
-          >
-            {t('experience')}
+    <header className="bg-carta text-inchiostro sticky top-0 z-50 border-b-2 border-inchiostro px-4 py-3 md:px-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
+        <div className="flex items-center gap-6">
+          <Link aria-label={t('home')} className="flex items-center gap-1.5 rounded-full" href="/">
+            <span className="bg-cobalto block size-7 rounded-full" />
+            <span className="bg-pomodoro block h-3.5 w-7 rounded-full" />
+            <span className="bg-girasole border-inchiostro block size-3.5 rounded-full border-2" />
           </Link>
-          <Link
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
-            href="#skills"
-          >
-            {t('skills')}
-          </Link>
-          <Link
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
-            href="#contact"
-          >
-            {t('contact')}
-          </Link>
-        </nav>
-        <div className="flex flex-1 items-center justify-end gap-4">
+          <nav aria-label={t('navigation')} className="hidden items-center gap-1 md:flex">
+            <Link className={navLink} href="#experience">
+              {t('experience')}
+            </Link>
+            <Link className={navLink} href="#skills">
+              {t('skills')}
+            </Link>
+            <Link className={navLink} href="#contact">
+              {t('contact')}
+            </Link>
+          </nav>
+        </div>
+        <div className="flex items-center gap-2 md:gap-3">
           {contacts.map((contact) => (
             <a
-              className={buttonVariants({ className: 'md:text-sm', size: 'sm', variant: 'ghost' })}
+              aria-label={contact.label}
+              className={buttonVariants({ className: 'max-lg:size-10 max-lg:px-0', size: 'sm', variant: 'ghost' })}
               href={contact.url}
               key={contact.url}
               rel="noopener noreferrer"
               target="_blank"
             >
-              {contact.icon && <Icon className="h-4 w-4 lg:mr-2" name={contact.icon} />}
+              {contact.icon && <Icon className="size-4.5" name={contact.icon} />}
               <span className="hidden lg:block">{contact.label}</span>
             </a>
           ))}
           <LanguageSelector />
-          <ColorPicker />
         </div>
       </div>
     </header>

@@ -1,10 +1,4 @@
 {
-  "ColorPicker": {
-    "description": "Scegli la tonalità terminale preferita. Il valore predefinito è verde.",
-    "hue_label": "Tonalità: {hue}°",
-    "reset_button": "Ripristina Predefinito",
-    "title": "Personalizza Colore del Tema"
-  },
   "Contact": {
     "availability": "Disponibilità",
     "availability_text": "Disponibile per opportunità lavorative da remoto o ibride.",
@@ -39,10 +33,13 @@
   "Header": {
     "contact": "Contatti",
     "experience": "Esperienze",
+    "home": "Home",
     "language": {
       "en": "Inglese",
       "it": "Italiano"
     },
+    "language_label": "Lingua",
+    "navigation": "Principale",
     "skills": "Competenze"
   },
   "Hero": {

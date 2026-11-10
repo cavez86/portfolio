@@ -2,53 +2,37 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
-
-:root {
-  --theme-color: hsl(145, 100%, 50%); /* Default theme color (green) */
-}
-
-/* Terminal theme with customizable base color using relative colors */
+/*
+ * Officina: flat colour fields, one grotesque family, circles / bars / arcs / dots.
+ * Palette (names are Italian workshop pigments):
+ *   carta      cool white page
+ *   inchiostro deep ink blue for text and rules
+ *   cobalto    cobalt field (experience)
+ *   girasole   sunflower field (skills)
+ *   abete      fir green field (languages)
+ *   pomodoro   tomato field (contact)
+ */
 @theme {
-  /* Base color can be customized by user (default: terminal green) */
-  --color-base: oklch(from var(--theme-color) 0.8 0.18 h); /* Default to green hue */
+  --font-sans: var(--font-archivo, ui-sans-serif), ui-sans-serif, system-ui, sans-serif;
 
-  /* All theme colors derived from --color-base using CSS relative color syntax */
-  --color-background: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Very dark with subtle hue tint */
-  --color-foreground: oklch(from var(--color-base) 0.85 0.15 h); /* Bright neon text */
+  --color-carta: #f4f7fb;
+  --color-inchiostro: #0f1a3a;
+  --color-cobalto: #1c3fcc;
+  --color-pomodoro: #f2553b;
+  --color-girasole: #ffc41f;
+  --color-abete: #0d5c46;
+  --color-sottile: #47547a; /* quiet text on carta, 6.9:1 */
 
-  --color-card: oklch(from var(--color-base) 0.18 0.01 calc(h + 5)); /* Slightly lighter than background */
-  --color-card-foreground: oklch(from var(--color-base) 0.85 0.15 h);
-
-  --color-popover: oklch(from var(--color-base) 0.12 0.01 calc(h + 5)); /* Darker than background for depth */
-  --color-popover-foreground: oklch(from var(--color-base) 0.85 0.15 h);
-
-  --color-primary: var(--color-base); /* Bright neon - terminal primary color */
-  --color-primary-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Dark text on primary */
-
-  --color-secondary: oklch(from var(--color-base) 0.25 0.02 calc(h + 5)); /* Dark for secondary elements */
-  --color-secondary-foreground: oklch(from var(--color-base) 0.75 0.12 h); /* Dimmer accent */
-
-  --color-muted: oklch(from var(--color-base) 0.22 0.015 calc(h + 5)); /* Muted background */
-  --color-muted-foreground: oklch(from var(--color-base) 0.55 0.08 h); /* Muted text */
-
-  --color-accent: oklch(from var(--color-base) 0.65 0.18 calc(h + 3)); /* Accent color */
-  --color-accent-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5));
-
-  --color-destructive: oklch(0.6 0.2 25); /* Red-orange for errors */
-  --color-destructive-foreground: oklch(0.95 0.01 120);
-
-  --color-border: oklch(from var(--color-base) 0.35 0.05 h); /* Hue-tinted border */
-  --color-input: oklch(from var(--color-base) 0.2 0.015 calc(h + 5)); /* Dark input background */
-  --color-ring: var(--color-base); /* Bright focus ring */
-
-  --color-radius: 0.25rem; /* Sharper corners for terminal feel */
-
-  --color-chart-1: var(--color-base); /* Primary color */
-  --color-chart-2: oklch(from var(--color-base) 0.75 0.15 calc(h + 50)); /* Shifted hue */
-  --color-chart-3: oklch(from var(--color-base) 0.7 0.12 calc(h + 130)); /* Complementary */
-  --color-chart-4: oklch(from var(--color-base) 0.85 0.15 calc(h - 55)); /* Triadic */
-  --color-chart-5: oklch(0.65 0.2 25); /* Red-orange */
+  --color-background: var(--color-carta);
+  --color-foreground: var(--color-inchiostro);
+  --color-popover: var(--color-carta);
+  --color-popover-foreground: var(--color-inchiostro);
+  --color-primary: var(--color-inchiostro);
+  --color-primary-foreground: var(--color-carta);
+  --color-accent: var(--color-cobalto);
+  --color-accent-foreground: #ffffff;
+  --color-muted-foreground: var(--color-sottile);
+  --color-border: var(--color-inchiostro);
 
   --animate-scale-x: scale-x linear forwards;
   @keyframes scale-x {
@@ -59,75 +43,132 @@
       transform: scaleX(1);
     }
   }
-
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  @keyframes accordion-down {
-    from {
-      height: 0;
-      opacity: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-      opacity: 1;
-    }
-  }
-
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-      opacity: 1;
-    }
-    to {
-      height: 0;
-      opacity: 0;
-    }
-  }
 }
 
 @utility animation-timeline-scroll {
   animation-timeline: scroll();
 }
 
-@utility animation-timeline-view {
-  animation-timeline: view();
+/* Type scale. One family, width and weight do the work. */
+@utility type-display {
+  font-size: clamp(4.25rem, 0.5rem + 15vw, 10rem);
+  font-weight: 800;
+  font-stretch: 64%;
+  line-height: 0.84;
+  letter-spacing: -0.005em;
+
+  @media (min-width: 64rem) {
+    font-size: clamp(5rem, 11vw, 10rem);
+  }
 }
 
-/* Add base styles after theme definition */
+@utility type-title {
+  font-size: clamp(3rem, 1.6rem + 6vw, 6.5rem);
+  font-weight: 800;
+  font-stretch: 68%;
+  line-height: 0.9;
+}
+
+@utility type-heading {
+  font-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.5rem);
+  font-weight: 750;
+  font-stretch: 78%;
+  line-height: 1.05;
+}
+
+@utility type-subheading {
+  font-size: 1.375rem;
+  font-weight: 700;
+  font-stretch: 88%;
+  line-height: 1.15;
+}
+
+@utility type-lead {
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.625rem);
+  font-weight: 500;
+  font-stretch: 92%;
+  line-height: 1.3;
+}
+
+@utility type-small {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
 @layer base {
   * {
-    @apply border-border outline-ring/50 transition-discrete;
+    @apply border-border;
+  }
+
+  :root {
+    --focus: var(--color-inchiostro);
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
+  }
+
+  html {
+    @apply bg-carta;
   }
 
   body {
-    @apply bg-background text-foreground min-w-[360px] font-mono;
+    @apply bg-carta text-inchiostro min-w-[360px] font-sans text-[1.0625rem] leading-[1.6] antialiased;
+    overflow-x: clip;
   }
 
-  /* Terminal-style text selection */
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+
   ::selection {
-    background-color: oklch(from var(--color-base) l c h / 0.3);
-    color: var(--color-foreground);
+    background-color: var(--color-girasole);
+    color: var(--color-inchiostro);
+  }
+}
+
+/* Hero mechanism: parts assemble once on load, then stay put. */
+@media (prefers-reduced-motion: no-preference) {
+  .mech-part {
+    animation: mech-assemble 1.05s cubic-bezier(0.18, 0.82, 0.2, 1) var(--delay, 0s) both;
+    transform-box: view-box;
+    transform-origin: var(--ox, 0) var(--oy, 0);
   }
 
-  /* Scrollbar styling for terminal theme */
-  ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+  .mech-pop {
+    animation: mech-pop 0.35s cubic-bezier(0.3, 1.6, 0.5, 1) var(--delay, 0s) both;
+    transform-box: fill-box;
+    transform-origin: center;
   }
+}
 
-  ::-webkit-scrollbar-track {
-    background: var(--color-background);
+@keyframes mech-assemble {
+  from {
+    opacity: 0;
+    transform: translate(var(--dx, 0), var(--dy, 0)) rotate(var(--rot, 0deg)) scale(var(--scale, 1));
   }
+  35% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border: 2px solid var(--color-background);
+@keyframes mech-pop {
+  from {
+    opacity: 0;
+    transform: scale(0);
   }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary);
-  }
-  html {
-    @apply font-sans;
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

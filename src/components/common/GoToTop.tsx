@@ -25,14 +25,15 @@ export const GoToTop = () => {
         <motion.button
           animate={{ opacity: 1, scale: 1 }}
           aria-label="Scroll to top"
-          className="bg-primary text-primary-foreground hover:bg-primary/80 fixed right-4 bottom-4 cursor-pointer rounded-full p-2 shadow-lg"
+          className="bg-inchiostro text-carta hover:bg-cobalto fixed right-4 bottom-4 flex size-12 cursor-pointer items-center justify-center rounded-full border-2 border-carta transition-colors hover:text-white md:right-8 md:bottom-8"
           exit={{ opacity: 0, scale: 0.5 }}
           initial={{ opacity: 0, scale: 0.5 }}
           onClick={scrollToTop}
           transition={{ duration: 0.2 }}
-          whileHover={{ scale: 1.1 }}
+          type="button"
+          whileHover={{ scale: 1.08 }}
         >
-          <ArrowUp size={24} />
+          <ArrowUp size={22} />
         </motion.button>
       )}
     </AnimatePresence>

@@ -1,107 +1,85 @@
 import Section from '@/components/Section';
 import { cn } from '@/lib/utils';
 
+// Placeholder blocks take the section's own text colour at low strength, so each field keeps its colour while loading.
 const SkeletonBlock = ({ className }: { className?: string }) => (
-  <div className={cn('bg-primary/10 animate-pulse rounded-sm border border-primary/20', className)} />
+  <div className={cn('animate-pulse rounded-full bg-current opacity-15 motion-reduce:animate-none', className)} />
 );
 
 export const HeroSectionSkeleton = () => (
-  <section className="px-4 py-8 md:py-16">
-    <div className="container mx-auto">
-      <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center">
-        <SkeletonBlock className="h-14 w-3/4 max-w-2xl md:h-20" />
-        <SkeletonBlock className="h-8 w-2/3 max-w-xl" />
-        <div className="flex w-full max-w-2xl flex-col gap-3">
-          <SkeletonBlock className="h-4 w-full" />
-          <SkeletonBlock className="h-4 w-11/12" />
-          <SkeletonBlock className="h-4 w-4/5" />
+  <section className="bg-carta text-inchiostro px-5 pt-10 pb-16 md:px-10 md:pt-16 md:pb-24">
+    <div className="mx-auto max-w-7xl">
+      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
+        <div className="flex flex-col gap-4">
+          <SkeletonBlock className="h-16 w-3/4 md:h-28" />
+          <SkeletonBlock className="h-16 w-2/3 md:h-28" />
+          <SkeletonBlock className="h-16 w-1/2 md:h-28" />
+          <SkeletonBlock className="mt-4 h-7 w-2/3" />
+          <SkeletonBlock className="mt-4 h-14 w-48" />
         </div>
-        <SkeletonBlock className="h-11 w-40" />
+        <SkeletonBlock className="mx-auto aspect-square w-full max-w-[34rem]" />
       </div>
-
-      <div className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4">
-        {['hero-summary-1', 'hero-summary-2', 'hero-summary-3', 'hero-summary-4'].map((key) => (
-          <div className="bg-card border-2 border-primary/20 p-4 shadow-[0_0_15px_rgba(0,0,0,0.3)]" key={key}>
-            <SkeletonBlock className="mx-auto mb-3 h-8 w-8" />
-            <SkeletonBlock className="mx-auto mb-2 h-4 w-3/4" />
-            <SkeletonBlock className="mx-auto h-5 w-1/2" />
-          </div>
-        ))}
+      <div className="mt-14 flex max-w-xl flex-col gap-3 border-t-4 border-inchiostro pt-10 md:mt-20">
+        <SkeletonBlock className="h-4 w-full" />
+        <SkeletonBlock className="h-4 w-11/12" />
+        <SkeletonBlock className="h-4 w-4/5" />
       </div>
     </div>
   </section>
 );
 
 export const ExperienceSectionSkeleton = () => (
-  <Section id="experience">
-    <div className="space-y-6 md:space-y-12">
-      <SkeletonBlock className="mx-auto h-10 w-56" />
-      <div className="flex flex-col gap-6 md:gap-8">
-        {['experience-1', 'experience-2', 'experience-3'].map((key) => (
-          <div className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]" key={key}>
-            <SkeletonBlock className="mb-4 h-6 w-2/3" />
-            <SkeletonBlock className="mb-3 h-4 w-1/3" />
-            <SkeletonBlock className="mb-2 h-4 w-full" />
-            <SkeletonBlock className="mb-2 h-4 w-11/12" />
-            <SkeletonBlock className="h-4 w-4/5" />
+  <Section field="cobalto" id="experience">
+    <SkeletonBlock className="h-16 w-3/4 max-w-lg md:h-24" />
+    <div className="mt-12 md:mt-16">
+      {['experience-1', 'experience-2', 'experience-3', 'experience-4'].map((key) => (
+        <div className="flex items-center gap-6 border-t-2 border-current py-6 md:px-4 md:py-7" key={key}>
+          <SkeletonBlock className="h-9 w-32 shrink-0" />
+          <div className="flex-1 space-y-2">
+            <SkeletonBlock className="h-6 w-1/2" />
+            <SkeletonBlock className="h-4 w-1/3" />
           </div>
-        ))}
-      </div>
+          <SkeletonBlock className="hidden h-4 w-1/3 md:block" />
+        </div>
+      ))}
     </div>
   </Section>
 );
 
 export const SkillsSectionSkeleton = () => (
-  <Section contentClassName="max-w-5xl flex flex-col gap-6 md:gap-12" id="skills">
-    <div className="space-y-4 text-center">
-      <SkeletonBlock className="mx-auto h-10 w-52" />
-      <SkeletonBlock className="mx-auto h-5 w-full max-w-2xl" />
-    </div>
-
-    {['technical', 'soft'].map((groupKey) => (
-      <div className="flex flex-col gap-4 md:gap-8" key={groupKey}>
-        <SkeletonBlock className="mx-auto h-8 w-44" />
-        <div className="flex flex-col gap-6 md:flex-row">
-          {['first', 'second'].map((cardKey) => (
-            <div
-              className="bg-card min-w-75 flex-1 border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]"
-              key={cardKey}
-            >
-              <SkeletonBlock className="mb-4 h-6 w-1/2" />
-              <div className="space-y-3">
-                {['one', 'two', 'three', 'four'].map((itemKey) => (
-                  <SkeletonBlock className="h-4 w-full" key={itemKey} />
-                ))}
-              </div>
-            </div>
-          ))}
+  <Section field="girasole" id="skills">
+    <SkeletonBlock className="h-16 w-3/4 max-w-md md:h-24" />
+    <SkeletonBlock className="mt-6 h-7 w-2/3 max-w-sm" />
+    <div className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      {['one', 'two', 'three', 'four', 'five', 'six'].map((cardKey) => (
+        <div key={cardKey}>
+          <div className="flex items-center gap-4">
+            <SkeletonBlock className="size-12 shrink-0" />
+            <SkeletonBlock className="h-6 w-1/2" />
+          </div>
+          <div className="mt-5 space-y-3 border-t-2 border-current pt-5">
+            {['a', 'b', 'c'].map((itemKey) => (
+              <SkeletonBlock className="h-4 w-2/3" key={itemKey} />
+            ))}
+          </div>
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
   </Section>
 );
 
 export const LanguagesSectionSkeleton = () => (
-  <Section contentClassName="max-w-3xl">
-    <div className="space-y-6 md:space-y-12">
-      <div className="space-y-4 text-center">
-        <SkeletonBlock className="mx-auto h-10 w-56" />
-        <SkeletonBlock className="mx-auto h-5 w-full max-w-2xl" />
+  <Section field="abete">
+    <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-20">
+      <div className="space-y-6">
+        <SkeletonBlock className="h-16 w-3/4 md:h-24" />
+        <SkeletonBlock className="h-7 w-2/3" />
       </div>
-
-      <div className="grid gap-6">
-        {['language-1', 'language-2', 'language-3'].map((key) => (
-          <div className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]" key={key}>
-            <div className="flex items-center gap-4">
-              <SkeletonBlock className="h-12 w-12 shrink-0" />
-              <div className="flex-1 space-y-3">
-                <div className="flex items-center justify-between gap-4">
-                  <SkeletonBlock className="h-5 w-1/3" />
-                  <SkeletonBlock className="h-4 w-20" />
-                </div>
-                <SkeletonBlock className="h-2.5 w-full" />
-              </div>
-            </div>
+      <div className="grid grid-cols-2 gap-x-6 gap-y-12">
+        {['language-1', 'language-2'].map((key) => (
+          <div className="flex flex-col gap-5" key={key}>
+            <SkeletonBlock className="aspect-square w-full max-w-52" />
+            <SkeletonBlock className="h-8 w-1/2" />
           </div>
         ))}
       </div>
@@ -110,22 +88,22 @@ export const LanguagesSectionSkeleton = () => (
 );
 
 export const ContactSectionSkeleton = () => (
-  <Section contentClassName="max-w-3xl" id="contact">
-    <div className="space-y-6">
-      <SkeletonBlock className="mx-auto h-10 w-52" />
-      <div className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]">
-        <SkeletonBlock className="mb-6 h-6 w-1/2" />
-        <div className="space-y-6">
-          {['contact-1', 'contact-2', 'contact-3'].map((key) => (
-            <div className="flex items-center gap-4" key={key}>
-              <SkeletonBlock className="h-10 w-10 shrink-0" />
-              <div className="flex-1 space-y-2">
-                <SkeletonBlock className="h-4 w-1/3" />
-                <SkeletonBlock className="h-4 w-2/3" />
-              </div>
+  <Section field="pomodoro" id="contact">
+    <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20">
+      <div className="space-y-4">
+        <SkeletonBlock className="h-20 w-3/4 md:h-32" />
+        <SkeletonBlock className="h-20 w-1/2 md:h-32" />
+      </div>
+      <div>
+        {['contact-1', 'contact-2', 'contact-3'].map((key) => (
+          <div className="flex items-center justify-between gap-6 border-t-2 border-inchiostro py-6" key={key}>
+            <div className="flex-1 space-y-3">
+              <SkeletonBlock className="h-8 w-1/2" />
+              <SkeletonBlock className="h-4 w-2/3" />
             </div>
-          ))}
-        </div>
+            <SkeletonBlock className="size-14 shrink-0" />
+          </div>
+        ))}
       </div>
     </div>
   </Section>

@@ -67,13 +67,12 @@ export const ExportPDFButton = () => {
 
   return (
     <Button
-      className="text-foreground transition-all hover:text-primary md:text-sm"
+      className="border-carta text-carta hover:border-girasole hover:bg-girasole hover:text-inchiostro"
       disabled={isLoading}
       onClick={handleExport}
-      size="lg"
       variant="ghost"
     >
-      <Download className="h-5 w-5" />
+      <Download />
       <span>{isLoading ? 'Exporting...' : 'Export PDF'}</span>
     </Button>
   );

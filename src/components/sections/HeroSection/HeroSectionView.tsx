@@ -3,10 +3,10 @@ import { RichText } from '@payloadcms/richtext-lexical/react';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-import Icon, { type IconName } from '@/components/common/Icon';
-import { Motion } from '@/components/common/Motion';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
+
+import { HeroMechanism } from './HeroMechanism';
 
 const HeroSection = async () => {
   const [personalInfoData, summaryInfoData, t] = await Promise.all([
@@ -16,77 +16,38 @@ const HeroSection = async () => {
   ]);
 
   return (
-    <section className="px-4 py-8 md:py-16">
-      <div className="container mx-auto">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-linear-to-r from-primary to-accent bg-clip-text text-5xl leading-normal font-bold font-mono uppercase tracking-wider text-transparent md:text-7xl [text-shadow:0_0_30px_var(--color-primary)]"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ duration: 0.5 }}
-            type="h1"
-          >
-            {personalInfoData.name}
-          </Motion>
-
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-2xl font-medium font-mono uppercase tracking-wider text-accent md:text-3xl"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            type="h2"
-          >
-            {personalInfoData.title}
-          </Motion>
-
-          <Motion
-            className="mx-auto text-lg text-pretty text-muted-foreground"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <RichText data={personalInfoData.description as SerializedEditorState} />
-          </Motion>
-
-          <Motion
-            className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <Link href="#contact">
-              <Button size="lg" variant="outline">
-                {t('contact_me')}
-              </Button>
+    <section className="bg-carta text-inchiostro px-5 pt-10 pb-16 md:px-10 md:pt-16 md:pb-24">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-6">
+          <div>
+            <h1 className="type-display">
+              {personalInfoData.name.split(' ').map((word) => (
+                <span className="block" key={word}>
+                  {word}
+                </span>
+              ))}
+            </h1>
+            <p className="type-lead mt-8 max-w-[28ch]">{personalInfoData.title}</p>
+            <Link className={buttonVariants({ className: 'mt-8', size: 'lg' })} href="#contact">
+              {t('contact_me')}
             </Link>
-          </Motion>
+          </div>
+          <HeroMechanism className="mx-auto h-auto w-full max-w-[34rem] lg:max-w-none" />
         </div>
 
-        <Motion
-          className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4"
-          initial={{ opacity: 0.1, y: 20 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          type="div"
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
-          {summaryInfoData.map((item) => (
-            <div
-              className="bg-card flex flex-col items-center border-2 border-primary/30 p-4 text-center transition-all hover:border-primary/60 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_var(--color-primary)]"
-              key={item.id}
-            >
-              <Icon className="mb-2 h-8 w-8 text-primary" name={item.icon as IconName} />
-              <h3 className="text-sm font-medium font-mono uppercase tracking-wider text-muted-foreground">
-                {t(item.label)}
-              </h3>
-              <p className="text-base font-semibold font-mono text-foreground">{t(item.value)}</p>
-            </div>
-          ))}
-        </Motion>
+        <div className="mt-14 grid gap-10 border-t-4 border-inchiostro pt-10 md:mt-20 lg:grid-cols-[minmax(0,40rem)_1fr] lg:gap-20">
+          <div className="max-w-[62ch] [&_p+p]:mt-4 [&_p]:text-pretty">
+            <RichText data={personalInfoData.description as SerializedEditorState} />
+          </div>
+          <dl className="grid content-start gap-x-8 gap-y-6 sm:grid-cols-2">
+            {summaryInfoData.map((item) => (
+              <div key={item.id}>
+                <dt className="type-small text-sottile">{t(item.label)}</dt>
+                <dd className="type-subheading mt-1">{t(item.value)}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );

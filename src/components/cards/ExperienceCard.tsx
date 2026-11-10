@@ -1,9 +1,7 @@
 import dayjs from 'dayjs';
-import { Maximize2 } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Markdown from 'react-markdown';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -12,49 +10,73 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
 import type { Experience } from '@/payload-types';
+import { getBar, positionOf, type TimelineAxis } from '../sections/ExperienceSection/timeline';
 
-const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment: boolean }) => {
+const ExperienceCard = ({ exp, axis }: { exp: Experience; axis: TimelineAxis }) => {
   const t = useTranslations('Experience');
   const periodLabel = `${dayjs(exp.period.dateFrom).format('YYYY')} - ${exp.period.dateTo ? dayjs(exp.period.dateTo).format('YYYY') : t('present')}`;
+  const bar = getBar(exp, axis);
 
   return (
     <Dialog>
-      <DialogTrigger className="w-full">
-        <Card className={cn(flipAlignment ? 'md:ml-4' : 'md:mr-4', 'group/card cursor-pointer hover:bg-card/80')}>
-          <CardContent>
-            <div
-              className={cn(
-                'relative flex flex-col items-start',
-                flipAlignment ? 'md:items-end md:text-end' : 'md:items-start md:text-start'
-              )}
-            >
-              <Maximize2
-                className={cn(
-                  'absolute top-0 h-3 w-3 text-primary opacity-50 transition',
-                  'group-hover/card:scale-150 group-hover/card:opacity-100',
-                  'right-0',
-                  flipAlignment && 'md:left-0 md:right-auto'
-                )}
-              />
-              <Badge className="mb-2 inline-block w-auto">{periodLabel}</Badge>
-              <h3 className="text-xl font-bold font-mono uppercase tracking-wider text-foreground">{exp.company}</h3>
-              <p className="mb-2 text-xs text-muted-foreground">{exp.location}</p>
-              <p className="mb-4 text-muted-foreground">{exp.position}</p>
-            </div>
-          </CardContent>
-        </Card>
+      <DialogTrigger className="group/row grid w-full cursor-pointer grid-cols-[1fr_auto] items-center gap-x-4 gap-y-5 border-t-2 border-current px-0 py-6 text-left transition-colors hover:bg-carta hover:text-cobalto md:grid-cols-[14rem_minmax(0,1fr)_minmax(0,1.1fr)_auto] md:gap-x-8 md:px-4 md:py-7 [&:hover]:[--focus:var(--color-inchiostro)]">
+        <span className="type-heading col-start-1 row-start-2 whitespace-nowrap md:col-start-1 md:row-start-1">
+          {periodLabel}
+        </span>
+        <span className="col-start-1 row-start-1 flex flex-col gap-0.5 md:col-start-2">
+          <span className="type-subheading">{exp.company}</span>
+          <span className="type-small">{exp.position}</span>
+          <span className="type-small opacity-90">{exp.location}</span>
+        </span>
+        <span
+          aria-hidden="true"
+          className="relative col-span-2 row-start-3 block h-7 md:col-span-1 md:col-start-3 md:row-start-1"
+        >
+          {axis.ticks.map((tick) => (
+            <span
+              className="absolute top-0 bottom-0 block w-px bg-current opacity-30"
+              key={tick}
+              style={{ left: `${positionOf(tick, axis)}%` }}
+            />
+          ))}
+          <span
+            className="bg-girasole group-hover/row:bg-pomodoro absolute top-1.5 block h-4 rounded-full transition-colors"
+            style={{ left: `${bar.left}%`, width: `${bar.width}%` }}
+          />
+          {bar.ongoing && (
+            <span
+              className="bg-carta border-pomodoro absolute top-0 block size-7 -translate-x-full rounded-full border-[6px]"
+              style={{ left: '100%' }}
+            />
+          )}
+        </span>
+        <span className="border-current col-start-2 row-span-2 row-start-1 flex size-11 items-center justify-center self-start rounded-full border-2 transition-transform group-hover/row:rotate-90 md:col-start-4 md:row-span-1 md:self-center">
+          <Plus aria-hidden="true" className="size-5" />
+          <span className="sr-only">{t('more')}</span>
+        </span>
       </DialogTrigger>
       <DialogContent className="md:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{exp.company}</DialogTitle>
-          <DialogDescription>{periodLabel}</DialogDescription>
+          <DialogDescription>
+            {periodLabel}
+            {exp.position ? `, ${exp.position}` : ''}
+          </DialogDescription>
         </DialogHeader>
-        <ul className="list-disc space-y-2 pl-5 text-left text-foreground [&_a]:underline [&_a]:text-accent [&_a]:hover:text-primary">
+        <ul className="space-y-6">
           {exp.achievements?.map((achievement) => (
-            <li key={achievement.id ?? `${achievement.label}-${achievement.description}`}>
-              <span className="font-semibold">{achievement.label}</span>: <Markdown>{achievement.description}</Markdown>
+            <li
+              className="grid grid-cols-[1rem_1fr] gap-x-4"
+              key={achievement.id ?? `${achievement.label}-${achievement.description}`}
+            >
+              <span aria-hidden="true" className="bg-pomodoro mt-2 block size-3.5 rounded-full" />
+              <div>
+                <h4 className="type-subheading">{achievement.label.replace(/:\s*$/, '')}</h4>
+                <div className="mt-1 max-w-[62ch] [&_a]:text-cobalto [&_a]:underline [&_a]:underline-offset-4">
+                  <Markdown>{achievement.description}</Markdown>
+                </div>
+              </div>
             </li>
           ))}
         </ul>

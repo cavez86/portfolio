@@ -1,7 +1,6 @@
 'use client';
 
 import { Home, RefreshCw } from 'lucide-react';
-import { motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -11,6 +10,18 @@ interface ErrorPageProps {
   errorCode: 404 | 500 | 403;
   handleTryAgain?: () => void;
 }
+
+// A mechanism that did not come together: the gear and the lever sit apart from the base.
+const BrokenMechanism = () => (
+  <svg aria-hidden="true" className="h-auto w-full max-w-72" focusable="false" viewBox="0 0 320 240">
+    <rect className="fill-inchiostro" height="20" rx="10" width="280" x="20" y="204" />
+    <circle className="fill-cobalto" cx="100" cy="132" r="56" />
+    <circle className="fill-carta" cx="100" cy="132" r="18" />
+    <circle className="fill-pomodoro" cx="226" cy="64" r="34" />
+    <circle className="fill-carta" cx="226" cy="64" r="11" />
+    <rect className="fill-girasole" height="18" rx="9" transform="rotate(-24 250 160)" width="96" x="208" y="150" />
+  </svg>
+);
 
 export default function ErrorPage({ errorCode, handleTryAgain }: Readonly<ErrorPageProps>) {
   const t = useTranslations('Error');
@@ -28,70 +39,23 @@ export default function ErrorPage({ errorCode, handleTryAgain }: Readonly<ErrorP
     }
   };
 
-  const getErrorIcon = () => {
-    switch (errorCode) {
-      case 404:
-        return '🔍';
-      case 500:
-        return '⚠️';
-      case 403:
-        return '🔒';
-      default:
-        return '❌';
-    }
-  };
-
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
-      <motion.div
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-md"
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="mb-8 text-6xl">{getErrorIcon()}</div>
+    <div className="mx-auto grid min-h-[70vh] max-w-7xl items-center gap-10 px-5 py-16 md:grid-cols-[1.2fr_1fr] md:px-10">
+      <div>
+        <p className="type-display">{errorCode}</p>
+        <h1 className="type-heading mt-6">{t(`${errorCode}.title`)}</h1>
+        <p className="type-lead mt-3 max-w-[32ch]">{t(`${errorCode}.subtitle`)}</p>
+        <p className="mt-3 max-w-[48ch] text-sottile">{t(`${errorCode}.description`)}</p>
 
-        <motion.h1
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-4 text-4xl font-bold font-mono uppercase tracking-wider text-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-        >
-          {t(`${errorCode}.title`)}
-        </motion.h1>
-
-        <motion.h2
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-4 text-xl text-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          {t(`${errorCode}.subtitle`)}
-        </motion.h2>
-
-        <motion.p
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 text-muted-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          {t(`${errorCode}.description`)}
-        </motion.p>
-
-        <motion.div
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col gap-4 sm:flex-row sm:justify-center"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <Button className="flex items-center gap-2" onClick={handleGoHome}>
-            <Home className="size-4" />
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button onClick={handleGoHome}>
+            <Home />
             {t('back_home')}
           </Button>
 
           {!!handleTryAgain && (
-            <Button className="flex items-center gap-2" onClick={handleTryAgain} variant="outline">
-              <RefreshCw className="size-4" />
+            <Button onClick={handleTryAgain} variant="outline">
+              <RefreshCw />
               {t('try_again')}
             </Button>
           )}
@@ -101,8 +65,9 @@ export default function ErrorPage({ errorCode, handleTryAgain }: Readonly<ErrorP
               {t('go_back')}
             </Button>
           )}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
+      <BrokenMechanism />
     </div>
   );
 }

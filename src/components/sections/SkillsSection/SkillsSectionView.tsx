@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server';
 import SkillsCard from '@/components/cards/SkillsCard';
-import { Motion } from '@/components/common/Motion';
 import Section from '@/components/Section';
 import { getLocalizedCollection } from '@/components/utils/db';
 
@@ -12,66 +11,24 @@ const SkillsSection = async () => {
   ]);
 
   return (
-    <Section contentClassName="max-w-5xl flex flex-col gap-6 md:gap-12" id="skills">
-      <div className="text-center">
-        <Motion
-          className="mb-2 text-3xl font-bold font-mono uppercase tracking-wider text-foreground md:mb-4 md:text-4xl"
-          initial={{ opacity: 0.1, y: 20 }}
-          transition={{ duration: 0.5 }}
-          type="h2"
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
-          {t('title')}
-        </Motion>
-        <Motion
-          className="text-lg text-muted-foreground"
-          initial={{ opacity: 0.1, y: 20 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-          type="p"
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
-          {t('description')}
-        </Motion>
-      </div>
+    <Section field="girasole" id="skills">
+      <h2 className="type-title max-w-[12ch]">{t('title')}</h2>
+      <p className="type-lead mt-6 max-w-[34ch]">{t('description')}</p>
 
-      <div className="flex flex-col gap-4 md:gap-8">
-        <h3 className="text-center text-2xl font-bold font-mono uppercase tracking-wider text-primary">
-          {t('technical')}
-        </h3>
-        <div className="flex flex-wrap gap-6">
+      <div className="mt-14 md:mt-20">
+        <h3 className="type-heading">{t('technical')}</h3>
+        <div className="mt-8 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {skillsData.map((category, index) => (
-            <Motion
-              className="min-w-75 flex-1"
-              initial={{ opacity: 0.1, y: 20 }}
-              key={category.id}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              type="div"
-              viewport={{ once: true }}
-              whileInView={{ opacity: 1, y: 0 }}
-            >
-              <SkillsCard category={category} />
-            </Motion>
+            <SkillsCard category={category} index={index} key={category.id} />
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 md:gap-8">
-        <h3 className="text-center text-2xl font-bold font-mono uppercase tracking-wider text-primary">{t('soft')}</h3>
-        <div className="flex flex-wrap gap-6">
+      <div className="mt-16 border-t-4 border-inchiostro pt-10 md:mt-24 md:pt-14">
+        <h3 className="type-heading">{t('soft')}</h3>
+        <div className="mt-8 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {softSkillsData.map((category, index) => (
-            <Motion
-              className="min-w-75 flex-1"
-              initial={{ opacity: 0.1, y: 20 }}
-              key={category.id}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              type="div"
-              viewport={{ once: true }}
-              whileInView={{ opacity: 1, y: 0 }}
-            >
-              <SkillsCard category={category} />
-            </Motion>
+            <SkillsCard category={category} index={index + skillsData.length} key={category.id} />
           ))}
         </div>
       </div>
