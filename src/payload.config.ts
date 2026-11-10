@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { resendAdapter } from '@payloadcms/email-resend';
+import { mcpPlugin } from '@payloadcms/plugin-mcp';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { en } from '@payloadcms/translations/languages/en';
 import { it } from '@payloadcms/translations/languages/it';
@@ -21,6 +22,9 @@ import { env } from '@/env';
 import { Contacts } from './collections/Contacts';
 import { SummaryInfo } from './collections/SummaryInfo';
 
+const contentCollections = [Contacts, SummaryInfo, Experience, Skills, SoftSkills, Education, Languages];
+const globals = [PersonalInfo];
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -34,7 +38,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Contacts, SummaryInfo, Experience, Skills, SoftSkills, Education, Languages],
+  collections: [Users, ...contentCollections],
   db: postgresAdapter({
     pool: {
       connectionString: env.DATABASE_URL ?? env.POSTGRES_URL,
@@ -46,7 +50,7 @@ export default buildConfig({
     defaultFromAddress: 'portfolio@resend.dev',
     defaultFromName: 'Payload CMS',
   }),
-  globals: [PersonalInfo],
+  globals,
   i18n: {
     supportedLanguages: { en, it },
   },
@@ -55,6 +59,12 @@ export default buildConfig({
     fallback: true,
     locales: ['en', 'it'],
   },
+  plugins: [
+    mcpPlugin({
+      collections: Object.fromEntries(contentCollections.map(({ slug }) => [slug, { enabled: true }])),
+      globals: Object.fromEntries(globals.map(({ slug }) => [slug, { enabled: true }])),
+    }),
+  ],
   secret: env.PAYLOAD_SECRET ?? '',
   sharp,
   typescript: {
