@@ -7,31 +7,27 @@ const Footer = async () => {
   'use cache';
   const contacts = await getLocalizedCollection('contacts');
   return (
-    <footer className="border-t-2 border-primary/30 px-4 py-8 shadow-[0_-4px_15px_rgba(0,0,0,0.5)]">
-      <div className="container mx-auto">
-        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <div className="flex items-center">
-            <ExportPDFButton />
-          </div>
+    <footer className="border-t border-border py-8">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-4 px-5 sm:flex-row sm:items-center md:px-8">
+        <ExportPDFButton />
 
-          <div className="flex items-center space-x-4">
-            {contacts.map((contact) => (
-              <a
-                aria-label={contact.label}
-                className={buttonVariants({
-                  className: 'transition-all hover:text-primary md:text-sm',
-                  size: 'lg',
-                  variant: 'ghost',
-                })}
-                href={contact.url}
-                key={contact.url}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {contact.icon && <Icon className="h-5 w-5" name={contact.icon} />}
-              </a>
-            ))}
-          </div>
+        <div className="flex items-center gap-1">
+          {contacts.map((contact) => (
+            <a
+              aria-label={contact.label}
+              className={buttonVariants({
+                className: 'text-muted-foreground hover:text-foreground',
+                size: 'icon',
+                variant: 'ghost',
+              })}
+              href={contact.url}
+              key={contact.url}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {contact.icon && <Icon className="size-5" name={contact.icon} />}
+            </a>
+          ))}
         </div>
       </div>
     </footer>

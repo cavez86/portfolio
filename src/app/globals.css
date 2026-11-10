@@ -2,63 +2,68 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
-
-:root {
-  --theme-color: hsl(145, 100%, 50%); /* Default theme color (green) */
+/*
+ * Mappa notturna: Turin at night, read as a map.
+ *
+ * notte    #1c1420  warm aubergine ground
+ * lampione #f4ab3d  sodium lamp amber: streets, primary type accents, actions
+ * po       #6cbab4  river blue-green: secondary accents, icons
+ * carta    #f4e9db  soft warm white: text
+ * tram     #ff6350  signal colour: the tram line, and only the tram line
+ */
+/* The font variable lives on <body> (next/font), so it must be resolved where it is used. */
+@theme inline {
+  --font-sans: var(--font-sofia), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Terminal theme with customizable base color using relative colors */
 @theme {
-  /* Base color can be customized by user (default: terminal green) */
-  --color-base: oklch(from var(--theme-color) 0.8 0.18 h); /* Default to green hue */
+  --color-background: #1c1420;
+  --color-foreground: #f4e9db;
 
-  /* All theme colors derived from --color-base using CSS relative color syntax */
-  --color-background: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Very dark with subtle hue tint */
-  --color-foreground: oklch(from var(--color-base) 0.85 0.15 h); /* Bright neon text */
+  --color-card: #271c2d;
+  --color-card-foreground: #f4e9db;
 
-  --color-card: oklch(from var(--color-base) 0.18 0.01 calc(h + 5)); /* Slightly lighter than background */
-  --color-card-foreground: oklch(from var(--color-base) 0.85 0.15 h);
+  --color-popover: #2f2336;
+  --color-popover-foreground: #f4e9db;
 
-  --color-popover: oklch(from var(--color-base) 0.12 0.01 calc(h + 5)); /* Darker than background for depth */
-  --color-popover-foreground: oklch(from var(--color-base) 0.85 0.15 h);
+  --color-primary: #f4ab3d;
+  --color-primary-foreground: #1c1420;
 
-  --color-primary: var(--color-base); /* Bright neon - terminal primary color */
-  --color-primary-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Dark text on primary */
+  --color-secondary: #3a2c42;
+  --color-secondary-foreground: #f4e9db;
 
-  --color-secondary: oklch(from var(--color-base) 0.25 0.02 calc(h + 5)); /* Dark for secondary elements */
-  --color-secondary-foreground: oklch(from var(--color-base) 0.75 0.12 h); /* Dimmer accent */
+  --color-muted: #33263a;
+  --color-muted-foreground: #bba9bd;
 
-  --color-muted: oklch(from var(--color-base) 0.22 0.015 calc(h + 5)); /* Muted background */
-  --color-muted-foreground: oklch(from var(--color-base) 0.55 0.08 h); /* Muted text */
+  --color-accent: #6cbab4;
+  --color-accent-foreground: #1c1420;
 
-  --color-accent: oklch(from var(--color-base) 0.65 0.18 calc(h + 3)); /* Accent color */
-  --color-accent-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5));
+  --color-tram: #ff6350;
+  --color-river: #6cbab4;
 
-  --color-destructive: oklch(0.6 0.2 25); /* Red-orange for errors */
-  --color-destructive-foreground: oklch(0.95 0.01 120);
+  --color-destructive: #ff8a7a;
+  --color-destructive-foreground: #1c1420;
 
-  --color-border: oklch(from var(--color-base) 0.35 0.05 h); /* Hue-tinted border */
-  --color-input: oklch(from var(--color-base) 0.2 0.015 calc(h + 5)); /* Dark input background */
-  --color-ring: var(--color-base); /* Bright focus ring */
+  --color-border: #4a3a52;
+  --color-input: #4a3a52;
+  --color-ring: #f4ab3d;
 
-  --color-radius: 0.25rem; /* Sharper corners for terminal feel */
+  --radius-xs: 1px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
 
-  --color-chart-1: var(--color-base); /* Primary color */
-  --color-chart-2: oklch(from var(--color-base) 0.75 0.15 calc(h + 50)); /* Shifted hue */
-  --color-chart-3: oklch(from var(--color-base) 0.7 0.12 calc(h + 130)); /* Complementary */
-  --color-chart-4: oklch(from var(--color-base) 0.85 0.15 calc(h - 55)); /* Triadic */
-  --color-chart-5: oklch(0.65 0.2 25); /* Red-orange */
-
-  --animate-scale-x: scale-x linear forwards;
-  @keyframes scale-x {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.5;
+  --text-lead: 1.3125rem;
+  --text-lead--line-height: 1.45;
+  --text-district: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  --text-district--line-height: 1.05;
+  --text-name: clamp(2.75rem, 1.2rem + 6.2vw, 5.75rem);
+  --text-name--line-height: 0.95;
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   @keyframes accordion-down {
@@ -85,31 +90,37 @@
   }
 }
 
-@utility animation-timeline-scroll {
-  animation-timeline: scroll();
-}
-
-@utility animation-timeline-view {
-  animation-timeline: view();
-}
-
-/* Add base styles after theme definition */
 @layer base {
   * {
-    @apply border-border outline-ring/50 transition-discrete;
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-pt-16 bg-background font-sans;
+    color-scheme: dark;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
-    @apply bg-background text-foreground min-w-[360px] font-mono;
+    @apply min-w-[360px] overflow-x-clip bg-background text-body text-foreground antialiased;
+    font-feature-settings: "kern", "liga";
   }
 
-  /* Terminal-style text selection */
   ::selection {
-    background-color: oklch(from var(--color-base) l c h / 0.3);
-    color: var(--color-foreground);
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
   }
 
-  /* Scrollbar styling for terminal theme */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
   ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
@@ -121,13 +132,92 @@
 
   ::-webkit-scrollbar-thumb {
     background: var(--color-border);
-    border: 2px solid var(--color-background);
+    border: 3px solid var(--color-background);
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-primary);
   }
-  html {
-    @apply font-sans;
+}
+
+@keyframes lamp-on {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  48% {
+    opacity: 0.35;
+  }
+  62% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes street-on {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shuttle {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(10rem - 100%));
+  }
+}
+
+.lamp {
+  animation: lamp-on 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.street-lit {
+  animation: street-on 1.1s ease-out both;
+  animation-delay: var(--d, 0s);
+}
+
+.shuttle {
+  animation: shuttle 1.6s ease-in-out infinite alternate;
+}
+
+/* Rich text coming from Payload (hero description). */
+.payload-richtext {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+}
+
+.payload-richtext strong {
+  color: var(--color-foreground);
+  font-weight: 650;
+}
+
+.payload-richtext a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* The map is drawn lit; the page-load moment only plays when motion is welcome. */
+@media (prefers-reduced-motion: reduce) {
+  .lamp,
+  .shuttle,
+  .street-lit {
+    animation: none;
   }
 }

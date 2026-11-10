@@ -1,9 +1,6 @@
 import dayjs from 'dayjs';
-import { Maximize2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Markdown from 'react-markdown';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -15,51 +12,68 @@ import {
 import { cn } from '@/lib/utils';
 import type { Experience } from '@/payload-types';
 
-const ExperienceCard = ({ exp, flipAlignment }: { exp: Experience; flipAlignment: boolean }) => {
+/** One stop on the tram line. The first stop is the terminus: the current job. */
+const ExperienceCard = ({ exp, isTerminus }: { exp: Experience; isTerminus: boolean }) => {
   const t = useTranslations('Experience');
-  const periodLabel = `${dayjs(exp.period.dateFrom).format('YYYY')} - ${exp.period.dateTo ? dayjs(exp.period.dateTo).format('YYYY') : t('present')}`;
+  const periodLabel = `${dayjs(exp.period.dateFrom).format('YYYY')} – ${exp.period.dateTo ? dayjs(exp.period.dateTo).format('YYYY') : t('present')}`;
 
   return (
-    <Dialog>
-      <DialogTrigger className="w-full">
-        <Card className={cn(flipAlignment ? 'md:ml-4' : 'md:mr-4', 'group/card cursor-pointer hover:bg-card/80')}>
-          <CardContent>
-            <div
-              className={cn(
-                'relative flex flex-col items-start',
-                flipAlignment ? 'md:items-end md:text-end' : 'md:items-start md:text-start'
-              )}
-            >
-              <Maximize2
-                className={cn(
-                  'absolute top-0 h-3 w-3 text-primary opacity-50 transition',
-                  'group-hover/card:scale-150 group-hover/card:opacity-100',
-                  'right-0',
-                  flipAlignment && 'md:left-0 md:right-auto'
-                )}
-              />
-              <Badge className="mb-2 inline-block w-auto">{periodLabel}</Badge>
-              <h3 className="text-xl font-bold font-mono uppercase tracking-wider text-foreground">{exp.company}</h3>
-              <p className="mb-2 text-xs text-muted-foreground">{exp.location}</p>
-              <p className="mb-4 text-muted-foreground">{exp.position}</p>
-            </div>
-          </CardContent>
-        </Card>
-      </DialogTrigger>
-      <DialogContent className="md:max-w-2xl">
-        <DialogHeader>
-          <DialogTitle>{exp.company}</DialogTitle>
-          <DialogDescription>{periodLabel}</DialogDescription>
-        </DialogHeader>
-        <ul className="list-disc space-y-2 pl-5 text-left text-foreground [&_a]:underline [&_a]:text-accent [&_a]:hover:text-primary">
+    <li className="group/stop grid grid-cols-[1.5rem_minmax(0,1fr)] gap-x-5 md:grid-cols-[7.5rem_1.5rem_minmax(0,1fr)]">
+      <p className="col-start-2 row-start-1 text-small leading-7 font-semibold text-muted-foreground tabular-nums md:col-start-1 md:text-right md:text-body">
+        {periodLabel}
+      </p>
+
+      <div aria-hidden="true" className="relative col-start-1 row-span-2 row-start-1 md:col-start-2">
+        <span className="absolute top-3.5 -bottom-3.5 left-1/2 w-1 -translate-x-1/2 bg-tram group-last/stop:hidden" />
+        {isTerminus && <span className="absolute -top-2 left-1/2 h-1 w-8 -translate-x-1/2 rounded-xs bg-tram" />}
+        <span
+          className={cn(
+            'absolute top-3.5 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-tram transition-colors',
+            isTerminus
+              ? 'size-6 border-[6px] bg-foreground'
+              : 'size-3.5 border-[3px] bg-background group-has-[button:focus-visible]/stop:bg-tram group-has-[button:hover]/stop:bg-tram'
+          )}
+        />
+      </div>
+
+      <div className="col-start-2 row-start-2 pb-12 group-last/stop:pb-0 md:col-start-3 md:row-span-2 md:row-start-1">
+        <h3 className="text-2xl leading-7 font-bold">{exp.company}</h3>
+        <p className="mt-3 max-w-[40ch] text-body text-pretty text-foreground/90">{exp.position}</p>
+        {exp.location && <p className="text-small text-muted-foreground">{exp.location}</p>}
+        <ul className="mt-3 flex max-w-[60ch] flex-wrap gap-x-4 gap-y-0.5 text-small text-foreground/80">
           {exp.achievements?.map((achievement) => (
-            <li key={achievement.id ?? `${achievement.label}-${achievement.description}`}>
-              <span className="font-semibold">{achievement.label}</span>: <Markdown>{achievement.description}</Markdown>
-            </li>
+            <li key={achievement.id ?? achievement.label}>{achievement.label}</li>
           ))}
         </ul>
-      </DialogContent>
-    </Dialog>
+
+        <Dialog>
+          <DialogTrigger
+            aria-label={`${t('details')}: ${exp.company}, ${periodLabel}`}
+            className="mt-3 -ml-1 cursor-pointer rounded-xs px-1 py-2 text-small font-semibold text-primary underline decoration-2 underline-offset-4 transition-colors hover:text-[#ffc062]"
+          >
+            {t('details')}
+          </DialogTrigger>
+          <DialogContent className="md:max-w-2xl">
+            <DialogHeader className="pr-10">
+              <DialogTitle>{exp.company}</DialogTitle>
+              <DialogDescription className="text-body tabular-nums">
+                {exp.position}, {periodLabel}
+              </DialogDescription>
+            </DialogHeader>
+            <ul className="space-y-5">
+              {exp.achievements?.map((achievement) => (
+                <li key={achievement.id ?? `${achievement.label}-${achievement.description}`}>
+                  <h4 className="font-semibold text-primary">{achievement.label}</h4>
+                  <div className="mt-1 text-pretty text-foreground/90 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-[#ffc062] [&_p+p]:mt-2">
+                    <Markdown>{achievement.description}</Markdown>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </DialogContent>
+        </Dialog>
+      </div>
+    </li>
   );
 };
 

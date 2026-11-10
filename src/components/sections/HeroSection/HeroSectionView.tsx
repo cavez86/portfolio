@@ -1,12 +1,12 @@
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
 import { RichText } from '@payloadcms/richtext-lexical/react';
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
 import Icon, { type IconName } from '@/components/common/Icon';
-import { Motion } from '@/components/common/Motion';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
+
+import StreetMap from './StreetMap';
 
 const HeroSection = async () => {
   const [personalInfoData, summaryInfoData, t] = await Promise.all([
@@ -16,77 +16,43 @@ const HeroSection = async () => {
   ]);
 
   return (
-    <section className="px-4 py-8 md:py-16">
-      <div className="container mx-auto">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-linear-to-r from-primary to-accent bg-clip-text text-5xl leading-normal font-bold font-mono uppercase tracking-wider text-transparent md:text-7xl [text-shadow:0_0_30px_var(--color-primary)]"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ duration: 0.5 }}
-            type="h1"
-          >
-            {personalInfoData.name}
-          </Motion>
+    <section>
+      <div className="relative isolate flex min-h-[calc(100svh-3.5rem)] items-end overflow-hidden md:min-h-[min(46rem,calc(100svh-3.5rem))] md:items-center">
+        <StreetMap className="md:hidden" variant="tall" />
+        <StreetMap className="hidden md:block" variant="wide" />
 
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-2xl font-medium font-mono uppercase tracking-wider text-accent md:text-3xl"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            type="h2"
-          >
-            {personalInfoData.title}
-          </Motion>
+        <div className="relative mx-auto w-full max-w-6xl px-5 py-10 md:px-8 md:py-16">
+          <div className="max-w-3xl border-2 border-primary bg-background p-6 outline outline-1 -outline-offset-8 outline-primary/45 md:p-12">
+            <h1 className="text-name font-extrabold tracking-tight text-balance text-foreground">
+              {personalInfoData.name}
+            </h1>
+            <p className="mt-5 max-w-[34ch] text-lead font-medium text-pretty text-primary">{personalInfoData.title}</p>
+            <a className={buttonVariants({ className: 'mt-8', size: 'lg' })} href="#contact">
+              {t('contact_me')}
+            </a>
+          </div>
+        </div>
+      </div>
 
-          <Motion
-            className="mx-auto text-lg text-pretty text-muted-foreground"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <RichText data={personalInfoData.description as SerializedEditorState} />
-          </Motion>
-
-          <Motion
-            className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <Link href="#contact">
-              <Button size="lg" variant="outline">
-                {t('contact_me')}
-              </Button>
-            </Link>
-          </Motion>
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[minmax(0,38rem)_minmax(0,1fr)] lg:gap-24">
+        <div className="payload-richtext text-body text-pretty text-foreground/90">
+          <RichText data={personalInfoData.description as SerializedEditorState} />
         </div>
 
-        <Motion
-          className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4"
-          initial={{ opacity: 0.1, y: 20 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          type="div"
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
+        <dl className="flex flex-col self-start border-t border-border lg:border-t-0 lg:border-l lg:pl-10">
           {summaryInfoData.map((item) => (
             <div
-              className="bg-card flex flex-col items-center border-2 border-primary/30 p-4 text-center transition-all hover:border-primary/60 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_var(--color-primary)]"
+              className="flex items-start gap-4 border-b border-border py-4 last:border-b-0 lg:first:pt-0"
               key={item.id}
             >
-              <Icon className="mb-2 h-8 w-8 text-primary" name={item.icon as IconName} />
-              <h3 className="text-sm font-medium font-mono uppercase tracking-wider text-muted-foreground">
-                {t(item.label)}
-              </h3>
-              <p className="text-base font-semibold font-mono text-foreground">{t(item.value)}</p>
+              <Icon aria-hidden="true" className="mt-1 size-5 shrink-0 text-accent" name={item.icon as IconName} />
+              <div>
+                <dt className="text-small text-muted-foreground">{t(item.label)}</dt>
+                <dd className="text-lead font-semibold">{t(item.value)}</dd>
+              </div>
             </div>
           ))}
-        </Motion>
+        </dl>
       </div>
     </section>
   );

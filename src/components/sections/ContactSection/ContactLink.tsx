@@ -14,19 +14,19 @@ interface ContactLinkProps {
 export function ContactLink({ description, icon, label, url }: ContactLinkProps) {
   return (
     <a
-      className="flex items-center gap-4 text-foreground transition-all hover:text-primary"
+      className="group/contact flex items-center gap-5 py-5 transition-colors hover:text-primary"
       href={url}
       onClick={() => posthog.capture('contact_link_clicked')}
       rel="noopener noreferrer"
       target="_blank"
     >
-      <div className="flex h-10 w-10 items-center justify-center border-2 border-primary bg-primary/20">
-        <Icon className="h-5 w-5 text-foreground" name={icon} />
-      </div>
-      <div>
-        <p className="font-medium">{label}</p>
-        <p className="text-sm text-muted-foreground">{description}</p>
-      </div>
+      <Icon aria-hidden="true" className="size-7 shrink-0 text-primary" name={icon} />
+      <span className="min-w-0">
+        <span className="block text-small text-muted-foreground">{label}</span>
+        <span className="block text-[clamp(1.125rem,0.6rem+2.4vw,1.75rem)] leading-tight font-semibold [overflow-wrap:anywhere] underline decoration-transparent decoration-2 underline-offset-4 transition-colors group-hover/contact:decoration-primary">
+          {description}
+        </span>
+      </span>
     </a>
   );
 }

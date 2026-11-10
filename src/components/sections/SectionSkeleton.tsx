@@ -2,131 +2,92 @@ import Section from '@/components/Section';
 import { cn } from '@/lib/utils';
 
 const SkeletonBlock = ({ className }: { className?: string }) => (
-  <div className={cn('bg-primary/10 animate-pulse rounded-sm border border-primary/20', className)} />
+  <div className={cn('rounded-xs bg-muted motion-safe:animate-pulse', className)} />
+);
+
+const HeadingSkeleton = () => (
+  <div className="space-y-4">
+    <SkeletonBlock className="h-10 w-64 max-w-full" />
+    <SkeletonBlock className="h-5 w-full max-w-md" />
+  </div>
 );
 
 export const HeroSectionSkeleton = () => (
-  <section className="px-4 py-8 md:py-16">
-    <div className="container mx-auto">
-      <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center">
-        <SkeletonBlock className="h-14 w-3/4 max-w-2xl md:h-20" />
-        <SkeletonBlock className="h-8 w-2/3 max-w-xl" />
-        <div className="flex w-full max-w-2xl flex-col gap-3">
-          <SkeletonBlock className="h-4 w-full" />
-          <SkeletonBlock className="h-4 w-11/12" />
-          <SkeletonBlock className="h-4 w-4/5" />
+  <section>
+    <div className="flex min-h-[calc(100svh-3.5rem)] items-end md:min-h-[min(46rem,calc(100svh-3.5rem))] md:items-center">
+      <div className="mx-auto w-full max-w-6xl px-5 py-10 md:px-8 md:py-16">
+        <div className="max-w-3xl space-y-5 border-2 border-border p-6 md:p-12">
+          <SkeletonBlock className="h-14 w-4/5 md:h-24" />
+          <SkeletonBlock className="h-6 w-2/3" />
+          <SkeletonBlock className="h-12 w-44" />
         </div>
-        <SkeletonBlock className="h-11 w-40" />
       </div>
-
-      <div className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4">
-        {['hero-summary-1', 'hero-summary-2', 'hero-summary-3', 'hero-summary-4'].map((key) => (
-          <div className="bg-card border-2 border-primary/20 p-4 shadow-[0_0_15px_rgba(0,0,0,0.3)]" key={key}>
-            <SkeletonBlock className="mx-auto mb-3 h-8 w-8" />
-            <SkeletonBlock className="mx-auto mb-2 h-4 w-3/4" />
-            <SkeletonBlock className="mx-auto h-5 w-1/2" />
-          </div>
-        ))}
-      </div>
+    </div>
+    <div className="mx-auto w-full max-w-6xl space-y-3 px-5 py-16 md:px-8 md:py-24">
+      {['hero-1', 'hero-2', 'hero-3', 'hero-4'].map((key) => (
+        <SkeletonBlock className="h-4 w-full max-w-xl" key={key} />
+      ))}
     </div>
   </section>
 );
 
 export const ExperienceSectionSkeleton = () => (
-  <Section id="experience">
-    <div className="space-y-6 md:space-y-12">
-      <SkeletonBlock className="mx-auto h-10 w-56" />
-      <div className="flex flex-col gap-6 md:gap-8">
-        {['experience-1', 'experience-2', 'experience-3'].map((key) => (
-          <div className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]" key={key}>
-            <SkeletonBlock className="mb-4 h-6 w-2/3" />
-            <SkeletonBlock className="mb-3 h-4 w-1/3" />
-            <SkeletonBlock className="mb-2 h-4 w-full" />
-            <SkeletonBlock className="mb-2 h-4 w-11/12" />
-            <SkeletonBlock className="h-4 w-4/5" />
+  <Section heading={<HeadingSkeleton />} id="experience">
+    <div className="space-y-10">
+      {['experience-1', 'experience-2', 'experience-3'].map((key) => (
+        <div className="flex gap-5" key={key}>
+          <SkeletonBlock className="h-14 w-1 shrink-0" />
+          <div className="flex-1 space-y-3">
+            <SkeletonBlock className="h-6 w-1/2" />
+            <SkeletonBlock className="h-4 w-1/3" />
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   </Section>
 );
 
 export const SkillsSectionSkeleton = () => (
-  <Section contentClassName="max-w-5xl flex flex-col gap-6 md:gap-12" id="skills">
-    <div className="space-y-4 text-center">
-      <SkeletonBlock className="mx-auto h-10 w-52" />
-      <SkeletonBlock className="mx-auto h-5 w-full max-w-2xl" />
-    </div>
-
-    {['technical', 'soft'].map((groupKey) => (
-      <div className="flex flex-col gap-4 md:gap-8" key={groupKey}>
-        <SkeletonBlock className="mx-auto h-8 w-44" />
-        <div className="flex flex-col gap-6 md:flex-row">
-          {['first', 'second'].map((cardKey) => (
-            <div
-              className="bg-card min-w-75 flex-1 border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]"
-              key={cardKey}
-            >
-              <SkeletonBlock className="mb-4 h-6 w-1/2" />
-              <div className="space-y-3">
-                {['one', 'two', 'three', 'four'].map((itemKey) => (
-                  <SkeletonBlock className="h-4 w-full" key={itemKey} />
-                ))}
-              </div>
-            </div>
-          ))}
+  <Section heading={<HeadingSkeleton />} id="skills">
+    <div className="space-y-5">
+      {['first', 'second', 'third', 'fourth'].map((key) => (
+        <div className="space-y-2" key={key}>
+          <SkeletonBlock className="h-4 w-40" />
+          <SkeletonBlock className="h-6 w-4/5" />
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
   </Section>
 );
 
 export const LanguagesSectionSkeleton = () => (
-  <Section contentClassName="max-w-3xl">
-    <div className="space-y-6 md:space-y-12">
-      <div className="space-y-4 text-center">
-        <SkeletonBlock className="mx-auto h-10 w-56" />
-        <SkeletonBlock className="mx-auto h-5 w-full max-w-2xl" />
-      </div>
-
-      <div className="grid gap-6">
-        {['language-1', 'language-2', 'language-3'].map((key) => (
-          <div className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]" key={key}>
-            <div className="flex items-center gap-4">
-              <SkeletonBlock className="h-12 w-12 shrink-0" />
-              <div className="flex-1 space-y-3">
-                <div className="flex items-center justify-between gap-4">
-                  <SkeletonBlock className="h-5 w-1/3" />
-                  <SkeletonBlock className="h-4 w-20" />
-                </div>
-                <SkeletonBlock className="h-2.5 w-full" />
-              </div>
-            </div>
+  <Section heading={<HeadingSkeleton />} id="languages">
+    <div className="space-y-6">
+      {['language-1', 'language-2'].map((key) => (
+        <div className="flex items-center justify-between gap-6" key={key}>
+          <div className="w-1/2 space-y-2">
+            <SkeletonBlock className="h-6 w-2/3" />
+            <SkeletonBlock className="h-4 w-full" />
           </div>
-        ))}
-      </div>
+          <SkeletonBlock className="h-3 w-28" />
+        </div>
+      ))}
     </div>
   </Section>
 );
 
 export const ContactSectionSkeleton = () => (
-  <Section contentClassName="max-w-3xl" id="contact">
+  <Section className="bg-card" heading={<HeadingSkeleton />} id="contact">
     <div className="space-y-6">
-      <SkeletonBlock className="mx-auto h-10 w-52" />
-      <div className="bg-card border border-border p-6 shadow-[0_0_15px_rgba(0,0,0,0.3)]">
-        <SkeletonBlock className="mb-6 h-6 w-1/2" />
-        <div className="space-y-6">
-          {['contact-1', 'contact-2', 'contact-3'].map((key) => (
-            <div className="flex items-center gap-4" key={key}>
-              <SkeletonBlock className="h-10 w-10 shrink-0" />
-              <div className="flex-1 space-y-2">
-                <SkeletonBlock className="h-4 w-1/3" />
-                <SkeletonBlock className="h-4 w-2/3" />
-              </div>
-            </div>
-          ))}
+      {['contact-1', 'contact-2', 'contact-3'].map((key) => (
+        <div className="flex items-center gap-5" key={key}>
+          <SkeletonBlock className="size-7 shrink-0" />
+          <div className="flex-1 space-y-2">
+            <SkeletonBlock className="h-4 w-1/4" />
+            <SkeletonBlock className="h-6 w-2/3" />
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   </Section>
 );
