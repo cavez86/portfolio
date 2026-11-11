@@ -20,7 +20,7 @@ const HeroSection = async () => {
 
   return (
     <section>
-      <div className="relative flex items-center overflow-hidden md:max-h-[calc(100svh-3.5rem)]">
+      <div className="relative flex items-center overflow-hidden bg-notte md:max-h-[calc(100svh-3.5rem)]">
         <div className="@container relative aspect-(--map-ratio) w-full md:aspect-(--map-ratio-md)" style={HERO_VARS}>
           <StreetMap className="md:hidden" name={personalInfoData.name} variant="tall" />
           <StreetMap className="hidden md:block" name={personalInfoData.name} variant="wide" />

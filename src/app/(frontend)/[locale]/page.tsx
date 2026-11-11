@@ -13,7 +13,7 @@ export function generateStaticParams() {
 }
 
 const Home = () => (
-  <main style={railVars() as CSSProperties}>
+  <main className="city-ground" style={railVars() as CSSProperties}>
     <HeroSection />
     <ExperienceSection />
     <SkillsSection />

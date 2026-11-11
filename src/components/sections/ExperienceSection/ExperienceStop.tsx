@@ -35,7 +35,7 @@ const ExperienceStop = ({ exp, kind, zone }: { exp: Experience; kind: StopKind; 
   return (
     <li
       className={cn(
-        'line-row content-start pb-16 [--marker:calc(var(--text-stop)*0.55)] md:pb-20',
+        'group/stop line-row content-start pb-16 [--marker:calc(var(--text-stop)*0.55)] md:pb-20',
         years && 'min-h-[calc(var(--years)*2.5rem)] md:min-h-[calc(var(--years)*3.75rem)]'
       )}
       style={years ? ({ '--years': years.toFixed(1) } as CSSProperties) : undefined}
@@ -66,7 +66,7 @@ const ExperienceStop = ({ exp, kind, zone }: { exp: Experience; kind: StopKind; 
           />
         )}
         <span
-          className="absolute top-(--marker) left-(--rail-x) size-[calc(var(--rail-w)*2.6)] -translate-1/2 rounded-full border-[calc(var(--rail-w)*0.6)] border-tram bg-carta"
+          className="absolute top-(--marker) left-(--rail-x) size-[calc(var(--rail-w)*2.6)] -translate-1/2 rounded-full border-[calc(var(--rail-w)*0.6)] border-tram bg-carta transition-[scale,background-color] duration-200 group-focus-within/stop:scale-125 group-focus-within/stop:bg-lampione group-hover/stop:scale-125 group-hover/stop:bg-lampione"
           data-stop-marker
         />
       </span>

@@ -193,6 +193,20 @@ main {
   );
 }
 
+/*
+ * The city carries on under the line: a faint, uneven street grid with the odd diagonal. The hero map and the
+ * districts paint over it with their own grounds.
+ */
+.city-ground {
+  --faint-street: #3c2743;
+  background-image:
+    repeating-linear-gradient(32deg, transparent 0 700px, var(--faint-street) 700px 703px),
+    repeating-linear-gradient(90deg, transparent 0 117px, var(--faint-street) 117px 119px),
+    repeating-linear-gradient(90deg, transparent 0 181px, var(--faint-street) 181px 184px),
+    repeating-linear-gradient(0deg, transparent 0 93px, var(--faint-street) 93px 95px),
+    repeating-linear-gradient(0deg, transparent 0 157px, var(--faint-street) 157px 160px);
+}
+
 /* A district boundary, dash-dot as on a map, where the districts after the line begin. */
 .district-boundary {
   height: 3px;
