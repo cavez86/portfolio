@@ -1,92 +1,52 @@
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
 import { RichText } from '@payloadcms/richtext-lexical/react';
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-import Icon, { type IconName } from '@/components/common/Icon';
-import { Motion } from '@/components/common/Motion';
-import { Button } from '@/components/ui/button';
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
 
+import { NameCradle } from './NameCradle';
+
 const HeroSection = async () => {
-  const [personalInfoData, summaryInfoData, t] = await Promise.all([
+  const [personalInfo, summaryInfo, t] = await Promise.all([
     getLocalizedGlobal('personal-info'),
     getLocalizedCollection('summary-info'),
     getTranslations('Hero'),
   ]);
 
   return (
-    <section className="px-4 py-8 md:py-16">
-      <div className="container mx-auto">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-linear-to-r from-primary to-accent bg-clip-text text-5xl leading-normal font-bold font-mono uppercase tracking-wider text-transparent md:text-7xl [text-shadow:0_0_30px_var(--color-primary)]"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ duration: 0.5 }}
-            type="h1"
+    <section className="sheet pt-8 pb-14 md:pt-14 md:pb-20">
+      <NameCradle name={personalInfo.name}>
+        <div className="mt-6 flex flex-col items-start gap-5 md:mt-8 md:flex-row md:items-end md:justify-between md:gap-10">
+          <p className="max-w-[30ch] text-lead font-semibold text-graphite md:text-[2rem] md:leading-tight">
+            {personalInfo.title}
+          </p>
+          <a
+            className="shrink-0 rounded-sm border-2 border-ink bg-ink px-6 py-3 text-lg font-semibold text-paper transition-colors hover:bg-paper hover:text-ink"
+            href="#contact"
           >
-            {personalInfoData.name}
-          </Motion>
+            {t('contact_me')}
+          </a>
+        </div>
+      </NameCradle>
 
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-2xl font-medium font-mono uppercase tracking-wider text-accent md:text-3xl"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            type="h2"
-          >
-            {personalInfoData.title}
-          </Motion>
-
-          <Motion
-            className="mx-auto text-lg text-pretty text-muted-foreground"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <RichText data={personalInfoData.description as SerializedEditorState} />
-          </Motion>
-
-          <Motion
-            className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <Link href="#contact">
-              <Button size="lg" variant="outline">
-                {t('contact_me')}
-              </Button>
-            </Link>
-          </Motion>
+      <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
+        <div className="order-2 max-w-[64ch] space-y-4 text-body lg:order-1 [&_strong]:bg-highlighter [&_strong]:font-semibold [&_strong]:[box-decoration-break:clone] [&_strong]:px-0.5">
+          <RichText data={personalInfo.description as SerializedEditorState} />
         </div>
 
-        <Motion
-          className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4"
-          initial={{ opacity: 0.1, y: 20 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          type="div"
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
-          {summaryInfoData.map((item) => (
-            <div
-              className="bg-card flex flex-col items-center border-2 border-primary/30 p-4 text-center transition-all hover:border-primary/60 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_var(--color-primary)]"
-              key={item.id}
-            >
-              <Icon className="mb-2 h-8 w-8 text-primary" name={item.icon as IconName} />
-              <h3 className="text-sm font-medium font-mono uppercase tracking-wider text-muted-foreground">
-                {t(item.label)}
-              </h3>
-              <p className="text-base font-semibold font-mono text-foreground">{t(item.value)}</p>
-            </div>
-          ))}
-        </Motion>
+        <aside className="order-1 lg:order-2">
+          <h2 className="math mb-3 text-lg text-red-pencil" id="given">
+            {t('given')}
+          </h2>
+          <dl aria-labelledby="given" className="grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-1">
+            {summaryInfo.map((item) => (
+              <div className="border-t-2 border-ink pt-2" key={item.id}>
+                <dt className="text-caption text-pencil">{item.label}</dt>
+                <dd className="text-lg leading-snug font-semibold text-ink md:text-xl">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
       </div>
     </section>
   );

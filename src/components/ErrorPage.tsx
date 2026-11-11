@@ -1,7 +1,5 @@
 'use client';
 
-import { Home, RefreshCw } from 'lucide-react';
-import { motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -12,13 +10,23 @@ interface ErrorPageProps {
   handleTryAgain?: () => void;
 }
 
+/** The trajectory that left the page: thrown from the margin, it never lands on the paper. */
+const Trajectory = () => (
+  <svg aria-hidden="true" className="h-auto w-full max-w-xl overflow-visible" viewBox="0 0 560 220">
+    <line stroke="var(--color-graphite)" strokeWidth="2" x1="0" x2="560" y1="200" y2="200" />
+    <path d="M20,196 Q250,-60 600,140" fill="none" stroke="var(--color-ink)" strokeDasharray="10 9" strokeWidth="3" />
+    <circle cx="20" cy="190" fill="var(--color-paper)" r="9" stroke="var(--color-ink)" strokeWidth="3" />
+    <path d="M20,190 L78,128 M64,130 L78,128 L76,142" fill="none" stroke="var(--color-red-pencil)" strokeWidth="3" />
+    <text className="math" fill="var(--color-red-pencil)" fontSize="22" x="86" y="128">
+      v₀
+    </text>
+  </svg>
+);
+
 export default function ErrorPage({ errorCode, handleTryAgain }: Readonly<ErrorPageProps>) {
   const t = useTranslations('Error');
+  const common = useTranslations('Common');
   const router = useRouter();
-
-  const handleGoHome = () => {
-    router.push('/');
-  };
 
   const handleGoBack = () => {
     if (window.history.length > 1) {
@@ -28,81 +36,30 @@ export default function ErrorPage({ errorCode, handleTryAgain }: Readonly<ErrorP
     }
   };
 
-  const getErrorIcon = () => {
-    switch (errorCode) {
-      case 404:
-        return '🔍';
-      case 500:
-        return '⚠️';
-      case 403:
-        return '🔒';
-      default:
-        return '❌';
-    }
-  };
-
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
-      <motion.div
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-md"
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="mb-8 text-6xl">{getErrorIcon()}</div>
-
-        <motion.h1
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-4 text-4xl font-bold font-mono uppercase tracking-wider text-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-        >
-          {t(`${errorCode}.title`)}
-        </motion.h1>
-
-        <motion.h2
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-4 text-xl text-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          {t(`${errorCode}.subtitle`)}
-        </motion.h2>
-
-        <motion.p
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 text-muted-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          {t(`${errorCode}.description`)}
-        </motion.p>
-
-        <motion.div
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col gap-4 sm:flex-row sm:justify-center"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <Button className="flex items-center gap-2" onClick={handleGoHome}>
-            <Home className="size-4" />
-            {t('back_home')}
+    <main className="sheet flex min-h-[70vh] flex-col justify-center gap-8 py-16">
+      <p className="margin-note">{common('figure', { number: errorCode })}</p>
+      <Trajectory />
+      <div className="max-w-[56ch]">
+        <h1 className="text-[2.25rem] leading-tight md:text-title">{t(`${errorCode}.title`)}</h1>
+        <p className="mt-3 text-lead text-graphite">{t(`${errorCode}.subtitle`)}</p>
+        <p className="mt-3 text-pencil">{t(`${errorCode}.description`)}</p>
+      </div>
+      <div className="flex flex-wrap gap-3">
+        <Button className="h-11 px-5" onClick={() => router.push('/')}>
+          {t('back_home')}
+        </Button>
+        {!!handleTryAgain && (
+          <Button className="h-11 px-5" onClick={handleTryAgain} variant="outline">
+            {t('try_again')}
           </Button>
-
-          {!!handleTryAgain && (
-            <Button className="flex items-center gap-2" onClick={handleTryAgain} variant="outline">
-              <RefreshCw className="size-4" />
-              {t('try_again')}
-            </Button>
-          )}
-
-          {errorCode === 404 && (
-            <Button onClick={handleGoBack} variant="outline">
-              {t('go_back')}
-            </Button>
-          )}
-        </motion.div>
-      </motion.div>
-    </div>
+        )}
+        {errorCode === 404 && (
+          <Button className="h-11 px-5" onClick={handleGoBack} variant="outline">
+            {t('go_back')}
+          </Button>
+        )}
+      </div>
+    </main>
   );
 }

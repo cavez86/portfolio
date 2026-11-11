@@ -2,53 +2,63 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
-
-:root {
-  --theme-color: hsl(145, 100%, 50%); /* Default theme color (green) */
-}
-
-/* Terminal theme with customizable base color using relative colors */
+/* Quaderno: a physicist's squared notebook. Ink strokes on cool white paper with a red margin. */
 @theme {
-  /* Base color can be customized by user (default: terminal green) */
-  --color-base: oklch(from var(--theme-color) 0.8 0.18 h); /* Default to green hue */
+  --color-paper: #f8fbff;
+  --color-quadretti: #d3e2f4;
+  --color-ink: #1d3fa0;
+  --color-red-pencil: #c42b38;
+  --color-highlighter: #ffe45c;
+  --color-graphite: #272d3a;
+  --color-pencil: #5a6273;
+  --color-green-ink: #0e7558;
 
-  /* All theme colors derived from --color-base using CSS relative color syntax */
-  --color-background: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Very dark with subtle hue tint */
-  --color-foreground: oklch(from var(--color-base) 0.85 0.15 h); /* Bright neon text */
+  /* Names the shared ui primitives (dialog, select, button) expect. */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-graphite);
+  --color-card: var(--color-paper);
+  --color-card-foreground: var(--color-graphite);
+  --color-popover: var(--color-paper);
+  --color-popover-foreground: var(--color-graphite);
+  --color-primary: var(--color-ink);
+  --color-primary-foreground: var(--color-paper);
+  --color-secondary: var(--color-highlighter);
+  --color-secondary-foreground: var(--color-graphite);
+  --color-muted: var(--color-highlighter);
+  --color-muted-foreground: var(--color-pencil);
+  --color-accent: var(--color-highlighter);
+  --color-accent-foreground: var(--color-graphite);
+  --color-destructive: var(--color-red-pencil);
+  --color-border: var(--color-ink);
+  --color-input: var(--color-ink);
+  --color-ring: var(--color-red-pencil);
 
-  --color-card: oklch(from var(--color-base) 0.18 0.01 calc(h + 5)); /* Slightly lighter than background */
-  --color-card-foreground: oklch(from var(--color-base) 0.85 0.15 h);
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
 
-  --color-popover: oklch(from var(--color-base) 0.12 0.01 calc(h + 5)); /* Darker than background for depth */
-  --color-popover-foreground: oklch(from var(--color-base) 0.85 0.15 h);
+  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-math: var(--font-stix), "STIX Two Text", "Times New Roman", serif;
 
-  --color-primary: var(--color-base); /* Bright neon - terminal primary color */
-  --color-primary-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Dark text on primary */
+  /* Perfect fourth on an 18px body. */
+  --text-caption: 0.9375rem;
+  --text-caption--line-height: 1.4;
+  --text-body: 1.125rem;
+  --text-body--line-height: 1.6;
+  --text-lead: 1.5rem;
+  --text-lead--line-height: 1.3;
+  --text-title: 2.625rem;
+  --text-title--line-height: 1.1;
 
-  --color-secondary: oklch(from var(--color-base) 0.25 0.02 calc(h + 5)); /* Dark for secondary elements */
-  --color-secondary-foreground: oklch(from var(--color-base) 0.75 0.12 h); /* Dimmer accent */
-
-  --color-muted: oklch(from var(--color-base) 0.22 0.015 calc(h + 5)); /* Muted background */
-  --color-muted-foreground: oklch(from var(--color-base) 0.55 0.08 h); /* Muted text */
-
-  --color-accent: oklch(from var(--color-base) 0.65 0.18 calc(h + 3)); /* Accent color */
-  --color-accent-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5));
-
-  --color-destructive: oklch(0.6 0.2 25); /* Red-orange for errors */
-  --color-destructive-foreground: oklch(0.95 0.01 120);
-
-  --color-border: oklch(from var(--color-base) 0.35 0.05 h); /* Hue-tinted border */
-  --color-input: oklch(from var(--color-base) 0.2 0.015 calc(h + 5)); /* Dark input background */
-  --color-ring: var(--color-base); /* Bright focus ring */
-
-  --color-radius: 0.25rem; /* Sharper corners for terminal feel */
-
-  --color-chart-1: var(--color-base); /* Primary color */
-  --color-chart-2: oklch(from var(--color-base) 0.75 0.15 calc(h + 50)); /* Shifted hue */
-  --color-chart-3: oklch(from var(--color-base) 0.7 0.12 calc(h + 130)); /* Complementary */
-  --color-chart-4: oklch(from var(--color-base) 0.85 0.15 calc(h - 55)); /* Triadic */
-  --color-chart-5: oklch(0.65 0.2 25); /* Red-orange */
+  @keyframes swing {
+    from {
+      transform: rotate(-24deg);
+    }
+    to {
+      transform: rotate(24deg);
+    }
+  }
 
   --animate-scale-x: scale-x linear forwards;
   @keyframes scale-x {
@@ -59,29 +69,19 @@
       transform: scaleX(1);
     }
   }
+}
 
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  @keyframes accordion-down {
-    from {
-      height: 0;
-      opacity: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-      opacity: 1;
-    }
-  }
+:root {
+  /* One square of the quaderno. */
+  --grid: 20px;
+  --page: 1240px;
+  /* Distance of the red margin line from the left edge of the page. */
+  --rule: 18px;
+}
 
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-      opacity: 1;
-    }
-    to {
-      height: 0;
-      opacity: 0;
-    }
+@media (min-width: 768px) {
+  :root {
+    --rule: 116px;
   }
 }
 
@@ -89,45 +89,623 @@
   animation-timeline: scroll();
 }
 
-@utility animation-timeline-view {
-  animation-timeline: view();
+/* Content column of the notebook page: right of the red margin line. */
+@utility sheet {
+  position: relative;
+  width: 100%;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-left: calc(var(--rule) + 14px);
+  padding-right: 16px;
+
+  @media (min-width: 768px) {
+    padding-left: calc(var(--rule) + 32px);
+    padding-right: 40px;
+  }
 }
 
-/* Add base styles after theme definition */
+/* Quiet notes that live in the margin on wide screens and above the content on phones. */
+@utility margin-note {
+  font-family: var(--font-math);
+  font-style: italic;
+  font-size: var(--text-caption);
+  line-height: 1.35;
+  color: var(--color-red-pencil);
+
+  @media (min-width: 768px) {
+    position: absolute;
+    left: 0;
+    width: calc(var(--rule) - 14px);
+    text-align: right;
+  }
+}
+
+/* Physics typesetting: variables, units, captions. */
+@utility math {
+  font-family: var(--font-math);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* A highlighter stroke that sweeps in behind text. */
+@utility highlight {
+  background-image: linear-gradient(var(--color-highlighter), var(--color-highlighter));
+  background-repeat: no-repeat;
+  background-position: 0 85%;
+  background-size: 0% 70%;
+  box-decoration-break: clone;
+  transition: background-size 220ms ease-out;
+}
+
+@utility highlight-on {
+  background-size: 100% 70%;
+}
+
+/* Fixed support of a physics drawing: a beam with hatching on the side it is fixed to. */
+@utility hatched {
+  background-image: repeating-linear-gradient(-45deg, var(--color-ink) 0 1.5px, transparent 1.5px 7px);
+}
+
 @layer base {
-  * {
-    @apply border-border outline-ring/50 transition-discrete;
+  html {
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground min-w-[360px] font-mono;
+    position: relative;
+    min-width: 360px;
+    min-height: 100dvh;
+    overflow-x: clip;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    color: var(--color-graphite);
+    background-color: var(--color-paper);
+    background-image:
+      linear-gradient(to right, var(--color-quadretti) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-quadretti) 1px, transparent 1px);
+    background-size: var(--grid) var(--grid);
+    background-position: -1px -1px;
   }
 
-  /* Terminal-style text selection */
+  /* The red margin line of the quaderno, the full height of the page. */
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(max(0px, (100% - var(--page)) / 2) + var(--rule));
+    width: 2px;
+    background: var(--color-red-pencil);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
   ::selection {
-    background-color: oklch(from var(--color-base) l c h / 0.3);
-    color: var(--color-foreground);
+    background-color: var(--color-highlighter);
+    color: var(--color-graphite);
   }
 
-  /* Scrollbar styling for terminal theme */
-  ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+  :focus-visible {
+    outline: 2.5px solid var(--color-red-pencil);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 
-  ::-webkit-scrollbar-track {
-    background: var(--color-background);
+  h1,
+  h2,
+  h3 {
+    color: var(--color-ink);
+    text-wrap: balance;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border: 2px solid var(--color-background);
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ——— Fig. 1: the name as a Newton's cradle ——— */
+
+.cradle {
+  /* String length from the beam to the top of a capital, as a multiple of the letter size. */
+  --string: 0.82em;
+  --beam: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.32em;
+  row-gap: 0.12em;
+  margin: 0;
+  font-size: clamp(3.4rem, 15.4vw, 4.6rem);
+  font-weight: 750;
+  font-variation-settings: "opsz" 96;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--color-ink);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (min-width: 768px) {
+    font-size: clamp(4.6rem, 8.6vw, 8.4rem);
+  }
+}
+
+.cradle-word {
+  position: relative;
+  display: inline-flex;
+  padding-top: var(--string);
+}
+
+/* The beam every letter of the word hangs from. */
+.cradle-word::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -0.08em;
+  right: -0.08em;
+  height: var(--beam);
+  background: var(--color-ink);
+}
+
+.cradle-word::after {
+  content: "";
+  position: absolute;
+  bottom: calc(100% - 1px);
+  left: -0.08em;
+  right: -0.08em;
+  height: 0.16em;
+  background-image: repeating-linear-gradient(-45deg, var(--color-ink) 0 1.5px, transparent 1.5px 0.09em);
+}
+
+.cradle-bob {
+  /* Distance from the top of this letter's box down to where the glyph begins (x-height letters). */
+  --attach: 0em;
+  --theta: 0rad;
+  position: relative;
+  display: inline-block;
+  cursor: grab;
+  transform-origin: 50% calc(-1 * var(--string));
+  transform: rotate(var(--theta));
+  will-change: transform;
+}
+
+.cradle-bob[data-top="x"] {
+  --attach: 0.24em;
+}
+
+.cradle-bob[data-top="dot"] {
+  --attach: 0.06em;
+}
+
+.cradle-bob:active {
+  cursor: grabbing;
+}
+
+/* The string, from the glyph's top to the beam. It rotates with its letter. */
+.cradle-bob::before {
+  content: "";
+  position: absolute;
+  left: calc(50% - 1px);
+  top: calc(-1 * var(--string));
+  width: 2px;
+  height: calc(var(--string) + var(--attach) + 0.06em);
+  background: var(--color-graphite);
+}
+
+/* ——— Fig. 2: position–time plot ——— */
+
+.plot-frame {
+  --row: 6.5rem;
+}
+
+.plot {
+  position: relative;
+  height: calc(var(--levels) * var(--row));
+}
+
+.plot-segment {
+  position: absolute;
+  left: calc(var(--from) * 100%);
+  width: calc((var(--to) - var(--from)) * 100%);
+  bottom: calc(var(--level) * var(--row));
+  height: var(--row);
+  border-radius: 2px;
+}
+
+/* The world-line of one position. */
+.plot-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 2px);
+  height: 4px;
+  background: var(--color-ink);
+  border-radius: 2px;
+  transform-origin: left center;
+}
+
+.plot-segment:hover .plot-line,
+.plot-segment:focus-visible .plot-line {
+  box-shadow: 0 0 0 5px var(--color-highlighter);
+}
+
+/* The current position is still being drawn: the line keeps reaching for today. */
+.plot-segment[data-current] .plot-line {
+  animation: pen-draw 2.6s ease-in-out infinite alternate;
+}
+
+.plot-nib {
+  position: absolute;
+  right: -3px;
+  top: -5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid var(--color-red-pencil);
+  background: var(--color-paper);
+}
+
+.plot-label {
+  position: absolute;
+  left: 0;
+  bottom: calc(50% + 0.6rem);
+  white-space: nowrap;
+}
+
+.plot-label > :last-child {
+  position: absolute;
+  top: calc(100% + 1.2rem + 4px);
+  left: 0;
+}
+
+/* Δt drawn as a dimension line under the segment on hover. */
+.plot-dimension {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% + 2.6rem);
+  height: 10px;
+  border-inline: 2px solid var(--color-red-pencil);
+  opacity: 0;
+  transition: opacity 150ms;
+}
+
+.plot-dimension::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  height: 2px;
+  background: var(--color-red-pencil);
+}
+
+.plot-segment:hover .plot-dimension,
+.plot-segment:focus-visible .plot-dimension {
+  opacity: 1;
+}
+
+.plot-step {
+  position: absolute;
+  left: calc(var(--at) * 100%);
+  bottom: calc(var(--low) * var(--row) + var(--row) / 2);
+  height: calc((var(--high) - var(--low)) * var(--row));
+  border-left: 2px dashed var(--color-pencil);
+}
+
+.plot-tick {
+  position: absolute;
+  left: calc(var(--at) * 100%);
+}
+
+@keyframes pen-draw {
+  from {
+    transform: scaleX(0.93);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pen-draw-y {
+  from {
+    transform: scaleY(0.88);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* On phones the plot turns into a spacetime diagram: time runs up the page, today at the top. */
+  .plot-frame {
+    --col: 1.5rem;
+    --year: 3.2rem;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary);
+  .plot {
+    height: calc(var(--span) * var(--year));
   }
-  html {
-    @apply font-sans;
+
+  .plot-segment {
+    left: calc(var(--level) * var(--col) + 0.75rem);
+    width: auto;
+    right: 0;
+    bottom: calc(var(--from) * 100%);
+    height: calc((var(--to) - var(--from)) * 100%);
+  }
+
+  .plot-line {
+    left: -2px;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    height: auto;
+    transform-origin: center bottom;
+  }
+
+  .plot-segment[data-current] .plot-line {
+    animation-name: pen-draw-y;
+  }
+
+  .plot-nib {
+    right: auto;
+    left: -5px;
+    top: -3px;
+  }
+
+  .plot-label {
+    left: calc((var(--levels) - var(--level)) * var(--col) + 0.5rem);
+    right: 0;
+    top: -0.2rem;
+    bottom: auto;
+    white-space: normal;
+  }
+
+  .plot-label > :last-child {
+    position: static;
+  }
+
+  .plot-dimension {
+    display: none;
+  }
+
+  .plot-step {
+    left: calc(var(--low) * var(--col) + 0.75rem);
+    bottom: calc(var(--at) * 100%);
+    width: calc((var(--high) - var(--low)) * var(--col));
+    height: 0;
+    border-left: 0;
+    border-top: 2px dashed var(--color-pencil);
+  }
+
+  .plot-tick {
+    left: auto;
+    bottom: calc(var(--at) * 100%);
+  }
+}
+
+/* ——— Fig. 3: skills threaded on strings ——— */
+
+.bead-string {
+  --mass-ink: var(--color-ink);
+  --string-ink: var(--color-graphite);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.bead-name {
+  font-size: 1rem;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-graphite);
+}
+
+.bead-track {
+  position: relative;
+  flex: 1;
+  display: flex;
+  touch-action: pan-y;
+}
+
+/* The fixed ends: a ceiling and a floor in the phone grid, two walls on wide screens. */
+.bead-track::before,
+.bead-track::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 9px;
+  background-image: repeating-linear-gradient(-45deg, var(--string-ink) 0 1.5px, transparent 1.5px 7px);
+}
+
+.bead-track::before {
+  top: 0;
+  border-bottom: 2px solid var(--string-ink);
+}
+
+.bead-track::after {
+  bottom: 0;
+  border-top: 2px solid var(--string-ink);
+}
+
+.bead-track > ul {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem;
+  padding: 1.6rem 0;
+  min-height: 100%;
+}
+
+.bead-rest,
+.bead-line {
+  position: absolute;
+  pointer-events: none;
+}
+
+.bead-rest {
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  background: var(--string-ink);
+}
+
+.bead-line {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  stroke: var(--string-ink);
+  stroke-width: 2px;
+  visibility: hidden;
+}
+
+.bead-track[data-moving] .bead-rest {
+  visibility: hidden;
+}
+
+.bead-track[data-moving] .bead-line {
+  visibility: visible;
+}
+
+.bead-mass {
+  position: relative;
+  max-width: 100%;
+  padding: 0.2rem 0.55rem;
+  border: 2px solid var(--mass-ink);
+  border-radius: 3px;
+  background: var(--color-paper);
+  color: var(--mass-ink);
+  font-size: 1.0625rem;
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: center;
+  will-change: transform;
+  transition: background-color 150ms;
+}
+
+.bead-mass:hover {
+  background: var(--color-highlighter);
+}
+
+/* Soft skills: drawn in pencil, after the technical ones. */
+.bead-string-soft {
+  --mass-ink: var(--color-graphite);
+  --string-ink: var(--color-pencil);
+}
+
+.bead-string-soft .bead-mass {
+  border-width: 1.5px;
+  border-style: dashed;
+  font-size: 0.975rem;
+  font-weight: 450;
+}
+
+.bead-string-soft .bead-name {
+  color: var(--color-pencil);
+}
+
+@media (min-width: 1024px) {
+  .bead-string {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .bead-track::before,
+  .bead-track::after {
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: auto;
+    width: 9px;
+    height: auto;
+    border: 0;
+  }
+
+  .bead-track::before {
+    left: 0;
+    border-right: 2px solid var(--string-ink);
+  }
+
+  .bead-track::after {
+    right: 0;
+    border-left: 2px solid var(--string-ink);
+  }
+
+  .bead-track > ul {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0.9rem 1.75rem;
+    gap: 0.9rem;
+  }
+
+  .bead-rest {
+    left: 0;
+    right: 0;
+    top: calc(50% - 1px);
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+
+  .bead-mass {
+    font-size: 1.25rem;
+    white-space: nowrap;
+  }
+
+  .bead-string-soft .bead-mass {
+    font-size: 1.0625rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .bead-string {
+    grid-template-columns: 12rem minmax(0, 1fr);
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .bead-name {
+    text-align: right;
+  }
+}
+
+/* ——— Fig. 4: waves ——— */
+
+@keyframes wave-travel {
+  to {
+    transform: translateX(calc(-1 * var(--wavelength)));
+  }
+}
+
+/* A wave is drawn still and starts travelling when the visitor points at it. */
+.wave-path {
+  animation: wave-travel var(--wave-period, 4s) linear infinite paused;
+}
+
+.wave:hover .wave-path {
+  animation-play-state: running;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-path,
+  .plot-segment[data-current] .plot-line {
+    animation: none;
+  }
+
+  .highlight {
+    transition: none;
   }
 }

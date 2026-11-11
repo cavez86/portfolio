@@ -1,66 +1,93 @@
-import { Globe } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
-import { Motion } from '@/components/common/Motion';
 import Section from '@/components/Section';
-import { Card, CardContent } from '@/components/ui/card';
 import { getLocalizedCollection } from '@/components/utils/db';
 
+const WIDTH = 640;
+const HEIGHT = 120;
+const WAVELENGTH = 160;
+const MAX_AMPLITUDE = 50;
+const INKS = ['var(--color-ink)', 'var(--color-green-ink)'];
+
+/** A sine wave one wavelength longer than the box on each side, so it can travel by one wavelength and loop. */
+const sinePath = (amplitude: number) => {
+  const points: string[] = [];
+  for (let x = -WAVELENGTH; x <= WIDTH + WAVELENGTH; x += 4) {
+    points.push(`${x},${(HEIGHT / 2 - amplitude * Math.sin((2 * Math.PI * x) / WAVELENGTH)).toFixed(2)}`);
+  }
+  return `M${points.join('L')}`;
+};
+
 const LanguagesSection = async () => {
-  const [languagesData, t] = await Promise.all([getLocalizedCollection('languages'), getTranslations('Languages')]);
+  const [languages, t, common] = await Promise.all([
+    getLocalizedCollection('languages'),
+    getTranslations('Languages'),
+    getTranslations('Common'),
+  ]);
 
   return (
-    <Section contentClassName="max-w-3xl">
-      <Motion
-        className="mb-6 text-center md:mb-12"
-        initial={{ opacity: 0.1, y: 20 }}
-        transition={{ duration: 0.5 }}
-        type="div"
-        viewport={{ once: true }}
-        whileInView={{ opacity: 1, y: 0 }}
-      >
-        <h2 className="mb-4 text-3xl font-bold font-mono uppercase tracking-wider text-foreground md:text-4xl">
-          {t('title')}
-        </h2>
-        <p className="text-lg text-muted-foreground">{t('description')}</p>
-      </Motion>
+    <Section figure={common('figure', { number: 4 })} id="languages" title={t('title')}>
+      <p className="mt-3 max-w-[62ch] text-caption text-pencil">{t('caption')}</p>
 
-      <div className="grid gap-6">
-        {languagesData.map((lang, index) => (
-          <Motion
-            initial={{ opacity: 0.1, y: 20 }}
-            key={lang.id}
-            transition={{ delay: index * 0.1, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <Card>
-              <CardContent>
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center border-2 border-primary bg-primary/20">
-                    <Globe className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="mb-2 flex items-center justify-between">
-                      <h3 className="text-lg font-semibold font-mono uppercase tracking-wider text-foreground">
-                        {lang.language}
-                      </h3>
-                      <span className="text-sm text-muted-foreground">{lang.proficiency}</span>
-                    </div>
-                    <div className="h-2.5 w-full bg-secondary">
-                      <div
-                        className="h-2.5 bg-primary shadow-[0_0_8px_var(--color-primary)] transition-[width] duration-1000"
-                        style={{ transitionDelay: `${index * 0.5}s`, width: `${lang.level}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Motion>
-        ))}
-      </div>
+      <ul className="mt-8 grid gap-8 md:mt-12 md:gap-6">
+        {languages.map((language, i) => {
+          const share = Math.max(0, Math.min(100, language.level)) / 100;
+          const amplitude = share * MAX_AMPLITUDE;
+          const ink = INKS[i % INKS.length];
+          return (
+            <li
+              className="wave group grid items-center gap-2 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-8"
+              key={language.id}
+            >
+              <div>
+                <h3 className="text-[1.75rem] leading-tight md:text-[2rem]" style={{ color: ink }}>
+                  {language.language}
+                </h3>
+                <p className="text-graphite">{language.proficiency}</p>
+                <p className="math text-caption text-pencil">A = {share.toFixed(2)}</p>
+              </div>
+              <svg
+                aria-hidden="true"
+                className="h-24 w-full overflow-hidden md:h-30"
+                preserveAspectRatio="xMinYMid slice"
+                viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+              >
+                <line
+                  stroke="var(--color-pencil)"
+                  strokeDasharray="4 6"
+                  strokeWidth="1.5"
+                  x1="0"
+                  x2={WIDTH}
+                  y1={HEIGHT / 2}
+                  y2={HEIGHT / 2}
+                />
+                {[-1, 1].map((side) => (
+                  <line
+                    className="opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                    key={side}
+                    stroke="var(--color-red-pencil)"
+                    strokeDasharray="2 5"
+                    strokeWidth="1.5"
+                    x1="0"
+                    x2={WIDTH}
+                    y1={HEIGHT / 2 + side * amplitude}
+                    y2={HEIGHT / 2 + side * amplitude}
+                  />
+                ))}
+                <path
+                  className="wave-path"
+                  d={sinePath(amplitude)}
+                  fill="none"
+                  stroke={ink}
+                  strokeLinecap="round"
+                  strokeWidth="3.5"
+                  style={{ '--wave-period': `${3 + i}s`, '--wavelength': `${WAVELENGTH}px` } as React.CSSProperties}
+                />
+              </svg>
+            </li>
+          );
+        })}
+      </ul>
     </Section>
   );
 };

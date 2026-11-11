@@ -1,11 +1,10 @@
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-import { ColorPicker } from '@/components/ColorPicker';
 import Icon from '@/components/common/Icon';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
-import { buttonVariants } from '@/components/ui/button';
 import { getLocalizedCollection } from '@/components/utils/db';
+
+const links = ['experience', 'skills', 'contact'] as const;
 
 export const Header = async () => {
   'use cache';
@@ -13,43 +12,36 @@ export const Header = async () => {
   const contacts = await getLocalizedCollection('contacts');
 
   return (
-    <header className="bg-background/95 supports-backdrop-filter:bg-background/80 sticky -top-16.5 z-50 border-b-2 border-primary/30 px-6 py-4 backdrop-blur md:top-0 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
-      <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
-        <nav className="hidden items-center gap-8 md:flex">
-          <Link
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
-            href="#experience"
-          >
-            {t('experience')}
-          </Link>
-          <Link
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
-            href="#skills"
-          >
-            {t('skills')}
-          </Link>
-          <Link
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
-            href="#contact"
-          >
-            {t('contact')}
-          </Link>
+    <header className="sticky top-0 z-40 border-b-2 border-ink bg-paper/95 supports-backdrop-filter:bg-paper/85 supports-backdrop-filter:backdrop-blur-sm">
+      <div className="sheet flex h-14 items-center justify-between gap-3 md:h-16">
+        <nav
+          aria-label={t('navigation')}
+          className="flex items-center gap-4 text-[0.95rem] font-medium sm:gap-7 md:text-base"
+        >
+          {links.map((link) => (
+            <a
+              className="highlight py-1 text-graphite hover:highlight-on focus-visible:highlight-on"
+              href={`#${link}`}
+              key={link}
+            >
+              {t(link)}
+            </a>
+          ))}
         </nav>
-        <div className="flex flex-1 items-center justify-end gap-4">
+        <div className="flex items-center gap-1 md:gap-2">
           {contacts.map((contact) => (
             <a
-              className={buttonVariants({ className: 'md:text-sm', size: 'sm', variant: 'ghost' })}
+              aria-label={contact.label}
+              className="hidden size-10 items-center justify-center rounded-sm text-ink transition-colors hover:bg-highlighter sm:inline-flex"
               href={contact.url}
               key={contact.url}
               rel="noopener noreferrer"
               target="_blank"
             >
-              {contact.icon && <Icon className="h-4 w-4 lg:mr-2" name={contact.icon} />}
-              <span className="hidden lg:block">{contact.label}</span>
+              {contact.icon && <Icon aria-hidden="true" className="size-5" name={contact.icon} />}
             </a>
           ))}
           <LanguageSelector />
-          <ColorPicker />
         </div>
       </div>
     </header>

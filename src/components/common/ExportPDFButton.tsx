@@ -1,7 +1,7 @@
 'use client';
 
 import { Download } from 'lucide-react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import posthog from 'posthog-js';
 import { toast } from 'sonner';
 
@@ -10,6 +10,7 @@ import { trpc } from '@/lib/trpc/client';
 
 export const ExportPDFButton = () => {
   const locale = useLocale();
+  const t = useTranslations('Footer');
 
   const { isLoading, refetch } = trpc.pdf.exportPDF.useQuery(
     { locale },
@@ -54,27 +55,21 @@ export const ExportPDFButton = () => {
       posthog.capture('portfolio_pdf_exported', { locale });
 
       // Show success toast
-      toast.success('PDF exported successfully', {
-        description: `${result.data.filename} has been downloaded.`,
+      toast.success(t('pdf_done'), {
+        description: t('pdf_done_description', { filename: result.data.filename }),
       });
     } catch (error) {
       console.error('Error exporting PDF:', error);
-      toast.error('Failed to export PDF', {
-        description: 'Please try again or contact support if the problem persists.',
+      toast.error(t('pdf_failed'), {
+        description: t('pdf_failed_description'),
       });
     }
   };
 
   return (
-    <Button
-      className="text-foreground transition-all hover:text-primary md:text-sm"
-      disabled={isLoading}
-      onClick={handleExport}
-      size="lg"
-      variant="ghost"
-    >
-      <Download className="h-5 w-5" />
-      <span>{isLoading ? 'Exporting...' : 'Export PDF'}</span>
+    <Button className="h-11 gap-2 px-4" disabled={isLoading} onClick={handleExport} variant="outline">
+      <Download aria-hidden="true" className="size-5" />
+      <span>{isLoading ? t('pdf_busy') : t('pdf_button')}</span>
     </Button>
   );
 };
