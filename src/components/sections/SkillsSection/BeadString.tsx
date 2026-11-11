@@ -7,6 +7,8 @@ import { cn } from '@/lib/utils';
 import { type BeadParams, beadString, pluckProfile, smoothPath, stepBeads } from './beads';
 
 const PARAMS: BeadParams = { damping: 1.1, maxY: 26, stiffness: 150 };
+/** A hanging string swings less, so its names stay clear of the next column. */
+const HANGING: BeadParams = { ...PARAMS, maxY: 14 };
 const PLUCK = 460;
 
 interface Controller {
@@ -18,7 +20,7 @@ interface Controller {
 /**
  * One group of skills: equal masses (beads) on a string fixed at both ends, the name of each skill set
  * beside its bead. Horizontal on wide pages, hanging vertically on narrow ones. A pluck sets up a
- * standing wave whose envelope is drawn while it rings.
+ * standing wave whose envelope is drawn, on the side away from the names, while it rings.
  */
 export function BeadString({
   name,
@@ -77,9 +79,10 @@ export function BeadString({
       line.setAttribute('d', smoothPath([point(0, 0), ...along.map((a, i) => point(a, state.y[i])), point(length, 0)]));
       const amplitude = Math.max(...state.y.map(Math.abs));
       const samples = Array.from({ length: 25 }, (_, k) => (k / 24) * length);
-      const side = (sign: number) =>
-        smoothPath(samples.map((a) => point(a, sign * amplitude * Math.sin((Math.PI * a) / length))));
-      envelope.setAttribute('d', amplitude > 1 ? `${side(1)}${side(-1)}` : '');
+      // The envelope is drawn on the side away from the names (below, or left of a hanging string).
+      const away = vertical ? -1 : 1;
+      const edge = smoothPath(samples.map((a) => point(a, away * amplitude * Math.sin((Math.PI * a) / length))));
+      envelope.setAttribute('d', amplitude > 1 ? edge : '');
       items.forEach((el, i) => {
         el.style.transform = vertical ? `translateX(${state.y[i]}px)` : `translateY(${state.y[i]}px)`;
       });
@@ -88,7 +91,7 @@ export function BeadString({
     const tick = (time: number) => {
       const dt = Math.min(1 / 30, last ? (time - last) / 1000 : 1 / 60);
       last = time;
-      const resting = stepBeads(state, dt, PARAMS);
+      const resting = stepBeads(state, dt, vertical ? HANGING : PARAMS);
       paint();
       if (resting) {
         frame = 0;
@@ -108,7 +111,7 @@ export function BeadString({
       }
       const profile = pluckProfile(items.length, index);
       profile.forEach((share, i) => {
-        state.v[i] += (direction >= 0 ? 1 : -1) * PLUCK * share;
+        state.v[i] += (direction >= 0 ? 1 : -1) * PLUCK * share * (vertical ? 0.55 : 1);
       });
     };
 
