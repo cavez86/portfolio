@@ -12,7 +12,7 @@ const Toaster = (props: ToasterProps) => (
       success: <CircleCheckIcon className="size-4 text-green-ink" />,
       warning: <TriangleAlertIcon className="size-4 text-red-pencil" />,
     }}
-    position="bottom-left"
+    position="bottom-center"
     style={
       {
         '--border-radius': '3px',
