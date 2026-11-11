@@ -37,7 +37,11 @@ interface Pivot {
   radius: number;
   /** Pivot to the centre of the ring on the glyph, and to just below the glyph. */
   top: number;
+  /** Radius of the ring. */
+  ring: number;
   foot: number;
+  /** Half the letter's width. */
+  half: number;
 }
 
 /** Baseline and descender depth below the top of a letter's box, in em (Bricolage at line-height 0.8). */
@@ -130,7 +134,9 @@ export const mountCradle = ({
       const descends = /[gjpqy]/.test(el.textContent ?? '');
       return {
         foot: string + (BASELINE + (descends ? DESCENDER : 0) + CLEARANCE) * fontSize,
+        half: el.offsetWidth / 2,
         radius: string + el.offsetHeight / 2,
+        ring: ring / 2,
         top: string + attach - ring / 2,
         x: word.offsetLeft + el.offsetLeft + el.offsetWidth / 2,
         y: word.offsetTop,
@@ -162,48 +168,57 @@ export const mountCradle = ({
     const cos = Math.cos(bob.theta);
     const tx = px + pivot.top * sin;
     const ty = py + pivot.top * cos;
-    // The weight is drawn from just under the glyph so it never crosses a letter.
+    // The weight is drawn from just under the lowest corner of the turned glyph, so it never crosses it.
     const fx = px + pivot.foot * sin;
-    const fy = py + pivot.foot * cos;
+    const fy = py + pivot.foot * cos + pivot.half * Math.abs(sin);
     const unit = fontSize * 0.24;
     const head = Math.max(9, fontSize * 0.07);
     const label = fontSize * 0.08;
 
+    // Multiflash exposure of the string's midpoint while the letter moves.
     const now = performance.now();
-    if (now - lastFlash > FLASH_MS) {
+    const moving = Math.abs(bob.omega) > 0.05 || bob.held;
+    if (!moving) flashes = [];
+    else if (now - lastFlash > FLASH_MS) {
       lastFlash = now;
-      flashes = [...flashes.filter((dot) => dot.index === active), { index: active, x: tx, y: ty }].slice(-FLASHES);
+      const mid = pivot.top / 2;
+      flashes = [
+        ...flashes.filter((dot) => dot.index === active),
+        { index: active, x: px + mid * sin, y: py + mid * cos },
+      ].slice(-FLASHES);
     }
     const r = Math.max(3, fontSize * 0.025);
     set('flashes', {
       d: flashes.map((dot) => `M${dot.x - r},${dot.y}a${r},${r} 0 1 0 ${2 * r},0a${r},${r} 0 1 0 ${-2 * r},0`).join(''),
     });
 
-    // Tension along the string, from the ring towards the beam (never past it).
-    const tension = Math.min(pivot.top * 0.85, (tensionOverMass(bob, G, lengthMetres) / G) * unit * 1.4);
-    const side = bob.theta < 0 ? 1 : -1;
-    set('tension', { d: arrow(tx, ty, tx - tension * sin, ty - tension * cos, head) });
-    set('tension-label', {
-      x: tx - tension * sin + side * label - (side < 0 ? label : 0),
-      y: ty - tension * cos + label * 2,
-    });
-    set('weight', { d: arrow(fx, fy, fx, fy + unit, head) });
-    set('weight-label', { x: fx + label, y: fy + unit });
-
-    // θ from the vertical, its swept area in highlighter.
-    const arcR = pivot.top * 0.62;
+    // θ from the vertical, its swept area in highlighter, the label just outside it.
+    const arcR = pivot.top * 0.4;
     const ax = px + arcR * sin;
     const ay = py + arcR * cos;
     const sweep = bob.theta < 0 ? 1 : 0;
+    const side = bob.theta < 0 ? 1 : -1;
     set('vertical', { x1: px, x2: px, y1: py, y2: py + pivot.top });
     set('arc', { d: `M${px},${py + arcR}A${arcR},${arcR} 0 0 ${sweep} ${ax},${ay}` });
     set('wedge', { d: `M${px},${py}L${px},${py + arcR}A${arcR},${arcR} 0 0 ${sweep} ${ax},${ay}Z` });
-    const half = bob.theta / 2;
-    set('theta', {
-      'text-anchor': bob.theta < 0 ? 'end' : 'start',
-      x: px + (arcR + label) * Math.sin(half) - side * label * 0.4,
-      y: py + (arcR + label) * Math.cos(half),
+    set('theta', { 'text-anchor': side > 0 ? 'start' : 'end', x: px + side * label * 0.6, y: py + arcR + label * 0.9 });
+
+    // Tension along the string, from just above the ring towards the pivot, stopping short of the angle.
+    const start = pivot.top - pivot.ring - CLEARANCE * fontSize;
+    const sx = px + start * sin;
+    const sy = py + start * cos;
+    const tension = Math.min(start - arcR - label, (tensionOverMass(bob, G, lengthMetres) / G) * unit * 1.4);
+    set('tension', { d: arrow(sx, sy, sx - tension * sin, sy - tension * cos, head) });
+    // Its label sits beside the arrow, on the side away from the vertical.
+    const away = bob.theta < 0 ? -1 : 1;
+    const midT = { x: sx - (tension / 2) * sin, y: sy - (tension / 2) * cos };
+    set('tension-label', {
+      'text-anchor': away < 0 ? 'end' : 'start',
+      x: midT.x + away * cos * label * 1.2,
+      y: midT.y - away * sin * label * 1.2 + label * 0.8,
     });
+    set('weight', { d: arrow(fx, fy, fx, fy + unit, head) });
+    set('weight-label', { x: fx + label * 0.8, y: fy + unit * 0.8 });
 
     const force =
       pointer &&

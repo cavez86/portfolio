@@ -20,7 +20,7 @@ const HeroSection = async () => {
     <section className="sheet pt-6 pb-6 md:pt-10 md:pb-10">
       <NameCradle name={personalInfo.name}>
         <div className="flex flex-col items-start gap-5">
-          <p className="max-w-[26ch] text-[1.5rem] leading-tight font-semibold text-graphite md:text-[1.75rem]">
+          <p className="max-w-[26ch] text-[1.5rem] leading-tight font-semibold text-graphite md:text-[1.75rem] xl:text-[1.5rem] 2xl:text-[1.75rem]">
             {personalInfo.title}
           </p>
           <a
@@ -32,20 +32,25 @@ const HeroSection = async () => {
         </div>
       </NameCradle>
 
-      <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-[minmax(0,64ch)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
-        <div className="order-2 text-body lg:order-1 [&_p+p]:mt-4 [&_strong]:bg-highlighter [&_strong]:px-0.5 [&_strong]:font-semibold [&_strong]:[box-decoration-break:clone]">
+      <div className="mt-12 grid gap-10 md:mt-16 xl:grid-cols-[minmax(0,64ch)_minmax(0,1fr)] xl:gap-16 2xl:gap-24">
+        <div className="order-2 max-w-[64ch] text-body xl:order-1 [&_p+p]:mt-4 [&_strong]:bg-highlighter [&_strong]:px-0.5 [&_strong]:font-semibold [&_strong]:[box-decoration-break:clone]">
           <RichText data={personalInfo.description as SerializedEditorState} />
         </div>
 
-        <aside className="order-1 lg:order-2">
+        <aside className="order-1 xl:order-2">
           <h2 className="math mb-4 text-xl text-red-pencil" id="given">
             {t('given')}
           </h2>
-          <dl aria-labelledby="given" className="grid grid-cols-2 gap-x-6 gap-y-6 sm:gap-x-10">
+          <dl
+            aria-labelledby="given"
+            className="grid grid-cols-2 gap-x-6 gap-y-6 sm:gap-x-10 md:grid-cols-4 xl:grid-cols-2"
+          >
             {summaryInfo.map((item, i) => (
               <div className="border-t-[3px] border-current pt-2" key={item.id}>
                 <dt className="text-caption text-pencil">{item.label}</dt>
-                <dd className={`text-xl leading-snug font-bold md:text-[1.625rem] ${INKS[i % INKS.length]}`}>
+                <dd
+                  className={`text-xl leading-snug font-bold md:text-[1.375rem] 2xl:text-[1.625rem] ${INKS[i % INKS.length]}`}
+                >
                   {item.value}
                 </dd>
               </div>

@@ -23,7 +23,7 @@ export function ContactLink({ description, label, url, ink }: ContactLinkProps) 
       target={external ? '_blank' : undefined}
     >
       <span className="text-lg font-medium text-pencil group-hover:text-graphite">{label}</span>
-      <span className="answer text-[1.5rem] leading-tight font-bold break-words sm:text-[2rem] md:text-[2.75rem]">
+      <span className="answer text-[1.375rem] leading-tight font-bold [overflow-wrap:anywhere] sm:text-[2rem] md:text-[2.75rem]">
         {description ?? label}
       </span>
     </a>

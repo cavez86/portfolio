@@ -238,12 +238,17 @@
 @layer components {
   /* ——— Fig. 1: the name as a Newton's cradle ——— */
 
-  /* Sized so that the second row (the longest) fills the column: 7.45 em wide on two rows, 4.85 em on three. */
+  /*
+   * Sized so the longest row fills the column: 8.1 em on two rows, 4.85 em on three, plus room on both
+   * sides for the end letters to swing out (0.4 em) without reaching the margin line.
+   */
   .cradle-frame {
-    --cradle-size: clamp(3.4rem, calc((100vw - 56px) / 4.85), 6rem);
+    --reserve: 0.42em;
+    --cradle-size: clamp(3rem, calc((100vw - 56px) / 5.69), 6rem);
 
     @media (min-width: 768px) {
-      --cradle-size: min(11.5rem, calc((min(100vw, var(--page)) - var(--rule) - 88px) / 7.45));
+      --reserve: 0.4em;
+      --cradle-size: min(11.5rem, calc((min(100vw, var(--page)) - var(--rule) - 88px) / 8.9));
     }
   }
 
@@ -254,10 +259,11 @@
     --ring: 0.08em;
     display: flex;
     flex-wrap: wrap;
-    column-gap: 0.32em;
+    /* Neighbouring words are separate cradles: leave room for both end letters to swing. */
+    column-gap: 0.95em;
     row-gap: 0.55em;
     margin: 0;
-    padding-top: 0.16em;
+    padding: 0.16em var(--reserve) 0;
     font-size: var(--cradle-size);
     font-weight: 750;
     font-variation-settings: "opsz" 96;
@@ -361,9 +367,9 @@
 
     @media (min-width: 1280px) {
       position: absolute;
-      top: calc(var(--cradle-size) * 0.45);
+      top: calc(var(--cradle-size) * 0.2);
       right: 0;
-      width: calc(100% - var(--cradle-size) * 5.75);
+      width: calc(100% - var(--cradle-size) * 6.1);
       margin-top: 0;
     }
   }

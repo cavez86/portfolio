@@ -16,7 +16,7 @@ export const Header = async () => {
       <div className="sheet flex h-14 items-center justify-between gap-3 md:h-16">
         <nav
           aria-label={t('navigation')}
-          className="flex items-center gap-4 text-[0.95rem] font-medium sm:gap-7 md:text-base"
+          className="flex items-center gap-3 text-[0.9rem] font-medium min-[400px]:gap-4 min-[400px]:text-[0.95rem] sm:gap-7 md:text-base"
         >
           {links.map((link) => (
             <a
