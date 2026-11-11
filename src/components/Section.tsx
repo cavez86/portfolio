@@ -24,12 +24,13 @@ const Section = ({
   id?: string;
   field: Field;
   className?: string;
-  // A drawn piece that sits on the field's top edge, half in the field above.
+  // A drawn piece on the field's top edge. Its box starts at the edge and the piece pulls its upper part
+  // into the field above; the content follows below the box, so the piece never covers it.
   edge?: ReactNode;
   children: ReactNode;
 }) => (
   <section className={cn(fieldClasses[field], 'relative px-5 py-16 md:px-10 md:py-28')} id={id}>
-    {edge && <div className="absolute inset-x-5 top-0 mx-auto max-w-7xl md:inset-x-10">{edge}</div>}
+    {edge && <div className="mx-auto -mt-16 mb-6 flow-root max-w-7xl md:-mt-28">{edge}</div>}
     <div className={cn('mx-auto max-w-7xl', className)}>{children}</div>
   </section>
 );

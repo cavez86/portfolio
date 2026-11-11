@@ -37,7 +37,6 @@ export const Conveyor = ({ ticks }: { ticks: { label: number; left: number }[] }
   const drive = useDrive();
   const forward = useTransform(drive, (a) => (-a * Math.PI * RADIUS) / 180);
   const backward = useTransform(forward, (offset) => -offset);
-  const last = ticks.length - 1;
 
   return (
     <div aria-hidden="true" className="relative">
@@ -61,13 +60,10 @@ export const Conveyor = ({ ticks }: { ticks: { label: number; left: number }[] }
           <circle className="fill-inchiostro" r="14" />
         </Gear>
       </svg>
+      {/* Each year is centred on its tick, so neighbours only meet when ticks are closer than a label. */}
       <span className="relative mt-4 block h-5">
-        {ticks.map((tick, i) => (
-          <span
-            className={`type-small absolute ${i === 0 ? 'left-0' : i === last ? 'right-0' : '-translate-x-1/2'}`}
-            key={tick.label}
-            style={i > 0 && i < last ? { left: `${tick.left}%` } : undefined}
-          >
+        {ticks.map((tick) => (
+          <span className="type-small absolute -translate-x-1/2" key={tick.label} style={{ left: `${tick.left}%` }}>
             {tick.label}
           </span>
         ))}

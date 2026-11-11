@@ -8,16 +8,21 @@ import { useArrival, useDrive } from '@/components/common/drive';
 
 import { wheelParts } from './wheelParts';
 
-// The wheel sits on the field's top edge. Exploded, each part moves out along one axis, by a distance
-// that keeps neighbours apart: left and slightly down on wide screens, and straight left along the edge
-// otherwise. The drop is shallow so the trail stays above the title, whatever its language.
-const ANCHOR = { x: 650, y: 110 };
+// The wheel sits on the field's top edge (y = 0). Exploded, each part moves out along one axis, by a
+// distance that keeps neighbours apart: left and slightly down on wide screens, and straight left along
+// the edge otherwise.
+const ANCHOR = { x: 650, y: 10 };
+const WIDTH = 760;
 const GAP = 10;
 const DISTANCES: number[] = [];
 for (const [i, part] of wheelParts.entries()) {
   DISTANCES.push(i === 0 ? 0 : DISTANCES[i - 1] + wheelParts[i - 1].radius + part.radius + GAP);
 }
 const SLOPE = { x: -0.97, y: 0.08 };
+// How far the parts reach above and below the edge in either layout. The drawing is cropped to that, so
+// its box reserves the room below the edge and the field's content starts clear of every part.
+const ABOVE = Math.max(...wheelParts.map((part) => part.radius - ANCHOR.y));
+const BELOW = Math.max(...wheelParts.map((part, i) => ANCHOR.y + DISTANCES[i] * SLOPE.y + part.radius));
 
 const Part = ({ index, shape, drive }: { index: number; shape: ReactNode; drive: MotionValue<number> }) => {
   const distance = DISTANCES[index];
@@ -46,11 +51,11 @@ export const ExplodedWheel = ({ count }: { count: number }) => {
   const last = DISTANCES[Math.min(count, wheelParts.length) - 1];
 
   return (
-    <div aria-hidden="true" className="pointer-events-none ml-auto w-full max-w-[52rem] -translate-y-1/4" ref={ref}>
+    <div aria-hidden="true" className="pointer-events-none ml-auto w-full max-w-[52rem]" ref={ref}>
       <motion.svg
         className="block h-auto w-full overflow-visible"
-        style={{ '--p': arrival } as MotionStyle}
-        viewBox="0 0 760 400"
+        style={{ '--p': arrival, marginTop: `${(-ABOVE / WIDTH) * 100}%` } as MotionStyle}
+        viewBox={`0 ${-ABOVE} ${WIDTH} ${ABOVE + BELOW}`}
       >
         <g className="stroke-inchiostro" strokeDasharray="2 16" strokeLinecap="round" strokeWidth="6">
           <line

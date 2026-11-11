@@ -33,7 +33,7 @@ export function ContactLink({ cap, description, icon, label, url }: ContactLinkP
       </span>
       <span className="min-w-0">
         <span className="type-heading block">{label}</span>
-        <span className="mt-1 block font-semibold break-words md:text-lg">{description}</span>
+        <span className="mt-1 block font-semibold wrap-anywhere md:text-lg">{description}</span>
       </span>
     </a>
   );
