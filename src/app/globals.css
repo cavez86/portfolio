@@ -272,7 +272,6 @@
     transform-origin: 50% calc(-1 * var(--string));
     /* Physics angles are positive to the right, CSS rotation is positive clockwise. */
     transform: rotate(calc(-1 * var(--theta)));
-    will-change: transform;
   }
 
   .cradle-bob[data-top="x"] {
@@ -584,7 +583,6 @@
     font-weight: 650;
     line-height: 1.25;
     text-align: center;
-    will-change: transform;
     transition: background-color 150ms;
   }
 

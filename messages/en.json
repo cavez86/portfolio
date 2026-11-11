@@ -77,7 +77,6 @@
   },
   "Skills": {
     "caption": "Each group is a string fixed at both ends, with its skills threaded on it as equal masses. Pass the pointer across a string, tap a skill or press a group's name to pluck it.",
-    "pluck": "Pluck the {name} string",
     "soft": "Soft skills",
     "technical": "Technical skills",
     "title": "Skills"

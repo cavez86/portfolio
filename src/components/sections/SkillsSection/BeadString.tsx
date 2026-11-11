@@ -1,14 +1,13 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { type PointerEvent, useEffect, useRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 import { type BeadParams, beadString, stepBeads } from './beads';
 
-const PARAMS: BeadParams = { damping: 1.6, maxY: 18, stiffness: 160 };
-const PLUCK = 340;
+const PARAMS: BeadParams = { damping: 1.5, maxY: 22, stiffness: 160 };
+const PLUCK = 420;
 
 interface Controller {
   pluck(index: number, direction: number): void;
@@ -20,8 +19,18 @@ interface Controller {
  * One group of skills drawn as masses threaded on a string fixed at both ends. The string is
  * horizontal on wide screens and vertical in the phone grid; it vibrates transversely when plucked.
  */
-export function BeadString({ name, skills, soft = false }: { name: string; skills: string[]; soft?: boolean }) {
-  const t = useTranslations('Skills');
+export function BeadString({
+  name,
+  skills,
+  soft = false,
+  hintId,
+}: {
+  name: string;
+  skills: string[];
+  soft?: boolean;
+  /** Id of the element that explains what pressing a group's name does. */
+  hintId: string;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<SVGPolylineElement>(null);
   const controller = useRef<Controller | null>(null);
@@ -122,7 +131,7 @@ export function BeadString({ name, skills, soft = false }: { name: string; skill
     <div className={cn('bead-string', soft && 'bead-string-soft')}>
       <h4 className="bead-name">
         <button
-          aria-label={t('pluck', { name })}
+          aria-describedby={hintId}
           className="highlight cursor-pointer text-left hover:highlight-on focus-visible:highlight-on"
           onClick={() => controller.current?.pluck(0, 1)}
           type="button"

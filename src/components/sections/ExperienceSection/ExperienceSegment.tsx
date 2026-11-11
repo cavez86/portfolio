@@ -42,7 +42,7 @@ const ExperienceSegment = ({ segment, levels }: { segment: Segment<Experience>; 
           <span className="highlight block w-fit text-[1.05rem] leading-tight font-bold text-ink group-hover:highlight-on group-focus-visible:highlight-on md:text-lg">
             {item.company}
           </span>
-          <span className="block text-[0.95rem] leading-snug text-graphite md:hidden">{item.position}</span>
+          <span className="block text-[0.95rem] leading-snug text-graphite md:sr-only">{item.position}</span>
           <span className="block text-caption text-pencil">
             {years},{' '}
             <span className="whitespace-nowrap">

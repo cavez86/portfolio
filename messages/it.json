@@ -77,7 +77,6 @@
   },
   "Skills": {
     "caption": "Ogni gruppo è un filo fissato ai due estremi, con le sue competenze infilate come masse uguali. Passa il puntatore attraverso un filo, tocca una competenza o premi il nome del gruppo per pizzicarlo.",
-    "pluck": "Pizzica il filo {name}",
     "soft": "Competenze trasversali",
     "technical": "Competenze tecniche",
     "title": "Competenze"
