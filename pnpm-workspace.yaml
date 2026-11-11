@@ -21,6 +21,14 @@ supportedArchitectures:
     - current
     - glibc
 
+# plugin-mcp transpiles its generated zod schema with ts.transpileModule, which
+# TypeScript 7 (native port) does not export; without it every MCP tool falls
+# back to an empty input schema and silently drops all content fields.
+packageExtensions:
+  '@payloadcms/plugin-mcp':
+    dependencies:
+      typescript: 6.0.3
+
 overrides:
   '@hono/node-server': ^1.19.15
   '@modelcontextprotocol/sdk': ^1.31.0
@@ -36,4 +44,5 @@ overrides:
   undici: ^7.29.0
 
 patchedDependencies:
+  '@payloadcms/plugin-mcp@3.92.1': patches/@payloadcms__plugin-mcp@3.92.1.patch
   braces@3.0.3: patches/braces@3.0.3.patch
