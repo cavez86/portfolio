@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from 'react';
 
-import { type Controller, mountCradle, RELEASE_DEG, RELEASE_THETA } from './mountCradle';
+import { type Controller, formatDegrees, mountCradle, RELEASE_DEG, RELEASE_THETA } from './mountCradle';
 
 /** Where the string meets the glyph: capitals and ascenders at the top, dotted letters at the dot, the rest at x-height. */
 const attachment = (letter: string) => {
@@ -140,7 +140,7 @@ export function NameCradle({ name, children }: { name: string; children?: ReactN
         <span className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <span aria-hidden="true" className="text-[1.05rem] text-graphite tabular-nums">
             <i className="math">θ</i>
-            <sub ref={subscriptRef}>{firstLetter}</sub> = <span ref={readoutRef}>{(-RELEASE_DEG).toFixed(1)}</span>°
+            <sub ref={subscriptRef}>{firstLetter}</sub> = <span ref={readoutRef}>{formatDegrees(RELEASE_THETA)}</span>°
           </span>
           <button
             className="cursor-pointer rounded-sm border-2 border-ink px-3 py-1 font-sans text-[0.95rem] font-semibold text-ink transition-colors hover:bg-highlighter motion-reduce:hidden"

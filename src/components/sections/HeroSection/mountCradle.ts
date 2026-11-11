@@ -7,6 +7,12 @@ const G = 9.81;
 const METRES_PER_SQUARE = 0.05;
 export const RELEASE_DEG = 24;
 export const RELEASE_THETA = (-RELEASE_DEG * Math.PI) / 180;
+
+/** An angle in degrees with one decimal and a true minus sign, never “−0.0”. */
+export const formatDegrees = (radians: number) => {
+  const degrees = (radians * 180) / Math.PI;
+  return Math.abs(degrees) < 0.05 ? '0.0' : degrees.toFixed(1).replace('-', '\u2212');
+};
 const PARAMS: Omit<CradleParams, 'omega0Sq'> = { damping: 0.4, maxTheta: MAX_THETA, restitution: 0.96 };
 const RELEASE_DELAY_MS = 1100;
 /** After the visitor lets go, the diagram follows whichever letter carries the swing. */
@@ -197,7 +203,7 @@ export const mountCradle = ({
     set('force', { d: hasF ? arrow(force.x1, force.y1, force.x2, force.y2, head) : '' });
     set('force-label', { opacity: hasF ? 1 : 0, x: hasF ? force.x2 + 8 : 0, y: hasF ? force.y2 - 8 : 0 });
 
-    readout.textContent = ((bob.theta * 180) / Math.PI).toFixed(1);
+    readout.textContent = formatDegrees(bob.theta);
     subscript.textContent = bobEls[active]?.textContent ?? '';
   };
 
