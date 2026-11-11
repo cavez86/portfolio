@@ -7,7 +7,6 @@ import { buttonVariants } from '@/components/ui/button';
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
 
 import { HERO_VARS } from './cityMap';
-import MapLantern from './MapLantern';
 import StreetMap from './StreetMap';
 
 const HeroSection = async () => {
@@ -24,7 +23,6 @@ const HeroSection = async () => {
         <div className="@container relative aspect-(--map-ratio) w-full md:aspect-(--map-ratio-md)" style={HERO_VARS}>
           <StreetMap className="md:hidden" name={personalInfoData.name} variant="tall" />
           <StreetMap className="hidden md:block" name={personalInfoData.name} variant="wide" />
-          <MapLantern />
 
           {/* Lettered into the map like a district name: one word per line on phones, surnames together on wider maps. */}
           <h1 className="absolute top-(--name-y) left-(--name-x) font-display text-(length:--name-size) leading-[0.86] font-extrabold tracking-[0.005em] text-carta md:top-(--name-y-md) md:left-(--name-x-md) md:text-(length:--name-size-md)">
