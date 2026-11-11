@@ -1,7 +1,6 @@
 /**
- * The experience records as a world-line: calendar time t against years of experience accumulated τ.
- * τ grows at 1 yr/yr while employed and stays flat between jobs, so the line only ever rises and no
- * job title is ranked against another.
+ * The experience records on a time axis: each job's start and end in years since January of the first
+ * year, the employer it belongs to, and the total time worked.
  */
 
 export interface TimelineInput {
@@ -15,9 +14,6 @@ export interface Segment<T extends TimelineInput> {
   /** Start and end, in years since January of the first year. */
   t0: number;
   t1: number;
-  /** Experience accumulated at the start and end, in years. */
-  tau0: number;
-  tau1: number;
   current: boolean;
   months: number;
   /** Index of the employer in order of first appearance, for its pencil. */
@@ -28,7 +24,7 @@ export interface Timeline<T extends TimelineInput> {
   firstYear: number;
   /** Years from January of the first year to today. */
   span: number;
-  /** Experience accumulated by today, in years. */
+  /** Years worked by today (time between jobs not counted). */
   total: number;
   /** Oldest first. */
   segments: Segment<T>[];
@@ -44,7 +40,7 @@ export const buildTimeline = <T extends TimelineInput>(items: readonly T[], now:
   const origin = Date.UTC(firstYear, 0, 1);
   const years = (time: number) => (time - origin) / YEAR_MS;
   const employers: string[] = [];
-  let tau = 0;
+  let total = 0;
 
   const segments = chronological.map((item) => {
     const from = Date.parse(item.period.dateFrom);
@@ -58,31 +54,30 @@ export const buildTimeline = <T extends TimelineInput>(items: readonly T[], now:
       months: Math.max(1, Math.round(length * 12)),
       t0: years(from),
       t1: years(to),
-      tau0: tau,
-      tau1: tau + length,
     };
-    tau += length;
+    total += length;
     return segment;
   });
 
-  return { firstYear, segments, span: years(now.getTime()), total: tau };
+  return { firstYear, segments, span: years(now.getTime()), total };
 };
 
-export interface Box {
-  /** Wanted top edge and height, in the drawing's units (y grows downwards). */
-  top: number;
-  height: number;
-}
-
 /**
- * Moves labels apart vertically. `boxes` are ordered from the bottom of the drawing to the top; each
- * label keeps its wanted position unless it would overlap the one below it, in which case it moves up.
- * Returns the new top edges.
+ * Jobs done on another employer's premises, as the role says ("Consultant for Deltatre"): the segment
+ * index and the employer it names. A company is named by its first word (as written, at least 4 letters).
  */
-export const stackUpwards = (boxes: readonly Box[], gap: number) => {
-  const tops: number[] = [];
-  boxes.forEach((box, i) => {
-    tops.push(i === 0 ? box.top : Math.min(box.top, tops[i - 1] - gap - box.height));
-  });
-  return tops;
+export const placements = <T extends TimelineInput & { position: string }>(timeline: Timeline<T>) => {
+  const employers = new Map(timeline.segments.map((s) => [s.employer, s.item.company]));
+  return timeline.segments.flatMap((segment, index) =>
+    [...employers]
+      .filter(([employer, company]) => {
+        const word = company.split(/\s+/)[0] ?? '';
+        return (
+          employer !== segment.employer &&
+          word.length >= 4 &&
+          new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(segment.item.position)
+        );
+      })
+      .map(([employer, company]) => ({ company, employer, index }))
+  );
 };

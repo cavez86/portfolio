@@ -28,15 +28,16 @@
     "try_again": "Try again"
   },
   "Experience": {
-    "caption": "Years of experience τ accumulated against calendar time t, from January {start} to {today}. The line rises one year for every year of work and stays flat between jobs.",
+    "caption": "A spacetime diagram of the career. Time t runs up the page, from January {start} to {today}; each employer is a lane, in the order joined. The career is one world-line, stepping across to a new lane at each change of employer.",
     "close": "Close",
     "details": "{count, plural, one {Read # achievement} other {Read # achievements}}",
+    "lane_unit": "employer, in the order joined",
     "months": "{count} mo",
-    "note": "Since {start}, τ = {total} yr",
+    "note": "Since {start}, {total} yr of work",
+    "on_site": "on site at {company}",
     "present": "today",
-    "summary": "of experience by {today}",
+    "summary": "of work by {today}, with {lanes} employers",
     "t_unit": "year",
-    "tau_unit": "years of experience",
     "title": "Experience",
     "years": "{count} yr"
   },

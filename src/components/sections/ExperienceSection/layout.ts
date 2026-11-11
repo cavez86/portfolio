@@ -1,142 +1,225 @@
-import { stackUpwards, type Timeline, type TimelineInput } from './timeline';
+import type { Segment, Timeline, TimelineInput } from './timeline';
 
 /**
- * Geometry of the experience diagram in drawing units. Time t runs up the page (today at the top),
- * experience τ runs to the right. The area between the t-axis and the world-line is the hatched side;
- * labels sit on the empty side, right of the line, next to their own segment.
+ * Geometry of the experience diagram, drawn as a spacetime diagram: time t runs up the page (today at
+ * the top) and each employer has a vertical lane, in the order joined. The career is one world-line
+ * that runs up a lane and steps across to the next at each change of employer. Units are the
+ * drawing's own (the SVG viewBox).
  */
 export interface Variant {
   width: number;
-  /** x of the t-axis. */
+  /** x of the time axis. */
   axisX: number;
-  /** Units per year along τ and along t. */
-  tauScale: number;
+  /** Units per year along t. */
   tScale: number;
-  /** Free space above the plot for labels lifted off crowded segments, and below it for the τ-axis. */
+  /** Free space above the plot (a short last lane's label rises into it) and below it (the lane axis). */
   headroom: number;
   footroom: number;
+  lanes: { first: number; last: number; band: number };
   label: {
     gap: number;
-    maxWidth: number;
+    width: number;
     name: number;
     role: number;
     meta: number;
-    /** Lines the date and place need: one on wide drawings, two on narrow ones. */
+    /**
+     * `beside`: each label sits next to its own lane, in the time it covers (wide drawings).
+     * `column`: labels stand in one column right of the lanes (narrow drawings).
+     */
+    placement: 'beside' | 'column';
+    /** Lines a stint's dates and duration take: one on wide drawings, two on narrow ones. */
     metaLines: number;
   };
 }
 
 export const WIDE: Variant = {
-  axisX: 72,
-  footroom: 72,
-  headroom: 96,
-  label: { gap: 18, maxWidth: 440, meta: 17, metaLines: 1, name: 30, role: 18 },
-  tauScale: 40,
-  tScale: 40,
+  axisX: 64,
+  footroom: 104,
+  headroom: 120,
+  label: { gap: 16, meta: 17, metaLines: 1, name: 30, placement: 'beside', role: 18, width: 330 },
+  lanes: { band: 68, first: 140, last: 1104 },
+  tScale: 46,
   width: 1200,
 };
 
 export const NARROW: Variant = {
   axisX: 40,
-  footroom: 64,
-  headroom: 150,
-  label: { gap: 12, maxWidth: 240, meta: 15, metaLines: 2, name: 21, role: 15.5 },
-  tauScale: 6.4,
-  tScale: 50,
+  footroom: 48,
+  headroom: 40,
+  label: { gap: 12, meta: 15, metaLines: 2, name: 21, placement: 'column', role: 15.5, width: 212 },
+  lanes: { band: 14, first: 54, last: 114 },
+  tScale: 52,
   width: 340,
 };
 
 export const LINE_HEIGHT = { meta: 1.35, name: 1.15, role: 1.3 };
 /** Generous average advance of Bricolage Grotesque, so wrapped lines are never underestimated. */
 const CHAR_WIDTH = 0.56;
-
 const linesFor = (text: string, size: number, width: number) =>
   Math.max(1, Math.ceil((text.length * CHAR_WIDTH * size) / width));
 
-export interface LabelBox {
+export interface JobText {
+  role: string;
+  place: string;
+  details: boolean;
+}
+
+export interface Box {
   x: number;
-  top: number;
+  y: number;
   width: number;
   height: number;
-  /** Where the label's leader meets the world-line. */
-  anchor: { x: number; y: number };
 }
+
+export interface Lane<T extends TimelineInput> {
+  employer: number;
+  x: number;
+  /** The jobs held there, oldest first, with their index in the timeline. */
+  jobs: { segment: Segment<T>; index: number; showRole: boolean; showPlace: boolean }[];
+  t0: number;
+  t1: number;
+  label: Box & { align: 'start' | 'end'; anchor: { x: number; y: number } };
+}
+
+/** The lines a lane's label needs, top to bottom, matching what the figure renders. */
+export const labelLines = <T extends TimelineInput>(
+  jobs: Lane<T>['jobs'],
+  texts: readonly JobText[],
+  variant: Variant
+) => {
+  const { label } = variant;
+  let height = label.name * LINE_HEIGHT.name;
+  for (const { index, showRole, showPlace } of jobs) {
+    const text = texts[index];
+    if (showRole) height += linesFor(text?.role ?? '', label.role, label.width) * label.role * LINE_HEIGHT.role;
+    const lines = label.metaLines + (showPlace ? 1 : 0) + (text?.details ? 1 : 0);
+    height += lines * label.meta * LINE_HEIGHT.meta;
+  }
+  return height;
+};
 
 export const layoutExperience = <T extends TimelineInput>(
   timeline: Timeline<T>,
-  /** Per segment: its role, and whether it has details to open (one more line). */
-  texts: readonly { role: string; details: boolean }[],
+  texts: readonly JobText[],
   variant: Variant
 ) => {
-  const { axisX, tauScale, tScale, headroom, footroom, label, width } = variant;
+  const { axisX, tScale, headroom, footroom, label, width } = variant;
   const plotHeight = timeline.span * tScale;
-  const toY = (t: number) => headroom + plotHeight - t * tScale;
-  const toX = (tau: number) => axisX + tau * tauScale;
-  const { segments } = timeline;
+  const plotTop = headroom;
+  const plotBottom = headroom + plotHeight;
+  const toY = (t: number) => plotBottom - t * tScale;
 
-  /** Experience accumulated at time t (flat between jobs). */
-  const tauAt = (t: number) => {
-    let tau = 0;
-    for (const s of segments) {
-      if (t >= s.t1) tau = s.tau1;
-      else if (t > s.t0) return s.tau0 + (t - s.t0);
-    }
-    return tau;
-  };
+  const employers = [...new Set(timeline.segments.map((s) => s.employer))];
+  const step = employers.length > 1 ? (variant.lanes.last - variant.lanes.first) / (employers.length - 1) : 0;
+  const laneX = (employer: number) => variant.lanes.first + employers.indexOf(employer) * step;
+  const half = variant.lanes.band / 2;
 
-  // Wrapped lines are counted at the narrowest a label can get, so heights are never underestimated.
-  const narrowest = Math.min(label.maxWidth, width - toX(timeline.total) - label.gap);
-  const sized = segments.map((segment, i) => {
-    const anchorT = (segment.t0 + segment.t1) / 2;
-    const labelWidth = Math.min(label.maxWidth, width - toX(segment.tau1) - label.gap);
-    const height =
-      label.name * LINE_HEIGHT.name +
-      linesFor(texts[i]?.role ?? '', label.role, narrowest) * label.role * LINE_HEIGHT.role +
-      (label.metaLines + (texts[i]?.details ? 1 : 0)) * label.meta * LINE_HEIGHT.meta;
-    return { anchorT, height, labelWidth, segment };
-  });
-
-  const tops = stackUpwards(
-    sized.map(({ anchorT, height }) => ({ height, top: toY(anchorT) - height / 2 })),
-    label.gap * 0.6
-  );
-
-  const labels: LabelBox[] = sized.map(({ anchorT, height, labelWidth, segment }, i) => {
-    // Clear of the line at the label's highest point, where the line is furthest right.
-    const tTop = (headroom + plotHeight - tops[i]) / tScale;
-    const x = Math.max(toX(segment.tau1), toX(tauAt(Math.min(tTop, timeline.span)))) + label.gap;
+  const lanes: Lane<T>[] = employers.map((employer) => {
+    const jobs = timeline.segments
+      .map((segment, index) => ({ index, segment }))
+      .filter(({ segment }) => segment.employer === employer)
+      .map(({ index, segment }, k, all) => ({
+        index,
+        segment,
+        showPlace: k === 0 || texts[index]?.place !== texts[all[k - 1].index]?.place,
+        showRole: k === 0 || texts[index]?.role !== texts[all[k - 1].index]?.role,
+      }));
+    const t0 = jobs[0].segment.t0;
+    const t1 = jobs[jobs.length - 1].segment.t1;
+    const height = labelLines(jobs, texts, variant);
+    const x = laneX(employer);
+    const first = employers.indexOf(employer) === 0;
+    const bandTop = toY(t1);
+    const bandBottom = toY(t0);
+    // Centred on its own stretch of time when it fits; otherwise it rises from where the lane starts.
+    const y =
+      bandBottom - bandTop >= height ? (bandTop + bandBottom - height) / 2 : bandBottom - height - label.gap / 2;
+    const box =
+      label.placement === 'column'
+        ? { x: variant.lanes.last + half + label.gap, y: bandTop }
+        : first
+          ? { x: x + half + label.gap, y }
+          : { x: x - half - label.gap - label.width, y };
     return {
-      anchor: { x: toX(segment.tau0 + (anchorT - segment.t0)), y: toY(anchorT) },
-      height,
-      top: tops[i],
-      width: Math.min(labelWidth, width - x),
+      employer,
+      jobs,
+      label: {
+        ...box,
+        align: label.placement === 'beside' && !first ? 'end' : 'start',
+        anchor: { x: x + (label.placement === 'column' || first ? half : -half), y: (bandTop + bandBottom) / 2 },
+        height,
+        width: label.placement === 'column' ? width - box.x : label.width,
+      },
+      t0,
+      t1,
       x,
     };
   });
 
-  // Lifted labels may need more room above the plot than planned.
-  const overflow = Math.max(0, -Math.min(0, ...labels.map((l) => l.top)));
+  // In a column, labels go down from the newest and never overlap; each keeps a leader to its lane.
+  if (label.placement === 'column') {
+    let floor = Number.NEGATIVE_INFINITY;
+    for (const lane of [...lanes].reverse()) {
+      lane.label.y = Math.max(lane.label.y, floor);
+      lane.label.anchor.y = Math.min(Math.max(lane.label.y + label.name * 0.6, toY(lane.t1)), toY(lane.t0));
+      floor = lane.label.y + lane.label.height + label.gap;
+    }
+  }
+
+  // A label that rises above the plot (a short last lane) gets room above it.
+  const overflow = Math.max(0, -Math.min(0, ...lanes.map((lane) => lane.label.y)));
+  const bottomOverflow = Math.max(
+    0,
+    ...lanes.map((lane) => lane.label.y + lane.label.height - (plotBottom + footroom / 2))
+  );
   const shift = (y: number) => y + overflow;
+  for (const lane of lanes) {
+    lane.label.y = shift(lane.label.y);
+    lane.label.anchor.y = shift(lane.label.anchor.y);
+  }
+
+  const lineX = (s: Segment<T>) => laneX(s.employer);
+  const segments = timeline.segments;
+  const steps = segments.slice(1).map((s, i) => ({
+    from: { x: lineX(segments[i]), y: shift(toY(segments[i].t1)) },
+    sameLane: s.employer === segments[i].employer,
+    to: { x: lineX(s), y: shift(toY(s.t0)) },
+  }));
+
+  // Wide drawings describe the job in focus in the empty top-left corner: lanes there ended long ago.
+  const panelHeight = 300;
+  const panelX = axisX + 28;
+  const panelTop = shift(plotTop);
+  const blocking = lanes
+    .map((lane) => lane.label)
+    .filter((l) => l.y < panelTop + panelHeight && l.y + l.height > panelTop && l.x + l.width > panelX);
+  const panel: Box | null =
+    label.placement === 'beside'
+      ? {
+          height: panelHeight,
+          width: Math.min(330, Math.min(width, ...blocking.map((l) => l.x)) - label.gap * 2 - panelX),
+          x: panelX,
+          y: panelTop,
+        }
+      : null;
 
   return {
     bands: segments.map((s) => ({
-      points: [
-        [axisX, toY(s.t0)],
-        [toX(s.tau0), toY(s.t0)],
-        [toX(s.tau1), toY(s.t1)],
-        [axisX, toY(s.t1)],
-      ].map(([x, y]) => [x, shift(y)] as const),
       segment: s,
+      ...({
+        height: (s.t1 - s.t0) * tScale,
+        width: variant.lanes.band,
+        x: lineX(s) - half,
+        y: shift(toY(s.t1)),
+      } as Box),
     })),
-    height: shift(headroom + plotHeight + footroom),
-    labels: labels.map((l) => ({ ...l, anchor: { ...l.anchor, y: shift(l.anchor.y) }, top: shift(l.top) })),
-    line: segments.flatMap((s) => [[toX(s.tau0), shift(toY(s.t0))] as const, [toX(s.tau1), shift(toY(s.t1))] as const]),
-    plotBottom: shift(headroom + plotHeight),
-    tauTicks: Array.from({ length: Math.floor((timeline.total + 1) / 5) + 1 }, (_, i) => ({
-      tau: i * 5,
-      x: toX(i * 5),
-    })),
-    toX,
+    height: shift(plotBottom) + footroom + bottomOverflow,
+    lanes,
+    laneX,
+    panel,
+    plotBottom: shift(plotBottom),
+    plotTop: shift(plotTop),
+    steps,
     toY: (t: number) => shift(toY(t)),
     yearTicks: Array.from({ length: Math.floor(timeline.span) + 1 }, (_, i) => ({
       y: shift(toY(i)),
@@ -144,3 +227,6 @@ export const layoutExperience = <T extends TimelineInput>(
     })),
   };
 };
+
+export const intersects = (a: Box, b: Box) =>
+  a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildTimeline, stackUpwards } from './timeline';
+import { buildTimeline, placements } from './timeline';
 
 const job = (id: number, company: string, dateFrom: string, dateTo?: string) => ({
   company,
@@ -25,13 +25,10 @@ describe('buildTimeline', () => {
     expect(timeline.span).toBeCloseTo(15.86, 2);
   });
 
-  it('accumulates experience only while employed, so the line never falls', () => {
+  it('orders jobs in time and counts only the time worked', () => {
     const { segments } = timeline;
     expect(segments.map((s) => s.item.id)).toEqual([1, 2, 3, 4, 5]);
-    for (let i = 1; i < segments.length; i++) {
-      expect(segments[i].tau0).toBeCloseTo(segments[i - 1].tau1, 10);
-      expect(segments[i].t0).toBeGreaterThan(segments[i - 1].t1);
-    }
+    for (let i = 1; i < segments.length; i++) expect(segments[i].t0).toBeGreaterThan(segments[i - 1].t1);
     expect(timeline.total).toBeCloseTo(
       segments.reduce((sum, s) => sum + (s.t1 - s.t0), 0),
       10
@@ -51,29 +48,20 @@ describe('buildTimeline', () => {
   });
 });
 
-describe('stackUpwards', () => {
-  it('keeps labels that do not overlap where they asked to be', () => {
-    expect(
-      stackUpwards(
-        [
-          { height: 10, top: 100 },
-          { height: 10, top: 50 },
-        ],
-        4
-      )
-    ).toEqual([100, 50]);
-  });
+describe('placements', () => {
+  const withRoles = [
+    {
+      company: 'Teoresi S.p.A.',
+      id: 2,
+      period: { dateFrom: '2015-01-07', dateTo: '2019-08-31' },
+      position: 'Developer (Consultant for Deltatre)',
+    },
+    { company: 'Deltatre Spa', id: 3, period: { dateFrom: '2019-09-01', dateTo: '2024-12-31' }, position: 'Tech Lead' },
+    { company: 'Prima', id: 5, period: { dateFrom: '2026-05-01' }, position: 'Software Engineer' },
+  ];
 
-  it('lifts a label that would overlap the one below it, and those above it in turn', () => {
-    expect(
-      stackUpwards(
-        [
-          { height: 20, top: 100 },
-          { height: 20, top: 95 },
-          { height: 20, top: 90 },
-        ],
-        5
-      )
-    ).toEqual([100, 75, 50]);
+  it('finds a job whose role names another employer, and no others', () => {
+    const timeline = buildTimeline(withRoles, new Date('2026-11-11T00:00:00Z'));
+    expect(placements(timeline)).toEqual([{ company: 'Deltatre Spa', employer: 1, index: 0 }]);
   });
 });

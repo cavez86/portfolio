@@ -28,15 +28,16 @@
     "try_again": "Riprova"
   },
   "Experience": {
-    "caption": "Anni di esperienza τ accumulati nel tempo t, da gennaio {start} a {today}. La linea sale di un anno per ogni anno di lavoro e resta piatta tra un incarico e l'altro.",
+    "caption": "Un diagramma spazio-tempo della carriera. Il tempo t sale lungo la pagina, da gennaio {start} a {today}; ogni datore di lavoro è una corsia, in ordine di arrivo. La carriera è una sola linea d'universo, che passa a una nuova corsia a ogni cambio di datore di lavoro.",
     "close": "Chiudi",
     "details": "{count, plural, one {Leggi # risultato} other {Leggi # risultati}}",
+    "lane_unit": "datore di lavoro, in ordine di arrivo",
     "months": "{count, plural, one {# mese} other {# mesi}}",
-    "note": "Dal {start}, τ = {total} anni",
+    "note": "Dal {start}, {total} anni di lavoro",
+    "on_site": "presso {company}",
     "present": "oggi",
-    "summary": "di esperienza a {today}",
+    "summary": "di lavoro a {today}, con {lanes} datori di lavoro",
     "t_unit": "anno",
-    "tau_unit": "anni di esperienza",
     "title": "Esperienze",
     "years": "{count, plural, one {# anno} other {# anni}}"
   },

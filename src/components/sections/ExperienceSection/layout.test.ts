@@ -1,55 +1,85 @@
 import { describe, expect, it } from 'vitest';
 
-import { layoutExperience, NARROW, WIDE } from './layout';
+import { intersects, layoutExperience, NARROW, WIDE } from './layout';
 import { buildTimeline } from './timeline';
 
-const job = (id: number, company: string, position: string, dateFrom: string, dateTo?: string) => ({
+const job = (id: number, company: string, position: string, location: string, dateFrom: string, dateTo?: string) => ({
   company,
   id,
+  location,
   period: { dateFrom, dateTo },
   position,
 });
 
 const jobs = [
-  job(1, 'Blue Sof Consulting', 'Software Developer Apprentice', '2011-11-15', '2014-12-31'),
-  job(2, 'Teoresi S.p.A.', 'Full Stack Web Developer (Consultant for Deltatre)', '2015-01-07', '2019-08-31'),
-  job(3, 'Deltatre Spa', 'Tech Lead / Full Stack Web Developer', '2019-09-01', '2024-12-31'),
-  job(4, 'Deltatre Spa', 'Tech Lead / Full Stack Web Developer', '2025-01-01', '2026-04-30'),
-  job(5, 'Prima', 'Software Engineer', '2026-05-01'),
+  job(1, 'Blue Sof Consulting', 'Software Developer Apprentice', 'Turin, Italy', '2011-11-15', '2014-12-31'),
+  job(
+    2,
+    'Teoresi S.p.A.',
+    'Full Stack Web Developer (Consultant for Deltatre)',
+    'Turin, Italy',
+    '2015-01-07',
+    '2019-08-31'
+  ),
+  job(3, 'Deltatre Spa', 'Tech Lead / Full Stack Web Developer', 'Turin, Italy', '2019-09-01', '2024-12-31'),
+  job(4, 'Deltatre Spa', 'Tech Lead / Full Stack Web Developer', 'Turin, Italy', '2025-01-01', '2026-04-30'),
+  job(5, 'Prima', 'Software Engineer', 'Milan, Italy', '2026-05-01'),
 ];
 
 describe.each([
   ['wide', WIDE],
   ['narrow', NARROW],
-])('layoutExperience (%s)', (_, variant) => {
+])('layoutExperience (%s)', (name, variant) => {
   const timeline = buildTimeline(jobs, new Date('2026-11-11T00:00:00Z'));
   const layout = layoutExperience(
     timeline,
-    timeline.segments.map((s) => ({ details: s.item.id !== 5, role: s.item.position })),
+    timeline.segments.map((s) => ({ details: s.item.id !== 5, place: s.item.location, role: s.item.position })),
     variant
   );
+  const labels = layout.lanes.map((lane) => lane.label);
+
+  it('gives each employer one lane, the returning employer included', () => {
+    expect(layout.lanes.map((lane) => lane.jobs.map((j) => j.segment.item.id))).toEqual([[1], [2], [3, 4], [5]]);
+    expect(layout.lanes[2].jobs.map((j) => j.showRole)).toEqual([true, false]);
+  });
 
   it('never lets two labels overlap', () => {
-    const sorted = [...layout.labels].sort((a, b) => a.top - b.top);
-    for (let i = 1; i < sorted.length; i++) {
-      expect(sorted[i].top).toBeGreaterThanOrEqual(sorted[i - 1].top + sorted[i - 1].height);
-    }
+    for (let i = 0; i < labels.length; i++)
+      for (let j = i + 1; j < labels.length; j++) expect(intersects(labels[i], labels[j])).toBe(false);
   });
 
-  it('keeps every label on the empty side of the world-line, inside the drawing', () => {
-    for (const label of layout.labels) {
-      expect(label.top).toBeGreaterThanOrEqual(0);
-      expect(label.x + label.width).toBeLessThanOrEqual(variant.width);
-      for (const [x, y] of layout.line) {
-        if (y >= label.top && y <= label.top + label.height) expect(x).toBeLessThan(label.x);
+  it('keeps every label off the world-line: lanes in use and the steps between them', () => {
+    for (const label of labels) {
+      for (const band of layout.bands) expect(intersects(label, band)).toBe(false);
+      for (const step of layout.steps) {
+        const box = {
+          height: Math.abs(step.to.y - step.from.y) + 4,
+          width: Math.abs(step.to.x - step.from.x),
+          x: Math.min(step.from.x, step.to.x),
+          y: Math.min(step.from.y, step.to.y) - 2,
+        };
+        expect(intersects(label, box)).toBe(false);
       }
+      expect(label.x).toBeGreaterThanOrEqual(variant.axisX);
+      expect(label.x + label.width).toBeLessThanOrEqual(variant.width);
+      expect(label.y).toBeGreaterThanOrEqual(0);
     }
   });
 
-  it('draws the world-line upwards and to the right only', () => {
-    for (let i = 1; i < layout.line.length; i++) {
-      expect(layout.line[i][0]).toBeGreaterThanOrEqual(layout.line[i - 1][0]);
-      expect(layout.line[i][1]).toBeLessThanOrEqual(layout.line[i - 1][1]);
+  it.runIf(name === 'wide')('keeps the annotation corner clear of labels and of the world-line', () => {
+    const { panel } = layout;
+    expect(panel?.width).toBeGreaterThan(260);
+    if (!panel) return;
+    for (const label of labels) expect(intersects(panel, label)).toBe(false);
+    for (const band of layout.bands) expect(intersects(panel, band)).toBe(false);
+  });
+
+  it.runIf(name === 'wide')('sets each label beside its own lane, within the time that lane covers', () => {
+    for (const lane of layout.lanes) {
+      const nearEdge = Math.min(Math.abs(lane.label.x - lane.x), Math.abs(lane.label.x + lane.label.width - lane.x));
+      expect(nearEdge).toBeLessThanOrEqual(variant.lanes.band / 2 + variant.label.gap + 1);
+      expect(lane.label.y + lane.label.height).toBeGreaterThan(layout.toY(lane.t1));
+      expect(lane.label.y).toBeLessThan(layout.toY(lane.t0));
     }
   });
 });
