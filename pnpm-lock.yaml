@@ -18,7 +18,10 @@ overrides:
   source-map-js: ^1.2.2
   undici: ^7.29.0
 
+packageExtensionsChecksum: sha256-yS0z+QLVu5GDeTkYliUiHLPrNQaaEM721mWmr2zrEhU=
+
 patchedDependencies:
+  '@payloadcms/plugin-mcp@3.92.1': c5d68d91c22e474db048898f98ce41cb895b083227183c9a1e0c0ab6cd752e7a
   braces@3.0.3: 815b57e8490c461a4405ac0f0de669687c4c7c99ee32ed55f3254abfdc50f71a
 
 importers:
@@ -54,7 +57,7 @@ importers:
         version: 3.92.1(@types/react@19.3.0)(graphql@17.0.2)(monaco-editor@0.55.1)(next@16.4.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sass@1.77.4))(payload@3.92.1(graphql@17.0.2)(typescript@7.0.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
       '@payloadcms/plugin-mcp':
         specifier: 3.92.1
-        version: 3.92.1(next@16.4.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sass@1.77.4))(payload@3.92.1(graphql@17.0.2)(typescript@7.0.2))
+        version: 3.92.1(patch_hash=c5d68d91c22e474db048898f98ce41cb895b083227183c9a1e0c0ab6cd752e7a)(next@16.4.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sass@1.77.4))(payload@3.92.1(graphql@17.0.2)(typescript@7.0.2))
       '@payloadcms/richtext-lexical':
         specifier: 3.92.1
         version: 3.92.1(@faceless-ui/modal@3.0.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@faceless-ui/scroll-info@2.0.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@payloadcms/next@3.92.1(@types/react@19.3.0)(graphql@17.0.2)(monaco-editor@0.55.1)(next@16.4.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sass@1.77.4))(payload@3.92.1(graphql@17.0.2)(typescript@7.0.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2))(@types/react@19.3.0)(monaco-editor@0.55.1)(next@16.4.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sass@1.77.4))(payload@3.92.1(graphql@17.0.2)(typescript@7.0.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)(yjs@13.6.31)
@@ -4675,6 +4678,11 @@ packages:
     resolution: {integrity: sha512-faYHw0anBbc/kWF3zFTEnxSFOAGUX9GFbOBthvDdLsIlEoWOFOtS0zgCiQYwIskL9iGXZL3kAXD8OoZ4GmMATA==}
     engines: {node: '>= 18'}
 
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   typescript@7.0.2:
     resolution: {integrity: sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==}
     engines: {node: '>=16.20.0'}
@@ -6257,13 +6265,14 @@ snapshots:
       - supports-color
       - typescript
 
-  '@payloadcms/plugin-mcp@3.92.1(next@16.4.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sass@1.77.4))(payload@3.92.1(graphql@17.0.2)(typescript@7.0.2))':
+  '@payloadcms/plugin-mcp@3.92.1(patch_hash=c5d68d91c22e474db048898f98ce41cb895b083227183c9a1e0c0ab6cd752e7a)(next@16.4.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sass@1.77.4))(payload@3.92.1(graphql@17.0.2)(typescript@7.0.2))':
     dependencies:
       '@modelcontextprotocol/sdk': 1.32.1(zod@3.25.76)
       '@types/json-schema': 7.0.15
       json-schema-to-zod: 2.6.1
       mcp-handler: 1.1.0(@modelcontextprotocol/sdk@1.32.1(zod@3.25.76))(next@16.4.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(sass@1.77.4))
       payload: 3.92.1(graphql@17.0.2)(typescript@7.0.2)
+      typescript: 6.0.3
       zod: 3.25.76
     transitivePeerDependencies:
       - '@cfworker/json-schema'
@@ -9470,6 +9479,8 @@ snapshots:
       content-type: 2.1.0
       media-typer: 1.1.1
       mime-types: 3.0.2
+
+  typescript@6.0.3: {}
 
   typescript@7.0.2:
     optionalDependencies:
