@@ -28,13 +28,16 @@
     "try_again": "Try again"
   },
   "Experience": {
-    "caption": "Position held against time, from January {start} to {today}. Each segment is one job, and the one still being drawn is the current one. Select a segment to read what was done there.",
+    "caption": "Years of experience τ accumulated against calendar time t, from January {start} to {today}. The line rises one year for every year of work and stays flat between jobs.",
     "close": "Close",
+    "details": "{count, plural, one {Read # achievement} other {Read # achievements}}",
     "months": "{count} mo",
+    "note": "Since {start}, τ = {total} yr",
     "present": "today",
-    "t_axis": "t / year",
+    "summary": "of experience by {today}",
+    "t_unit": "year",
+    "tau_unit": "years of experience",
     "title": "Experience",
-    "y_axis": "position",
     "years": "{count} yr"
   },
   "Footer": {
@@ -60,9 +63,9 @@
     "caption": "The name as a Newton's cradle: {count} letters of equal mass on strings of",
     "contact_me": "Contact me",
     "given": "Given",
-    "hint": "Push the letters with the pointer, or drag one and let go.",
+    "hint": "Or drag any letter.",
     "release": "Release {letter} from {angle}°",
-    "scale": "One square of the page is 5 cm."
+    "scale": "1 square = 5 cm"
   },
   "Languages": {
     "caption": "Two waves with amplitude A in proportion to proficiency, where native is 1. Point at a wave to set it moving.",

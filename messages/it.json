@@ -28,13 +28,16 @@
     "try_again": "Riprova"
   },
   "Experience": {
-    "caption": "Posizione ricoperta nel tempo, da gennaio {start} a {today}. Ogni segmento è un incarico, e quello che la penna sta ancora tracciando è l'attuale. Seleziona un segmento per leggere cosa ho fatto.",
+    "caption": "Anni di esperienza τ accumulati nel tempo t, da gennaio {start} a {today}. La linea sale di un anno per ogni anno di lavoro e resta piatta tra un incarico e l'altro.",
     "close": "Chiudi",
+    "details": "{count, plural, one {Leggi # risultato} other {Leggi # risultati}}",
     "months": "{count, plural, one {# mese} other {# mesi}}",
+    "note": "Dal {start}, τ = {total} anni",
     "present": "oggi",
-    "t_axis": "t / anno",
+    "summary": "di esperienza a {today}",
+    "t_unit": "anno",
+    "tau_unit": "anni di esperienza",
     "title": "Esperienze",
-    "y_axis": "posizione",
     "years": "{count, plural, one {# anno} other {# anni}}"
   },
   "Footer": {
@@ -60,9 +63,9 @@
     "caption": "Il nome come pendolo di Newton: {count} lettere di uguale massa appese a fili di",
     "contact_me": "Contattami",
     "given": "Dati",
-    "hint": "Spingi le lettere con il puntatore, oppure trascinane una e lasciala andare.",
+    "hint": "Oppure trascina una lettera.",
     "release": "Rilascia la {letter} da {angle}°",
-    "scale": "Un quadretto del foglio vale 5 cm."
+    "scale": "1 quadretto = 5 cm"
   },
   "Languages": {
     "caption": "Due onde con ampiezza A proporzionale alla padronanza, dove madrelingua vale 1. Punta un'onda per metterla in moto.",

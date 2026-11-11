@@ -1,44 +1,79 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildTimeline } from './timeline';
+import { buildTimeline, stackUpwards } from './timeline';
 
-const job = (id: number, position: string, dateFrom: string, dateTo?: string) => ({
+const job = (id: number, company: string, dateFrom: string, dateTo?: string) => ({
+  company,
   id,
   period: { dateFrom, dateTo },
-  position,
 });
 
 const jobs = [
-  job(4, 'Lead', '2025-01-01', undefined),
-  job(1, 'Apprentice', '2011-11-15', '2014-12-31'),
-  job(3, 'Lead', '2019-09-01', '2024-12-31'),
-  job(2, 'Developer', '2015-01-07', '2019-08-31'),
+  job(5, 'Prima', '2026-05-01', undefined),
+  job(1, 'Blue Sof', '2011-11-15', '2014-12-31'),
+  job(4, 'Deltatre', '2025-01-01', '2026-04-30'),
+  job(3, 'Deltatre', '2019-09-01', '2024-12-31'),
+  job(2, 'Teoresi', '2015-01-07', '2019-08-31'),
 ];
 
 describe('buildTimeline', () => {
   const now = new Date('2026-11-11T00:00:00Z');
   const timeline = buildTimeline(jobs, now);
 
-  it('runs the axis from January of the first year to today, one tick per year', () => {
-    expect(timeline.ticks[0]).toEqual({ at: 0, year: 2011 });
-    expect(timeline.ticks.at(-1)?.year).toBe(2026);
-    expect(timeline.ticks).toHaveLength(16);
+  it('starts the time axis in January of the first job and ends it today', () => {
+    expect(timeline.firstYear).toBe(2011);
+    expect(timeline.span).toBeCloseTo(15.86, 2);
   });
 
-  it('extends the current job to today and lists jobs newest first', () => {
-    expect(timeline.segments.map((s) => s.item.id)).toEqual([4, 3, 2, 1]);
-    expect(timeline.segments[0]).toMatchObject({ current: true, months: 22, to: 1 });
-    expect(timeline.segments[1].current).toBe(false);
+  it('accumulates experience only while employed, so the line never falls', () => {
+    const { segments } = timeline;
+    expect(segments.map((s) => s.item.id)).toEqual([1, 2, 3, 4, 5]);
+    for (let i = 1; i < segments.length; i++) {
+      expect(segments[i].tau0).toBeCloseTo(segments[i - 1].tau1, 10);
+      expect(segments[i].t0).toBeGreaterThan(segments[i - 1].t1);
+    }
+    expect(timeline.total).toBeCloseTo(
+      segments.reduce((sum, s) => sum + (s.t1 - s.t0), 0),
+      10
+    );
+    expect(timeline.total).toBeLessThan(timeline.span);
   });
 
-  it('puts repeated positions on one level, ordered by when they were first held', () => {
-    expect(timeline.positions).toEqual(['Apprentice', 'Developer', 'Lead']);
-    expect(timeline.segments.map((s) => s.level)).toEqual([2, 2, 1, 0]);
+  it('runs the current job to today and gives a returning employer the same pencil', () => {
+    const last = timeline.segments.at(-1);
+    expect(last).toMatchObject({ current: true, months: 6 });
+    expect(last?.t1).toBeCloseTo(timeline.span, 10);
+    expect(timeline.segments.map((s) => s.employer)).toEqual([0, 1, 2, 2, 3]);
   });
 
   it('moves the end of the axis with the date', () => {
-    const later = buildTimeline(jobs, new Date('2030-06-01T00:00:00Z'));
-    expect(later.ticks.at(-1)?.year).toBe(2030);
-    expect(later.segments[1].to).toBeLessThan(timeline.segments[1].to);
+    expect(buildTimeline(jobs, new Date('2030-06-01T00:00:00Z')).span).toBeGreaterThan(timeline.span);
+  });
+});
+
+describe('stackUpwards', () => {
+  it('keeps labels that do not overlap where they asked to be', () => {
+    expect(
+      stackUpwards(
+        [
+          { height: 10, top: 100 },
+          { height: 10, top: 50 },
+        ],
+        4
+      )
+    ).toEqual([100, 50]);
+  });
+
+  it('lifts a label that would overlap the one below it, and those above it in turn', () => {
+    expect(
+      stackUpwards(
+        [
+          { height: 20, top: 100 },
+          { height: 20, top: 95 },
+          { height: 20, top: 90 },
+        ],
+        5
+      )
+    ).toEqual([100, 75, 50]);
   });
 });

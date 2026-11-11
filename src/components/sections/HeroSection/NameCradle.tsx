@@ -5,10 +5,12 @@ import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from 
 
 import { type Controller, formatDegrees, mountCradle, RELEASE_DEG, RELEASE_THETA } from './mountCradle';
 
-/** Where the string meets the glyph: capitals and ascenders at the top, dotted letters at the dot, the rest at x-height. */
+/** Where the ring sits on the glyph: on the dot, an ascender, a t, the x-height, or (by default) a capital. */
 const attachment = (letter: string) => {
   if (/[ij]/.test(letter)) return 'dot';
-  if (/[a-z]/.test(letter) && !/[bdfhklt]/.test(letter)) return 'x';
+  if (letter === 't') return 't';
+  if (/[bdfhkl]/.test(letter)) return 'ascender';
+  if (/[a-z]/.test(letter)) return 'x';
   return 'cap';
 };
 
@@ -24,7 +26,7 @@ const splitName = (name: string) => {
     });
 };
 
-/** The name as a live Newton's cradle; `children` sit between the letters and the caption. */
+/** The name as a live Newton's cradle; `children` (the title block) sit beside the first row on wide pages. */
 export function NameCradle({ name, children }: { name: string; children?: ReactNode }) {
   const t = useTranslations('Hero');
   const common = useTranslations('Common');
@@ -55,7 +57,7 @@ export function NameCradle({ name, children }: { name: string; children?: ReactN
   }, []);
 
   return (
-    <figure className="m-0">
+    <figure className="cradle-frame m-0">
       <div className="relative">
         <h1
           aria-label={name}
@@ -68,7 +70,7 @@ export function NameCradle({ name, children }: { name: string; children?: ReactN
           ref={headingRef}
         >
           {words.map((word) => (
-            <span className="cradle-word" data-start={word.start} key={word.start}>
+            <span className="cradle-word" key={word.start}>
               {word.letters.map(({ char, index }) => (
                 <span
                   className="cradle-bob"
@@ -88,39 +90,38 @@ export function NameCradle({ name, children }: { name: string; children?: ReactN
           ref={overlayRef}
         >
           <g fill="none" strokeLinecap="round" strokeLinejoin="round">
-            <path data-part="flashes" fill="var(--color-red-pencil)" fillOpacity="0.45" stroke="none" />
-            <line data-part="vertical" stroke="var(--color-pencil)" strokeDasharray="5 6" strokeWidth="1.75" />
-            <path data-part="arc" stroke="var(--color-pencil)" strokeWidth="1.75" />
-            <path data-part="tension" stroke="var(--color-ink)" strokeWidth="2.5" />
-            <path data-part="weight" stroke="var(--color-graphite)" strokeWidth="2.5" />
-            <path data-part="velocity" stroke="var(--color-green-ink)" strokeWidth="2.5" />
-            <path data-part="force" stroke="var(--color-red-pencil)" strokeWidth="3" />
+            <path data-part="wedge" fill="var(--color-highlighter)" fillOpacity="0.8" stroke="none" />
+            <path data-part="flashes" fill="var(--color-green-ink)" fillOpacity="0.6" stroke="none" />
+            <line data-part="vertical" stroke="var(--color-pencil)" strokeDasharray="6 7" strokeWidth="2" />
+            <path data-part="arc" stroke="var(--color-graphite)" strokeWidth="2" />
+            <path data-part="tension" stroke="var(--color-red-pencil)" strokeWidth="4" />
+            <path data-part="weight" stroke="var(--color-red-pencil)" strokeWidth="4" />
+            <path data-part="force" stroke="var(--color-green-ink)" strokeWidth="4" />
           </g>
           <g className="math">
-            <text data-part="theta" fill="var(--color-pencil)">
+            <text data-part="theta" fill="var(--color-graphite)">
               θ
             </text>
-            <text data-part="tension-label" fill="var(--color-ink)">
+            <text data-part="tension-label" fill="var(--color-red-pencil)">
               T
             </text>
-            <text data-part="weight-label" fill="var(--color-graphite)">
+            <text data-part="weight-label" fill="var(--color-red-pencil)">
               mg
             </text>
-            <text data-part="velocity-label" fill="var(--color-green-ink)">
-              v
-            </text>
-            <text data-part="force-label" fill="var(--color-red-pencil)">
+            <text data-part="force-label" fill="var(--color-green-ink)">
               F
             </text>
           </g>
         </svg>
+        <div className="cradle-title">{children}</div>
       </div>
 
-      {children}
-
-      <figcaption className="mt-5 flex max-w-[64ch] flex-col gap-3 text-caption text-pencil md:mt-7">
-        <span>
-          <span className="math text-red-pencil">{common('figure', { number: 1 })}</span>{' '}
+      <figcaption className="mt-8 md:mt-10">
+        <p className="margin-note mb-1 md:mb-0">
+          {common('figure', { number: 1 })}
+          <span className="margin-fact">{t('scale')}</span>
+        </p>
+        <p className="max-w-[72ch] text-caption text-pencil">
           {t('caption', { count: letters.length })}{' '}
           <span className="whitespace-nowrap">
             <i className="math">L</i> ={' '}
@@ -135,22 +136,22 @@ export function NameCradle({ name, children }: { name: string; children?: ReactN
             <span className="inline-block min-w-[3ch] tabular-nums">{measured ? measured.period.toFixed(2) : '–'}</span>{' '}
             s
           </span>
-          . {t('scale')}
-        </span>
-        <span className="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <span aria-hidden="true" className="text-[1.05rem] text-graphite tabular-nums">
+          .
+        </p>
+        <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-caption text-pencil">
+          <span aria-hidden="true" className="min-w-[6.5rem] text-[1.05rem] text-graphite tabular-nums">
             <i className="math">θ</i>
             <sub ref={subscriptRef}>{firstLetter}</sub> = <span ref={readoutRef}>{formatDegrees(RELEASE_THETA)}</span>°
           </span>
           <button
-            className="cursor-pointer rounded-sm border-2 border-ink px-3 py-1 font-sans text-[0.95rem] font-semibold text-ink transition-colors hover:bg-highlighter motion-reduce:hidden"
+            className="cursor-pointer rounded-sm border-2 border-red-pencil px-3 py-1 font-sans text-[0.95rem] font-semibold text-red-pencil transition-colors hover:bg-highlighter motion-reduce:hidden"
             onClick={() => controller.current?.release()}
             type="button"
           >
             {t('release', { angle: RELEASE_DEG, letter: firstLetter })}
           </button>
           <span className="motion-reduce:hidden">{t('hint')}</span>
-        </span>
+        </div>
       </figcaption>
     </figure>
   );

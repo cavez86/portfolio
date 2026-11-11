@@ -74,7 +74,7 @@
 :root {
   /* One square of the quaderno. */
   --grid: 20px;
-  --page: 1240px;
+  --page: 1600px;
   /* Distance of the red margin line from the left edge of the page. */
   --rule: 18px;
 }
@@ -82,6 +82,12 @@
 @media (min-width: 768px) {
   :root {
     --rule: 116px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --rule: 148px;
   }
 }
 
@@ -102,6 +108,10 @@
     padding-left: calc(var(--rule) + 32px);
     padding-right: 40px;
   }
+
+  @media (min-width: 1280px) {
+    padding-right: 48px;
+  }
 }
 
 /* Quiet notes that live in the margin on wide screens and above the content on phones. */
@@ -115,8 +125,26 @@
   @media (min-width: 768px) {
     position: absolute;
     left: 0;
-    width: calc(var(--rule) - 14px);
+    width: calc(var(--rule) - 18px);
     text-align: right;
+  }
+}
+
+/* The fact under a figure number: span, totals, scale. */
+@utility margin-fact {
+  display: inline;
+  margin-left: 0.5em;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--color-pencil);
+
+  @media (min-width: 768px) {
+    display: block;
+    margin-top: 0.4rem;
+    margin-left: 0;
+    text-wrap: balance;
   }
 }
 
@@ -210,29 +238,37 @@
 @layer components {
   /* ——— Fig. 1: the name as a Newton's cradle ——— */
 
+  /* Sized so that the second row (the longest) fills the column: 7.45 em wide on two rows, 4.85 em on three. */
+  .cradle-frame {
+    --cradle-size: clamp(3.4rem, calc((100vw - 56px) / 4.85), 6rem);
+
+    @media (min-width: 768px) {
+      --cradle-size: min(11.5rem, calc((min(100vw, var(--page)) - var(--rule) - 88px) / 7.45));
+    }
+  }
+
   .cradle {
-    /* String length from the beam to the top of a capital, as a multiple of the letter size. */
-    --string: 0.5em;
-    --beam: 3px;
+    /* From the beam down to the top of the letter's box. */
+    --string: 0.46em;
+    --beam: 0.03em;
+    --ring: 0.08em;
     display: flex;
     flex-wrap: wrap;
     column-gap: 0.32em;
-    row-gap: 0.12em;
+    row-gap: 0.55em;
     margin: 0;
-    font-size: clamp(3.4rem, 17.5vw, 5.4rem);
+    padding-top: 0.16em;
+    font-size: var(--cradle-size);
     font-weight: 750;
     font-variation-settings: "opsz" 96;
-    line-height: 0.86;
+    /* With Bricolage's 0.93/0.27 em ascent and descent, the baseline sits 0.73 em down the box. */
+    line-height: 0.8;
     letter-spacing: 0;
     color: var(--color-ink);
     touch-action: pan-y;
     user-select: none;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
-
-    @media (min-width: 768px) {
-      font-size: clamp(4.6rem, 8.6vw, 8.4rem);
-    }
   }
 
   .cradle-word {
@@ -241,14 +277,14 @@
     padding-top: var(--string);
   }
 
-  /* The beam every letter of the word hangs from. */
+  /* The beam every letter of the word hangs from, hatched on the side it is fixed to. */
   .cradle-word::before {
     content: "";
     position: absolute;
     top: 0;
     left: -0.08em;
     right: -0.08em;
-    height: var(--beam);
+    height: max(4px, var(--beam));
     background: var(--color-ink);
   }
 
@@ -259,12 +295,12 @@
     left: -0.08em;
     right: -0.08em;
     height: 0.16em;
-    background-image: repeating-linear-gradient(-45deg, var(--color-ink) 0 1.5px, transparent 1.5px 0.09em);
+    background-image: repeating-linear-gradient(-45deg, var(--color-ink) 0 2px, transparent 2px 0.09em);
   }
 
   .cradle-bob {
-    /* Distance from the top of this letter's box down to where the glyph begins (x-height letters). */
-    --attach: 0em;
+    /* Where the ring rests below the top of the letter's box (glyph top + 0.01 em): capitals by default. */
+    --attach: 0.068em;
     --theta: 0rad;
     position: relative;
     display: inline-block;
@@ -274,212 +310,126 @@
     transform: rotate(calc(-1 * var(--theta)));
   }
 
-  .cradle-bob[data-top="x"] {
-    --attach: 0.24em;
+  .cradle-bob[data-top="ascender"] {
+    --attach: 0.037em;
+  }
+
+  .cradle-bob[data-top="t"] {
+    --attach: 0.084em;
   }
 
   .cradle-bob[data-top="dot"] {
-    --attach: 0.06em;
+    --attach: 0.021em;
+  }
+
+  .cradle-bob[data-top="x"] {
+    --attach: 0.195em;
   }
 
   .cradle-bob:active {
     cursor: grabbing;
   }
 
-  /* The string, from the glyph's top to the beam. It rotates with its letter. */
+  /* The string, from the beam to the ring. It rotates with its letter. */
   .cradle-bob::before {
     content: "";
     position: absolute;
-    left: calc(50% - 1px);
+    left: 50%;
     top: calc(-1 * var(--string));
-    width: 2px;
-    height: calc(var(--string) + var(--attach) + 0.06em);
+    width: max(2.5px, 0.016em);
+    height: calc(var(--string) + var(--attach) - var(--ring));
+    translate: -50% 0;
     background: var(--color-graphite);
   }
 
-  /* ——— Fig. 2: position–time plot ——— */
-
-  .plot-frame {
-    --row: 6.5rem;
-  }
-
-  .plot {
-    position: relative;
-    height: calc(var(--levels) * var(--row));
-  }
-
-  .plot-segment {
-    position: absolute;
-    left: calc(var(--from) * 100%);
-    width: calc((var(--to) - var(--from)) * 100%);
-    bottom: calc(var(--level) * var(--row));
-    height: var(--row);
-    border-radius: 2px;
-  }
-
-  /* The world-line of one position. */
-  .plot-line {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(50% - 2px);
-    height: 4px;
-    background: var(--color-ink);
-    border-radius: 2px;
-    transform-origin: left center;
-  }
-
-  .plot-segment:hover .plot-line,
-  .plot-segment:focus-visible .plot-line {
-    box-shadow: 0 0 0 5px var(--color-highlighter);
-  }
-
-  /* The current position is still being drawn: the line keeps reaching for today. */
-  .plot-segment[data-current] .plot-line {
-    animation: pen-draw 2.6s ease-in-out infinite alternate;
-  }
-
-  .plot-nib {
-    position: absolute;
-    right: -3px;
-    top: -5px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 3px solid var(--color-red-pencil);
-    background: var(--color-paper);
-  }
-
-  /* Labels hang under the line, so the dashed steps between positions never cross them. */
-  .plot-label {
-    position: absolute;
-    left: 0.6rem;
-    top: calc(50% + 0.7rem);
-    white-space: nowrap;
-  }
-
-  /* Δt drawn as a dimension line under the segment on hover. */
-  .plot-dimension {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: calc(50% + 0.75rem);
-    height: 10px;
-    border-inline: 2px solid var(--color-red-pencil);
-    opacity: 0;
-    transition: opacity 150ms;
-  }
-
-  .plot-dimension::before {
+  /* The ring the string is tied to, resting on the glyph. */
+  .cradle-bob::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 4px;
-    height: 2px;
-    background: var(--color-red-pencil);
+    left: 50%;
+    top: calc(var(--attach) - var(--ring));
+    width: var(--ring);
+    height: var(--ring);
+    translate: -50% 0;
+    border: max(2px, 0.018em) solid var(--color-graphite);
+    border-radius: 50%;
   }
 
-  .plot-segment:hover .plot-dimension,
-  .plot-segment:focus-visible .plot-dimension {
-    opacity: 1;
+  /* On wide pages the title sits beside the first row, clear of the last letter's widest swing. */
+  .cradle-title {
+    margin-top: 1.5rem;
+
+    @media (min-width: 1280px) {
+      position: absolute;
+      top: calc(var(--cradle-size) * 0.45);
+      right: 0;
+      width: calc(100% - var(--cradle-size) * 5.75);
+      margin-top: 0;
+    }
   }
 
-  .plot-step {
+  /* ——— Fig. 2: experience accumulated against time ——— */
+
+  .xp-diagram {
+    position: relative;
+    width: 100%;
+    container-type: inline-size;
+  }
+
+  .xp-label {
     position: absolute;
-    left: calc(var(--at) * 100%);
-    bottom: calc(var(--low) * var(--row) + var(--row) / 2);
-    height: calc((var(--high) - var(--low)) * var(--row));
-    border-left: 2px dashed var(--color-pencil);
+    display: block;
+    border-radius: 2px;
   }
 
-  .plot-tick {
+  .xp-panel {
     position: absolute;
-    left: calc(var(--at) * 100%);
+    padding-left: 1.1cqw;
+    border-left: 3px solid var(--color-red-pencil);
+    line-height: 1.3;
   }
 
-  @keyframes pen-draw {
+  .xp-note {
+    padding-left: 1em;
+    text-indent: -1em;
+  }
+
+  .xp-note::before {
+    content: "– ";
+    color: var(--color-red-pencil);
+  }
+
+  /* Today: the ring breathes and the pencil keeps moving along the line. */
+  @keyframes xp-ring {
     from {
-      transform: scaleX(0.93);
+      opacity: 0.9;
+      transform: scale(0.7);
     }
     to {
-      transform: scaleX(1);
+      opacity: 0;
+      transform: scale(1.8);
     }
   }
 
-  @keyframes pen-draw-y {
+  @keyframes xp-drawing {
     from {
-      transform: scaleY(0.88);
+      stroke-dashoffset: 1;
     }
+    70%,
     to {
-      transform: scaleY(1);
+      stroke-dashoffset: 0;
     }
   }
 
-  @media (max-width: 767.98px) {
-    /* On phones the plot turns into a spacetime diagram: time runs up the page, today at the top. */
-    .plot-frame {
-      --col: 1.5rem;
-      --year: 3.2rem;
-    }
+  .xp-pen-ring {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: xp-ring 1.8s ease-out infinite;
+  }
 
-    .plot {
-      height: calc(var(--span) * var(--year));
-    }
-
-    .plot-segment {
-      left: calc(var(--level) * var(--col) + 0.75rem);
-      width: auto;
-      right: 0;
-      bottom: calc(var(--from) * 100%);
-      height: calc((var(--to) - var(--from)) * 100%);
-    }
-
-    .plot-line {
-      left: -2px;
-      right: auto;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      height: auto;
-      transform-origin: center bottom;
-    }
-
-    .plot-segment[data-current] .plot-line {
-      animation-name: pen-draw-y;
-    }
-
-    .plot-nib {
-      right: auto;
-      left: -5px;
-      top: -3px;
-    }
-
-    .plot-label {
-      left: calc((var(--levels) - var(--level)) * var(--col) + 0.5rem);
-      right: 0;
-      top: -0.2rem;
-      bottom: auto;
-      white-space: normal;
-    }
-
-    .plot-dimension {
-      display: none;
-    }
-
-    .plot-step {
-      left: calc(var(--low) * var(--col) + 0.75rem);
-      bottom: calc(var(--at) * 100%);
-      width: calc((var(--high) - var(--low)) * var(--col));
-      height: 0;
-      border-left: 0;
-      border-top: 2px dashed var(--color-pencil);
-    }
-
-    .plot-tick {
-      left: auto;
-      bottom: calc(var(--at) * 100%);
-    }
+  .xp-drawing {
+    stroke-dasharray: 1;
+    animation: xp-drawing 2.4s ease-in-out infinite;
   }
 
   /* ——— Fig. 3: skills threaded on strings ——— */
@@ -679,7 +629,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .wave-path,
-  .plot-segment[data-current] .plot-line {
+  .xp-pen-ring,
+  .xp-drawing {
     animation: none;
   }
 
