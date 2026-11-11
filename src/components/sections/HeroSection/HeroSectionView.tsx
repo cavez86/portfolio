@@ -14,7 +14,7 @@ const HeroSection = async () => {
   ]);
 
   return (
-    <section className="sheet pt-8 pb-14 md:pt-14 md:pb-20">
+    <section className="sheet pt-8 pb-6 md:pt-14 md:pb-10">
       <NameCradle name={personalInfo.name}>
         <div className="mt-6 flex flex-col items-start gap-5 md:mt-8 md:flex-row md:items-end md:justify-between md:gap-10">
           <p className="max-w-[30ch] text-lead font-semibold text-graphite md:text-[2rem] md:leading-tight">
@@ -30,7 +30,7 @@ const HeroSection = async () => {
       </NameCradle>
 
       <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
-        <div className="order-2 max-w-[64ch] space-y-4 text-body lg:order-1 [&_strong]:bg-highlighter [&_strong]:font-semibold [&_strong]:[box-decoration-break:clone] [&_strong]:px-0.5">
+        <div className="order-2 max-w-[64ch] text-body lg:order-1 [&_p+p]:mt-4 [&_strong]:bg-highlighter [&_strong]:font-semibold [&_strong]:[box-decoration-break:clone] [&_strong]:px-0.5">
           <RichText data={personalInfo.description as SerializedEditorState} />
         </div>
 

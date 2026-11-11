@@ -53,9 +53,9 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html className={cn(bricolage.variable, stix.variable)} lang={locale} suppressHydrationWarning>
       <MainProvider>
-        <body className={cn(bricolage.variable, stix.variable, 'font-sans antialiased')}>
+        <body className="font-sans antialiased">
           <ScrollProgress />
           <Header />
           {children}

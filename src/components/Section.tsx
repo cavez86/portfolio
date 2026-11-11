@@ -16,7 +16,7 @@ const Section = ({
   className?: string;
   children: ReactNode;
 }) => (
-  <section aria-labelledby={id && `${id}-title`} className={cn('sheet py-14 md:py-20', className)} id={id}>
+  <section aria-labelledby={id && `${id}-title`} className={cn('sheet py-12 md:py-16', className)} id={id}>
     <p className="margin-note mb-1 md:mb-0 md:pt-3">{figure}</p>
     <h2 className="text-[2rem] leading-tight md:text-title" id={id && `${id}-title`}>
       {title}

@@ -25,7 +25,7 @@ const SkillsSection = async () => {
       {groups.map((group) => (
         <div className="mt-10 md:mt-14" key={group.id}>
           <h3 className={group.soft ? 'text-xl text-graphite' : 'text-2xl md:text-[2rem]'}>{t(group.id)}</h3>
-          <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-8 lg:grid-cols-1 lg:gap-y-5">
+          <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-8 xl:grid-cols-1 xl:gap-y-6">
             {group.categories.map((category) => (
               <BeadString
                 key={category.id}

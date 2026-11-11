@@ -19,15 +19,13 @@ const ContactSectionView = async () => {
       )}
 
       {/* The answer of the exercise, boxed twice in red pencil. */}
-      <div className="mt-8 max-w-4xl border-[3px] border-double border-red-pencil p-1.5 md:mt-12">
-        <ul className="divide-y-2 divide-quadretti border-2 border-red-pencil bg-paper">
-          {contacts.map((contact) => (
-            <li key={contact.url}>
-              <ContactLink description={contact.description} label={contact.label} url={contact.url} />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className="mt-8 max-w-4xl divide-y-2 divide-quadretti border-2 border-red-pencil bg-paper outline-2 outline-offset-4 outline-red-pencil md:mt-12">
+        {contacts.map((contact) => (
+          <li key={contact.url}>
+            <ContactLink description={contact.description} label={contact.label} url={contact.url} />
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 };

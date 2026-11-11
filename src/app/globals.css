@@ -207,496 +207,476 @@
   }
 }
 
-/* ——— Fig. 1: the name as a Newton's cradle ——— */
+@layer components {
+  /* ——— Fig. 1: the name as a Newton's cradle ——— */
 
-.cradle {
-  /* String length from the beam to the top of a capital, as a multiple of the letter size. */
-  --string: 0.82em;
-  --beam: 3px;
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 0.32em;
-  row-gap: 0.12em;
-  margin: 0;
-  font-size: clamp(3.4rem, 15.4vw, 4.6rem);
-  font-weight: 750;
-  font-variation-settings: "opsz" 96;
-  line-height: 1;
-  letter-spacing: 0;
-  color: var(--color-ink);
-  touch-action: pan-y;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  .cradle {
+    /* String length from the beam to the top of a capital, as a multiple of the letter size. */
+    --string: 0.5em;
+    --beam: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.32em;
+    row-gap: 0.12em;
+    margin: 0;
+    font-size: clamp(3.4rem, 17.5vw, 5.4rem);
+    font-weight: 750;
+    font-variation-settings: "opsz" 96;
+    line-height: 0.86;
+    letter-spacing: 0;
+    color: var(--color-ink);
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 
-  @media (min-width: 768px) {
-    font-size: clamp(4.6rem, 8.6vw, 8.4rem);
+    @media (min-width: 768px) {
+      font-size: clamp(4.6rem, 8.6vw, 8.4rem);
+    }
   }
-}
 
-.cradle-word {
-  position: relative;
-  display: inline-flex;
-  padding-top: var(--string);
-}
-
-/* The beam every letter of the word hangs from. */
-.cradle-word::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -0.08em;
-  right: -0.08em;
-  height: var(--beam);
-  background: var(--color-ink);
-}
-
-.cradle-word::after {
-  content: "";
-  position: absolute;
-  bottom: calc(100% - 1px);
-  left: -0.08em;
-  right: -0.08em;
-  height: 0.16em;
-  background-image: repeating-linear-gradient(-45deg, var(--color-ink) 0 1.5px, transparent 1.5px 0.09em);
-}
-
-.cradle-bob {
-  /* Distance from the top of this letter's box down to where the glyph begins (x-height letters). */
-  --attach: 0em;
-  --theta: 0rad;
-  position: relative;
-  display: inline-block;
-  cursor: grab;
-  transform-origin: 50% calc(-1 * var(--string));
-  transform: rotate(var(--theta));
-  will-change: transform;
-}
-
-.cradle-bob[data-top="x"] {
-  --attach: 0.24em;
-}
-
-.cradle-bob[data-top="dot"] {
-  --attach: 0.06em;
-}
-
-.cradle-bob:active {
-  cursor: grabbing;
-}
-
-/* The string, from the glyph's top to the beam. It rotates with its letter. */
-.cradle-bob::before {
-  content: "";
-  position: absolute;
-  left: calc(50% - 1px);
-  top: calc(-1 * var(--string));
-  width: 2px;
-  height: calc(var(--string) + var(--attach) + 0.06em);
-  background: var(--color-graphite);
-}
-
-/* ——— Fig. 2: position–time plot ——— */
-
-.plot-frame {
-  --row: 6.5rem;
-}
-
-.plot {
-  position: relative;
-  height: calc(var(--levels) * var(--row));
-}
-
-.plot-segment {
-  position: absolute;
-  left: calc(var(--from) * 100%);
-  width: calc((var(--to) - var(--from)) * 100%);
-  bottom: calc(var(--level) * var(--row));
-  height: var(--row);
-  border-radius: 2px;
-}
-
-/* The world-line of one position. */
-.plot-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(50% - 2px);
-  height: 4px;
-  background: var(--color-ink);
-  border-radius: 2px;
-  transform-origin: left center;
-}
-
-.plot-segment:hover .plot-line,
-.plot-segment:focus-visible .plot-line {
-  box-shadow: 0 0 0 5px var(--color-highlighter);
-}
-
-/* The current position is still being drawn: the line keeps reaching for today. */
-.plot-segment[data-current] .plot-line {
-  animation: pen-draw 2.6s ease-in-out infinite alternate;
-}
-
-.plot-nib {
-  position: absolute;
-  right: -3px;
-  top: -5px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 3px solid var(--color-red-pencil);
-  background: var(--color-paper);
-}
-
-.plot-label {
-  position: absolute;
-  left: 0;
-  bottom: calc(50% + 0.6rem);
-  white-space: nowrap;
-}
-
-.plot-label > :last-child {
-  position: absolute;
-  top: calc(100% + 1.2rem + 4px);
-  left: 0;
-}
-
-/* Δt drawn as a dimension line under the segment on hover. */
-.plot-dimension {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(50% + 2.6rem);
-  height: 10px;
-  border-inline: 2px solid var(--color-red-pencil);
-  opacity: 0;
-  transition: opacity 150ms;
-}
-
-.plot-dimension::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 4px;
-  height: 2px;
-  background: var(--color-red-pencil);
-}
-
-.plot-segment:hover .plot-dimension,
-.plot-segment:focus-visible .plot-dimension {
-  opacity: 1;
-}
-
-.plot-step {
-  position: absolute;
-  left: calc(var(--at) * 100%);
-  bottom: calc(var(--low) * var(--row) + var(--row) / 2);
-  height: calc((var(--high) - var(--low)) * var(--row));
-  border-left: 2px dashed var(--color-pencil);
-}
-
-.plot-tick {
-  position: absolute;
-  left: calc(var(--at) * 100%);
-}
-
-@keyframes pen-draw {
-  from {
-    transform: scaleX(0.93);
+  .cradle-word {
+    position: relative;
+    display: inline-flex;
+    padding-top: var(--string);
   }
-  to {
-    transform: scaleX(1);
-  }
-}
 
-@keyframes pen-draw-y {
-  from {
-    transform: scaleY(0.88);
+  /* The beam every letter of the word hangs from. */
+  .cradle-word::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -0.08em;
+    right: -0.08em;
+    height: var(--beam);
+    background: var(--color-ink);
   }
-  to {
-    transform: scaleY(1);
-  }
-}
 
-@media (max-width: 767.98px) {
-  /* On phones the plot turns into a spacetime diagram: time runs up the page, today at the top. */
+  .cradle-word::after {
+    content: "";
+    position: absolute;
+    bottom: calc(100% - 1px);
+    left: -0.08em;
+    right: -0.08em;
+    height: 0.16em;
+    background-image: repeating-linear-gradient(-45deg, var(--color-ink) 0 1.5px, transparent 1.5px 0.09em);
+  }
+
+  .cradle-bob {
+    /* Distance from the top of this letter's box down to where the glyph begins (x-height letters). */
+    --attach: 0em;
+    --theta: 0rad;
+    position: relative;
+    display: inline-block;
+    cursor: grab;
+    transform-origin: 50% calc(-1 * var(--string));
+    /* Physics angles are positive to the right, CSS rotation is positive clockwise. */
+    transform: rotate(calc(-1 * var(--theta)));
+    will-change: transform;
+  }
+
+  .cradle-bob[data-top="x"] {
+    --attach: 0.24em;
+  }
+
+  .cradle-bob[data-top="dot"] {
+    --attach: 0.06em;
+  }
+
+  .cradle-bob:active {
+    cursor: grabbing;
+  }
+
+  /* The string, from the glyph's top to the beam. It rotates with its letter. */
+  .cradle-bob::before {
+    content: "";
+    position: absolute;
+    left: calc(50% - 1px);
+    top: calc(-1 * var(--string));
+    width: 2px;
+    height: calc(var(--string) + var(--attach) + 0.06em);
+    background: var(--color-graphite);
+  }
+
+  /* ——— Fig. 2: position–time plot ——— */
+
   .plot-frame {
-    --col: 1.5rem;
-    --year: 3.2rem;
+    --row: 6.5rem;
   }
 
   .plot {
-    height: calc(var(--span) * var(--year));
+    position: relative;
+    height: calc(var(--levels) * var(--row));
   }
 
   .plot-segment {
-    left: calc(var(--level) * var(--col) + 0.75rem);
-    width: auto;
-    right: 0;
-    bottom: calc(var(--from) * 100%);
-    height: calc((var(--to) - var(--from)) * 100%);
+    position: absolute;
+    left: calc(var(--from) * 100%);
+    width: calc((var(--to) - var(--from)) * 100%);
+    bottom: calc(var(--level) * var(--row));
+    height: var(--row);
+    border-radius: 2px;
   }
 
+  /* The world-line of one position. */
   .plot-line {
-    left: -2px;
-    right: auto;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    height: auto;
-    transform-origin: center bottom;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(50% - 2px);
+    height: 4px;
+    background: var(--color-ink);
+    border-radius: 2px;
+    transform-origin: left center;
   }
 
+  .plot-segment:hover .plot-line,
+  .plot-segment:focus-visible .plot-line {
+    box-shadow: 0 0 0 5px var(--color-highlighter);
+  }
+
+  /* The current position is still being drawn: the line keeps reaching for today. */
   .plot-segment[data-current] .plot-line {
-    animation-name: pen-draw-y;
+    animation: pen-draw 2.6s ease-in-out infinite alternate;
   }
 
   .plot-nib {
-    right: auto;
-    left: -5px;
-    top: -3px;
+    position: absolute;
+    right: -3px;
+    top: -5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 3px solid var(--color-red-pencil);
+    background: var(--color-paper);
   }
 
+  /* Labels hang under the line, so the dashed steps between positions never cross them. */
   .plot-label {
-    left: calc((var(--levels) - var(--level)) * var(--col) + 0.5rem);
-    right: 0;
-    top: -0.2rem;
-    bottom: auto;
-    white-space: normal;
-  }
-
-  .plot-label > :last-child {
-    position: static;
-  }
-
-  .plot-dimension {
-    display: none;
-  }
-
-  .plot-step {
-    left: calc(var(--low) * var(--col) + 0.75rem);
-    bottom: calc(var(--at) * 100%);
-    width: calc((var(--high) - var(--low)) * var(--col));
-    height: 0;
-    border-left: 0;
-    border-top: 2px dashed var(--color-pencil);
-  }
-
-  .plot-tick {
-    left: auto;
-    bottom: calc(var(--at) * 100%);
-  }
-}
-
-/* ——— Fig. 3: skills threaded on strings ——— */
-
-.bead-string {
-  --mass-ink: var(--color-ink);
-  --string-ink: var(--color-graphite);
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  min-width: 0;
-}
-
-.bead-name {
-  font-size: 1rem;
-  line-height: 1.3;
-  font-weight: 600;
-  color: var(--color-graphite);
-}
-
-.bead-track {
-  position: relative;
-  flex: 1;
-  display: flex;
-  touch-action: pan-y;
-}
-
-/* The fixed ends: a ceiling and a floor in the phone grid, two walls on wide screens. */
-.bead-track::before,
-.bead-track::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 9px;
-  background-image: repeating-linear-gradient(-45deg, var(--string-ink) 0 1.5px, transparent 1.5px 7px);
-}
-
-.bead-track::before {
-  top: 0;
-  border-bottom: 2px solid var(--string-ink);
-}
-
-.bead-track::after {
-  bottom: 0;
-  border-top: 2px solid var(--string-ink);
-}
-
-.bead-track > ul {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  gap: 1rem;
-  padding: 1.6rem 0;
-  min-height: 100%;
-}
-
-.bead-rest,
-.bead-line {
-  position: absolute;
-  pointer-events: none;
-}
-
-.bead-rest {
-  top: 0;
-  bottom: 0;
-  left: calc(50% - 1px);
-  width: 2px;
-  background: var(--string-ink);
-}
-
-.bead-line {
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  stroke: var(--string-ink);
-  stroke-width: 2px;
-  visibility: hidden;
-}
-
-.bead-track[data-moving] .bead-rest {
-  visibility: hidden;
-}
-
-.bead-track[data-moving] .bead-line {
-  visibility: visible;
-}
-
-.bead-mass {
-  position: relative;
-  max-width: 100%;
-  padding: 0.2rem 0.55rem;
-  border: 2px solid var(--mass-ink);
-  border-radius: 3px;
-  background: var(--color-paper);
-  color: var(--mass-ink);
-  font-size: 1.0625rem;
-  font-weight: 650;
-  line-height: 1.25;
-  text-align: center;
-  will-change: transform;
-  transition: background-color 150ms;
-}
-
-.bead-mass:hover {
-  background: var(--color-highlighter);
-}
-
-/* Soft skills: drawn in pencil, after the technical ones. */
-.bead-string-soft {
-  --mass-ink: var(--color-graphite);
-  --string-ink: var(--color-pencil);
-}
-
-.bead-string-soft .bead-mass {
-  border-width: 1.5px;
-  border-style: dashed;
-  font-size: 0.975rem;
-  font-weight: 450;
-}
-
-.bead-string-soft .bead-name {
-  color: var(--color-pencil);
-}
-
-@media (min-width: 1024px) {
-  .bead-string {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
-  }
-
-  .bead-track::before,
-  .bead-track::after {
-    top: 0;
-    bottom: 0;
-    left: auto;
-    right: auto;
-    width: 9px;
-    height: auto;
-    border: 0;
-  }
-
-  .bead-track::before {
-    left: 0;
-    border-right: 2px solid var(--string-ink);
-  }
-
-  .bead-track::after {
-    right: 0;
-    border-left: 2px solid var(--string-ink);
-  }
-
-  .bead-track > ul {
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 0.9rem 1.75rem;
-    gap: 0.9rem;
-  }
-
-  .bead-rest {
-    left: 0;
-    right: 0;
-    top: calc(50% - 1px);
-    bottom: auto;
-    width: auto;
-    height: 2px;
-  }
-
-  .bead-mass {
-    font-size: 1.25rem;
+    position: absolute;
+    left: 0.6rem;
+    top: calc(50% + 0.7rem);
     white-space: nowrap;
   }
 
-  .bead-string-soft .bead-mass {
-    font-size: 1.0625rem;
+  /* Δt drawn as a dimension line under the segment on hover. */
+  .plot-dimension {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(50% + 0.75rem);
+    height: 10px;
+    border-inline: 2px solid var(--color-red-pencil);
+    opacity: 0;
+    transition: opacity 150ms;
   }
-}
 
-@media (min-width: 1280px) {
+  .plot-dimension::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 4px;
+    height: 2px;
+    background: var(--color-red-pencil);
+  }
+
+  .plot-segment:hover .plot-dimension,
+  .plot-segment:focus-visible .plot-dimension {
+    opacity: 1;
+  }
+
+  .plot-step {
+    position: absolute;
+    left: calc(var(--at) * 100%);
+    bottom: calc(var(--low) * var(--row) + var(--row) / 2);
+    height: calc((var(--high) - var(--low)) * var(--row));
+    border-left: 2px dashed var(--color-pencil);
+  }
+
+  .plot-tick {
+    position: absolute;
+    left: calc(var(--at) * 100%);
+  }
+
+  @keyframes pen-draw {
+    from {
+      transform: scaleX(0.93);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes pen-draw-y {
+    from {
+      transform: scaleY(0.88);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    /* On phones the plot turns into a spacetime diagram: time runs up the page, today at the top. */
+    .plot-frame {
+      --col: 1.5rem;
+      --year: 3.2rem;
+    }
+
+    .plot {
+      height: calc(var(--span) * var(--year));
+    }
+
+    .plot-segment {
+      left: calc(var(--level) * var(--col) + 0.75rem);
+      width: auto;
+      right: 0;
+      bottom: calc(var(--from) * 100%);
+      height: calc((var(--to) - var(--from)) * 100%);
+    }
+
+    .plot-line {
+      left: -2px;
+      right: auto;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      height: auto;
+      transform-origin: center bottom;
+    }
+
+    .plot-segment[data-current] .plot-line {
+      animation-name: pen-draw-y;
+    }
+
+    .plot-nib {
+      right: auto;
+      left: -5px;
+      top: -3px;
+    }
+
+    .plot-label {
+      left: calc((var(--levels) - var(--level)) * var(--col) + 0.5rem);
+      right: 0;
+      top: -0.2rem;
+      bottom: auto;
+      white-space: normal;
+    }
+
+    .plot-dimension {
+      display: none;
+    }
+
+    .plot-step {
+      left: calc(var(--low) * var(--col) + 0.75rem);
+      bottom: calc(var(--at) * 100%);
+      width: calc((var(--high) - var(--low)) * var(--col));
+      height: 0;
+      border-left: 0;
+      border-top: 2px dashed var(--color-pencil);
+    }
+
+    .plot-tick {
+      left: auto;
+      bottom: calc(var(--at) * 100%);
+    }
+  }
+
+  /* ——— Fig. 3: skills threaded on strings ——— */
+
   .bead-string {
-    grid-template-columns: 12rem minmax(0, 1fr);
-    align-items: center;
-    gap: 1.5rem;
+    --mass-ink: var(--color-ink);
+    --string-ink: var(--color-graphite);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 0;
   }
 
   .bead-name {
-    text-align: right;
+    font-size: 1rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--color-graphite);
   }
-}
 
-/* ——— Fig. 4: waves ——— */
-
-@keyframes wave-travel {
-  to {
-    transform: translateX(calc(-1 * var(--wavelength)));
+  .bead-track {
+    position: relative;
+    flex: 1;
+    display: flex;
+    touch-action: pan-y;
   }
-}
 
-/* A wave is drawn still and starts travelling when the visitor points at it. */
-.wave-path {
-  animation: wave-travel var(--wave-period, 4s) linear infinite paused;
-}
+  /* The fixed ends: a ceiling and a floor in the phone grid, two walls on wide screens. */
+  .bead-track::before,
+  .bead-track::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 9px;
+    background-image: repeating-linear-gradient(-45deg, var(--string-ink) 0 1.5px, transparent 1.5px 7px);
+  }
 
-.wave:hover .wave-path {
-  animation-play-state: running;
+  .bead-track::before {
+    top: 0;
+    border-bottom: 2px solid var(--string-ink);
+  }
+
+  .bead-track::after {
+    bottom: 0;
+    border-top: 2px solid var(--string-ink);
+  }
+
+  .bead-track > ul {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1rem;
+    padding: 1.6rem 0;
+    min-height: 100%;
+  }
+
+  .bead-rest,
+  .bead-line {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .bead-rest {
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 1px);
+    width: 2px;
+    background: var(--string-ink);
+  }
+
+  .bead-line {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    stroke: var(--string-ink);
+    stroke-width: 2px;
+    visibility: hidden;
+  }
+
+  .bead-track[data-moving] .bead-rest {
+    visibility: hidden;
+  }
+
+  .bead-track[data-moving] .bead-line {
+    visibility: visible;
+  }
+
+  .bead-mass {
+    position: relative;
+    max-width: 100%;
+    padding: 0.2rem 0.55rem;
+    border: 2px solid var(--mass-ink);
+    border-radius: 3px;
+    background: var(--color-paper);
+    color: var(--mass-ink);
+    font-size: 1.0625rem;
+    font-weight: 650;
+    line-height: 1.25;
+    text-align: center;
+    will-change: transform;
+    transition: background-color 150ms;
+  }
+
+  .bead-mass:hover {
+    background: var(--color-highlighter);
+  }
+
+  /* Soft skills: drawn in pencil, after the technical ones. */
+  .bead-string-soft {
+    --mass-ink: var(--color-graphite);
+    --string-ink: var(--color-pencil);
+  }
+
+  .bead-string-soft .bead-mass {
+    border-width: 1.5px;
+    border-style: dashed;
+    font-size: 0.975rem;
+    font-weight: 450;
+  }
+
+  .bead-string-soft .bead-name {
+    color: var(--color-pencil);
+  }
+
+  @media (min-width: 1280px) {
+    .bead-string {
+      gap: 0.35rem;
+    }
+
+    .bead-track::before,
+    .bead-track::after {
+      top: 0;
+      bottom: 0;
+      left: auto;
+      right: auto;
+      width: 9px;
+      height: auto;
+      border: 0;
+    }
+
+    .bead-track::before {
+      left: 0;
+      border-right: 2px solid var(--string-ink);
+    }
+
+    .bead-track::after {
+      right: 0;
+      border-left: 2px solid var(--string-ink);
+    }
+
+    .bead-track > ul {
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 0.9rem 1.75rem;
+      gap: 0.9rem;
+    }
+
+    .bead-rest {
+      left: 0;
+      right: 0;
+      top: calc(50% - 1px);
+      bottom: auto;
+      width: auto;
+      height: 2px;
+    }
+
+    .bead-mass {
+      font-size: 1.25rem;
+      white-space: nowrap;
+    }
+
+    .bead-string-soft .bead-mass {
+      font-size: 1.0625rem;
+    }
+  }
+
+  /* ——— Fig. 4: waves ——— */
+
+  @keyframes wave-travel {
+    to {
+      transform: translateX(calc(-1 * var(--wavelength)));
+    }
+  }
+
+  /* A wave is drawn still and starts travelling when the visitor points at it. */
+  .wave-path {
+    animation: wave-travel var(--wave-period, 4s) linear infinite paused;
+  }
+
+  .wave:hover .wave-path {
+    animation-play-state: running;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

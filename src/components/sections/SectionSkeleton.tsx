@@ -9,7 +9,7 @@ const Sketch = ({ className }: { className?: string }) => (
 );
 
 const FigureSkeleton = ({ id, children }: { id?: string; children: React.ReactNode }) => (
-  <section className="sheet py-14 md:py-20" id={id}>
+  <section className="sheet py-12 md:py-16" id={id}>
     <Sketch className="h-10 w-64 max-w-full md:h-12" />
     <Sketch className="mt-4 h-4 w-full max-w-xl" />
     {children}
@@ -17,7 +17,7 @@ const FigureSkeleton = ({ id, children }: { id?: string; children: React.ReactNo
 );
 
 export const HeroSectionSkeleton = () => (
-  <section className="sheet pt-8 pb-14 md:pt-14 md:pb-20">
+  <section className="sheet pt-8 pb-6 md:pt-14 md:pb-10">
     <div className="flex flex-col gap-6">
       {['w-[85%] md:w-[62%]', 'w-[80%] md:w-[90%]'].map((width) => (
         <div
@@ -40,9 +40,9 @@ export const ExperienceSectionSkeleton = () => (
 
 export const SkillsSectionSkeleton = () => (
   <FigureSkeleton id="skills">
-    <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-1">
+    <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-1">
       {['one', 'two', 'three', 'four', 'five', 'six'].map((key) => (
-        <Sketch className="h-48 lg:h-16" key={key} />
+        <Sketch className="h-48 xl:h-16" key={key} />
       ))}
     </div>
   </FigureSkeleton>

@@ -44,7 +44,10 @@ const ExperienceSegment = ({ segment, levels }: { segment: Segment<Experience>; 
           </span>
           <span className="block text-[0.95rem] leading-snug text-graphite md:hidden">{item.position}</span>
           <span className="block text-caption text-pencil">
-            {years}, <span className="math whitespace-nowrap">Δt = {duration}</span>
+            {years},{' '}
+            <span className="whitespace-nowrap">
+              <i className="math">Δt</i> = {duration}
+            </span>
           </span>
         </span>
         <span aria-hidden="true" className="plot-dimension" />
@@ -56,7 +59,9 @@ const ExperienceSegment = ({ segment, levels }: { segment: Segment<Experience>; 
             <p className="font-semibold text-graphite">{item.position}</p>
             <p>
               {[item.location, years].filter(Boolean).join(', ')}{' '}
-              <span className="math whitespace-nowrap">(Δt = {duration})</span>
+              <span className="whitespace-nowrap">
+                (<i className="math">Δt</i> = {duration})
+              </span>
             </p>
           </DialogDescription>
         </DialogHeader>

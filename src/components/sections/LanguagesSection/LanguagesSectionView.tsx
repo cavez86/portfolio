@@ -44,7 +44,9 @@ const LanguagesSection = async () => {
                   {language.language}
                 </h3>
                 <p className="text-graphite">{language.proficiency}</p>
-                <p className="math text-caption text-pencil">A = {share.toFixed(2)}</p>
+                <p className="text-caption text-pencil tabular-nums">
+                  <i className="math">A</i> = {share.toFixed(2)}
+                </p>
               </div>
               <svg
                 aria-hidden="true"

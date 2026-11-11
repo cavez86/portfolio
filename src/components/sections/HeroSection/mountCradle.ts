@@ -1,14 +1,16 @@
 import type { PointerEvent } from 'react';
 
-import { type Bob, type CradleParams, isAtRest, MAX_THETA, period, stepChain, tensionOverMass } from './cradle';
+import { type Bob, type CradleParams, energy, isAtRest, MAX_THETA, period, stepChain, tensionOverMass } from './cradle';
 
 const G = 9.81;
 /** Scale of the drawing: one square of the notebook stands for 5 cm. */
 const METRES_PER_SQUARE = 0.05;
-export const RELEASE_DEG = 30;
+export const RELEASE_DEG = 24;
 export const RELEASE_THETA = (-RELEASE_DEG * Math.PI) / 180;
 const PARAMS: Omit<CradleParams, 'omega0Sq'> = { damping: 0.22, maxTheta: MAX_THETA, restitution: 0.96 };
 const RELEASE_DELAY_MS = 1100;
+/** After the visitor lets go, the diagram follows whichever letter carries the swing. */
+const FOLLOW_AFTER_MS = 1200;
 
 export interface Controller {
   pointerDown(event: PointerEvent<HTMLElement>): void;
@@ -51,7 +53,8 @@ const arrow = (x1: number, y1: number, x2: number, y2: number, head: number) => 
 /**
  * Drives the server-rendered letters of a `.cradle` heading: measures them at rest, runs the
  * simulation while something moves and the heading is on screen, and draws the free-body diagram
- * of the letter last touched. Under reduced motion it only draws the still diagram.
+ * of the letter last touched, or of the one carrying the swing. Under reduced motion it only draws
+ * the still diagram.
  */
 export const mountCradle = ({
   heading,
@@ -79,6 +82,7 @@ export const mountCradle = ({
   let lengthMetres = 0.4;
   let fontSize = 100;
   let active = 0;
+  let touched = -Infinity;
   let pointer: Pointer | null = null;
   let grab: { index: number; pointerId: number; moved: boolean } | null = null;
   let frame = 0;
@@ -187,6 +191,11 @@ export const mountCradle = ({
     last = time;
     const omega0Sq = G / lengthMetres;
     for (const chain of chains) stepChain(chain, dt, { ...PARAMS, omega0Sq });
+    if (!grab && time - touched > FOLLOW_AFTER_MS) {
+      const swing = bobs.map((bob) => energy([bob], omega0Sq));
+      const strongest = swing.indexOf(Math.max(...swing));
+      if (swing[strongest] > 1.5 * swing[active]) active = strongest;
+    }
     if (pointer && !grab) {
       pointer.vx *= 0.8;
       pointer.vy *= 0.8;
@@ -274,6 +283,7 @@ export const mountCradle = ({
       event.currentTarget.setPointerCapture(event.pointerId);
       grab = { index, moved: false, pointerId: event.pointerId };
       active = index;
+      touched = event.timeStamp;
       bobs[index].held = true;
       released = true;
       start();
@@ -311,6 +321,7 @@ export const mountCradle = ({
         if (Math.abs(delta) < 0.05) return;
         bob.omega += delta;
         active = i;
+        touched = event.timeStamp;
         pushed = true;
       });
       if (pushed) {
@@ -329,6 +340,7 @@ export const mountCradle = ({
       }
       bob.omega = clamp(bob.omega, 9);
       grab = null;
+      touched = event.timeStamp;
       start();
     },
 

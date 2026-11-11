@@ -121,21 +121,25 @@ export function NameCradle({ name, children }: { name: string; children?: ReactN
         <span>
           <span className="math text-red-pencil">{common('figure', { number: 1 })}</span>{' '}
           {t('caption', { count: letters.length })}{' '}
-          <span className="math whitespace-nowrap">
-            L ={' '}
-            <span className="inline-block min-w-[2ch] text-right">{measured ? measured.length.toFixed(0) : '–'}</span>{' '}
+          <span className="whitespace-nowrap">
+            <i className="math">L</i> ={' '}
+            <span className="inline-block min-w-[2ch] text-right tabular-nums">
+              {measured ? measured.length.toFixed(0) : '–'}
+            </span>{' '}
             cm
           </span>
           ,{' '}
-          <span className="math whitespace-nowrap">
-            T = 2π√(L/g) ≈{' '}
-            <span className="inline-block min-w-[3ch]">{measured ? measured.period.toFixed(2) : '–'}</span> s
+          <span className="whitespace-nowrap">
+            <i className="math">T</i> = 2π√(<i className="math">L</i>/<i className="math">g</i>) ≈{' '}
+            <span className="inline-block min-w-[3ch] tabular-nums">{measured ? measured.period.toFixed(2) : '–'}</span>{' '}
+            s
           </span>
           . {t('scale')}
         </span>
         <span className="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <span aria-hidden="true" className="math text-[1.05rem] text-graphite">
-            θ<sub ref={subscriptRef}>{firstLetter}</sub> = <span ref={readoutRef}>{(-RELEASE_DEG).toFixed(1)}</span>°
+          <span aria-hidden="true" className="text-[1.05rem] text-graphite tabular-nums">
+            <i className="math">θ</i>
+            <sub ref={subscriptRef}>{firstLetter}</sub> = <span ref={readoutRef}>{(-RELEASE_DEG).toFixed(1)}</span>°
           </span>
           <button
             className="cursor-pointer rounded-sm border-2 border-ink px-3 py-1 font-sans text-[0.95rem] font-semibold text-ink transition-colors hover:bg-highlighter motion-reduce:hidden"
