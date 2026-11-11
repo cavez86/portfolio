@@ -37,14 +37,14 @@ const SPREAD_DURATION = 2.4;
 const lampDelay = (distance: number, reach: number) =>
   round(SPREAD_START + SPREAD_DURATION * (1 - (1 - Math.min(distance / reach, 1)) ** 0.45), 2);
 
-/** Window light: mostly warm lamps, some paper-white, a few television blue-greens and rose curtains. */
+/** Window light: mostly warm lamps, some paler, the odd television blue-green. */
 const WINDOW_COLOURS = [
   'fill-[#ffcf7a]',
   'fill-[#ffcf7a]',
   'fill-[#ffcf7a]',
-  'fill-carta',
+  'fill-[#ffcf7a]',
+  'fill-[#ffe2b0]',
   'fill-[#8fe3d8]',
-  'fill-[#ff9fb4]',
 ];
 
 const buildMap = (spec: MapSpec, name: string) => {
@@ -130,26 +130,28 @@ const buildMap = (spec: MapSpec, name: string) => {
     })
     .map(([x, y]) => ({ d: lampDelay(Math.hypot(x - origin[0], y - origin[1]), reach), x, y }));
 
-  // Lit windows along the inside of each block: the city is awake. A few switch on and off.
+  // Lit windows: short rows along the facades inside each block, so the city reads as awake. A few switch on and off.
+  const pitch = 6.5 * scale;
   const windows = spec.columns
     .slice(0, -1)
     .flatMap((x0, i) =>
       spec.rows.slice(0, -1).flatMap((y0, j) => {
         const [x1, y1] = [spec.columns[i + 1], spec.rows[j + 1]];
-        const inset = 6 * scale;
-        return Array.from({ length: Math.floor(hash(x0, y0) * 5) }, (_, k) => {
-          const r = hash(x0 + k * 7.1, y0 + k * 3.3);
-          const t = hash(y0 + k, x0 - k);
-          const onVertical = r < 0.5;
-          const x = onVertical ? (r < 0.25 ? x0 + inset : x1 - inset) : x0 + inset + t * (x1 - x0 - inset * 2);
-          const y = onVertical ? y0 + inset + t * (y1 - y0 - inset * 2) : r < 0.75 ? y0 + inset : y1 - inset;
-          return {
-            colour: WINDOW_COLOURS[Math.floor(hash(k, x0 + y0) * WINDOW_COLOURS.length)],
-            t,
-            x: round(x),
+        const inset = 7 * scale;
+        return Array.from({ length: Math.floor(hash(x0, y0) * 3) }, (_, k) => {
+          const along = hash(x0 + k * 7.1, y0 + k * 3.3);
+          const side = hash(y0 + k, x0 - k);
+          const top = side < 0.5;
+          const startX = x0 + inset + along * Math.max(x1 - x0 - inset * 2 - pitch * 3, 0);
+          const y = top ? y0 + inset : y1 - inset;
+          const colour = WINDOW_COLOURS[Math.floor(hash(k, x0 + y0) * WINDOW_COLOURS.length)];
+          return Array.from({ length: 2 + (Math.floor(side * 6) % 3) }, (_, w) => ({
+            colour,
+            twinkle: hash(x0 * w + 1, y0 + k) > 0.93,
+            x: round(startX + w * pitch),
             y: round(y),
-          };
-        });
+          }));
+        }).flat();
       })
     )
     .filter(({ x, y }) => !blocked([x, y], 3));
@@ -258,12 +260,13 @@ const StreetMap = ({ variant, name, className }: { variant: Variant; name: strin
           {streetLayer('stroke-street', false)}
           <g mask={`url(#${id}-lit)`}>
             {streetLayer('stroke-lampione', true)}
-            {windows.map(({ x, y, colour, t }) => (
+            {windows.map(({ x, y, colour, twinkle }) => (
               <rect
-                className={cn(colour, t > 0.86 && 'twinkle')}
+                className={cn(colour, twinkle && 'twinkle')}
                 height={2.6 * scale + 0.6}
                 key={`${x},${y}`}
-                style={t > 0.86 ? ({ '--d': `${round(t * 40 - 30, 1)}s` } as CSSProperties) : undefined}
+                opacity="0.85"
+                style={twinkle ? ({ '--d': `${round(hash(y, x) * -9, 1)}s` } as CSSProperties) : undefined}
                 width={3.4 * scale + 0.6}
                 x={x - 1.7 * scale}
                 y={y - 1.3 * scale}

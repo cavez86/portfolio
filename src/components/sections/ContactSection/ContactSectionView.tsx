@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
 
+import CompassRose from './CompassRose';
 import { ContactLink } from './ContactLink';
 
 /** A row of arcade pillars (Turin's portici) along one side of the piazza. */
@@ -20,7 +21,8 @@ const ContactSectionView = async () => {
   return (
     <section aria-labelledby="contact-title" className="relative bg-piazza" id="contact">
       <Arcade className="top-0" />
-      <div className="mx-auto w-full max-w-6xl px-5 py-24 md:px-8 md:py-28">
+      <div className="relative mx-auto w-full max-w-6xl px-5 py-24 md:px-8 md:py-28">
+        <CompassRose className="absolute top-14 right-3 size-24 md:top-16 md:right-8 md:size-60" />
         <h2 className="font-display text-district font-extrabold text-balance" id="contact-title">
           {t('title')}
         </h2>

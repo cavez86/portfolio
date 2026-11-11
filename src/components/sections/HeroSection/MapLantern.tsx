@@ -37,7 +37,7 @@ const MapLantern = () => {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_var(--lantern-x)_var(--lantern-y),rgb(255_190_100/0.34),rgb(255_150_80/0.1)_7rem,transparent_15rem)] opacity-0 mix-blend-screen transition-opacity duration-300 data-lit:opacity-100"
+      className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_var(--lantern-x)_var(--lantern-y),rgb(255_190_100/0.45),rgb(255_150_80/0.14)_8rem,transparent_17rem)] opacity-0 mix-blend-screen transition-opacity duration-300 data-lit:opacity-100"
       ref={ref}
     />
   );
