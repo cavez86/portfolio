@@ -26,16 +26,18 @@ const jobs = [
   job(5, 'Prima', 'Software Engineer', 'Milan, Italy', '2026-05-01'),
 ];
 
+const timeline = buildTimeline(jobs, new Date('2026-11-11T00:00:00Z'));
+const texts = timeline.segments.map((s) => ({
+  details: s.item.id !== 5,
+  place: s.item.location,
+  role: s.item.position,
+}));
+
 describe.each([
   ['wide', WIDE],
   ['narrow', NARROW],
-])('layoutExperience (%s)', (name, variant) => {
-  const timeline = buildTimeline(jobs, new Date('2026-11-11T00:00:00Z'));
-  const layout = layoutExperience(
-    timeline,
-    timeline.segments.map((s) => ({ details: s.item.id !== 5, place: s.item.location, role: s.item.position })),
-    variant
-  );
+])('layoutExperience (%s)', (_, variant) => {
+  const layout = layoutExperience(timeline, texts, variant);
   const labels = layout.lanes.map((lane) => lane.label);
 
   it('gives each employer one lane, the returning employer included', () => {
@@ -65,8 +67,14 @@ describe.each([
       expect(label.y).toBeGreaterThanOrEqual(0);
     }
   });
+});
 
-  it.runIf(name === 'wide')('keeps the annotation corner clear of labels and of the world-line', () => {
+describe('layoutExperience on wide drawings', () => {
+  const variant = WIDE;
+  const layout = layoutExperience(timeline, texts, variant);
+  const labels = layout.lanes.map((lane) => lane.label);
+
+  it('keeps the annotation corner clear of labels and of the world-line', () => {
     const { panel } = layout;
     expect(panel?.width).toBeGreaterThan(260);
     if (!panel) return;
@@ -74,7 +82,7 @@ describe.each([
     for (const band of layout.bands) expect(intersects(panel, band)).toBe(false);
   });
 
-  it.runIf(name === 'wide')('sets each label beside its own lane, within the time that lane covers', () => {
+  it('sets each label beside its own lane, within the time that lane covers', () => {
     for (const lane of layout.lanes) {
       const nearEdge = Math.min(Math.abs(lane.label.x - lane.x), Math.abs(lane.label.x + lane.label.width - lane.x));
       expect(nearEdge).toBeLessThanOrEqual(variant.lanes.band / 2 + variant.label.gap + 1);

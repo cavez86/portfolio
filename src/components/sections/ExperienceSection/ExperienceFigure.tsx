@@ -34,6 +34,55 @@ const useJobText = () => {
   };
 };
 
+/** What the job in focus was: its Δt and achievement titles, or the career summary when none is. */
+function Annotation({
+  job,
+  summary,
+  size,
+}: {
+  job: Job | null;
+  summary: { total: string; today: string };
+  /** Turns a size in drawing units into a CSS length. */
+  size: (value: number) => string;
+}) {
+  const text = useJobText();
+  if (!job) {
+    return (
+      <>
+        <p className="font-bold text-ink" style={{ fontSize: size(34), lineHeight: 1.1 }}>
+          {summary.total}
+        </p>
+        <p className="mt-1 text-graphite" style={{ fontSize: size(17) }}>
+          {summary.today}
+        </p>
+      </>
+    );
+  }
+  return (
+    <>
+      <p className="font-bold" style={{ color: pencil(job.employer), fontSize: size(22) }}>
+        {job.item.company}, {text(job).years}
+      </p>
+      <p className="text-red-pencil" style={{ fontSize: size(16) }}>
+        <i className="math">Δt</i> = {text(job).duration}
+      </p>
+      {hasDetails(job) ? (
+        <ul className="mt-2 space-y-1 text-graphite" style={{ fontSize: size(16) }}>
+          {job.item.achievements?.map((achievement) => (
+            <li className="xp-note" key={achievement.id ?? achievement.label}>
+              {achievement.label}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-2 text-graphite" style={{ fontSize: size(16) }}>
+          {job.item.position}, {job.item.location}
+        </p>
+      )}
+    </>
+  );
+}
+
 function Diagram({
   timeline,
   variant,
@@ -317,7 +366,6 @@ function Diagram({
               const { duration, years } = text(segment);
               const meta = { fontSize: unit(variant.label.meta), lineHeight: LINE_HEIGHT.meta };
               return (
-                // biome-ignore lint/a11y/noStaticElementInteractions: hover only previews; the button below is the control
                 <div
                   className="xp-stint"
                   key={segment.item.id}
@@ -379,38 +427,7 @@ function Diagram({
             width: percent(layout.panel.width, width),
           }}
         >
-          {activeJob ? (
-            <>
-              <p className="font-bold" style={{ color: pencil(activeJob.employer), fontSize: unit(22) }}>
-                {activeJob.item.company}, {text(activeJob).years}
-              </p>
-              <p className="text-red-pencil" style={{ fontSize: unit(16) }}>
-                <i className="math">Δt</i> = {text(activeJob).duration}
-              </p>
-              {hasDetails(activeJob) ? (
-                <ul className="mt-2 space-y-1 text-graphite" style={{ fontSize: unit(16) }}>
-                  {activeJob.item.achievements?.map((achievement) => (
-                    <li className="xp-note" key={achievement.id ?? achievement.label}>
-                      {achievement.label}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-2 text-graphite" style={{ fontSize: unit(16) }}>
-                  {activeJob.item.position}, {activeJob.item.location}
-                </p>
-              )}
-            </>
-          ) : (
-            <>
-              <p className="font-bold text-ink" style={{ fontSize: unit(34), lineHeight: 1.1 }}>
-                {summary.total}
-              </p>
-              <p className="mt-1 text-graphite" style={{ fontSize: unit(17) }}>
-                {summary.today}
-              </p>
-            </>
-          )}
+          <Annotation job={activeJob} size={unit} summary={summary} />
         </div>
       )}
     </div>
@@ -444,8 +461,18 @@ export function ExperienceFigure({
       <div className="hidden xl:block">
         <Diagram {...shared} variant={WIDE} />
       </div>
-      <div className="max-w-[30rem] xl:hidden">
-        <Diagram {...shared} variant={NARROW} />
+      {/* Narrower pages: the drawing, and from 1024px the same annotation beside it. */}
+      <div className="grid items-start gap-12 lg:grid-cols-[30rem_minmax(0,1fr)] xl:hidden">
+        <div className="max-w-[30rem]">
+          <Diagram {...shared} variant={NARROW} />
+        </div>
+        <div aria-hidden="true" className="xp-side hidden lg:block">
+          <Annotation
+            job={active === null ? null : jobs[active]}
+            size={(value) => `${value / 16}rem`}
+            summary={summary}
+          />
+        </div>
       </div>
 
       <Dialog onOpenChange={(next) => !next && setOpen(null)} open={openJob !== null}>
