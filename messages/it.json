@@ -1,22 +1,22 @@
 {
   "Contact": {
     "availability_text": "Disponibile per opportunità lavorative da remoto o ibride.",
-    "title": "Contatti"
+    "title": "Parliamone"
   },
   "Error": {
     "403": {
-      "description": "Potresti dover effettuare il login o contattare un amministratore per l'accesso.",
+      "description": "Potresti dover accedere o contattare un amministratore per ottenere l'accesso.",
       "subtitle": "Non hai i permessi per accedere a questa risorsa",
       "title": "Accesso negato"
     },
     "404": {
-      "description": "Potrebbe essere stata spostata, cancellata o hai inserito un URL sbagliato.",
+      "description": "Potrebbe essere stata spostata o eliminata, oppure l'URL inserito non è corretto.",
       "subtitle": "La pagina che stai cercando non esiste",
       "title": "Pagina non trovata"
     },
     "500": {
       "description": "Stiamo riscontrando difficoltà tecniche. Riprova più tardi.",
-      "subtitle": "Qualcosa è andato storto dal nostro lato",
+      "subtitle": "Qualcosa è andato storto da parte nostra",
       "title": "Errore interno del server"
     },
     "back_home": "Torna alla home",
@@ -47,12 +47,12 @@
     "loading": "Caricamento..."
   },
   "Metadata": {
-    "description": "Sviluppatore Web Full Stack specializzato in React, Next.js, TypeScript e Tailwind CSS. Con sede a Torino in Italia.",
+    "description": "Sviluppatore Web Full Stack specializzato in React, Next.js, TypeScript e Tailwind CSS. Basato a Torino, Italia.",
     "title": "Francesco Caveglia Beatris - Sviluppatore Web Full Stack"
   },
   "Skills": {
     "soft": "Competenze trasversali",
     "technical": "Competenze tecniche",
-    "title": "Competenze ed esperienze"
+    "title": "Competenze e specializzazioni"
   }
 }
