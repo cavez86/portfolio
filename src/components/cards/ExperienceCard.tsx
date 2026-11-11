@@ -10,47 +10,67 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
 import type { Experience } from '@/payload-types';
 import { getBar, positionOf, type TimelineAxis } from '../sections/ExperienceSection/timeline';
+
+// The same grid serves the plain row and the dialog trigger, so the bars line up across all rows.
+const rowClass =
+  'grid w-full grid-cols-[1fr_auto] items-center gap-x-4 gap-y-4 border-t-2 border-current px-0 py-6 text-left md:grid-cols-[minmax(0,1.15fr)_8.5rem_minmax(0,1.1fr)_2.75rem] md:gap-x-8 md:px-4 md:py-7';
 
 const ExperienceCard = ({ exp, axis }: { exp: Experience; axis: TimelineAxis }) => {
   const t = useTranslations('Experience');
   const periodLabel = `${dayjs(exp.period.dateFrom).format('YYYY')} - ${exp.period.dateTo ? dayjs(exp.period.dateTo).format('YYYY') : t('present')}`;
   const bar = getBar(exp.period, axis);
 
+  const summary = (
+    <>
+      <span className="col-start-1 row-start-1 flex flex-col gap-1.5">
+        <span className="type-heading">{exp.company}</span>
+        <span className="text-lg leading-snug font-medium">{exp.position}</span>
+        <span className="type-small font-medium opacity-85">{exp.location}</span>
+      </span>
+      <span className="type-subheading col-start-1 row-start-2 whitespace-nowrap md:col-start-2 md:row-start-1">
+        {periodLabel}
+      </span>
+      <span
+        aria-hidden="true"
+        className="relative col-span-2 row-start-3 mx-3.5 block h-7 md:col-span-1 md:col-start-3 md:row-start-1"
+      >
+        {axis.ticks.map((tick) => (
+          <span
+            className="absolute top-0 bottom-0 block w-px bg-current opacity-30"
+            key={tick.label}
+            style={{ left: `${positionOf(tick.at, axis)}%` }}
+          />
+        ))}
+        <span
+          className="bg-girasole group-hover/row:bg-pomodoro absolute top-1.5 block h-4 rounded-full transition-colors"
+          style={{ left: `${bar.left}%`, width: `${bar.width}%` }}
+        />
+        {bar.ongoing && (
+          <span
+            className="bg-carta border-pomodoro absolute top-0 block size-7 -translate-x-1/2 rounded-full border-[6px]"
+            style={{ left: '100%' }}
+          />
+        )}
+      </span>
+    </>
+  );
+
+  if (!exp.achievements?.length) {
+    return <div className={rowClass}>{summary}</div>;
+  }
+
   return (
     <Dialog>
-      <DialogTrigger className="group/row grid w-full cursor-pointer grid-cols-[1fr_auto] items-center gap-x-4 gap-y-4 border-t-2 border-current px-0 py-6 text-left transition-colors hover:bg-carta hover:text-cobalto md:grid-cols-[minmax(0,1.15fr)_8.5rem_minmax(0,1.1fr)_2.75rem] md:gap-x-8 md:px-4 md:py-7 [&:hover]:[--focus:var(--color-inchiostro)]">
-        <span className="col-start-1 row-start-1 flex flex-col gap-1.5">
-          <span className="type-heading">{exp.company}</span>
-          <span className="text-lg leading-snug font-medium">{exp.position}</span>
-          <span className="type-small font-medium opacity-85">{exp.location}</span>
-        </span>
-        <span className="type-subheading col-start-1 row-start-2 whitespace-nowrap md:col-start-2 md:row-start-1">
-          {periodLabel}
-        </span>
-        <span
-          aria-hidden="true"
-          className="relative col-span-2 row-start-3 mx-3.5 block h-7 md:col-span-1 md:col-start-3 md:row-start-1"
-        >
-          {axis.ticks.map((tick) => (
-            <span
-              className="absolute top-0 bottom-0 block w-px bg-current opacity-30"
-              key={tick.label}
-              style={{ left: `${positionOf(tick.at, axis)}%` }}
-            />
-          ))}
-          <span
-            className="bg-girasole group-hover/row:bg-pomodoro absolute top-1.5 block h-4 rounded-full transition-colors"
-            style={{ left: `${bar.left}%`, width: `${bar.width}%` }}
-          />
-          {bar.ongoing && (
-            <span
-              className="bg-carta border-pomodoro absolute top-0 block size-7 -translate-x-1/2 rounded-full border-[6px]"
-              style={{ left: '100%' }}
-            />
-          )}
-        </span>
+      <DialogTrigger
+        className={cn(
+          rowClass,
+          'group/row cursor-pointer transition-colors hover:bg-carta hover:text-cobalto [&:hover]:[--focus:var(--color-inchiostro)]'
+        )}
+      >
+        {summary}
         <span className="border-current col-start-2 row-span-2 row-start-1 flex size-11 items-center justify-center self-start rounded-full border-2 transition-transform group-hover/row:rotate-90 md:col-start-4 md:row-span-1 md:self-center">
           <Plus aria-hidden="true" className="size-5" />
           <span className="sr-only">{t('more')}</span>

@@ -37,4 +37,14 @@ describe('experience timeline', () => {
     expect(bar.left).toBeCloseTo(positionOf(2019 + 5 / 12, axis), 5);
     expect(bar.right).toBeCloseTo(positionOf(2025, axis), 5);
   });
+
+  it('lets a short open job start exactly where the closed job before it ends', () => {
+    const previous = { dateFrom: '2025-02-01T00:00:00.000Z', dateTo: '2026-04-01T00:00:00.000Z' };
+    const current = { dateFrom: '2026-05-01T00:00:00.000Z', dateTo: null };
+    const closedBar = getBar(previous, axis);
+    const openBar = getBar(current, axis);
+    expect(openBar.left).toBeCloseTo(closedBar.right, 5);
+    expect(openBar.width).toBeGreaterThan(0);
+    expect(openBar.width).toBeLessThan(closedBar.width);
+  });
 });
