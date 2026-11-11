@@ -9,15 +9,15 @@ import { useArrival, useDrive } from '@/components/common/drive';
 import { wheelParts } from './wheelParts';
 
 // The wheel sits on the field's top edge. Exploded, each part moves out along one axis, by a distance
-// that keeps neighbours apart: down and left on wide screens, where the title leaves room, and straight
-// left along the edge otherwise.
+// that keeps neighbours apart: left and slightly down on wide screens, and straight left along the edge
+// otherwise. The drop is shallow so the trail stays above the title, whatever its language.
 const ANCHOR = { x: 650, y: 110 };
 const GAP = 10;
 const DISTANCES: number[] = [];
 for (const [i, part] of wheelParts.entries()) {
   DISTANCES.push(i === 0 ? 0 : DISTANCES[i - 1] + wheelParts[i - 1].radius + part.radius + GAP);
 }
-const SLOPE = { x: -0.92, y: 0.39 };
+const SLOPE = { x: -0.97, y: 0.08 };
 
 const Part = ({ index, shape, drive }: { index: number; shape: ReactNode; drive: MotionValue<number> }) => {
   const distance = DISTANCES[index];
