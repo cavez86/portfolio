@@ -88,6 +88,7 @@ export function NameCradle({ name, children }: { name: string; children?: ReactN
           ref={overlayRef}
         >
           <g fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path data-part="flashes" fill="var(--color-red-pencil)" fillOpacity="0.45" stroke="none" />
             <line data-part="vertical" stroke="var(--color-pencil)" strokeDasharray="5 6" strokeWidth="1.75" />
             <path data-part="arc" stroke="var(--color-pencil)" strokeWidth="1.75" />
             <path data-part="tension" stroke="var(--color-ink)" strokeWidth="2.5" />

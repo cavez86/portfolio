@@ -11,6 +11,9 @@ const PARAMS: Omit<CradleParams, 'omega0Sq'> = { damping: 0.22, maxTheta: MAX_TH
 const RELEASE_DELAY_MS = 1100;
 /** After the visitor lets go, the diagram follows whichever letter carries the swing. */
 const FOLLOW_AFTER_MS = 1200;
+/** Multiflash exposure of where the string meets the followed letter: a dot every 60 ms, the last dozen kept. */
+const FLASH_MS = 60;
+const FLASHES = 12;
 
 export interface Controller {
   pointerDown(event: PointerEvent<HTMLElement>): void;
@@ -83,6 +86,8 @@ export const mountCradle = ({
   let fontSize = 100;
   let active = 0;
   let touched = -Infinity;
+  let flashes: { x: number; y: number; index: number }[] = [];
+  let lastFlash = 0;
   let pointer: Pointer | null = null;
   let grab: { index: number; pointerId: number; moved: boolean } | null = null;
   let frame = 0;
@@ -147,6 +152,16 @@ export const mountCradle = ({
     const unit = fontSize * 0.42;
     const head = Math.max(7, fontSize * 0.07);
     const label = fontSize * 0.1;
+
+    const now = performance.now();
+    if (now - lastFlash > FLASH_MS) {
+      lastFlash = now;
+      flashes = [...flashes.filter((dot) => dot.index === active), { index: active, x: tx, y: ty }].slice(-FLASHES);
+    }
+    const r = Math.max(3, fontSize * 0.032);
+    set('flashes', {
+      d: flashes.map((dot) => `M${dot.x - r},${dot.y}a${r},${r} 0 1 0 ${2 * r},0a${r},${r} 0 1 0 ${-2 * r},0`).join(''),
+    });
 
     const tension = (tensionOverMass(bob, G, lengthMetres) / G) * unit;
     set('tension', { d: arrow(tx, ty, tx - tension * sin, ty - tension * cos, head) });
@@ -317,7 +332,7 @@ export const mountCradle = ({
         const cy = pivot.y + pivot.radius * Math.cos(bob.theta);
         if (Math.hypot(p.x - cx, p.y - cy) > pivot.height * 0.6) return;
         const tangential = p.vx * Math.cos(bob.theta) - p.vy * Math.sin(bob.theta);
-        const delta = clamp((tangential / pivot.radius) * 0.09, 5);
+        const delta = clamp((tangential / pivot.radius) * 0.08, 3.5);
         if (Math.abs(delta) < 0.05) return;
         bob.omega += delta;
         active = i;
