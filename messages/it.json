@@ -68,7 +68,8 @@
     "scale": "1 quadretto = 5 cm"
   },
   "Languages": {
-    "caption": "Due onde con ampiezza A proporzionale alla padronanza, dove madrelingua vale 1. Punta un'onda per metterla in moto.",
+    "caption": "Due onde con ampiezza A proporzionale alla padronanza, dove madrelingua vale 1.",
+    "note": "A ∝ livello",
     "title": "Lingue"
   },
   "Loading": {
@@ -79,7 +80,9 @@
     "title": "Francesco Caveglia Beatris - Sviluppatore Web Full Stack"
   },
   "Skills": {
-    "caption": "Ogni gruppo è un filo fissato ai due estremi, con le sue competenze infilate come masse uguali. Passa il puntatore attraverso un filo, tocca una competenza o premi il nome del gruppo per pizzicarlo.",
+    "caption": "Ogni gruppo di competenze è un filo fissato ai due estremi; le competenze sono masse uguali appese al filo. Nessuna pesa più delle altre.",
+    "note": "{strings} fili, {masses} masse",
+    "pluck_hint": "Pizzica questo filo.",
     "soft": "Competenze trasversali",
     "technical": "Competenze tecniche",
     "title": "Competenze"

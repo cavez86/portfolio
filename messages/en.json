@@ -68,7 +68,8 @@
     "scale": "1 square = 5 cm"
   },
   "Languages": {
-    "caption": "Two waves with amplitude A in proportion to proficiency, where native is 1. Point at a wave to set it moving.",
+    "caption": "Two waves with amplitude A in proportion to proficiency, where native is 1.",
+    "note": "A ∝ level",
     "title": "Languages"
   },
   "Loading": {
@@ -79,7 +80,9 @@
     "title": "Francesco Caveglia Beatris - Full Stack Web Developer"
   },
   "Skills": {
-    "caption": "Each group is a string fixed at both ends, with its skills threaded on it as equal masses. Pass the pointer across a string, tap a skill or press a group's name to pluck it.",
+    "caption": "Each group of skills is a string fixed at both ends; the skills are equal masses on it. No skill is weighted more than another.",
+    "note": "{strings} strings, {masses} masses",
+    "pluck_hint": "Plucks this string.",
     "soft": "Soft skills",
     "technical": "Technical skills",
     "title": "Skills"

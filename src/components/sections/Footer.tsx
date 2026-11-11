@@ -8,7 +8,7 @@ const Footer = async () => {
 
   return (
     <footer className="border-t-2 border-ink bg-paper/90">
-      <div className="sheet flex flex-wrap items-center justify-between gap-4 py-8">
+      <div className="sheet flex flex-wrap items-center gap-x-8 gap-y-4 py-8 pr-20">
         <ExportPDFButton />
         <ul className="flex items-center gap-1">
           {contacts.map((contact) => (

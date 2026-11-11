@@ -432,15 +432,40 @@
     animation: xp-drawing 2.4s ease-in-out infinite;
   }
 
-  /* ——— Fig. 3: skills threaded on strings ——— */
+  /* ——— Fig. 3: skills as beads on strings ——— */
+
+  /* Strings keep their natural length (it follows the number of skills) and flow side by side. */
+  .bead-strings {
+    columns: 2 9.5rem;
+    column-gap: 1.25rem;
+
+    @media (min-width: 768px) {
+      columns: 3 12rem;
+      column-gap: 2.5rem;
+    }
+
+    @media (min-width: 1280px) {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      column-gap: 3.5rem;
+      row-gap: 2rem;
+    }
+  }
 
   .bead-string {
-    --mass-ink: var(--color-ink);
-    --string-ink: var(--color-graphite);
+    --string-ink: var(--color-ink);
+    --bead: 18px;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.4rem;
     min-width: 0;
+    margin-bottom: 1.75rem;
+    break-inside: avoid;
+
+    @media (min-width: 1280px) {
+      margin-bottom: 0;
+    }
   }
 
   .bead-name {
@@ -450,43 +475,39 @@
     color: var(--color-graphite);
   }
 
+  /* Narrow pages: the string hangs from a ceiling to a floor, beads down its length, names beside them. */
   .bead-track {
+    --vertical: 1;
+    --axis: 20px;
     position: relative;
-    flex: 1;
-    display: flex;
+    padding: 1.4rem 0;
     touch-action: pan-y;
   }
 
-  /* The fixed ends: a ceiling and a floor in the phone grid, two walls on wide screens. */
   .bead-track::before,
   .bead-track::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
-    height: 9px;
-    background-image: repeating-linear-gradient(-45deg, var(--string-ink) 0 1.5px, transparent 1.5px 7px);
+    left: calc(var(--axis) - 22px);
+    width: 44px;
+    height: 10px;
+    background-image: repeating-linear-gradient(-45deg, var(--string-ink) 0 2px, transparent 2px 7px);
   }
 
   .bead-track::before {
     top: 0;
-    border-bottom: 2px solid var(--string-ink);
+    border-bottom: 3px solid var(--string-ink);
   }
 
   .bead-track::after {
     bottom: 0;
-    border-top: 2px solid var(--string-ink);
+    border-top: 3px solid var(--string-ink);
   }
 
   .bead-track > ul {
     display: flex;
-    flex: 1;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    gap: 1rem;
-    padding: 1.6rem 0;
-    min-height: 100%;
+    gap: 0.9rem;
   }
 
   .bead-rest,
@@ -496,10 +517,10 @@
   }
 
   .bead-rest {
-    top: 0;
-    bottom: 0;
-    left: calc(50% - 1px);
-    width: 2px;
+    top: 10px;
+    bottom: 10px;
+    left: calc(var(--axis) - 1.5px);
+    width: 3px;
     background: var(--string-ink);
   }
 
@@ -509,8 +530,14 @@
     height: 100%;
     overflow: visible;
     stroke: var(--string-ink);
-    stroke-width: 2px;
+    stroke-width: 3px;
     visibility: hidden;
+  }
+
+  .bead-envelope {
+    stroke: var(--color-pencil);
+    stroke-width: 1.5px;
+    stroke-dasharray: 4 5;
   }
 
   .bead-track[data-moving] .bead-rest {
@@ -523,90 +550,164 @@
 
   .bead-mass {
     position: relative;
-    max-width: 100%;
-    padding: 0.2rem 0.55rem;
-    border: 2px solid var(--mass-ink);
-    border-radius: 3px;
-    background: var(--color-paper);
-    color: var(--mass-ink);
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding-left: calc(var(--axis) - var(--bead) / 2);
+    cursor: pointer;
+  }
+
+  /* An equal mass: a filled bead on the string. */
+  .bead {
+    flex: none;
+    width: var(--bead);
+    height: var(--bead);
+    border-radius: 50%;
+    background: var(--string-ink);
+    box-shadow: 0 0 0 3px var(--color-paper);
+    transition: box-shadow 150ms;
+  }
+
+  .bead-mass:hover .bead {
+    box-shadow:
+      0 0 0 3px var(--color-paper),
+      0 0 0 8px var(--color-highlighter);
+  }
+
+  .bead-label {
+    min-width: 0;
     font-size: 1.0625rem;
     font-weight: 650;
-    line-height: 1.25;
-    text-align: center;
-    transition: background-color 150ms;
+    line-height: 1.2;
+    color: var(--string-ink);
   }
 
-  .bead-mass:hover {
-    background: var(--color-highlighter);
-  }
-
-  /* Soft skills: drawn in pencil, after the technical ones. */
+  /* Soft skills: pencil, hollow beads, smaller names, after the technical ones. */
   .bead-string-soft {
-    --mass-ink: var(--color-graphite);
-    --string-ink: var(--color-pencil);
+    --bead: 14px;
   }
 
-  .bead-string-soft .bead-mass {
-    border-width: 1.5px;
-    border-style: dashed;
+  .bead-string-soft .bead {
+    background: var(--color-paper);
+    box-shadow: inset 0 0 0 2.5px var(--string-ink);
+  }
+
+  .bead-string-soft .bead-mass:hover .bead {
+    box-shadow:
+      inset 0 0 0 2.5px var(--string-ink),
+      0 0 0 6px var(--color-highlighter);
+  }
+
+  .bead-string-soft .bead-label {
     font-size: 0.975rem;
     font-weight: 450;
+  }
+
+  .bead-string-soft .bead-line,
+  .bead-string-soft .bead-rest {
+    opacity: 0.75;
   }
 
   .bead-string-soft .bead-name {
     color: var(--color-pencil);
   }
 
+  /* Wide pages: the string runs between two walls, the names stand above their beads. */
   @media (min-width: 1280px) {
-    .bead-string {
-      gap: 0.35rem;
+    .bead-track {
+      --vertical: 0;
+      --axis: auto;
+      padding: 0 2rem 0.9rem;
     }
 
     .bead-track::before,
     .bead-track::after {
-      top: 0;
-      bottom: 0;
+      top: auto;
+      bottom: calc(0.9rem + var(--bead) / 2 - 24px);
       left: auto;
-      right: auto;
-      width: 9px;
-      height: auto;
+      width: 10px;
+      height: 48px;
       border: 0;
     }
 
     .bead-track::before {
       left: 0;
-      border-right: 2px solid var(--string-ink);
+      border-right: 3px solid var(--string-ink);
     }
 
     .bead-track::after {
       right: 0;
-      border-left: 2px solid var(--string-ink);
+      border-left: 3px solid var(--string-ink);
     }
 
     .bead-track > ul {
       flex-direction: row;
-      justify-content: space-around;
-      padding: 0.9rem 1.75rem;
-      gap: 0.9rem;
+      align-items: flex-end;
+      gap: 1.75rem;
     }
 
     .bead-rest {
-      left: 0;
-      right: 0;
-      top: calc(50% - 1px);
-      bottom: auto;
+      top: auto;
+      bottom: calc(0.9rem + var(--bead) / 2 - 1.5px);
+      left: 10px;
+      right: 10px;
       width: auto;
-      height: 2px;
+      height: 3px;
     }
 
     .bead-mass {
-      font-size: 1.25rem;
+      flex-direction: column-reverse;
+      gap: 0.5rem;
+      padding-left: 0;
+    }
+
+    .bead-label {
+      font-size: 1.3125rem;
       white-space: nowrap;
     }
 
-    .bead-string-soft .bead-mass {
+    .bead-string-soft .bead-label {
       font-size: 1.0625rem;
     }
+  }
+
+  /* ——— Result: the answer is underlined twice, the way an exercise ends ——— */
+
+  .answer {
+    position: relative;
+    justify-self: start;
+    max-width: 100%;
+    padding-bottom: 0.3em;
+    color: var(--answer-ink);
+  }
+
+  .answer::before,
+  .answer::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--color-red-pencil);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 260ms ease-out;
+  }
+
+  .answer::before {
+    bottom: 0.14em;
+  }
+
+  .answer::after {
+    bottom: 0;
+    transition-delay: 120ms;
+  }
+
+  a:hover > .answer::before,
+  a:hover > .answer::after,
+  a:focus-visible > .answer::before,
+  a:focus-visible > .answer::after {
+    transform: scaleX(1);
   }
 
   /* ——— Fig. 4: waves ——— */
@@ -617,13 +718,9 @@
     }
   }
 
-  /* A wave is drawn still and starts travelling when the visitor points at it. */
+  /* The waves travel slowly; pointing at one highlights the band it fills. */
   .wave-path {
-    animation: wave-travel var(--wave-period, 4s) linear infinite paused;
-  }
-
-  .wave:hover .wave-path {
-    animation-play-state: running;
+    animation: wave-travel var(--wave-period, 8s) linear infinite;
   }
 }
 
@@ -634,7 +731,9 @@
     animation: none;
   }
 
-  .highlight {
+  .highlight,
+  .answer::before,
+  .answer::after {
     transition: none;
   }
 }
