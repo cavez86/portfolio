@@ -37,6 +37,16 @@ const SPREAD_DURATION = 2.4;
 const lampDelay = (distance: number, reach: number) =>
   round(SPREAD_START + SPREAD_DURATION * (1 - (1 - Math.min(distance / reach, 1)) ** 0.45), 2);
 
+/** Window light: mostly warm lamps, some paper-white, a few television blue-greens and rose curtains. */
+const WINDOW_COLOURS = [
+  'fill-[#ffcf7a]',
+  'fill-[#ffcf7a]',
+  'fill-[#ffcf7a]',
+  'fill-carta',
+  'fill-[#8fe3d8]',
+  'fill-[#ff9fb4]',
+];
+
 const buildMap = (spec: MapSpec, name: string) => {
   const { width: W, height: H } = spec;
   const scale = W / 1440 + 0.5 * (1 - W / 1440); // thinner lines on the small map, but not proportionally thinner
@@ -120,12 +130,39 @@ const buildMap = (spec: MapSpec, name: string) => {
     })
     .map(([x, y]) => ({ d: lampDelay(Math.hypot(x - origin[0], y - origin[1]), reach), x, y }));
 
-  return { banks, bridges, city, clearings, H, lamps, origin, reach, scale, streets, W, water };
+  // Lit windows along the inside of each block: the city is awake. A few switch on and off.
+  const windows = spec.columns
+    .slice(0, -1)
+    .flatMap((x0, i) =>
+      spec.rows.slice(0, -1).flatMap((y0, j) => {
+        const [x1, y1] = [spec.columns[i + 1], spec.rows[j + 1]];
+        const inset = 6 * scale;
+        return Array.from({ length: Math.floor(hash(x0, y0) * 5) }, (_, k) => {
+          const r = hash(x0 + k * 7.1, y0 + k * 3.3);
+          const t = hash(y0 + k, x0 - k);
+          const onVertical = r < 0.5;
+          const x = onVertical ? (r < 0.25 ? x0 + inset : x1 - inset) : x0 + inset + t * (x1 - x0 - inset * 2);
+          const y = onVertical ? y0 + inset + t * (y1 - y0 - inset * 2) : r < 0.75 ? y0 + inset : y1 - inset;
+          return {
+            colour: WINDOW_COLOURS[Math.floor(hash(k, x0 + y0) * WINDOW_COLOURS.length)],
+            t,
+            x: round(x),
+            y: round(y),
+          };
+        });
+      })
+    )
+    .filter(({ x, y }) => !blocked([x, y], 3));
+
+  return { banks, bridges, city, clearings, H, lamps, origin, reach, scale, streets, W, water, windows };
 };
 
 const StreetMap = ({ variant, name, className }: { variant: Variant; name: string; className?: string }) => {
   const spec = SPECS[variant];
-  const { banks, bridges, city, clearings, H, lamps, origin, reach, scale, streets, W, water } = buildMap(spec, name);
+  const { banks, bridges, city, clearings, H, lamps, origin, reach, scale, streets, W, water, windows } = buildMap(
+    spec,
+    name
+  );
   const id = `map-${variant}`;
   const thin = 1.5 * scale;
   const thick = 4.5 * scale;
@@ -219,7 +256,20 @@ const StreetMap = ({ variant, name, className }: { variant: Variant; name: strin
       <g clipPath={`url(#${id}-city)`}>
         <g mask={`url(#${id}-yield)`}>
           {streetLayer('stroke-street', false)}
-          <g mask={`url(#${id}-lit)`}>{streetLayer('stroke-lampione', true)}</g>
+          <g mask={`url(#${id}-lit)`}>
+            {streetLayer('stroke-lampione', true)}
+            {windows.map(({ x, y, colour, t }) => (
+              <rect
+                className={cn(colour, t > 0.86 && 'twinkle')}
+                height={2.6 * scale + 0.6}
+                key={`${x},${y}`}
+                style={t > 0.86 ? ({ '--d': `${round(t * 40 - 30, 1)}s` } as CSSProperties) : undefined}
+                width={3.4 * scale + 0.6}
+                x={x - 1.7 * scale}
+                y={y - 1.3 * scale}
+              />
+            ))}
+          </g>
         </g>
         {piazzaLayer('stroke-street')}
         <g mask={`url(#${id}-lit)`} opacity="0.8">

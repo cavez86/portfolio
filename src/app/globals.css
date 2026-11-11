@@ -239,6 +239,19 @@ main {
   }
 }
 
+/* A window that someone keeps switching on and off. */
+@keyframes twinkle {
+  0%,
+  58%,
+  100% {
+    opacity: 1;
+  }
+  62%,
+  88% {
+    opacity: 0.12;
+  }
+}
+
 @keyframes shuttle {
   from {
     transform: translateX(0);
@@ -257,6 +270,11 @@ main {
 
   .lamp {
     animation: lamp-on 0.7s ease-out both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .twinkle {
+    animation: twinkle 9s steps(1, end) infinite;
     animation-delay: var(--d, 0s);
   }
 
