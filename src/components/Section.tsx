@@ -18,16 +18,18 @@ const Section = ({
   id,
   field,
   className,
-  compact = false,
+  edge,
   children,
 }: {
   id?: string;
   field: Field;
   className?: string;
-  compact?: boolean;
+  // A drawn piece that sits on the field's top edge, half in the field above.
+  edge?: ReactNode;
   children: ReactNode;
 }) => (
-  <section className={cn(fieldClasses[field], 'px-5 md:px-10', compact ? 'py-12 md:py-16' : 'py-16 md:py-28')} id={id}>
+  <section className={cn(fieldClasses[field], 'relative px-5 py-16 md:px-10 md:py-28')} id={id}>
+    {edge && <div className="absolute inset-x-5 top-0 mx-auto max-w-7xl md:inset-x-10">{edge}</div>}
     <div className={cn('mx-auto max-w-7xl', className)}>{children}</div>
   </section>
 );

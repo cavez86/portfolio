@@ -2,9 +2,13 @@
 
 import { ArrowUp } from 'lucide-react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { Disc } from './Disc';
+
 export const GoToTop = () => {
+  const t = useTranslations('Header');
   const [isVisible, setIsVisible] = useState(false);
   const { scrollY } = useScroll();
 
@@ -12,28 +16,22 @@ export const GoToTop = () => {
     setIsVisible(latest > 300);
   });
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      behavior: 'smooth',
-      top: 0,
-    });
-  };
-
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.button
           animate={{ opacity: 1, scale: 1 }}
-          aria-label="Scroll to top"
-          className="bg-inchiostro text-carta hover:bg-cobalto fixed right-4 bottom-4 flex size-12 cursor-pointer items-center justify-center rounded-full border-2 border-carta transition-colors hover:text-white md:right-8 md:bottom-8"
+          aria-label={t('top')}
+          className="group/top fixed right-4 bottom-4 cursor-pointer rounded-full md:right-8 md:bottom-8"
           exit={{ opacity: 0, scale: 0.5 }}
           initial={{ opacity: 0, scale: 0.5 }}
-          onClick={scrollToTop}
+          onClick={() => window.scrollTo({ behavior: 'smooth', top: 0 })}
           transition={{ duration: 0.2 }}
           type="button"
-          whileHover={{ scale: 1.08 }}
         >
-          <ArrowUp size={22} />
+          <Disc className="border-carta size-14 border-[3px] group-hover/top:rotate-360">
+            <ArrowUp className="size-6" strokeWidth={2.75} />
+          </Disc>
         </motion.button>
       )}
     </AnimatePresence>

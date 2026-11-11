@@ -38,10 +38,12 @@
     },
     "language_label": "Lingua",
     "navigation": "Principale",
-    "skills": "Competenze"
+    "skills": "Competenze",
+    "top": "Torna su"
   },
   "Hero": {
-    "contact_me": "Contattami"
+    "contact_me": "Contattami",
+    "turn": "Fai girare la macchina"
   },
   "Languages": {
     "title": "Lingue"

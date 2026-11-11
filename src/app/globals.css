@@ -15,6 +15,9 @@
 @theme {
   --font-sans: var(--font-archivo, ui-sans-serif), ui-sans-serif, system-ui, sans-serif;
 
+  /* Wide enough for the skills drawing to spread beside its title in either language. */
+  --breakpoint-wide: 90rem;
+
   --color-carta: #f4f7fb;
   --color-inchiostro: #0f1a3a;
   --color-cobalto: #1c3fcc;
@@ -170,5 +173,27 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/* A part of a drawn machine lifts a little under the pointer. */
+@media (prefers-reduced-motion: no-preference) {
+  .mech-lift {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+
+  .mech-lift:hover {
+    transform: scale(1.04);
+  }
+}
+
+/* A part of an exploded drawing: --p runs from 0 (assembled) to 1 (exploded). */
+.exploded-part {
+  transform: translateX(calc(var(--edge-x) * var(--p, 1) * 1px));
+
+  @variant wide {
+    transform: translate(calc(var(--wide-x) * var(--p, 1) * 1px), calc(var(--wide-y) * var(--p, 1) * 1px));
   }
 }

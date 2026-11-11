@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
+import { Disc } from '@/components/common/Disc';
 import Icon from '@/components/common/Icon';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
 import { buttonVariants } from '@/components/ui/button';
@@ -18,10 +19,10 @@ export const Header = async () => {
     <header className="bg-carta text-inchiostro sticky top-0 z-50 border-b-2 border-inchiostro px-4 py-3 md:px-10">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
         <div className="flex items-center gap-6">
-          <Link aria-label={t('home')} className="flex items-center gap-1.5 rounded-full" href="/">
-            <span className="bg-cobalto block size-7 rounded-full" />
-            <span className="bg-pomodoro block h-3.5 w-7 rounded-full" />
-            <span className="bg-girasole border-inchiostro block size-3.5 rounded-full border-2" />
+          <Link aria-label={t('home')} className="group/mark flex items-center gap-1.5 rounded-full" href="/">
+            <Disc className="size-7 group-hover/mark:rotate-360" />
+            <span className="bg-pomodoro block h-3.5 w-7 rounded-full transition-transform duration-300 group-hover/mark:translate-x-1.5 motion-reduce:transition-none" />
+            <span className="bg-girasole border-inchiostro block size-3.5 rounded-full border-2 transition-transform duration-300 group-hover/mark:-translate-y-2 motion-reduce:transition-none" />
           </Link>
           <nav aria-label={t('navigation')} className="hidden items-center gap-1 md:flex">
             <Link className={navLink} href="#experience">

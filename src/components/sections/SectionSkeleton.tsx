@@ -64,12 +64,12 @@ export const SkillsSectionSkeleton = () => (
 );
 
 export const LanguagesSectionSkeleton = () => (
-  <Section compact field="abete">
+  <Section className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center" field="abete">
     <SkeletonBlock className="h-16 w-3/4 max-w-md md:h-24" />
-    <div className="mt-10 grid gap-x-12 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="flex flex-wrap gap-x-8 gap-y-10 md:gap-x-12">
       {['language-1', 'language-2'].map((key) => (
-        <div className="flex items-center gap-5" key={key}>
-          <SkeletonBlock className="size-28 shrink-0 md:size-32" />
+        <div className="flex flex-col gap-5" key={key}>
+          <SkeletonBlock className="size-36 sm:size-44 md:size-64" />
           <SkeletonBlock className="h-8 w-1/2" />
         </div>
       ))}
@@ -79,22 +79,15 @@ export const LanguagesSectionSkeleton = () => (
 
 export const ContactSectionSkeleton = () => (
   <Section field="pomodoro" id="contact">
-    <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20">
-      <div className="space-y-4">
-        <SkeletonBlock className="h-20 w-3/4 md:h-32" />
-        <SkeletonBlock className="h-20 w-1/2 md:h-32" />
-      </div>
-      <div>
-        {['contact-1', 'contact-2', 'contact-3'].map((key) => (
-          <div className="flex items-center justify-between gap-6 border-t-2 border-inchiostro py-6" key={key}>
-            <div className="flex-1 space-y-3">
-              <SkeletonBlock className="h-8 w-1/2" />
-              <SkeletonBlock className="h-4 w-2/3" />
-            </div>
-            <SkeletonBlock className="size-14 shrink-0" />
-          </div>
-        ))}
-      </div>
+    <SkeletonBlock className="h-20 w-3/4 max-w-2xl md:h-32" />
+    <SkeletonBlock className="mt-8 h-7 w-2/3 max-w-sm" />
+    <div className="mt-12 grid gap-8 md:mt-16 md:grid-cols-3 md:gap-10">
+      {['contact-1', 'contact-2', 'contact-3'].map((key) => (
+        <div className="flex items-center gap-5 md:flex-col md:items-start md:gap-6" key={key}>
+          <SkeletonBlock className="size-24 shrink-0 md:size-44" />
+          <SkeletonBlock className="h-8 w-1/2" />
+        </div>
+      ))}
     </div>
   </Section>
 );

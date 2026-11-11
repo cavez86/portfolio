@@ -10,7 +10,7 @@ export function generateStaticParams() {
 }
 
 const Home = () => (
-  <main>
+  <main className="overflow-x-clip">
     <HeroSection />
     <ExperienceSection />
     <SkillsSection />

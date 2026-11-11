@@ -3,6 +3,8 @@ import SkillsCard from '@/components/cards/SkillsCard';
 import Section from '@/components/Section';
 import { getLocalizedCollection } from '@/components/utils/db';
 
+import { ExplodedWheel } from './ExplodedWheel';
+
 const SkillsSection = async () => {
   const [skillsData, softSkillsData, t] = await Promise.all([
     getLocalizedCollection('skills', ['-ID']),
@@ -11,7 +13,7 @@ const SkillsSection = async () => {
   ]);
 
   return (
-    <Section field="girasole" id="skills">
+    <Section edge={<ExplodedWheel count={skillsData.length} />} field="girasole" id="skills">
       <h2 className="type-title max-w-[12ch]">{t('title')}</h2>
 
       <div className="mt-12 md:mt-16">
@@ -24,8 +26,8 @@ const SkillsSection = async () => {
 
       <div className="mt-12 md:mt-16">
         <h3 className="type-subheading mb-4">{t('soft')}</h3>
-        {softSkillsData.map((category, index) => (
-          <SkillsCard category={category} index={index + skillsData.length} key={category.id} secondary />
+        {softSkillsData.map((category) => (
+          <SkillsCard category={category} key={category.id} />
         ))}
         <div className="border-t-2 border-inchiostro" />
       </div>

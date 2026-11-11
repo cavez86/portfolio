@@ -1,22 +1,13 @@
 import { getTranslations } from 'next-intl/server';
 
-import { Primitive } from '@/components/common/Primitive';
+import { WheelPart } from '@/components/sections/SkillsSection/wheelParts';
 import { cn } from '@/lib/utils';
 import type { Skill, SoftSkill } from '@/payload-types';
 
-const glyphColors = ['text-cobalto', 'text-pomodoro', 'text-abete', 'text-inchiostro'];
-
-// One category per row: its name and glyph on the left, the skills as running text on the right.
-// `secondary` sets the row quieter, for the soft skills.
-const SkillsCard = async ({
-  category,
-  index,
-  secondary = false,
-}: {
-  category: Skill | SoftSkill;
-  index: number;
-  secondary?: boolean;
-}) => {
+// One category per row: its name on the left, the skills as running text on the right. A technical
+// category carries its wheel part (`index`); soft skills have no part and are set quieter.
+const SkillsCard = async ({ category, index }: { category: Skill | SoftSkill; index?: number }) => {
+  const secondary = index === undefined;
   const t = await getTranslations('Skills');
 
   return (
@@ -27,7 +18,7 @@ const SkillsCard = async ({
       )}
     >
       <h4 className="type-subheading flex items-center gap-3 md:pt-1.5">
-        <Primitive className={cn('size-7 shrink-0', glyphColors[index % glyphColors.length])} index={index} />
+        {!secondary && <WheelPart className="size-9 shrink-0" index={index} />}
         {t(category.name)}
       </h4>
       <p className={cn('max-w-[40ch] text-pretty', secondary ? 'type-lead' : 'type-heading')}>

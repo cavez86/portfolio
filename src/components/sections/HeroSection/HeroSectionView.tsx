@@ -16,10 +16,10 @@ const HeroSection = async () => {
   ]);
 
   return (
-    <section className="bg-carta text-inchiostro px-5 pt-6 pb-16 md:px-10 md:pt-16 md:pb-24">
+    <section className="bg-carta text-inchiostro px-5 pt-6 pb-16 md:px-10 md:pt-12 md:pb-24">
       <div className="mx-auto max-w-7xl">
-        <div className="grid items-center gap-5 md:gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-6">
-          <div>
+        <div className="grid items-start lg:grid-cols-[minmax(0,25rem)_minmax(0,1fr)]">
+          <div className="relative z-10 lg:pt-10">
             <h1 className="type-display">
               {personalInfoData.name.split(' ').map((word) => (
                 <span className="block" key={word}>
@@ -27,12 +27,15 @@ const HeroSection = async () => {
                 </span>
               ))}
             </h1>
-            <p className="type-lead mt-4 max-w-[28ch] md:mt-8">{personalInfoData.title}</p>
+            <p className="type-lead mt-4 max-w-[24ch] md:mt-8">{personalInfoData.title}</p>
             <Link className={buttonVariants({ className: 'mt-5 md:mt-8', size: 'lg' })} href="#contact">
               {t('contact_me')}
             </Link>
           </div>
-          <HeroMechanism className="mx-auto h-auto w-full max-w-[34rem] lg:max-w-none" />
+          <HeroMechanism
+            className="-mr-5 ml-[-12%] mt-4 w-[calc(112%+1.25rem)] md:-mr-10 lg:mt-0 lg:ml-16 lg:w-[calc(100%+5rem)]"
+            label={t('turn')}
+          />
         </div>
 
         <div className="mt-14 grid gap-10 border-t-4 border-inchiostro pt-10 md:mt-20 lg:grid-cols-[minmax(0,40rem)_1fr] lg:gap-20">
