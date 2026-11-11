@@ -1,8 +1,6 @@
 {
   "Contact": {
-    "availability": "Disponibilità",
     "availability_text": "Disponibile per opportunità lavorative da remoto o ibride.",
-    "description": "Recapiti e informazioni di contatto",
     "title": "Contatti"
   },
   "Error": {
@@ -43,7 +41,6 @@
     "contact_me": "Contattami"
   },
   "Languages": {
-    "description": "Abilità comunicative in diverse lingue",
     "title": "Lingue"
   },
   "Loading": {
@@ -54,7 +51,6 @@
     "title": "Francesco Caveglia Beatris - Sviluppatore Web Full Stack"
   },
   "Skills": {
-    "description": "Competenze tecniche e soft skills alla base del mio lavoro",
     "soft": "Competenze trasversali",
     "technical": "Competenze tecniche",
     "title": "Competenze ed esperienze"

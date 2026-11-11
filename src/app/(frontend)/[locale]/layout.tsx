@@ -3,7 +3,7 @@ import '../../globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
-import { Sofia_Sans } from 'next/font/google';
+import { Sofia_Sans, Sofia_Sans_Extra_Condensed } from 'next/font/google';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
 import { GoToTop } from '@/components/common/GoToTop';
@@ -15,8 +15,17 @@ import { cn } from '@/lib/utils';
 
 const sofia = Sofia_Sans({
   display: 'swap',
+  style: ['normal', 'italic'],
   subsets: ['latin'],
   variable: '--font-sofia',
+});
+
+/** Map lettering: the name, stop names, district names. */
+const sofiaExtraCondensed = Sofia_Sans_Extra_Condensed({
+  display: 'swap',
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-sofia-xc',
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -35,7 +44,7 @@ export default async function LocaleLayout({ children }: { children: ReactNode }
   return (
     <html lang={locale} suppressHydrationWarning>
       <MainProvider>
-        <body className={cn(sofia.variable, 'font-sans antialiased')}>
+        <body className={cn(sofia.variable, sofiaExtraCondensed.variable, 'font-sans antialiased')}>
           <Header />
           {children}
           <Footer />

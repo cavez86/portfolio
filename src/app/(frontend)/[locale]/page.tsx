@@ -1,6 +1,9 @@
+import type { CSSProperties } from 'react';
+
 import ContactSection from '@/components/sections/ContactSection';
 import ExperienceSection from '@/components/sections/ExperienceSection';
 import HeroSection from '@/components/sections/HeroSection';
+import { railVars } from '@/components/sections/HeroSection/cityMap';
 import LanguagesSection from '@/components/sections/LanguagesSection';
 import SkillsSection from '@/components/sections/SkillsSection';
 import { routing } from '@/i18n/routing';
@@ -10,7 +13,7 @@ export function generateStaticParams() {
 }
 
 const Home = () => (
-  <main>
+  <main style={railVars() as CSSProperties}>
     <HeroSection />
     <ExperienceSection />
     <SkillsSection />

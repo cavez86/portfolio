@@ -5,48 +5,54 @@
 /*
  * Mappa notturna: Turin at night, read as a map.
  *
- * notte    #1c1420  warm aubergine ground
- * lampione #f4ab3d  sodium lamp amber: streets, primary type accents, actions
- * po       #6cbab4  river blue-green: secondary accents, icons
- * carta    #f4e9db  soft warm white: text
- * tram     #ff6350  signal colour: the tram line, and only the tram line
+ * notte    #2d1b31  aubergine night: the page ground
+ * isolato  #3b2640  city blocks, the skills district, raised surfaces
+ * lampione #f4a93c  sodium lamps: lit streets, links, actions
+ * po       #235b5c  water; riva #7cc7bd for banks and water lettering
+ * carta    #f8ecd9  type
+ * piazza   #3f2533  the contact district
+ * tram     #ff4f58  the tram line, and only the tram line
  */
-/* The font variable lives on <body> (next/font), so it must be resolved where it is used. */
+/* The font variables live on <body> (next/font), so they must be resolved where they are used. */
 @theme inline {
   --font-sans: var(--font-sofia), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sofia-xc), var(--font-sofia), ui-sans-serif, sans-serif;
 }
 
 @theme {
-  --color-background: #1c1420;
-  --color-foreground: #f4e9db;
+  --color-notte: #2d1b31;
+  --color-isolato: #3b2640;
+  --color-lampione: #f4a93c;
+  --color-po: #235b5c;
+  --color-riva: #7cc7bd;
+  --color-carta: #f8ecd9;
+  --color-tram: #ff4f58;
+  /* An unlit street: the map before the lamps come on. */
+  --color-street: #5e4262;
+  /* District boundaries and arcade pillars. */
+  --color-boundary: #8c6d8e;
+  /* The piazza: warm stone under lamplight. */
+  --color-piazza: #3f2533;
 
-  --color-card: #271c2d;
-  --color-card-foreground: #f4e9db;
-
-  --color-popover: #2f2336;
-  --color-popover-foreground: #f4e9db;
-
-  --color-primary: #f4ab3d;
-  --color-primary-foreground: #1c1420;
-
-  --color-secondary: #3a2c42;
-  --color-secondary-foreground: #f4e9db;
-
-  --color-muted: #33263a;
-  --color-muted-foreground: #bba9bd;
-
-  --color-accent: #6cbab4;
-  --color-accent-foreground: #1c1420;
-
-  --color-tram: #ff6350;
-  --color-river: #6cbab4;
-
-  --color-destructive: #ff8a7a;
-  --color-destructive-foreground: #1c1420;
-
-  --color-border: #4a3a52;
-  --color-input: #4a3a52;
-  --color-ring: #f4ab3d;
+  --color-background: var(--color-notte);
+  --color-foreground: var(--color-carta);
+  --color-card: var(--color-isolato);
+  --color-card-foreground: var(--color-carta);
+  --color-popover: var(--color-isolato);
+  --color-popover-foreground: var(--color-carta);
+  --color-primary: var(--color-lampione);
+  --color-primary-foreground: var(--color-notte);
+  --color-secondary: var(--color-isolato);
+  --color-secondary-foreground: var(--color-carta);
+  --color-muted: #46304b;
+  --color-muted-foreground: #cbb6ca;
+  --color-accent: var(--color-riva);
+  --color-accent-foreground: var(--color-notte);
+  --color-destructive: #ff8f7f;
+  --color-destructive-foreground: var(--color-notte);
+  --color-border: #533a58;
+  --color-input: #533a58;
+  --color-ring: var(--color-lampione);
 
   --radius-xs: 1px;
   --radius-sm: 2px;
@@ -54,16 +60,17 @@
   --radius-lg: 6px;
   --radius-xl: 8px;
 
-  --text-body: 1.0625rem;
-  --text-body--line-height: 1.65;
+  /* Type scale: base 17px, ratio about 1.25. Display sizes use the extra condensed cut. */
   --text-small: 0.9375rem;
   --text-small--line-height: 1.5;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
   --text-lead: 1.3125rem;
   --text-lead--line-height: 1.45;
-  --text-district: clamp(2rem, 1.4rem + 2.4vw, 3rem);
-  --text-district--line-height: 1.05;
-  --text-name: clamp(2.75rem, 1.2rem + 6.2vw, 5.75rem);
-  --text-name--line-height: 0.95;
+  --text-stop: clamp(1.875rem, 1.4rem + 1.6vw, 2.75rem);
+  --text-stop--line-height: 1;
+  --text-district: clamp(3.25rem, 2rem + 5vw, 6rem);
+  --text-district--line-height: 0.9;
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   @keyframes accordion-down {
@@ -140,32 +147,94 @@
   }
 }
 
-@keyframes lamp-on {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
+/*
+ * The tram line. `--rail-x` and `--rail-w` come from the map spec (set on <main>), so the rail below the hero
+ * sits exactly where the line leaves the map. <main> is the size container, so both are fractions of the same width.
+ */
+main {
+  container-type: inline-size;
+  --rail-x: var(--rail-x-sm);
+  --rail-w: var(--rail-w-sm);
+}
+
+@media (width >= 48rem) {
+  main {
+    --rail-x: var(--rail-x-md);
+    --rail-w: var(--rail-w-md);
   }
-  35% {
-    opacity: 1;
-    transform: scale(1);
+}
+
+.line-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: calc(var(--rail-x) + 1.75rem) minmax(0, 1fr);
+}
+
+@media (width >= 48rem) {
+  .line-row {
+    grid-template-columns: calc(var(--rail-x) - 2rem) 4rem minmax(0, 1fr);
   }
-  48% {
-    opacity: 0.35;
+}
+
+.rail {
+  position: absolute;
+  left: var(--rail-x);
+  width: var(--rail-w);
+  translate: -50% 0;
+  background: var(--color-tram);
+}
+
+/* Line under construction: the stretch above the terminus. */
+.rail-planned {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-tram) 0 calc(var(--rail-w) * 1.8),
+    transparent 0 calc(var(--rail-w) * 2.8)
+  );
+}
+
+/* A district boundary, dash-dot as on a map, where the districts after the line begin. */
+.district-boundary {
+  height: 3px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-boundary) 0 24px,
+    transparent 24px 32px,
+    var(--color-boundary) 32px 36px,
+    transparent 36px 44px
+  );
+}
+
+/* Arcade pillars along the piazza: a row of square piers under a continuous cornice. */
+.arcade {
+  height: 14px;
+  border-top: 2px solid var(--color-boundary);
+  background:
+    repeating-linear-gradient(to right, var(--color-boundary) 0 7px, transparent 7px 30px) 0 4px / 100% 8px no-repeat;
+}
+
+/* The page-load moment: light spreads from the name through the streets, lamps switch on as it passes. */
+@keyframes light-spread {
+  from {
+    transform: scale(0);
   }
-  62% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
+  to {
     transform: scale(1);
   }
 }
 
-@keyframes street-on {
-  from {
+@keyframes lamp-on {
+  0% {
     opacity: 0;
   }
-  to {
+  40% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.3;
+  }
+  70%,
+  100% {
     opacity: 1;
   }
 }
@@ -179,27 +248,28 @@
   }
 }
 
-.lamp {
-  animation: lamp-on 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) both;
-  animation-delay: var(--d, 0s);
-  transform-box: fill-box;
-  transform-origin: center;
-}
+@media (prefers-reduced-motion: no-preference) {
+  .light-spread {
+    animation: light-spread 2.4s cubic-bezier(0.25, 0.6, 0.3, 1) 0.2s both;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 
-.street-lit {
-  animation: street-on 1.1s ease-out both;
-  animation-delay: var(--d, 0s);
-}
+  .lamp {
+    animation: lamp-on 0.7s ease-out both;
+    animation-delay: var(--d, 0s);
+  }
 
-.shuttle {
-  animation: shuttle 1.6s ease-in-out infinite alternate;
+  .shuttle {
+    animation: shuttle 1.6s ease-in-out infinite alternate;
+  }
 }
 
 /* Rich text coming from Payload (hero description). */
 .payload-richtext {
   display: flex;
   flex-direction: column;
-  gap: 1.1em;
+  gap: 1em;
 }
 
 .payload-richtext strong {
@@ -211,13 +281,4 @@
   color: var(--color-primary);
   text-decoration: underline;
   text-underline-offset: 3px;
-}
-
-/* The map is drawn lit; the page-load moment only plays when motion is welcome. */
-@media (prefers-reduced-motion: reduce) {
-  .lamp,
-  .shuttle,
-  .street-lit {
-    animation: none;
-  }
 }

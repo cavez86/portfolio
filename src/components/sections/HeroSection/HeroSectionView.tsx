@@ -1,11 +1,12 @@
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
 import { RichText } from '@payloadcms/richtext-lexical/react';
 import { getTranslations } from 'next-intl/server';
+import { Fragment } from 'react';
 
-import Icon, { type IconName } from '@/components/common/Icon';
 import { buttonVariants } from '@/components/ui/button';
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
 
+import { HERO_VARS } from './cityMap';
 import StreetMap from './StreetMap';
 
 const HeroSection = async () => {
@@ -14,42 +15,55 @@ const HeroSection = async () => {
     getLocalizedCollection('summary-info'),
     getTranslations('Hero'),
   ]);
+  const [firstName, ...surnames] = personalInfoData.name.trim().split(/\s+/);
 
   return (
     <section>
-      <div className="relative isolate flex min-h-[calc(100svh-3.5rem)] items-end overflow-hidden md:min-h-[min(46rem,calc(100svh-3.5rem))] md:items-center">
-        <StreetMap className="md:hidden" variant="tall" />
-        <StreetMap className="hidden md:block" variant="wide" />
+      <div className="relative flex items-center overflow-hidden md:max-h-[calc(100svh-3.5rem)]">
+        <div className="@container relative aspect-(--map-ratio) w-full md:aspect-(--map-ratio-md)" style={HERO_VARS}>
+          <StreetMap className="md:hidden" name={personalInfoData.name} variant="tall" />
+          <StreetMap className="hidden md:block" name={personalInfoData.name} variant="wide" />
 
-        <div className="relative mx-auto w-full max-w-6xl px-5 py-10 md:px-8 md:py-16">
-          <div className="max-w-3xl border-2 border-primary bg-background p-6 outline outline-1 -outline-offset-8 outline-primary/45 md:p-12">
-            <h1 className="text-name font-extrabold tracking-tight text-balance text-foreground">
-              {personalInfoData.name}
-            </h1>
-            <p className="mt-5 max-w-[34ch] text-lead font-medium text-pretty text-primary">{personalInfoData.title}</p>
-            <a className={buttonVariants({ className: 'mt-8', size: 'lg' })} href="#contact">
-              {t('contact_me')}
-            </a>
-          </div>
+          {/* Lettered into the map like a district name: one word per line on phones, surnames together on wider maps. */}
+          <h1 className="absolute top-(--name-y) left-(--name-x) font-display text-(length:--name-size) leading-[0.86] font-extrabold tracking-[0.005em] text-carta md:top-(--name-y-md) md:left-(--name-x-md) md:text-(length:--name-size-md)">
+            <span className="block">{firstName}</span>
+            <span className="block">
+              {surnames.map((word, i) => (
+                <Fragment key={word}>
+                  {i > 0 && ' '}
+                  <span className="block md:inline">{word}</span>
+                </Fragment>
+              ))}
+            </span>
+          </h1>
+          <p className="absolute top-(--title-y) left-(--title-x) max-w-(--title-w) text-[max(1rem,var(--title-size))] leading-[1.3] font-semibold text-pretty text-lampione md:top-(--title-y-md) md:left-(--title-x-md) md:max-w-(--title-w-md) md:text-[max(1rem,var(--title-size-md))]">
+            {personalInfoData.title}
+          </p>
+          <a
+            className={buttonVariants({
+              className:
+                'absolute top-(--cta-y) left-(--cta-x) h-auto px-[1.3em] py-[0.8em] text-[max(1rem,var(--cta-size))] md:top-(--cta-y-md) md:left-(--cta-x-md) md:text-[max(1rem,var(--cta-size-md))]',
+              size: 'lg',
+            })}
+            href="#contact"
+          >
+            {t('contact_me')}
+          </a>
         </div>
       </div>
 
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[minmax(0,38rem)_minmax(0,1fr)] lg:gap-24">
-        <div className="payload-richtext text-body text-pretty text-foreground/90">
+      {/* The line leaves the map and runs past the introduction, still under construction. */}
+      <div className="line-row pt-14 pb-16 md:pt-20 md:pb-20">
+        <span aria-hidden="true" className="rail rail-planned inset-y-0" />
+        <div className="payload-richtext col-start-2 max-w-[62ch] pr-5 text-body text-pretty text-carta/90 md:col-start-3 md:pr-8">
           <RichText data={personalInfoData.description as SerializedEditorState} />
         </div>
 
-        <dl className="flex flex-col self-start border-t border-border lg:border-t-0 lg:border-l lg:pl-10">
+        <dl className="col-start-2 mt-12 grid grid-cols-2 gap-x-6 gap-y-6 pr-5 md:col-start-1 md:row-start-1 md:mt-0 md:grid-cols-1 md:self-start md:pr-10 md:text-right">
           {summaryInfoData.map((item) => (
-            <div
-              className="flex items-start gap-4 border-b border-border py-4 last:border-b-0 lg:first:pt-0"
-              key={item.id}
-            >
-              <Icon aria-hidden="true" className="mt-1 size-5 shrink-0 text-accent" name={item.icon as IconName} />
-              <div>
-                <dt className="text-small text-muted-foreground">{t(item.label)}</dt>
-                <dd className="text-lead font-semibold">{t(item.value)}</dd>
-              </div>
+            <div key={item.id}>
+              <dt className="text-small text-muted-foreground">{t(item.label)}</dt>
+              <dd className="text-lead font-semibold text-balance">{t(item.value)}</dd>
             </div>
           ))}
         </dl>

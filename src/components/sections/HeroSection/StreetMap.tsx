@@ -2,198 +2,312 @@ import type { CSSProperties } from 'react';
 
 import { cn } from '@/lib/utils';
 
-/**
- * Stylised map of a grid city cut by a river: straight streets, one bend of water, lamps at the corners.
- * It is deterministic (no randomness) and never traced from a real map. Decorative only.
- */
+import {
+  bankAt,
+  insideRect,
+  letteringClearings,
+  type MapSpec,
+  type Point,
+  riverBanks,
+  round,
+  SPECS,
+  toPath,
+  type Variant,
+} from './cityMap';
 
-type Variant = 'wide' | 'tall';
-
-interface MapSpec {
-  width: number;
-  height: number;
-  /** x position of every north-south street */
-  columns: number[];
-  /** y position of every east-west street */
-  rows: number[];
-  /** x of the river centre line at a given y */
-  riverX: (y: number) => number;
-  /** indices of the east-west streets that cross the river on a bridge */
-  bridges: number[];
-  labels: { text: string; x: number; y: number; rotate?: number }[];
-}
-
-const range = (count: number, start: number, step: number) => Array.from({ length: count }, (_, i) => start + i * step);
-
-const SPECS: Record<Variant, MapSpec> = {
-  tall: {
-    bridges: [3, 7, 10],
-    columns: range(7, 18, 58),
-    height: 840,
-    labels: [
-      { text: 'Fiume Po', x: 0, y: 0 },
-      { text: 'Via Roma', x: 24, y: 164 },
-    ],
-    riverX: (y) => 255 + 62 * Math.sin(y / 120) - 0.16 * y,
-    rows: range(14, 26, 62),
-    width: 390,
-  },
-  wide: {
-    bridges: [2, 5, 8],
-    columns: range(16, 40, 92),
-    height: 800,
-    labels: [
-      { text: 'Fiume Po', x: 0, y: 0 },
-      { text: 'Via Roma', x: 1180, y: 186 },
-      { text: 'Corso Vittorio Emanuele II', x: 960, y: 700 },
-    ],
-    riverX: (y) => 1010 + 140 * Math.sin(y / 140) - 0.3 * y,
-    rows: range(11, 30, 78),
-    width: 1440,
-  },
+/** Deterministic noise, so the server and the client draw the same city. */
+const hash = (x: number, y: number) => {
+  const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+  return n - Math.floor(n);
 };
 
-const hash = (n: number) => {
-  const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
-  return x - Math.floor(x);
+const insidePolygon = ([x, y]: Point, polygon: Point[]) => {
+  let inside = false;
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+    const [xi, yi] = polygon[i];
+    const [xj, yj] = polygon[j];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
 };
 
-const round = (n: number) => Math.round(n * 10) / 10;
+/** The light spreads with an ease-out; a lamp switches on when the front reaches it. */
+const SPREAD_START = 0.2;
+const SPREAD_DURATION = 2.4;
+const lampDelay = (distance: number, reach: number) =>
+  round(SPREAD_START + SPREAD_DURATION * (1 - (1 - Math.min(distance / reach, 1)) ** 0.45), 2);
 
-const lampDelay = (x: number, width: number, seed: number) => round(0.35 + (x / width) * 1.5 + hash(seed) * 0.45);
+const buildMap = (spec: MapSpec, name: string) => {
+  const { width: W, height: H } = spec;
+  const scale = W / 1440 + 0.5 * (1 - W / 1440); // thinner lines on the small map, but not proportionally thinner
+  const banks = riverBanks(spec);
+  const city: Point[] = [[-40, -40], ...banks.west, ...spec.westClose];
+  const water: Point[] = [...banks.west, ...[...banks.east].reverse()];
+  const clearings = letteringClearings(spec, name);
 
-const StreetMap = ({ variant, className }: { variant: Variant; className?: string }) => {
-  const { width, height, columns, rows, riverX, bridges, labels } = SPECS[variant];
-  const id = `map-${variant}`;
+  const blocked = (p: Point, margin = 6) =>
+    !insidePolygon(p, city) ||
+    clearings.some((r) => insideRect(p, r, margin)) ||
+    spec.piazzas.some((r) => insideRect(p, r, -2)) ||
+    (spec.park ? insidePolygon(p, spec.park) : false) ||
+    p[0] < 0 ||
+    p[0] > W ||
+    p[1] < 0 ||
+    p[1] > H;
 
-  // Streets are not all the same length: some stop short, like a real, uneven plan.
-  const columnSpans = columns.map((_, i) => ({
-    from: hash(i + 1) < 0.3 ? round(hash(i + 9) * height * 0.3) : -10,
-    to: hash(i + 2) < 0.3 ? round(height - hash(i + 5) * height * 0.3) : height + 10,
-  }));
-  const rowSpans = rows.map((_, j) => ({
-    from: hash(j + 21) < 0.25 ? round(hash(j + 29) * width * 0.25) : -10,
-    to: hash(j + 22) < 0.25 ? round(width - hash(j + 25) * width * 0.25) : width + 10,
-  }));
-
-  const riverPoints = range(Math.ceil((height + 120) / 10), -60, 10).map((y) => `${round(riverX(y))},${y}`);
-  const riverPath = `M${riverPoints.join('L')}`;
-
-  const lamps: { x: number; y: number; d: number }[] = [];
-  rows.forEach((y, j) => {
-    columns.forEach((x, i) => {
-      const onColumn = y >= columnSpans[i].from && y <= columnSpans[i].to;
-      const onRow = x >= rowSpans[j].from && x <= rowSpans[j].to;
-      const nearRiver = Math.abs(x - riverX(y)) < 38;
-      if (onColumn && onRow && !nearRiver && hash(i * 31 + j * 7) > 0.4) {
-        lamps.push({ d: lampDelay(x, width, i * 13 + j), x, y });
-      }
+  // Streets run between crossings; a few minor stretches are missing, so blocks merge into larger ones.
+  const stretches = (
+    at: number[],
+    cuts: number[],
+    major: number[],
+    line: (a: number, from: number, to: number) => string
+  ) =>
+    at.map((a) => {
+      const ends = [-20, ...cuts, cuts === spec.rows ? H + 20 : W + 20];
+      const isMajor = major.includes(a);
+      const d = ends
+        .slice(1)
+        .map((to, i) => [ends[i], to])
+        .filter(([from]) => isMajor || hash(a, from) > 0.2)
+        .map(([from, to]) => line(a, from, to))
+        .join('');
+      return { d, major: isMajor };
     });
+
+  const streets = [
+    ...stretches(spec.columns, spec.rows, spec.corsi.columns, (x, from, to) => `M${x},${from}V${to}`),
+    ...stretches(spec.rows, spec.columns, spec.corsi.rows, (y, from, to) => `M${from},${y}H${to}`),
+    ...spec.diagonals.map(([a, b]) => ({ d: toPath([a, b]), major: true })),
+    { d: toPath(banks.lungo), major: true },
+  ].filter(({ d }) => d);
+
+  const bridges = spec.river.bridges.map((y) => {
+    const x1 = bankAt(banks.west, y);
+    const x2 = bankAt(banks.east, y);
+    return { x1: round(x1), x2: round(x2), y };
   });
 
-  const labelProps = (label: (typeof labels)[number]) => {
-    if (label.text === 'Fiume Po') {
-      const y = variant === 'wide' ? 400 : 300;
-      return { ...label, rotate: 90, x: riverX(y) + 5, y };
-    }
-    return label;
-  };
+  // Lamps line the corsi and the bridges; ordinary streets stay dark.
+  const candidates: Point[] = [
+    ...spec.corsi.columns.flatMap((x) => spec.rows.map((y): Point => [x, y])),
+    ...spec.corsi.rows.flatMap((y) => spec.columns.map((x): Point => [x, y])),
+    ...spec.diagonals.flatMap(([a, b]) =>
+      [0.2, 0.5, 0.8].map((t): Point => [round(a[0] + (b[0] - a[0]) * t), round(a[1] + (b[1] - a[1]) * t)])
+    ),
+    ...spec.piazzas.flatMap(({ x, y, w, h }): Point[] => [
+      [x, y],
+      [x + w, y],
+      [x, y + h],
+      [x + w, y + h],
+    ]),
+  ];
+  const { name: n } = spec.lettering;
+  const origin: Point = [n.x + n.size * 2.2, n.y + n.size * 0.9];
+  const reach = Math.max(...[0, W].flatMap((x) => [0, H].map((y) => Math.hypot(x - origin[0], y - origin[1]))));
+  const seen = new Set<string>();
+  const lamps = [
+    ...candidates.filter((p) => !blocked(p) && hash(p[0], p[1]) > 0.3),
+    ...bridges.flatMap(({ x1, x2, y }): Point[] => [
+      [x1 - 4, y],
+      [x2 + 4, y],
+    ]),
+  ]
+    .filter(([x, y]) => {
+      const key = `${x},${y}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map(([x, y]) => ({ d: lampDelay(Math.hypot(x - origin[0], y - origin[1]), reach), x, y }));
+
+  return { banks, bridges, city, clearings, H, lamps, origin, reach, scale, streets, W, water };
+};
+
+const StreetMap = ({ variant, name, className }: { variant: Variant; name: string; className?: string }) => {
+  const spec = SPECS[variant];
+  const { banks, bridges, city, clearings, H, lamps, origin, reach, scale, streets, W, water } = buildMap(spec, name);
+  const id = `map-${variant}`;
+  const thin = 1.5 * scale;
+  const thick = 4.5 * scale;
+  const tramWidth = spec.tram.width;
+  const labelSize = { place: 14, street: 13, water: 16 };
+
+  const streetLayer = (stroke: string, lit: boolean) => (
+    <g className={stroke} fill="none" strokeLinecap="square">
+      {streets.map(({ d, major }) => (
+        <path d={d} key={d} opacity={lit ? (major ? 0.95 : 0.4) : 1} strokeWidth={major ? thick : thin} />
+      ))}
+    </g>
+  );
+
+  const hillLayer = (stroke: string, lit: boolean) => (
+    <g className={stroke} fill="none" opacity={lit ? 0.6 : 1} strokeWidth={thin * 1.3}>
+      {spec.hillRoads.map((d) => (
+        <path d={d} key={d} />
+      ))}
+    </g>
+  );
+
+  const piazzaLayer = (stroke: string) => (
+    <g className={stroke} fill="none" strokeDasharray={`${2.5 * scale} ${5 * scale}`} strokeWidth={2.5 * scale}>
+      {spec.piazzas.map(({ x, y, w, h }) => (
+        <rect height={h - 12} key={`${x},${y}`} width={w - 12} x={x + 6} y={y + 6} />
+      ))}
+    </g>
+  );
 
   return (
     <svg
       aria-hidden="true"
       className={cn('absolute inset-0 size-full', className)}
       focusable="false"
-      preserveAspectRatio="xMidYMid slice"
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox={`0 0 ${W} ${H}`}
     >
       <defs>
-        <radialGradient id={`${id}-glow`}>
-          <stop offset="0" stopColor="#f4ab3d" stopOpacity="0.42" />
-          <stop offset="1" stopColor="#f4ab3d" stopOpacity="0" />
+        <clipPath id={`${id}-city`}>
+          <path d={toPath(city, true)} />
+        </clipPath>
+        <mask height={H} id={`${id}-yield`} maskUnits="userSpaceOnUse" width={W} x="0" y="0">
+          <rect fill="#fff" height={H} width={W} />
+          {[...clearings, ...spec.piazzas].map(({ x, y, w, h }) => (
+            <rect fill="#000" height={h} key={`${x},${y},${w}`} width={w} x={x} y={y} />
+          ))}
+          {spec.park && <path d={toPath(spec.park, true)} fill="#000" />}
+        </mask>
+        <radialGradient id={`${id}-light`}>
+          <stop offset="0.9" stopColor="#fff" />
+          <stop offset="1" stopColor="#fff" stopOpacity="0" />
         </radialGradient>
-        <mask height={height} id={`${id}-mask`} maskUnits="userSpaceOnUse" width={width} x="0" y="0">
-          <rect fill="#fff" height={height} width={width} />
-          <path d={riverPath} fill="none" stroke="#000" strokeWidth="52" />
-          {bridges.map((j) => {
-            const y = rows[j];
-            return <line key={j} stroke="#fff" strokeWidth="8" x1={riverX(y) - 44} x2={riverX(y) + 44} y1={y} y2={y} />;
-          })}
+        <mask height={H} id={`${id}-lit`} maskUnits="userSpaceOnUse" width={W} x="0" y="0">
+          <circle
+            className="light-spread"
+            cx={round(origin[0])}
+            cy={round(origin[1])}
+            fill={`url(#${id}-light)`}
+            r={round(reach * 1.12)}
+          />
         </mask>
       </defs>
 
-      <g mask={`url(#${id}-mask)`}>
-        <g className="stroke-border" fill="none">
-          {columns.map((x, i) => (
-            <line
-              key={`c${x}`}
-              strokeWidth={i % 4 === 2 ? 3 : 1.5}
-              x1={x}
-              x2={x}
-              y1={columnSpans[i].from}
-              y2={columnSpans[i].to}
-            />
-          ))}
-          {rows.map((y, j) => (
-            <line
-              key={`r${y}`}
-              strokeWidth={j % 4 === 1 ? 3 : 1.5}
-              x1={rowSpans[j].from}
-              x2={rowSpans[j].to}
-              y1={y}
-              y2={y}
-            />
-          ))}
-        </g>
+      {/* The hill across the river: no grid, roads follow the slope. */}
+      <path
+        className="fill-[#24152a]"
+        d={`M-40,-40H${W + 40}V${H + 40}H-40Z${toPath(city, true)}`}
+        fillRule="evenodd"
+      />
+      {hillLayer('stroke-street', false)}
+      <g mask={`url(#${id}-lit)`}>{hillLayer('stroke-lampione', true)}</g>
 
-        <g className="stroke-primary" fill="none" opacity="0.34">
-          {columns.map((x, i) => (
-            <line
-              className="street-lit"
-              key={`lc${x}`}
-              strokeWidth={i % 4 === 2 ? 3 : 1.5}
-              style={{ '--d': `${round(0.3 + (i / columns.length) * 1.5)}s` } as CSSProperties}
-              x1={x}
-              x2={x}
-              y1={columnSpans[i].from}
-              y2={columnSpans[i].to}
-            />
-          ))}
-          {rows.map((y, j) => (
-            <line
-              className="street-lit"
-              key={`lr${y}`}
-              strokeWidth={j % 4 === 1 ? 3 : 1.5}
-              style={{ '--d': `${round(0.3 + (j / rows.length) * 1.5)}s` } as CSSProperties}
-              x1={rowSpans[j].from}
-              x2={rowSpans[j].to}
-              y1={y}
-              y2={y}
-            />
-          ))}
+      {spec.park && (
+        <g>
+          <path className="fill-po" d={toPath(spec.park, true)} opacity="0.55" />
+          <path
+            className="stroke-riva"
+            d={`M${spec.park[0][0] + 20},${spec.park[0][1] + 40} C${spec.park[0][0] + 90},${spec.park[0][1] + 10} ${spec.park[0][0] + 120},${spec.park[0][1] + 110} ${spec.park[0][0] + 200},${spec.park[0][1] + 90}`}
+            fill="none"
+            strokeDasharray="1 5"
+            strokeLinecap="round"
+            strokeWidth="1.6"
+          />
         </g>
+      )}
 
-        {lamps.map(({ x, y, d }) => (
-          <g key={`${x}-${y}`} style={{ '--d': `${d}s` } as CSSProperties}>
-            <circle className="lamp" cx={x} cy={y} fill={`url(#${id}-glow)`} r="24" />
-            <circle className="lamp fill-primary" cx={x} cy={y} r="3.2" />
+      {spec.piazzas.map(({ x, y, w, h }) => (
+        <rect className="fill-isolato" height={h} key={`${x},${y}`} opacity="0.7" width={w} x={x} y={y} />
+      ))}
+
+      <g clipPath={`url(#${id}-city)`}>
+        <g mask={`url(#${id}-yield)`}>
+          {streetLayer('stroke-street', false)}
+          <g mask={`url(#${id}-lit)`}>{streetLayer('stroke-lampione', true)}</g>
+        </g>
+        {piazzaLayer('stroke-street')}
+        <g mask={`url(#${id}-lit)`} opacity="0.8">
+          {piazzaLayer('stroke-lampione')}
+        </g>
+      </g>
+
+      <path className="fill-po" d={toPath(water, true)} />
+      <g className="stroke-riva" fill="none" strokeWidth={1.6 * scale}>
+        <path d={toPath(banks.west)} />
+        <path d={toPath(banks.east)} />
+      </g>
+
+      {bridges.map(({ x1, x2, y }) => {
+        const flare = 6 * scale;
+        const half = 4.5 * scale;
+        return (
+          <g key={y}>
+            <rect className="fill-notte" height={half * 2} width={x2 - x1} x={x1} y={y - half} />
+            <path
+              className="stroke-carta"
+              d={[-1, 1]
+                .map(
+                  (side) =>
+                    `M${x1 - flare},${y + side * (half + flare)}L${x1},${y + side * half}H${x2}L${x2 + flare},${y + side * (half + flare)}`
+                )
+                .join('')}
+              fill="none"
+              strokeWidth={1.4 * scale}
+            />
+            <path className="stroke-street" d={`M${x1 - 30},${y}H${x2 + 40}`} strokeWidth={thick * 0.7} />
+            <path
+              className="stroke-lampione"
+              d={`M${x1 - 30},${y}H${x2 + 40}`}
+              mask={`url(#${id}-lit)`}
+              strokeWidth={thick * 0.7}
+            />
           </g>
+        );
+      })}
+
+      {spec.landmark && (
+        <g className="fill-notte stroke-carta" strokeWidth="1.5">
+          <circle cx={spec.landmark[0]} cy={spec.landmark[1]} r="11" />
+          <circle className="fill-carta" cx={spec.landmark[0]} cy={spec.landmark[1]} r="3" />
+        </g>
+      )}
+
+      {lamps.map(({ x, y, d }) => (
+        <g className="lamp" key={`${x},${y}`} style={{ '--d': `${d}s` } as CSSProperties}>
+          <circle className="fill-lampione" cx={x} cy={y} opacity="0.2" r={7 * scale} />
+          <circle className="fill-[#ffd28c]" cx={x} cy={y} r={2.4 * scale} />
+        </g>
+      ))}
+
+      <g className="stroke-notte" paintOrder="stroke" strokeLinejoin="round" strokeWidth="4">
+        {spec.labels.map(({ text, x, y, angle, kind }) => (
+          <text
+            className={kind === 'water' ? 'fill-riva' : 'fill-carta'}
+            fillOpacity={kind === 'street' ? 0.78 : 0.92}
+            fontSize={labelSize[kind] * Math.max(scale, 0.85)}
+            fontStyle={kind === 'water' ? 'italic' : undefined}
+            fontWeight={kind === 'water' ? 500 : 600}
+            key={text}
+            letterSpacing={kind === 'water' ? '0.12em' : '0.02em'}
+            transform={angle ? `rotate(${angle} ${x} ${y})` : undefined}
+            x={x}
+            y={y}
+          >
+            {text}
+          </text>
         ))}
       </g>
 
-      <path d={riverPath} fill="none" stroke="#6cbab4" strokeOpacity="0.75" strokeWidth="42" />
-      <path d={riverPath} fill="none" stroke="#1d3b42" strokeWidth="37" />
-
-      <g className="fill-muted-foreground" fontSize="13" fontStyle="italic" opacity="0.75">
-        {labels.map((label) => {
-          const l = labelProps(label);
-          return (
-            <text key={l.text} transform={l.rotate ? `rotate(${l.rotate} ${l.x} ${l.y})` : undefined} x={l.x} y={l.y}>
-              {l.text}
-            </text>
-          );
-        })}
-      </g>
+      <path
+        className="stroke-tram"
+        d={toPath(spec.tram.points)}
+        fill="none"
+        strokeDasharray={`${tramWidth * 1.8} ${tramWidth}`}
+        strokeWidth={tramWidth}
+      />
+      <circle
+        className="fill-notte stroke-tram"
+        cx={spec.tram.points.at(-1)?.[0]}
+        cy={spec.tram.points.at(-1)?.[1]}
+        r={tramWidth * 1.1}
+        strokeWidth={tramWidth * 0.55}
+      />
     </svg>
   );
 };
