@@ -7,7 +7,7 @@ const G = 9.81;
 const METRES_PER_SQUARE = 0.05;
 export const RELEASE_DEG = 24;
 export const RELEASE_THETA = (-RELEASE_DEG * Math.PI) / 180;
-const PARAMS: Omit<CradleParams, 'omega0Sq'> = { damping: 0.22, maxTheta: MAX_THETA, restitution: 0.96 };
+const PARAMS: Omit<CradleParams, 'omega0Sq'> = { damping: 0.4, maxTheta: MAX_THETA, restitution: 0.96 };
 const RELEASE_DELAY_MS = 1100;
 /** After the visitor lets go, the diagram follows whichever letter carries the swing. */
 const FOLLOW_AFTER_MS = 1200;
@@ -139,7 +139,7 @@ export const mountCradle = ({
     const bob = bobs[active];
     const pivot = pivots[active];
     if (!bob || !pivot) return;
-    const shown = bob.held || Math.abs(bob.theta) > 0.015 || Math.abs(bob.omega) > 0.05;
+    const shown = bob.held || Math.abs(bob.theta) > 0.035 || Math.abs(bob.omega) > 0.2;
     overlay.style.opacity = shown ? '1' : '0';
 
     const { x: px, y: py, radius, height } = pivot;

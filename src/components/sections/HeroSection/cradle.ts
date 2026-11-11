@@ -21,7 +21,7 @@ export interface CradleParams {
   maxTheta: number;
 }
 
-export const MAX_THETA = (75 * Math.PI) / 180;
+export const MAX_THETA = (60 * Math.PI) / 180;
 export const SUBSTEP = 1 / 240;
 const REST_EPSILON = 1e-3;
 
