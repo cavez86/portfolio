@@ -2,18 +2,9 @@ import { getTranslations } from 'next-intl/server';
 
 import { getLocalizedCollection } from '@/components/utils/db';
 import type { Experience } from '@/payload-types';
-
 import ExperienceStop, { type StopKind, type ZonePart } from './ExperienceStop';
+import { groupByEmployer } from './grouping';
 import TramLine from './TramLine';
-
-/** Consecutive jobs at the same employer share one zone on the line. */
-const groupByEmployer = (experience: Experience[]) =>
-  experience.reduce<Experience[][]>((groups, exp) => {
-    const last = groups.at(-1);
-    if (last && last[0].company === exp.company) last.push(exp);
-    else groups.push([exp]);
-    return groups;
-  }, []);
 
 const zonePart = (index: number, size: number): ZonePart | undefined => {
   if (size < 2) return undefined;

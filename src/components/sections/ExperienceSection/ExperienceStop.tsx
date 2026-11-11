@@ -81,41 +81,48 @@ const ExperienceStop = ({ exp, kind, zone }: { exp: Experience; kind: StopKind; 
       <div className="col-start-2 pr-5 md:col-start-3 md:pr-8">
         <p className="mt-3 max-w-[48ch] text-lead text-pretty">{exp.position}</p>
         {exp.location && <p className="text-small text-muted-foreground">{exp.location}</p>}
-        <ul className="mt-4 flex max-w-[62ch] flex-wrap gap-x-5 gap-y-1 text-carta/85">
-          {exp.achievements?.map((achievement) => (
-            <li key={achievement.id ?? achievement.label}>{achievement.label}</li>
-          ))}
-        </ul>
-
-        <Dialog>
-          <DialogTrigger
-            aria-label={`${t('details')}: ${exp.company}, ${periodLabel}`}
-            className="mt-3 -ml-1 cursor-pointer rounded-xs px-1 py-2 text-small font-semibold text-lampione underline decoration-2 underline-offset-4 transition-colors hover:text-carta"
-          >
-            {t('details')}
-          </DialogTrigger>
-          <DialogContent className="md:max-w-2xl">
-            <DialogHeader className="pr-10">
-              <DialogTitle className="flex items-center gap-3 font-display text-stop font-extrabold">
-                <span aria-hidden="true" className="size-5 shrink-0 rounded-full border-[5px] border-tram bg-carta" />
-                {exp.company}
-              </DialogTitle>
-              <DialogDescription className="text-body tabular-nums">
-                {exp.position}, {periodLabel}
-              </DialogDescription>
-            </DialogHeader>
-            <ul className="space-y-5">
+        {exp.achievements?.length ? (
+          <>
+            <ul className="mt-4 flex max-w-[62ch] flex-wrap gap-x-5 gap-y-1 text-carta/85">
               {exp.achievements?.map((achievement) => (
-                <li key={achievement.id ?? `${achievement.label}-${achievement.description}`}>
-                  <h4 className="font-semibold text-lampione">{achievement.label}</h4>
-                  <div className="mt-1 text-pretty text-carta/90 [&_a]:text-lampione [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-carta [&_p+p]:mt-2">
-                    <Markdown>{achievement.description}</Markdown>
-                  </div>
-                </li>
+                <li key={achievement.id ?? achievement.label}>{achievement.label}</li>
               ))}
             </ul>
-          </DialogContent>
-        </Dialog>
+
+            <Dialog>
+              <DialogTrigger
+                aria-label={`${t('details')}: ${exp.company}, ${periodLabel}`}
+                className="mt-3 -ml-1 cursor-pointer rounded-xs px-1 py-2 text-small font-semibold text-lampione underline decoration-2 underline-offset-4 transition-colors hover:text-carta"
+              >
+                {t('details')}
+              </DialogTrigger>
+              <DialogContent className="md:max-w-2xl">
+                <DialogHeader className="pr-10">
+                  <DialogTitle className="flex items-center gap-3 font-display text-stop font-extrabold">
+                    <span
+                      aria-hidden="true"
+                      className="size-5 shrink-0 rounded-full border-[5px] border-tram bg-carta"
+                    />
+                    {exp.company}
+                  </DialogTitle>
+                  <DialogDescription className="text-body tabular-nums">
+                    {exp.position}, {periodLabel}
+                  </DialogDescription>
+                </DialogHeader>
+                <ul className="space-y-5">
+                  {exp.achievements?.map((achievement) => (
+                    <li key={achievement.id ?? `${achievement.label}-${achievement.description}`}>
+                      <h4 className="font-semibold text-lampione">{achievement.label}</h4>
+                      <div className="mt-1 text-pretty text-carta/90 [&_a]:text-lampione [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-carta [&_p+p]:mt-2">
+                        <Markdown>{achievement.description}</Markdown>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </DialogContent>
+            </Dialog>
+          </>
+        ) : null}
       </div>
     </li>
   );
