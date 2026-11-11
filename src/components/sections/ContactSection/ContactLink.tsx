@@ -15,7 +15,7 @@ export function ContactLink({ description, label, url, ink }: ContactLinkProps) 
   const external = !url.startsWith('mailto:');
   return (
     <a
-      className="group grid gap-1 px-5 py-6 md:grid-cols-[10rem_minmax(0,1fr)] md:items-baseline md:gap-8 md:px-10 md:py-9"
+      className="group grid gap-1 px-4 py-6 sm:px-5 md:grid-cols-[10rem_minmax(0,1fr)] md:items-baseline md:gap-8 md:px-10 md:py-9"
       href={url}
       onClick={() => posthog.capture('contact_link_clicked', { label })}
       rel={external ? 'noopener noreferrer' : undefined}
@@ -23,7 +23,7 @@ export function ContactLink({ description, label, url, ink }: ContactLinkProps) 
       target={external ? '_blank' : undefined}
     >
       <span className="text-lg font-medium text-pencil group-hover:text-graphite">{label}</span>
-      <span className="answer text-[1.375rem] leading-tight font-bold [overflow-wrap:anywhere] sm:text-[2rem] md:text-[2.75rem]">
+      <span className="answer text-[clamp(1.125rem,5.2vw,2rem)] leading-tight font-bold [overflow-wrap:anywhere] md:text-[2.75rem]">
         {description ?? label}
       </span>
     </a>

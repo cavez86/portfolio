@@ -462,6 +462,12 @@
   .bead-string {
     --string-ink: var(--color-ink);
     --bead: 18px;
+    --bead-fill: var(--string-ink);
+    --bead-edge: 0 0 0 0 transparent;
+    --label-size: 1.0625rem;
+    --label-weight: 650;
+    --string-opacity: 1;
+    --mass-gap: 1.75rem;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
@@ -520,6 +526,7 @@
   .bead-line {
     position: absolute;
     pointer-events: none;
+    opacity: var(--string-opacity);
   }
 
   .bead-rest {
@@ -569,21 +576,24 @@
     width: var(--bead);
     height: var(--bead);
     border-radius: 50%;
-    background: var(--string-ink);
-    box-shadow: 0 0 0 3px var(--color-paper);
+    background: var(--bead-fill);
+    box-shadow:
+      var(--bead-edge),
+      0 0 0 3px var(--color-paper);
     transition: box-shadow 150ms;
   }
 
   .bead-mass:hover .bead {
     box-shadow:
+      var(--bead-edge),
       0 0 0 3px var(--color-paper),
       0 0 0 8px var(--color-highlighter);
   }
 
   .bead-label {
     min-width: 0;
-    font-size: 1.0625rem;
-    font-weight: 650;
+    font-size: var(--label-size);
+    font-weight: var(--label-weight);
     line-height: 1.2;
     color: var(--string-ink);
   }
@@ -591,27 +601,12 @@
   /* Soft skills: pencil, hollow beads, smaller names, after the technical ones. */
   .bead-string-soft {
     --bead: 14px;
-  }
-
-  .bead-string-soft .bead {
-    background: var(--color-paper);
-    box-shadow: inset 0 0 0 2.5px var(--string-ink);
-  }
-
-  .bead-string-soft .bead-mass:hover .bead {
-    box-shadow:
-      inset 0 0 0 2.5px var(--string-ink),
-      0 0 0 6px var(--color-highlighter);
-  }
-
-  .bead-string-soft .bead-label {
-    font-size: 0.975rem;
-    font-weight: 450;
-  }
-
-  .bead-string-soft .bead-line,
-  .bead-string-soft .bead-rest {
-    opacity: 0.75;
+    --bead-fill: var(--color-paper);
+    --bead-edge: inset 0 0 0 2.5px var(--string-ink);
+    --label-size: 0.975rem;
+    --label-weight: 450;
+    --string-opacity: 0.75;
+    --mass-gap: 1.1rem;
   }
 
   .bead-string-soft .bead-name {
@@ -649,7 +644,7 @@
     .bead-track > ul {
       flex-direction: row;
       align-items: flex-end;
-      gap: 1.75rem;
+      gap: var(--mass-gap);
     }
 
     .bead-rest {
@@ -667,13 +662,16 @@
       padding-left: 0;
     }
 
-    .bead-label {
-      font-size: 1.3125rem;
-      white-space: nowrap;
+    .bead-string {
+      --label-size: 1.3125rem;
     }
 
-    .bead-string-soft .bead-label {
-      font-size: 1.0625rem;
+    .bead-string-soft {
+      --label-size: 1.0625rem;
+    }
+
+    .bead-label {
+      white-space: nowrap;
     }
   }
 

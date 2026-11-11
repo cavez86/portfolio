@@ -122,7 +122,7 @@ function Diagram({
               <text
                 className="tabular-nums"
                 dominantBaseline="middle"
-                fontSize={wide ? 14 : 11.5}
+                fontSize={wide ? 15 : 13}
                 stroke="none"
                 textAnchor="end"
                 x={axisX - 10}
@@ -135,18 +135,18 @@ function Diagram({
           {layout.tauTicks.map(({ tau, x }) => (
             <g key={tau}>
               <line x1={x} x2={x} y1={layout.plotBottom} y2={layout.plotBottom + 6} />
-              <text fontSize={wide ? 14 : 11.5} stroke="none" textAnchor="middle" x={x} y={layout.plotBottom + 22}>
+              <text fontSize={wide ? 15 : 13} stroke="none" textAnchor="middle" x={x} y={layout.plotBottom + 22}>
                 {tau}
               </text>
             </g>
           ))}
-          <text fontSize={wide ? 17 : 13} stroke="none" x={axisX} y={layout.plotBottom + (wide ? 50 : 44)}>
+          <text fontSize={wide ? 18 : 14} stroke="none" x={axisX} y={layout.plotBottom + (wide ? 50 : 44)}>
             <tspan className="math" fill="var(--color-graphite)">
               τ
             </tspan>{' '}
             / {t('tau_unit')}
           </text>
-          <text fontSize={wide ? 17 : 13} stroke="none" x={axisX + 12} y={layout.toY(timeline.span) - 22}>
+          <text fontSize={wide ? 18 : 14} stroke="none" x={axisX + 12} y={layout.toY(timeline.span) - 22}>
             <tspan className="math" fill="var(--color-graphite)">
               t
             </tspan>{' '}
