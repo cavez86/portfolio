@@ -16,12 +16,8 @@ const hasValue = (property: SnippetProperty): property is SnippetProperty & { va
 const token = (kind: TokenKind, text: string): Token => ({ kind, text });
 const punctuation = (text: string) => token('punctuation', text);
 
-/** A string literal as a formatter would write it: single quotes, double quotes when the text has an apostrophe. */
-export const stringLiteral = (text: string) => {
-  const quote = text.includes("'") && !text.includes('"') ? '"' : "'";
-  const escaped = text.replaceAll('\\', '\\\\').replaceAll(quote, `\\${quote}`);
-  return `${quote}${escaped}${quote}`;
-};
+/** A string literal as Prettier writes it by default: always double quotes, so apostrophes need no escaping. */
+export const stringLiteral = (text: string) => JSON.stringify(text);
 
 const valueTokens = (value: Value): Token[] => {
   if (typeof value === 'number') return [token('number', String(value))];

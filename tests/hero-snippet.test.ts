@@ -22,9 +22,9 @@ describe('hero snippet', () => {
     expect(sourceOf(lines)).toBe(
       [
         'export const francesco = {',
-        "  company: 'Prima', // since May 2026",
+        '  company: "Prima", // since May 2026',
         '  yearsOfExperience: 15,',
-        "  stack: ['React', 'Next.js'],",
+        '  stack: ["React", "Next.js"],',
         '  education: "Master\'s in Physics",',
         '} as const;',
       ].join('\n')
@@ -45,8 +45,8 @@ describe('hero snippet', () => {
     expect(lines.slice(1, -1).map(({ tokens }) => tokens[0]?.text)).toEqual(['yearsOfExperience']);
   });
 
-  it('escapes quotes and backslashes the literal cannot hold', () => {
-    expect(stringLiteral(`It's "C:\\dev"`)).toBe(`'It\\'s "C:\\\\dev"'`);
+  it('escapes the double quote and backslash a literal cannot hold', () => {
+    expect(stringLiteral(`It's "C:\\dev"`)).toBe(`"It's \\"C:\\\\dev\\""`);
   });
 
   it('derives a lower-case identifier from the first name', () => {
