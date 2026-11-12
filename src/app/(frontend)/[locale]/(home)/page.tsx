@@ -1,4 +1,6 @@
+import AboutSection from '@/components/sections/AboutSection';
 import ContactSection from '@/components/sections/ContactSection';
+import EducationSection from '@/components/sections/EducationSection';
 import ExperienceSection from '@/components/sections/ExperienceSection';
 import HeroSection from '@/components/sections/HeroSection';
 import LanguagesSection from '@/components/sections/LanguagesSection';
@@ -10,11 +12,13 @@ export function generateStaticParams() {
 }
 
 const Home = () => (
-  <main className="relative flex flex-col gap-10 pt-4 md:gap-16 md:pt-16 lg:gap-20">
+  <main id="main">
     <HeroSection />
+    <AboutSection />
     <ExperienceSection />
     <SkillsSection />
     <LanguagesSection />
+    <EducationSection />
     <ContactSection />
   </main>
 );

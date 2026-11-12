@@ -6,7 +6,7 @@ import { PostHogIdentityProvider as PostHogIdentityProvider_37ec17c35f2be4978397
 /** @type import('payload').ImportMap */
 export const importMap = {
   "@/components/providers/IntlErrorHandlingProvider#PostHogIdentityProvider": PostHogIdentityProvider_37ec17c35f2be4978397f039a3ec7cdb,
-  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1, 
   "@payloadcms/richtext-lexical/client#AlignFeatureClient": AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BlockquoteFeatureClient": BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,

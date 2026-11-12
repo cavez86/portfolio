@@ -1,39 +1,34 @@
 'use client';
 
-import { CircleCheckIcon, InfoIcon, Loader2Icon, OctagonXIcon, TriangleAlertIcon } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { CircleCheckIcon, OctagonXIcon } from 'lucide-react';
+import type { CSSProperties } from 'react';
 import { Toaster as Sonner, type ToasterProps } from 'sonner';
 
-const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme();
-
-  return (
-    <Sonner
-      className="toaster group"
-      icons={{
-        error: <OctagonXIcon className="size-4" />,
-        info: <InfoIcon className="size-4" />,
-        loading: <Loader2Icon className="size-4 animate-spin" />,
-        success: <CircleCheckIcon className="size-4" />,
-        warning: <TriangleAlertIcon className="size-4" />,
-      }}
-      style={
-        {
-          '--border-radius': 'var(--radius)',
-          '--normal-bg': 'var(--popover)',
-          '--normal-border': 'var(--border)',
-          '--normal-text': 'var(--popover-foreground)',
-        } as React.CSSProperties
-      }
-      theme={theme as ToasterProps['theme']}
-      toastOptions={{
-        classNames: {
-          toast: 'cn-toast',
-        },
-      }}
-      {...props}
-    />
-  );
-};
+// Colours come from the page tokens, so toasts follow the active theme without knowing it.
+const Toaster = (props: ToasterProps) => (
+  <Sonner
+    className="toaster group"
+    icons={{
+      error: <OctagonXIcon className="size-4 text-destructive" />,
+      success: <CircleCheckIcon className="size-4 text-primary" />,
+    }}
+    style={
+      {
+        '--border-radius': 'var(--radius-md)',
+        '--normal-bg': 'var(--panel)',
+        '--normal-border': 'var(--rule)',
+        '--normal-text': 'var(--ink)',
+      } as CSSProperties
+    }
+    toastOptions={{
+      classNames: {
+        description: 'text-muted-foreground!',
+        title: 'font-semibold!',
+        toast: 'font-sans! text-base! shadow-none!',
+      },
+    }}
+    {...props}
+  />
+);
 
 export { Toaster };

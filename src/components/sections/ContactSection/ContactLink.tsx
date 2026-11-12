@@ -2,31 +2,25 @@
 
 import posthog from 'posthog-js';
 
-import Icon, { type IconName } from '@/components/common/Icon';
-
 interface ContactLinkProps {
-  description?: string | null;
-  icon: IconName;
+  handle: string;
   label: string;
   url: string;
 }
 
-export function ContactLink({ description, icon, label, url }: ContactLinkProps) {
+export function ContactLink({ handle, label, url }: ContactLinkProps) {
+  const external = !url.startsWith('mailto:');
   return (
     <a
-      className="flex items-center gap-4 text-foreground transition-all hover:text-primary"
+      className="group flex flex-col gap-1 py-5 outline-offset-4 focus-visible:outline-on-band"
       href={url}
-      onClick={() => posthog.capture('contact_link_clicked')}
-      rel="noopener noreferrer"
-      target="_blank"
+      onClick={() => posthog.capture('contact_link_clicked', { label })}
+      {...(external && { rel: 'noopener noreferrer', target: '_blank' })}
     >
-      <div className="flex h-10 w-10 items-center justify-center border-2 border-primary bg-primary/20">
-        <Icon className="h-5 w-5 text-foreground" name={icon} />
-      </div>
-      <div>
-        <p className="font-medium">{label}</p>
-        <p className="text-sm text-muted-foreground">{description}</p>
-      </div>
+      <span className="text-lg">{label}</span>
+      <span className="font-mono text-[clamp(1.25rem,0.85rem+1.8vw,2.25rem)] leading-tight [overflow-wrap:anywhere] group-hover:underline group-hover:decoration-2">
+        {handle}
+      </span>
     </a>
   );
 }

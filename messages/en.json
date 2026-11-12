@@ -1,68 +1,72 @@
 {
-  "ColorPicker": {
-    "description": "Choose your preferred terminal hue. The default is green.",
-    "hue_label": "Hue: {hue}°",
-    "reset_button": "Reset to Default",
-    "title": "Customize Theme Color"
+  "About": {
+    "title": "About"
   },
   "Contact": {
-    "availability": "Availability",
-    "availability_text": "Open to remote and hybrid opportunities.",
-    "description": "Contact Information",
-    "title": "Get In Touch"
+    "title": "Contact"
+  },
+  "Education": {
+    "title": "Education"
   },
   "Error": {
-    "403": {
-      "description": "You may need to log in or contact an administrator for access.",
-      "subtitle": "You don't have permission to access this resource",
-      "title": "Access Forbidden"
-    },
     "404": {
-      "description": "It might have been moved, deleted, or you entered the wrong URL.",
-      "subtitle": "The page you're looking for doesn't exist",
-      "title": "Page Not Found"
+      "compiler": "error TS2307: Cannot find module ''{path}''.",
+      "description": "The address may have a typo, or the page has moved. Everything on this site lives on the home page.",
+      "title": "This page doesn't exist"
     },
     "500": {
-      "description": "We're experiencing technical difficulties. Please try again later.",
-      "subtitle": "Something went wrong on our end",
-      "title": "Internal Server Error"
+      "compiler": "Uncaught Error: the page failed to render.",
+      "description": "Try loading it again. If it keeps failing, the home page and the contact details still work.",
+      "title": "Something went wrong"
     },
-    "back_home": "Back to Home",
-    "go_back": "Go Back",
-    "try_again": "Try Again"
+    "back_home": "Go to the home page",
+    "contact": "Get in touch",
+    "try_again": "Try again"
   },
   "Experience": {
-    "more": "More",
-    "present": "Present",
-    "title": "Professional Experience"
+    "achievements": "{count, plural, one {# achievement} other {# achievements}}",
+    "duration": "{years, plural, =0 {} one {# yr} other {# yrs}} {months, plural, =0 {} one {# mo} other {# mos}}",
+    "present": "present",
+    "title": "Experience"
+  },
+  "Footer": {
+    "source": "Source code:"
   },
   "Header": {
     "contact": "Contact",
+    "dark_theme": "Dark theme",
     "experience": "Experience",
-    "language": {
-      "en": "English",
-      "it": "Italian"
-    },
-    "skills": "Skills"
+    "language": "Language",
+    "sections": "Sections",
+    "skills": "Skills",
+    "skip_to_content": "Skip to content"
   },
   "Hero": {
-    "contact_me": "Contact Me"
+    "contact_me": "Get in touch",
+    "since": "since {date}",
+    "snippet_caption": "The same facts as a TypeScript object. Each property links to the section that documents it.",
+    "summary": "{role} at {company}, with {years} years of building and modernising large web platforms."
   },
   "Languages": {
-    "description": "Communication skills across multiple languages",
     "title": "Languages"
   },
   "Loading": {
-    "loading": "Loading..."
+    "loading": "Loading…"
   },
   "Metadata": {
     "description": "Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Based in Turin, Italy.",
     "title": "Francesco Caveglia Beatris - Full Stack Web Developer"
   },
+  "PDF": {
+    "download": "Download CV",
+    "downloaded": "CV downloaded",
+    "failed": "The CV could not be downloaded",
+    "failed_description": "Try again in a moment.",
+    "preparing": "Preparing CV…"
+  },
   "Skills": {
-    "description": "Technical proficiencies and soft skills that drive my work",
-    "soft": "Soft Skills",
-    "technical": "Technical Skills",
-    "title": "Skills & Expertise"
+    "soft": "Soft skills",
+    "technical": "Technical",
+    "title": "Skills"
   }
 }
