@@ -4,6 +4,8 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
+import { notFound } from 'next/navigation';
+import { hasLocale } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
 import { Toaster } from 'sonner';
@@ -12,6 +14,7 @@ import ScrollProgress from '@/components/common/ScrollProgress';
 import MainProvider from '@/components/providers';
 import Footer from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
+import { routing } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
 const geist = Geist({
@@ -29,8 +32,17 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function LocaleLayout({ children }: { children: ReactNode }) {
-  const locale = await getLocale();
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   return (
     <html lang={locale} suppressHydrationWarning>
