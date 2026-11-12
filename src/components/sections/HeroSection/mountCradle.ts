@@ -72,7 +72,6 @@ export const mountCradle = ({ heading, overlay }: { heading: HTMLElement; overla
   let fontSize = 100;
   let active = 0;
   let touched = -Infinity;
-  let pointer: { x: number; y: number } | null = null;
   let grab: { index: number; pointerId: number; moved: boolean } | null = null;
   let frame = 0;
   let last = 0;
@@ -122,8 +121,6 @@ export const mountCradle = ({ heading, overlay }: { heading: HTMLElement; overla
     const { x: px, y: py } = pivot;
     const sin = Math.sin(bob.theta);
     const cos = Math.cos(bob.theta);
-    const tx = px + pivot.top * sin;
-    const ty = py + pivot.top * cos;
     // The weight is drawn from just under the lowest corner of the turned glyph, so it never crosses it.
     const fx = px + pivot.foot * sin;
     const fy = py + pivot.foot * cos + pivot.half * Math.abs(sin);
@@ -157,15 +154,6 @@ export const mountCradle = ({ heading, overlay }: { heading: HTMLElement; overla
     });
     set('weight', { d: arrow(fx, fy, fx, fy + unit, head) });
     set('weight-label', { x: fx + label * 0.8, y: fy + unit * 0.8 });
-
-    // The visitor's pull, while a letter is held.
-    const hasF = grab !== null && pointer !== null && Math.hypot(pointer.x - tx, pointer.y - ty) > 6;
-    set('force', { d: hasF && pointer ? arrow(tx, ty, pointer.x, pointer.y, head) : '' });
-    set('force-label', {
-      opacity: hasF ? 1 : 0,
-      x: hasF && pointer ? pointer.x + 8 : 0,
-      y: hasF && pointer ? pointer.y - 8 : 0,
-    });
   };
 
   const tick = (time: number) => {
@@ -195,11 +183,6 @@ export const mountCradle = ({ heading, overlay }: { heading: HTMLElement; overla
   const local = (event: PointerEvent) => {
     const rect = heading.getBoundingClientRect();
     return { x: event.clientX - rect.left, y: event.clientY - rect.top };
-  };
-
-  const track = (event: PointerEvent) => {
-    pointer = local(event);
-    return pointer;
   };
 
   const interactive = () => !reducedMotion.matches && pivots.length > 0;
@@ -247,7 +230,6 @@ export const mountCradle = ({ heading, overlay }: { heading: HTMLElement; overla
       const target = (event.target as HTMLElement).closest<HTMLElement>('.cradle-bob');
       const index = target ? bobEls.indexOf(target) : -1;
       if (index < 0) return;
-      track(event);
       event.currentTarget.setPointerCapture(event.pointerId);
       grab = { index, moved: false, pointerId: event.pointerId };
       active = index;
@@ -258,7 +240,7 @@ export const mountCradle = ({ heading, overlay }: { heading: HTMLElement; overla
 
     pointerMove(event) {
       if (!interactive() || !grab || grab.pointerId !== event.pointerId) return;
-      const p = track(event);
+      const p = local(event);
       const pivot = pivots[grab.index];
       const bob = bobs[grab.index];
       const theta = clamp(Math.atan2(p.x - pivot.x, p.y - pivot.y), MAX_THETA);
@@ -277,7 +259,6 @@ export const mountCradle = ({ heading, overlay }: { heading: HTMLElement; overla
       }
       bob.omega = clamp(bob.omega, 6);
       grab = null;
-      pointer = null;
       touched = event.timeStamp;
       start();
     },

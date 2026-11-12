@@ -83,7 +83,6 @@ export function NameCradle({ name, children }: { name: string; children?: ReactN
             <path data-part="arc" stroke="var(--color-pencil)" strokeWidth="1.5" />
             <path data-part="tension" />
             <path data-part="weight" />
-            <path data-part="force" />
           </g>
           <g className="math" fill="var(--color-ink)">
             <text data-part="theta" fill="var(--color-pencil)">
@@ -91,7 +90,6 @@ export function NameCradle({ name, children }: { name: string; children?: ReactN
             </text>
             <text data-part="tension-label">T</text>
             <text data-part="weight-label">mg</text>
-            <text data-part="force-label">F</text>
           </g>
         </svg>
         <div className="cradle-title">{children}</div>

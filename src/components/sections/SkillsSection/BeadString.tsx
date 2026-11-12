@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { type BeadParams, beadString, pluckProfile, smoothPath, stepBeads } from './beads';
 
 /** Damped so a pluck rings for about a second. */
-const PARAMS: BeadParams = { damping: 3, maxY: 14, stiffness: 150 };
+const PARAMS: BeadParams = { damping: 4.5, maxY: 14, stiffness: 150 };
 /** A hanging string swings less, so its names stay clear of the next column. */
 const HANGING: BeadParams = { ...PARAMS, maxY: 8 };
 const PLUCK = 300;
