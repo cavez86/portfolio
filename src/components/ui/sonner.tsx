@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 import { Toaster as Sonner, type ToasterProps } from 'sonner';
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   return (
     <Sonner
@@ -19,16 +19,17 @@ const Toaster = ({ ...props }: ToasterProps) => {
       }}
       style={
         {
-          '--border-radius': 'var(--radius)',
-          '--normal-bg': 'var(--popover)',
-          '--normal-border': 'var(--border)',
-          '--normal-text': 'var(--popover-foreground)',
+          '--border-radius': 'var(--radius-lg)',
+          '--normal-bg': 'var(--color-popover)',
+          '--normal-border': 'var(--color-border)',
+          '--normal-text': 'var(--color-popover-foreground)',
         } as React.CSSProperties
       }
-      theme={theme as ToasterProps['theme']}
+      theme={resolvedTheme as ToasterProps['theme']}
       toastOptions={{
         classNames: {
-          toast: 'cn-toast',
+          description: 'text-muted-foreground! font-mono text-[0.8125rem]! break-all',
+          toast: 'font-sans! text-[0.9375rem]! shadow-none! border!',
         },
       }}
       {...props}

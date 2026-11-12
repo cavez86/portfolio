@@ -1,17 +1,17 @@
 import { NextIntlClientProvider } from 'next-intl';
+import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 
 import { TRPCProvider } from '@/lib/trpc/client';
 
-import DayJsProvider from './DayJsProvider';
 import IntlErrorHandlingProvider from './IntlErrorHandlingProvider';
 
 const MainProvider = ({ children }: { children: ReactNode }) => (
   <NextIntlClientProvider>
     <IntlErrorHandlingProvider>
-      <DayJsProvider>
+      <ThemeProvider attribute="class" disableTransitionOnChange>
         <TRPCProvider>{children}</TRPCProvider>
-      </DayJsProvider>
+      </ThemeProvider>
     </IntlErrorHandlingProvider>
   </NextIntlClientProvider>
 );

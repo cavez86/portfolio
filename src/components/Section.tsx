@@ -1,20 +1,27 @@
 import type { ReactNode } from 'react';
 
+import { Permalink } from '@/components/common/Permalink';
 import { cn } from '@/lib/utils';
 
 const Section = ({
   id,
+  title,
   className,
-  contentClassName,
   children,
 }: {
-  id?: string;
+  id: string;
+  title: string;
   className?: string;
-  contentClassName?: string;
   children: ReactNode;
 }) => (
-  <section className={cn('px-4 py-8 border-b border-border', className)} id={id}>
-    <div className={cn('container mx-auto', contentClassName || 'max-w-4xl')}>{children}</div>
+  <section aria-labelledby={`${id}-title`} className={cn('scroll-mt-24', className)} id={id}>
+    <div className="anchored mb-8">
+      <h2 className="text-[1.75rem] leading-tight font-bold tracking-[-0.02em] md:text-[2rem]" id={`${id}-title`}>
+        {title}
+      </h2>
+      <Permalink id={id} title={title} />
+    </div>
+    {children}
   </section>
 );
 

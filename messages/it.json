@@ -1,68 +1,80 @@
 {
-  "ColorPicker": {
-    "description": "Scegli la tonalità terminale preferita. Il valore predefinito è verde.",
-    "hue_label": "Tonalità: {hue}°",
-    "reset_button": "Ripristina Predefinito",
-    "title": "Personalizza Colore del Tema"
+  "About": {
+    "title": "Chi sono"
+  },
+  "Background": {
+    "education": "Formazione",
+    "languages": "Lingue",
+    "title": "Formazione e lingue"
   },
   "Contact": {
     "availability": "Disponibilità",
-    "availability_text": "Disponibile per opportunità lavorative da remoto o ibride.",
-    "description": "Recapiti e informazioni di contatto",
     "title": "Contatti"
   },
   "Error": {
-    "403": {
-      "description": "Potresti dover effettuare il login o contattare un amministratore per l'accesso.",
-      "subtitle": "Non hai i permessi per accedere a questa risorsa",
-      "title": "Accesso Negato"
-    },
     "404": {
-      "description": "Potrebbe essere stata spostata, cancellata o hai inserito un URL sbagliato.",
-      "subtitle": "La pagina che stai cercando non esiste",
-      "title": "Pagina Non Trovata"
+      "description": "A questo indirizzo non c'è nessuna pagina né release. Potrebbe essere stata spostata, o il link contiene un errore.",
+      "title": "Release sconosciuta"
     },
     "500": {
-      "description": "Stiamo riscontrando difficoltà tecniche. Riprova più tardi.",
-      "subtitle": "Qualcosa è andato storto dal nostro lato",
-      "title": "Errore Interno del Server"
+      "description": "Qualcosa non ha funzionato durante la creazione della pagina. Riprova, o torna tra qualche minuto.",
+      "title": "La pagina non si è caricata"
     },
-    "back_home": "Torna alla Home",
-    "go_back": "Torna Indietro",
+    "back_home": "Torna alla home",
+    "latest_release": "Leggi l'ultima release",
+    "path": "Percorso richiesto",
     "try_again": "Riprova"
   },
   "Experience": {
-    "more": "Altro",
-    "present": "Oggi",
-    "title": "Esperienze Professionali"
+    "latest": "Ultima",
+    "present": "oggi",
+    "release_notes": "{count, plural, one {# nota di rilascio} other {# note di rilascio}}",
+    "rule": "Versionato come un software: il numero principale cresce a ogni nuovo datore di lavoro, quello minore a ogni cambiamento nella stessa azienda.",
+    "title": "Release"
+  },
+  "Footer": {
+    "back_to_top": "Torna su"
   },
   "Header": {
     "contact": "Contatti",
-    "experience": "Esperienze",
+    "experience": "Release",
     "language": {
       "en": "Inglese",
       "it": "Italiano"
     },
-    "skills": "Competenze"
+    "language_label": "Lingua",
+    "skills": "Competenze",
+    "theme_dark": "Passa al tema scuro",
+    "theme_light": "Passa al tema chiaro"
   },
   "Hero": {
-    "contact_me": "Contattami"
-  },
-  "Languages": {
-    "description": "Abilità comunicative in diverse lingue",
-    "title": "Lingue"
+    "contact_me": "Contattami",
+    "role": "{position} presso {company}, {location}",
+    "since": "Dal {date}"
   },
   "Loading": {
-    "loading": "Caricamento..."
+    "loading": "Caricamento…"
   },
   "Metadata": {
-    "description": "Sviluppatore Web Full Stack specializzato in React, Next.js, TypeScript e Tailwind CSS. Con sede a Torino in Italia.",
-    "title": "Francesco Caveglia Beatris - Sviluppatore Web Full Stack"
+    "description": "{position} presso {company}. Sviluppatore frontend e full stack con React, Next.js, TypeScript e .NET.",
+    "title": "{name}, {position}"
+  },
+  "Pdf": {
+    "error": "Non è stato possibile creare il PDF. Riprova tra poco.",
+    "exporting": "Preparazione del PDF…",
+    "label": "Scarica il CV in PDF",
+    "success": "{filename} scaricato"
+  },
+  "Permalink": {
+    "copied": "Link copiato",
+    "label": "Copia il link a “{title}”"
   },
   "Skills": {
-    "description": "Competenze tecniche e soft skills alla base del mio lavoro",
-    "soft": "Competenze Trasversali",
-    "technical": "Competenze Tecniche",
-    "title": "Competenze & Esperienze"
+    "soft": "Soft skill",
+    "technical": "Tecniche",
+    "title": "Competenze"
+  },
+  "Toc": {
+    "title": "In questa pagina"
   }
 }

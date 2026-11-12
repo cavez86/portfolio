@@ -21,10 +21,17 @@ export const LanguageSelector = () => {
 
   return (
     <Select onValueChange={handleChange} value={locale}>
-      <SelectTrigger className="w-fit">
-        <SelectValue placeholder="Language" />
+      <SelectTrigger aria-label={t('language_label')} className="border-transparent shadow-none hover:bg-muted">
+        <SelectValue>
+          {(value: Locale) => (
+            <>
+              <span className="font-mono text-[0.875rem] sm:hidden">{value}</span>
+              <span className="hidden sm:inline">{t(`language.${value}`)}</span>
+            </>
+          )}
+        </SelectValue>
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent align="end" alignItemWithTrigger={false}>
         {routing.locales.map((loc) => (
           <SelectItem key={loc} value={loc}>
             {t(`language.${loc}`)}
