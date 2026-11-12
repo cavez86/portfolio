@@ -28,7 +28,7 @@ function SelectTrigger({
   return (
     <SelectPrimitive.Trigger
       className={cn(
-        "flex w-fit cursor-pointer items-center justify-between gap-1.5 rounded-sm border-2 border-ink bg-paper py-1.5 pr-1.5 pl-2.5 text-[0.95rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-highlighter disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive data-placeholder:text-muted-foreground data-popup-open:bg-highlighter data-[size=default]:h-10 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "flex w-fit cursor-pointer items-center justify-between gap-1.5 rounded-sm border-2 border-ink bg-paper py-1.5 pr-1.5 pl-2.5 text-[0.95rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-quadretti disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive data-placeholder:text-muted-foreground data-popup-open:bg-quadretti data-[size=default]:h-10 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       data-size={size}
@@ -94,7 +94,7 @@ function SelectItem({ className, children, ...props }: SelectPrimitive.Item.Prop
   return (
     <SelectPrimitive.Item
       className={cn(
-        "relative flex cursor-pointer w-full items-center gap-2 rounded-sm py-2 pr-8 pl-2.5 text-base outline-hidden select-none data-highlighted:bg-highlighter data-highlighted:text-graphite data-selected:font-semibold data-selected:text-ink data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        "relative flex cursor-pointer w-full items-center gap-2 rounded-sm py-2 pr-8 pl-2.5 text-base outline-hidden select-none data-highlighted:bg-quadretti data-highlighted:text-graphite data-selected:font-semibold data-selected:text-ink data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className
       )}
       data-slot="select-item"

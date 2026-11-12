@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { type Bob, type CradleParams, energy, isAtRest, MAX_THETA, period, stepChain } from './cradle';
+import { type Bob, type CradleParams, energy, isAtRest, MAX_THETA, stepChain } from './cradle';
 
 const params: CradleParams = { damping: 0, maxTheta: MAX_THETA, omega0Sq: 36, restitution: 1 };
 const chainOf = (n: number): Bob[] => Array.from({ length: n }, () => ({ omega: 0, theta: 0 }));
@@ -65,11 +65,5 @@ describe('stepChain', () => {
     run(chain, 0.5);
 
     expect(Math.abs(chain[0].theta)).toBeLessThanOrEqual(MAX_THETA);
-  });
-});
-
-describe('period', () => {
-  it('is about two seconds for a one-metre pendulum', () => {
-    expect(period(1)).toBeCloseTo(2.006, 3);
   });
 });

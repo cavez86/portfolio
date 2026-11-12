@@ -20,7 +20,7 @@ export const Header = async () => {
         >
           {links.map((link) => (
             <a
-              className="highlight py-1 text-graphite hover:highlight-on focus-visible:highlight-on"
+              className="py-1 text-graphite decoration-2 underline-offset-[0.3em] hover:text-ink hover:underline"
               href={`#${link}`}
               key={link}
             >
@@ -32,7 +32,7 @@ export const Header = async () => {
           {contacts.map((contact) => (
             <a
               aria-label={contact.label}
-              className="hidden size-10 items-center justify-center rounded-sm text-ink transition-colors hover:bg-highlighter sm:inline-flex"
+              className="hidden size-10 items-center justify-center rounded-sm text-ink transition-colors hover:bg-quadretti sm:inline-flex"
               href={contact.url}
               key={contact.url}
               rel="noopener noreferrer"

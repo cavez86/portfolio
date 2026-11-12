@@ -28,15 +28,13 @@
     "try_again": "Riprova"
   },
   "Experience": {
-    "caption": "Un diagramma spazio-tempo della carriera. Il tempo t sale lungo la pagina, da gennaio {start} a {today}; ogni datore di lavoro è una corsia, in ordine di arrivo. La carriera è una sola linea d'universo, che passa a una nuova corsia a ogni cambio di datore di lavoro.",
+    "caption": "Il tempo sale lungo la pagina; ogni datore di lavoro è una corsia, in ordine di arrivo.",
     "close": "Chiudi",
     "details": "{count, plural, one {Leggi # risultato} other {Leggi # risultati}}",
-    "lane_unit": "datore di lavoro, in ordine di arrivo",
+    "lane_unit": "datore di lavoro",
     "months": "{count, plural, one {# mese} other {# mesi}}",
     "note": "Dal {start}, {total} anni di lavoro",
-    "on_site": "presso {company}",
     "present": "oggi",
-    "summary": "di lavoro a {today}, con {lanes} datori di lavoro",
     "t_unit": "anno",
     "title": "Esperienze",
     "years": "{count, plural, one {# anno} other {# anni}}"
@@ -61,16 +59,14 @@
     "skills": "Competenze"
   },
   "Hero": {
-    "caption": "Il nome come pendolo di Newton: {count} lettere di uguale massa appese a fili di",
+    "caption": "Il nome, appeso come un pendolo di Newton.",
     "contact_me": "Contattami",
     "given": "Dati",
-    "hint": "Oppure trascina una lettera.",
-    "release": "Rilascia la {letter} da {angle}°",
-    "scale": "1 quadretto = 5 cm"
+    "release": "Rilascia la {letter} da {angle}°"
   },
   "Languages": {
-    "caption": "Due onde con ampiezza A proporzionale alla padronanza, dove madrelingua vale 1.",
-    "note": "A ∝ livello",
+    "caption": "L'ampiezza di ogni onda è proporzionale al livello.",
+    "play": "Fai partire l'onda: {language}",
     "title": "Lingue"
   },
   "Loading": {
@@ -81,8 +77,7 @@
     "title": "Francesco Caveglia Beatris - Sviluppatore Web Full Stack"
   },
   "Skills": {
-    "caption": "Ogni gruppo di competenze è un filo fissato ai due estremi; le competenze sono masse uguali appese al filo. Nessuna pesa più delle altre.",
-    "note": "{strings} fili, {masses} masse",
+    "caption": "Ogni gruppo è un filo fissato ai due estremi; ogni competenza è una massa uguale.",
     "pluck_hint": "Pizzica questo filo.",
     "soft": "Competenze trasversali",
     "technical": "Competenze tecniche",

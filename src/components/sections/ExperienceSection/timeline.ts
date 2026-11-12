@@ -61,23 +61,3 @@ export const buildTimeline = <T extends TimelineInput>(items: readonly T[], now:
 
   return { firstYear, segments, span: years(now.getTime()), total };
 };
-
-/**
- * Jobs done on another employer's premises, as the role says ("Consultant for Deltatre"): the segment
- * index and the employer it names. A company is named by its first word (as written, at least 4 letters).
- */
-export const placements = <T extends TimelineInput & { position: string }>(timeline: Timeline<T>) => {
-  const employers = new Map(timeline.segments.map((s) => [s.employer, s.item.company]));
-  return timeline.segments.flatMap((segment, index) =>
-    [...employers]
-      .filter(([employer, company]) => {
-        const word = company.split(/\s+/)[0] ?? '';
-        return (
-          employer !== segment.employer &&
-          word.length >= 4 &&
-          new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(segment.item.position)
-        );
-      })
-      .map(([employer, company]) => ({ company, employer, index }))
-  );
-};

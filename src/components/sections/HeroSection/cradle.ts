@@ -21,12 +21,9 @@ export interface CradleParams {
   maxTheta: number;
 }
 
-export const MAX_THETA = (50 * Math.PI) / 180;
+export const MAX_THETA = (30 * Math.PI) / 180;
 export const SUBSTEP = 1 / 240;
 const REST_EPSILON = 1e-3;
-
-/** Pendulum period for small swings: T = 2π √(L / g). */
-export const period = (lengthMetres: number, g = 9.81) => 2 * Math.PI * Math.sqrt(lengthMetres / g);
 
 export const energy = (chain: readonly Bob[], omega0Sq: number) =>
   chain.reduce((sum, bob) => sum + 0.5 * bob.omega ** 2 + omega0Sq * (1 - Math.cos(bob.theta)), 0);

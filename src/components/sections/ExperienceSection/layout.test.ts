@@ -72,15 +72,6 @@ describe.each([
 describe('layoutExperience on wide drawings', () => {
   const variant = WIDE;
   const layout = layoutExperience(timeline, texts, variant);
-  const labels = layout.lanes.map((lane) => lane.label);
-
-  it('keeps the annotation corner clear of labels and of the world-line', () => {
-    const { panel } = layout;
-    expect(panel?.width).toBeGreaterThan(260);
-    if (!panel) return;
-    for (const label of labels) expect(intersects(panel, label)).toBe(false);
-    for (const band of layout.bands) expect(intersects(panel, band)).toBe(false);
-  });
 
   it('sets each label beside its own lane, within the time that lane covers', () => {
     for (const lane of layout.lanes) {

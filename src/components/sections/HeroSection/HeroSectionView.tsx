@@ -6,9 +6,6 @@ import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/d
 
 import { NameCradle } from './NameCradle';
 
-/** The "Given" of the exercise, each value in its own pencil. */
-const INKS = ['text-ink', 'text-red-pencil', 'text-green-ink', 'text-graphite'];
-
 const HeroSection = async () => {
   const [personalInfo, summaryInfo, t] = await Promise.all([
     getLocalizedGlobal('personal-info'),
@@ -33,26 +30,23 @@ const HeroSection = async () => {
       </NameCradle>
 
       <div className="mt-12 grid gap-10 md:mt-16 xl:grid-cols-[minmax(0,64ch)_minmax(0,1fr)] xl:gap-16 2xl:gap-24">
-        <div className="order-2 max-w-[64ch] text-body xl:order-1 [&_p+p]:mt-4 [&_strong]:bg-highlighter [&_strong]:px-0.5 [&_strong]:font-semibold [&_strong]:[box-decoration-break:clone]">
+        {/* Only the opening paragraph's key phrases get the highlighter; later ones are just set in bold. */}
+        <div className="order-2 max-w-[64ch] text-body xl:order-1 [&_p+p]:mt-5 [&_p:first-child_strong]:bg-highlighter [&_p:first-child_strong]:px-0.5 [&_p:first-child_strong]:[box-decoration-break:clone] [&_strong]:font-semibold [&_strong]:text-graphite">
           <RichText data={personalInfo.description as SerializedEditorState} />
         </div>
 
         <aside className="order-1 xl:order-2">
-          <h2 className="math mb-4 text-xl text-red-pencil" id="given">
+          <h2 className="math mb-4 text-xl text-pencil" id="given">
             {t('given')}
           </h2>
           <dl
             aria-labelledby="given"
             className="grid grid-cols-2 gap-x-6 gap-y-6 sm:gap-x-10 md:grid-cols-4 xl:grid-cols-2"
           >
-            {summaryInfo.map((item, i) => (
-              <div className="border-t-[3px] border-current pt-2" key={item.id}>
+            {summaryInfo.map((item) => (
+              <div className="border-t-2 border-ink pt-2" key={item.id}>
                 <dt className="text-caption text-pencil">{item.label}</dt>
-                <dd
-                  className={`text-xl leading-snug font-bold md:text-[1.375rem] 2xl:text-[1.625rem] ${INKS[i % INKS.length]}`}
-                >
-                  {item.value}
-                </dd>
+                <dd className="text-xl leading-snug font-bold text-ink">{item.value}</dd>
               </div>
             ))}
           </dl>

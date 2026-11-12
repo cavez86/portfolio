@@ -15,7 +15,7 @@ const Footer = async () => {
             <li key={contact.url}>
               <a
                 aria-label={contact.label}
-                className="inline-flex size-11 items-center justify-center rounded-sm text-ink transition-colors hover:bg-highlighter"
+                className="inline-flex size-11 items-center justify-center rounded-sm text-ink transition-colors hover:bg-quadretti"
                 href={contact.url}
                 rel="noopener noreferrer"
                 target="_blank"

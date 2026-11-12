@@ -1,52 +1,42 @@
 'use client';
 
-import { type CSSProperties, type PointerEvent, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 import { type BeadParams, beadString, pluckProfile, smoothPath, stepBeads } from './beads';
 
-const PARAMS: BeadParams = { damping: 1.1, maxY: 26, stiffness: 150 };
+/** Damped so a pluck rings for about a second. */
+const PARAMS: BeadParams = { damping: 3, maxY: 14, stiffness: 150 };
 /** A hanging string swings less, so its names stay clear of the next column. */
-const HANGING: BeadParams = { ...PARAMS, maxY: 14 };
-const PLUCK = 460;
-
-interface Controller {
-  pluck(index: number, direction: number): void;
-  strum(event: PointerEvent<HTMLElement>): void;
-  forget(): void;
-}
+const HANGING: BeadParams = { ...PARAMS, maxY: 8 };
+const PLUCK = 300;
 
 /**
- * One group of skills: equal masses (beads) on a string fixed at both ends, the name of each skill set
- * beside its bead. Horizontal on wide pages, hanging vertically on narrow ones. A pluck sets up a
- * standing wave whose envelope is drawn, on the side away from the names, while it rings.
+ * One group of skills: the names, each over an equal mass (bead) on a quiet string fixed at both ends.
+ * Horizontal on wide pages, hanging vertically on narrow ones. It moves only when plucked: a click, tap
+ * or Enter on the group's name or on a skill.
  */
 export function BeadString({
   name,
   skills,
-  ink,
   soft = false,
   hintId,
 }: {
   name: string;
   skills: string[];
-  /** CSS colour of this string's pencil. */
-  ink: string;
   soft?: boolean;
   /** Id of the element that explains what pressing a group's name does. */
   hintId: string;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<SVGPathElement>(null);
-  const envelopeRef = useRef<SVGPathElement>(null);
-  const controller = useRef<Controller | null>(null);
+  const pluckRef = useRef<((index: number) => void) | null>(null);
 
   useEffect(() => {
     const track = trackRef.current;
     const line = lineRef.current;
-    const envelope = envelopeRef.current;
-    if (!track || !line || !envelope) return;
+    if (!track || !line) return;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const items = [...track.querySelectorAll<HTMLElement>('[data-mass]')];
     const beads = items.map((item) => item.querySelector<HTMLElement>('.bead') as HTMLElement);
@@ -57,7 +47,6 @@ export function BeadString({
     let along: number[] = [];
     let across = 0;
     let length = 0;
-    let lastSide = 0;
 
     const measure = () => {
       vertical = getComputedStyle(track).getPropertyValue('--vertical').trim() === '1';
@@ -77,12 +66,6 @@ export function BeadString({
 
     const paint = () => {
       line.setAttribute('d', smoothPath([point(0, 0), ...along.map((a, i) => point(a, state.y[i])), point(length, 0)]));
-      const amplitude = Math.max(...state.y.map(Math.abs));
-      const samples = Array.from({ length: 25 }, (_, k) => (k / 24) * length);
-      // The envelope is drawn on the side away from the names (below, or left of a hanging string).
-      const away = vertical ? -1 : 1;
-      const edge = smoothPath(samples.map((a) => point(a, away * amplitude * Math.sin((Math.PI * a) / length))));
-      envelope.setAttribute('d', amplitude > 1 ? edge : '');
       items.forEach((el, i) => {
         el.style.transform = vertical ? `translateX(${state.y[i]}px)` : `translateY(${state.y[i]}px)`;
       });
@@ -102,7 +85,7 @@ export function BeadString({
       }
     };
 
-    const pluck = (index: number, direction: number) => {
+    pluckRef.current = (index: number) => {
       if (reducedMotion.matches || index < 0 || index >= items.length) return;
       if (!frame) {
         measure();
@@ -111,31 +94,8 @@ export function BeadString({
       }
       const profile = pluckProfile(items.length, index);
       profile.forEach((share, i) => {
-        state.v[i] += (direction >= 0 ? 1 : -1) * PLUCK * share * (vertical ? 0.55 : 1);
+        state.v[i] += PLUCK * share * (vertical ? 0.55 : 1);
       });
-    };
-
-    controller.current = {
-      forget() {
-        lastSide = 0;
-      },
-      pluck,
-      // Passing the pointer across the string plucks it at the nearest bead, in the pointer's direction.
-      strum(event) {
-        if (!frame) measure();
-        const rect = track.getBoundingClientRect();
-        const crossing = vertical ? event.clientX - rect.left : event.clientY - rect.top;
-        const position = vertical ? event.clientY - rect.top : event.clientX - rect.left;
-        const side = Math.sign(crossing - across);
-        if (lastSide !== 0 && side !== 0 && side !== lastSide) {
-          const nearest = along.reduce(
-            (best, a, i) => (Math.abs(a - position) < Math.abs(along[best] - position) ? i : best),
-            0
-          );
-          pluck(nearest, side);
-        }
-        if (side !== 0) lastSide = side;
-      },
     };
 
     measure();
@@ -144,41 +104,30 @@ export function BeadString({
     return () => {
       cancelAnimationFrame(frame);
       resize.disconnect();
-      controller.current = null;
+      pluckRef.current = null;
     };
   }, []);
 
   return (
-    <div className={cn('bead-string', soft && 'bead-string-soft')} style={{ '--string-ink': ink } as CSSProperties}>
+    <div className={cn('bead-string', soft && 'bead-string-soft')}>
       <h4 className="bead-name">
         <button
           aria-describedby={hintId}
-          className="highlight cursor-pointer text-left hover:highlight-on focus-visible:highlight-on"
-          onClick={() => controller.current?.pluck(Math.floor((skills.length - 1) / 2), 1)}
+          className="cursor-pointer text-left hover:underline hover:decoration-dotted hover:underline-offset-4"
+          onClick={() => pluckRef.current?.(Math.floor((skills.length - 1) / 2))}
           type="button"
         >
           {name}
         </button>
       </h4>
-      <div
-        className="bead-track"
-        onPointerLeave={() => controller.current?.forget()}
-        onPointerMove={(event) => controller.current?.strum(event)}
-        ref={trackRef}
-      >
+      <div className="bead-track" ref={trackRef}>
         <span aria-hidden="true" className="bead-rest" />
         <svg aria-hidden="true" className="bead-line">
-          <path className="bead-envelope" fill="none" ref={envelopeRef} />
           <path fill="none" ref={lineRef} />
         </svg>
         <ul>
           {skills.map((skill, i) => (
-            <li
-              className="bead-mass"
-              data-mass
-              key={skill}
-              onPointerDown={(event) => controller.current?.pluck(i, event.pointerType === 'mouse' ? -1 : 1)}
-            >
+            <li className="bead-mass" data-mass key={skill} onPointerUp={() => pluckRef.current?.(i)}>
               <span aria-hidden="true" className="bead" />
               <span className="bead-label">{skill}</span>
             </li>

@@ -2,10 +2,7 @@ import { cn } from '@/lib/utils';
 
 /** A figure not drawn yet: pencil outlines where the ink will go. */
 const Sketch = ({ className }: { className?: string }) => (
-  <div
-    aria-hidden="true"
-    className={cn('rounded-sm border-2 border-dashed border-pencil/50 motion-safe:animate-pulse', className)}
-  />
+  <div aria-hidden="true" className={cn('rounded-sm border-2 border-dashed border-pencil/50', className)} />
 );
 
 const FigureSkeleton = ({ id, children }: { id?: string; children: React.ReactNode }) => (

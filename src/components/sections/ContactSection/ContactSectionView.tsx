@@ -5,9 +5,6 @@ import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/d
 
 import { ContactLink } from './ContactLink';
 
-/** Each way to reach Francesco is written in its own pencil. */
-const INKS = ['var(--color-green-ink)', 'var(--color-ink)', 'var(--color-red-pencil)'];
-
 const ContactSectionView = async () => {
   const [contacts, personalInfo, t] = await Promise.all([
     getLocalizedCollection('contacts'),
@@ -22,15 +19,10 @@ const ContactSectionView = async () => {
       )}
 
       {/* The answer of the exercise, boxed twice in red pencil. */}
-      <ul className="mt-8 max-w-5xl divide-y-2 divide-quadretti border-[3px] border-red-pencil bg-paper outline-[3px] outline-offset-[6px] outline-red-pencil md:mt-12">
-        {contacts.map((contact, i) => (
+      <ul className="mt-8 max-w-5xl divide-y divide-quadretti border-2 border-red-pencil bg-paper outline-2 outline-offset-4 outline-red-pencil md:mt-10">
+        {contacts.map((contact) => (
           <li key={contact.url}>
-            <ContactLink
-              description={contact.description}
-              ink={INKS[i % INKS.length]}
-              label={contact.label}
-              url={contact.url}
-            />
+            <ContactLink description={contact.description} label={contact.label} url={contact.url} />
           </li>
         ))}
       </ul>

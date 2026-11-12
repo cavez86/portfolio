@@ -1,29 +1,25 @@
 'use client';
 
 import posthog from 'posthog-js';
-import type { CSSProperties } from 'react';
 
 interface ContactLinkProps {
   description?: string | null;
   label: string;
   url: string;
-  /** CSS colour of this action's pencil. */
-  ink: string;
 }
 
-export function ContactLink({ description, label, url, ink }: ContactLinkProps) {
+export function ContactLink({ description, label, url }: ContactLinkProps) {
   const external = !url.startsWith('mailto:');
   return (
     <a
-      className="group grid gap-1 px-4 py-6 sm:px-5 md:grid-cols-[10rem_minmax(0,1fr)] md:items-baseline md:gap-8 md:px-10 md:py-9"
+      className="group grid gap-1 px-4 py-5 sm:px-5 md:grid-cols-[9rem_minmax(0,1fr)] md:items-baseline md:gap-8 md:px-10 md:py-7"
       href={url}
       onClick={() => posthog.capture('contact_link_clicked', { label })}
       rel={external ? 'noopener noreferrer' : undefined}
-      style={{ '--answer-ink': ink } as CSSProperties}
       target={external ? '_blank' : undefined}
     >
-      <span className="text-lg font-medium text-pencil group-hover:text-graphite">{label}</span>
-      <span className="answer text-[clamp(1.125rem,5.2vw,2rem)] leading-tight font-bold [overflow-wrap:anywhere] md:text-[2.75rem]">
+      <span className="text-base text-pencil">{label}</span>
+      <span className="text-[clamp(1.125rem,5.2vw,1.75rem)] leading-tight font-bold text-ink decoration-2 underline-offset-[0.2em] [overflow-wrap:anywhere] group-hover:underline group-focus-visible:underline md:text-[2.25rem]">
         {description ?? label}
       </span>
     </a>

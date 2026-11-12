@@ -27,9 +27,9 @@ const buttonVariants = cva(
         default: 'border-ink bg-ink text-paper hover:bg-paper hover:text-ink',
         destructive:
           'bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40',
-        ghost: 'text-ink hover:bg-highlighter aria-expanded:bg-highlighter',
+        ghost: 'text-ink hover:bg-quadretti aria-expanded:bg-quadretti',
         link: 'text-primary underline-offset-4 hover:underline',
-        outline: 'border-ink bg-paper text-ink hover:bg-highlighter aria-expanded:bg-highlighter',
+        outline: 'border-ink bg-paper text-ink hover:bg-quadretti aria-expanded:bg-quadretti',
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground',
       },

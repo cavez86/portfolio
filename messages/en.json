@@ -28,15 +28,13 @@
     "try_again": "Try again"
   },
   "Experience": {
-    "caption": "A spacetime diagram of the career. Time t runs up the page, from January {start} to {today}; each employer is a lane, in the order joined. The career is one world-line, stepping across to a new lane at each change of employer.",
+    "caption": "Time runs up the page; each employer is a lane, in the order joined.",
     "close": "Close",
     "details": "{count, plural, one {Read # achievement} other {Read # achievements}}",
-    "lane_unit": "employer, in the order joined",
+    "lane_unit": "employer",
     "months": "{count} mo",
     "note": "Since {start}, {total} yr of work",
-    "on_site": "on site at {company}",
     "present": "today",
-    "summary": "of work by {today}, with {lanes} employers",
     "t_unit": "year",
     "title": "Experience",
     "years": "{count} yr"
@@ -61,16 +59,14 @@
     "skills": "Skills"
   },
   "Hero": {
-    "caption": "The name as a Newton's cradle: {count} letters of equal mass on strings of",
+    "caption": "The name, hung as a Newton's cradle.",
     "contact_me": "Contact me",
     "given": "Given",
-    "hint": "Or drag any letter.",
-    "release": "Release {letter} from {angle}°",
-    "scale": "1 square = 5 cm"
+    "release": "Release {letter} from {angle}°"
   },
   "Languages": {
-    "caption": "Two waves with amplitude A in proportion to proficiency, where native is 1.",
-    "note": "A ∝ level",
+    "caption": "The amplitude of each wave is in proportion to the level.",
+    "play": "Play the {language} wave",
     "title": "Languages"
   },
   "Loading": {
@@ -81,8 +77,7 @@
     "title": "Francesco Caveglia Beatris - Full Stack Web Developer"
   },
   "Skills": {
-    "caption": "Each group of skills is a string fixed at both ends; the skills are equal masses on it. No skill is weighted more than another.",
-    "note": "{strings} strings, {masses} masses",
+    "caption": "Each group is a string fixed at both ends; every skill on it is an equal mass.",
     "pluck_hint": "Plucks this string.",
     "soft": "Soft skills",
     "technical": "Technical skills",

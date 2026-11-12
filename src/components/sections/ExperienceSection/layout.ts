@@ -27,16 +27,14 @@ export interface Variant {
      * `column`: labels stand in one column right of the lanes (narrow drawings).
      */
     placement: 'beside' | 'column';
-    /** Lines a stint's dates and duration take: one on wide drawings, two on narrow ones. */
-    metaLines: number;
   };
 }
 
 export const WIDE: Variant = {
   axisX: 64,
-  footroom: 104,
+  footroom: 56,
   headroom: 120,
-  label: { gap: 16, meta: 17, metaLines: 1, name: 30, placement: 'beside', role: 18, width: 330 },
+  label: { gap: 16, meta: 17, name: 30, placement: 'beside', role: 18, width: 330 },
   lanes: { band: 68, first: 140, last: 1104 },
   tScale: 46,
   width: 1200,
@@ -46,7 +44,7 @@ export const NARROW: Variant = {
   axisX: 40,
   footroom: 48,
   headroom: 40,
-  label: { gap: 12, meta: 15, metaLines: 2, name: 21, placement: 'column', role: 15.5, width: 212 },
+  label: { gap: 12, meta: 15, name: 21, placement: 'column', role: 15.5, width: 212 },
   lanes: { band: 14, first: 54, last: 114 },
   tScale: 52,
   width: 340,
@@ -92,7 +90,7 @@ export const labelLines = <T extends TimelineInput>(
   for (const { index, showRole, showPlace } of jobs) {
     const text = texts[index];
     if (showRole) height += linesFor(text?.role ?? '', label.role, label.width) * label.role * LINE_HEIGHT.role;
-    const lines = label.metaLines + (showPlace ? 1 : 0) + (text?.details ? 1 : 0);
+    const lines = 1 + (showPlace ? 1 : 0) + (text?.details ? 1 : 0);
     height += lines * label.meta * LINE_HEIGHT.meta;
   }
   return height;
@@ -103,7 +101,7 @@ export const layoutExperience = <T extends TimelineInput>(
   texts: readonly JobText[],
   variant: Variant
 ) => {
-  const { axisX, tScale, headroom, footroom, label, width } = variant;
+  const { tScale, headroom, footroom, label, width } = variant;
   const plotHeight = timeline.span * tScale;
   const plotTop = headroom;
   const plotBottom = headroom + plotHeight;
@@ -186,23 +184,6 @@ export const layoutExperience = <T extends TimelineInput>(
     to: { x: lineX(s), y: shift(toY(s.t0)) },
   }));
 
-  // Wide drawings describe the job in focus in the empty top-left corner: lanes there ended long ago.
-  const panelHeight = 300;
-  const panelX = axisX + 28;
-  const panelTop = shift(plotTop);
-  const blocking = lanes
-    .map((lane) => lane.label)
-    .filter((l) => l.y < panelTop + panelHeight && l.y + l.height > panelTop && l.x + l.width > panelX);
-  const panel: Box | null =
-    label.placement === 'beside'
-      ? {
-          height: panelHeight,
-          width: Math.min(330, Math.min(width, ...blocking.map((l) => l.x)) - label.gap * 2 - panelX),
-          x: panelX,
-          y: panelTop,
-        }
-      : null;
-
   return {
     bands: segments.map((s) => ({
       segment: s,
@@ -216,7 +197,6 @@ export const layoutExperience = <T extends TimelineInput>(
     height: shift(plotBottom) + footroom + bottomOverflow,
     lanes,
     laneX,
-    panel,
     plotBottom: shift(plotBottom),
     plotTop: shift(plotTop),
     steps,

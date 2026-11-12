@@ -9,7 +9,6 @@ import { hasLocale } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
 import { GoToTop } from '@/components/common/GoToTop';
-import ScrollProgress from '@/components/common/ScrollProgress';
 import MainProvider from '@/components/providers';
 import Footer from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
@@ -56,7 +55,6 @@ export default async function LocaleLayout({
     <html className={cn(bricolage.variable, stix.variable)} lang={locale} suppressHydrationWarning>
       <MainProvider>
         <body className="font-sans antialiased">
-          <ScrollProgress />
           <Header />
           {children}
           <Footer />

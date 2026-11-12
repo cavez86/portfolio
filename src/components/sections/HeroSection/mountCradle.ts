@@ -1,31 +1,21 @@
 import type { PointerEvent } from 'react';
 
-import { type Bob, type CradleParams, energy, isAtRest, MAX_THETA, period, stepChain, tensionOverMass } from './cradle';
+import { type Bob, type CradleParams, energy, isAtRest, MAX_THETA, stepChain, tensionOverMass } from './cradle';
 
 const G = 9.81;
 /** Scale of the drawing: one square of the notebook stands for 5 cm. */
 const METRES_PER_SQUARE = 0.05;
-export const RELEASE_DEG = 24;
-export const RELEASE_THETA = (-RELEASE_DEG * Math.PI) / 180;
-
-/** An angle in degrees with one decimal and a true minus sign, never “−0.0”. */
-export const formatDegrees = (radians: number) => {
-  const degrees = (radians * 180) / Math.PI;
-  return Math.abs(degrees) < 0.05 ? '0.0' : degrees.toFixed(1).replace('-', '\u2212');
-};
-const PARAMS: Omit<CradleParams, 'omega0Sq'> = { damping: 0.4, maxTheta: MAX_THETA, restitution: 0.96 };
-const RELEASE_DELAY_MS = 1100;
+export const RELEASE_DEG = 20;
+const RELEASE_THETA = (-RELEASE_DEG * Math.PI) / 180;
+/** Damped enough that a swing settles in a few seconds. */
+const PARAMS: Omit<CradleParams, 'omega0Sq'> = { damping: 1.6, maxTheta: MAX_THETA, restitution: 0.9 };
 /** After the visitor lets go, the diagram follows whichever letter carries the swing. */
 const FOLLOW_AFTER_MS = 1200;
-/** Multiflash exposure of where the string meets the followed letter: a dot every 60 ms, the last dozen kept. */
-const FLASH_MS = 60;
-const FLASHES = 12;
 
 export interface Controller {
   pointerDown(event: PointerEvent<HTMLElement>): void;
   pointerMove(event: PointerEvent<HTMLElement>): void;
   pointerUp(event: PointerEvent<HTMLElement>): void;
-  pointerLeave(): void;
   release(): void;
   dispose(): void;
 }
@@ -50,14 +40,6 @@ const DESCENDER = 0.172;
 /** Gap kept between a drawn mark and the glyph it belongs to, in em. */
 const CLEARANCE = 0.03;
 
-interface Pointer {
-  x: number;
-  y: number;
-  t: number;
-  vx: number;
-  vy: number;
-}
-
 const clamp = (value: number, limit: number) => Math.max(-limit, Math.min(limit, value));
 
 const arrow = (x1: number, y1: number, x2: number, y2: number, head: number) => {
@@ -70,24 +52,12 @@ const arrow = (x1: number, y1: number, x2: number, y2: number, head: number) => 
 };
 
 /**
- * Drives the server-rendered letters of a `.cradle` heading: measures them at rest, runs the
- * simulation while something moves and the heading is on screen, and draws the free-body diagram
- * of the letter last touched, or of the one carrying the swing. Under reduced motion it only draws
- * the still diagram.
+ * Drives the server-rendered letters of a `.cradle` heading. The name hangs still until the visitor
+ * drags or taps a letter (or presses release); then the simulation runs while something moves and the
+ * heading is on screen, with the free-body diagram of the letter last touched, or of the one carrying
+ * the swing. Under reduced motion nothing moves.
  */
-export const mountCradle = ({
-  heading,
-  overlay,
-  readout,
-  subscript,
-  onMeasure,
-}: {
-  heading: HTMLElement;
-  overlay: SVGSVGElement;
-  readout: HTMLElement;
-  subscript: HTMLElement;
-  onMeasure: (value: { length: number; period: number }) => void;
-}): Controller => {
+export const mountCradle = ({ heading, overlay }: { heading: HTMLElement; overlay: SVGSVGElement }): Controller => {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const wordEls = [...heading.querySelectorAll<HTMLElement>('.cradle-word')];
   const bobEls = [...heading.querySelectorAll<HTMLElement>('.cradle-bob')];
@@ -102,24 +72,11 @@ export const mountCradle = ({
   let fontSize = 100;
   let active = 0;
   let touched = -Infinity;
-  let flashes: { x: number; y: number; index: number }[] = [];
-  let lastFlash = 0;
-  let pointer: Pointer | null = null;
+  let pointer: { x: number; y: number } | null = null;
   let grab: { index: number; pointerId: number; moved: boolean } | null = null;
   let frame = 0;
   let last = 0;
   let visible = true;
-  let released = false;
-
-  const pose = () => {
-    for (const bob of bobs) {
-      bob.theta = 0;
-      bob.omega = 0;
-    }
-    if (bobs[0]) bobs[0].theta = RELEASE_THETA;
-    active = 0;
-  };
-  pose();
 
   const measure = () => {
     const grid = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--grid')) || 20;
@@ -143,8 +100,7 @@ export const mountCradle = ({
       };
     });
     lengthMetres = ((pivots[0]?.radius ?? grid) / grid) * METRES_PER_SQUARE;
-    overlay.style.fontSize = `${Math.min(34, Math.max(18, fontSize * 0.2))}px`;
-    onMeasure({ length: lengthMetres * 100, period: period(lengthMetres, G) });
+    overlay.style.fontSize = `${Math.min(30, Math.max(16, fontSize * 0.17))}px`;
   };
 
   const set = (part: string, attrs: Record<string, string | number>) => {
@@ -175,24 +131,7 @@ export const mountCradle = ({
     const head = Math.max(9, fontSize * 0.07);
     const label = fontSize * 0.08;
 
-    // Multiflash exposure of the string's midpoint while the letter moves.
-    const now = performance.now();
-    const moving = Math.abs(bob.omega) > 0.05 || bob.held;
-    if (!moving) flashes = [];
-    else if (now - lastFlash > FLASH_MS) {
-      lastFlash = now;
-      const mid = pivot.top / 2;
-      flashes = [
-        ...flashes.filter((dot) => dot.index === active),
-        { index: active, x: px + mid * sin, y: py + mid * cos },
-      ].slice(-FLASHES);
-    }
-    const r = Math.max(3, fontSize * 0.025);
-    set('flashes', {
-      d: flashes.map((dot) => `M${dot.x - r},${dot.y}a${r},${r} 0 1 0 ${2 * r},0a${r},${r} 0 1 0 ${-2 * r},0`).join(''),
-    });
-
-    // θ from the vertical, its swept area in highlighter, the label just outside it.
+    // θ from the vertical, its label just outside the arc.
     const arcR = pivot.top * 0.4;
     const ax = px + arcR * sin;
     const ay = py + arcR * cos;
@@ -200,7 +139,6 @@ export const mountCradle = ({
     const side = bob.theta < 0 ? 1 : -1;
     set('vertical', { x1: px, x2: px, y1: py, y2: py + pivot.top });
     set('arc', { d: `M${px},${py + arcR}A${arcR},${arcR} 0 0 ${sweep} ${ax},${ay}` });
-    set('wedge', { d: `M${px},${py}L${px},${py + arcR}A${arcR},${arcR} 0 0 ${sweep} ${ax},${ay}Z` });
     set('theta', { 'text-anchor': side > 0 ? 'start' : 'end', x: px + side * label * 0.6, y: py + arcR + label * 0.9 });
 
     // Tension along the string, from just above the ring towards the pivot, stopping short of the angle.
@@ -220,22 +158,14 @@ export const mountCradle = ({
     set('weight', { d: arrow(fx, fy, fx, fy + unit, head) });
     set('weight-label', { x: fx + label * 0.8, y: fy + unit * 0.8 });
 
-    const force =
-      pointer &&
-      (grab
-        ? { x1: tx, x2: pointer.x, y1: ty, y2: pointer.y }
-        : Math.hypot(pointer.vx, pointer.vy) > 60 && {
-            x1: pointer.x - clamp(pointer.vx * 0.06, unit),
-            x2: pointer.x,
-            y1: pointer.y - clamp(pointer.vy * 0.06, unit),
-            y2: pointer.y,
-          });
-    const hasF = force && Math.hypot(force.x2 - force.x1, force.y2 - force.y1) > 6;
-    set('force', { d: hasF ? arrow(force.x1, force.y1, force.x2, force.y2, head) : '' });
-    set('force-label', { opacity: hasF ? 1 : 0, x: hasF ? force.x2 + 8 : 0, y: hasF ? force.y2 - 8 : 0 });
-
-    readout.textContent = formatDegrees(bob.theta);
-    subscript.textContent = bobEls[active]?.textContent ?? '';
+    // The visitor's pull, while a letter is held.
+    const hasF = grab !== null && pointer !== null && Math.hypot(pointer.x - tx, pointer.y - ty) > 6;
+    set('force', { d: hasF && pointer ? arrow(tx, ty, pointer.x, pointer.y, head) : '' });
+    set('force-label', {
+      opacity: hasF ? 1 : 0,
+      x: hasF && pointer ? pointer.x + 8 : 0,
+      y: hasF && pointer ? pointer.y - 8 : 0,
+    });
   };
 
   const tick = (time: number) => {
@@ -248,10 +178,6 @@ export const mountCradle = ({
       const strongest = swing.indexOf(Math.max(...swing));
       if (swing[strongest] > 1.5 * swing[active]) active = strongest;
     }
-    if (pointer && !grab) {
-      pointer.vx *= 0.8;
-      pointer.vy *= 0.8;
-    }
     paint();
     if (visible && (grab || !isAtRest(chains))) {
       frame = requestAnimationFrame(tick);
@@ -262,7 +188,7 @@ export const mountCradle = ({
   };
 
   const start = () => {
-    if (reducedMotion.matches || !released || !visible || frame) return;
+    if (reducedMotion.matches || !visible || frame) return;
     frame = requestAnimationFrame(tick);
   };
 
@@ -272,15 +198,7 @@ export const mountCradle = ({
   };
 
   const track = (event: PointerEvent) => {
-    const { x, y } = local(event);
-    const dt = pointer ? Math.max(4, event.timeStamp - pointer.t) / 1000 : 1;
-    pointer = {
-      t: event.timeStamp,
-      vx: pointer ? (x - pointer.x) / dt : 0,
-      vy: pointer ? (y - pointer.y) / dt : 0,
-      x,
-      y,
-    };
+    pointer = local(event);
     return pointer;
   };
 
@@ -301,26 +219,24 @@ export const mountCradle = ({
   });
   onScreen.observe(heading);
 
-  // The one orchestrated moment of the page: the first letter is let go.
-  const releaseTimer = window.setTimeout(() => {
-    released = true;
-    start();
-  }, RELEASE_DELAY_MS);
-
+  // Turning reduced motion on stops the cradle where it hangs at rest.
   const onMotionChange = () => {
+    if (!reducedMotion.matches) return;
     cancelAnimationFrame(frame);
     frame = 0;
-    pose();
+    grab = null;
+    for (const bob of bobs) {
+      bob.theta = 0;
+      bob.omega = 0;
+      bob.held = false;
+    }
     paint();
-    released = !reducedMotion.matches;
-    start();
   };
   reducedMotion.addEventListener('change', onMotionChange);
 
   return {
     dispose() {
       cancelAnimationFrame(frame);
-      window.clearTimeout(releaseTimer);
       resize.disconnect();
       onScreen.disconnect();
       reducedMotion.removeEventListener('change', onMotionChange);
@@ -337,49 +253,18 @@ export const mountCradle = ({
       active = index;
       touched = event.timeStamp;
       bobs[index].held = true;
-      released = true;
       start();
     },
 
-    pointerLeave() {
-      if (!grab) pointer = null;
-    },
-
     pointerMove(event) {
-      if (!interactive()) return;
+      if (!interactive() || !grab || grab.pointerId !== event.pointerId) return;
       const p = track(event);
-
-      if (grab) {
-        if (grab.pointerId !== event.pointerId) return;
-        const pivot = pivots[grab.index];
-        const bob = bobs[grab.index];
-        const theta = clamp(Math.atan2(p.x - pivot.x, p.y - pivot.y), MAX_THETA);
-        bob.omega = 0.6 * bob.omega + 0.4 * ((theta - bob.theta) * 60);
-        bob.theta = theta;
-        grab.moved = true;
-        return;
-      }
-
-      if (event.pointerType !== 'mouse') return;
-      // Brushing past a letter pushes it along the pointer's motion, tangentially to its swing.
-      let pushed = false;
-      pivots.forEach((pivot, i) => {
-        const bob = bobs[i];
-        const cx = pivot.x + pivot.radius * Math.sin(bob.theta);
-        const cy = pivot.y + pivot.radius * Math.cos(bob.theta);
-        if (Math.hypot(p.x - cx, p.y - cy) > fontSize * 0.45) return;
-        const tangential = p.vx * Math.cos(bob.theta) - p.vy * Math.sin(bob.theta);
-        const delta = clamp((tangential / pivot.radius) * 0.08, 3.5);
-        if (Math.abs(delta) < 0.05) return;
-        bob.omega += delta;
-        active = i;
-        touched = event.timeStamp;
-        pushed = true;
-      });
-      if (pushed) {
-        released = true;
-        start();
-      }
+      const pivot = pivots[grab.index];
+      const bob = bobs[grab.index];
+      const theta = clamp(Math.atan2(p.x - pivot.x, p.y - pivot.y), MAX_THETA);
+      bob.omega = 0.6 * bob.omega + 0.4 * ((theta - bob.theta) * 60);
+      bob.theta = theta;
+      grab.moved = true;
     },
 
     pointerUp(event) {
@@ -390,18 +275,19 @@ export const mountCradle = ({
         // A tap pushes the letter away from the side it was touched on.
         bob.omega += local(event).x < pivots[grab.index].x ? 3.2 : -3.2;
       }
-      bob.omega = clamp(bob.omega, 9);
+      bob.omega = clamp(bob.omega, 6);
       grab = null;
+      pointer = null;
       touched = event.timeStamp;
       start();
     },
 
     release() {
-      if (!bobs[0]) return;
+      if (!bobs[0] || !interactive()) return;
       bobs[0].theta = RELEASE_THETA;
       bobs[0].omega = 0;
       active = 0;
-      released = true;
+      touched = performance.now();
       paint();
       start();
     },

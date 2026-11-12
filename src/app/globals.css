@@ -11,7 +11,6 @@
   --color-highlighter: #ffe45c;
   --color-graphite: #272d3a;
   --color-pencil: #5a6273;
-  --color-green-ink: #0e7558;
 
   /* Names the shared ui primitives (dialog, select, button) expect. */
   --color-background: var(--color-paper);
@@ -22,11 +21,11 @@
   --color-popover-foreground: var(--color-graphite);
   --color-primary: var(--color-ink);
   --color-primary-foreground: var(--color-paper);
-  --color-secondary: var(--color-highlighter);
+  --color-secondary: var(--color-quadretti);
   --color-secondary-foreground: var(--color-graphite);
-  --color-muted: var(--color-highlighter);
+  --color-muted: var(--color-quadretti);
   --color-muted-foreground: var(--color-pencil);
-  --color-accent: var(--color-highlighter);
+  --color-accent: var(--color-quadretti);
   --color-accent-foreground: var(--color-graphite);
   --color-destructive: var(--color-red-pencil);
   --color-border: var(--color-ink);
@@ -50,25 +49,6 @@
   --text-lead--line-height: 1.3;
   --text-title: 2.625rem;
   --text-title--line-height: 1.1;
-
-  @keyframes swing {
-    from {
-      transform: rotate(-24deg);
-    }
-    to {
-      transform: rotate(24deg);
-    }
-  }
-
-  --animate-scale-x: scale-x linear forwards;
-  @keyframes scale-x {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
 }
 
 :root {
@@ -89,10 +69,6 @@
   :root {
     --rule: 148px;
   }
-}
-
-@utility animation-timeline-scroll {
-  animation-timeline: scroll();
 }
 
 /* Content column of the notebook page: right of the red margin line. */
@@ -153,25 +129,6 @@
   font-family: var(--font-math);
   font-style: italic;
   font-weight: 400;
-}
-
-/* A highlighter stroke that sweeps in behind text. */
-@utility highlight {
-  background-image: linear-gradient(var(--color-highlighter), var(--color-highlighter));
-  background-repeat: no-repeat;
-  background-position: 0 85%;
-  background-size: 0% 70%;
-  box-decoration-break: clone;
-  transition: background-size 220ms ease-out;
-}
-
-@utility highlight-on {
-  background-size: 100% 70%;
-}
-
-/* Fixed support of a physics drawing: a beam with hatching on the side it is fixed to. */
-@utility hatched {
-  background-image: repeating-linear-gradient(-45deg, var(--color-ink) 0 1.5px, transparent 1.5px 7px);
 }
 
 @layer base {
@@ -301,7 +258,8 @@
     left: -0.08em;
     right: -0.08em;
     height: 0.16em;
-    background-image: repeating-linear-gradient(-45deg, var(--color-ink) 0 2px, transparent 2px 0.09em);
+    background-image: repeating-linear-gradient(-45deg, var(--color-pencil) 0 1px, transparent 1px 0.1em);
+    opacity: 0.6;
   }
 
   .cradle-bob {
@@ -334,6 +292,13 @@
 
   .cradle-bob:active {
     cursor: grabbing;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cradle-bob,
+    .cradle-bob:active {
+      cursor: default;
+    }
   }
 
   /* The string, from the beam to the ring. It rotates with its letter. */
@@ -388,67 +353,7 @@
     border-radius: 2px;
   }
 
-  .xp-panel {
-    position: absolute;
-    padding-left: 1.1cqw;
-    border-left: 3px solid var(--color-red-pencil);
-    line-height: 1.3;
-  }
-
-  /* From 1024px to 1279px the annotation stands beside the drawing and follows the page as it scrolls. */
-  .xp-side {
-    position: sticky;
-    top: 6rem;
-    max-width: 26rem;
-    padding-left: 1.25rem;
-    border-left: 3px solid var(--color-red-pencil);
-    line-height: 1.3;
-  }
-
-  .xp-note {
-    padding-left: 1em;
-    text-indent: -1em;
-  }
-
-  .xp-note::before {
-    content: "– ";
-    color: var(--color-red-pencil);
-  }
-
-  /* Today: the ring breathes and the pencil keeps moving along the line. */
-  @keyframes xp-ring {
-    from {
-      opacity: 0.9;
-      transform: scale(0.7);
-    }
-    to {
-      opacity: 0;
-      transform: scale(1.8);
-    }
-  }
-
-  @keyframes xp-drawing {
-    from {
-      stroke-dashoffset: 1;
-    }
-    70%,
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-
-  .xp-pen-ring {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: xp-ring 1.8s ease-out infinite;
-  }
-
-  .xp-drawing {
-    stroke-dasharray: 1;
-    animation: xp-drawing 2.4s ease-in-out infinite;
-  }
-
-  /* ——— Fig. 3: skills as beads on strings ——— */
+  /* ——— Fig. 3: skills, each name over an equal mass on a quiet string ——— */
 
   /* Strings keep their natural length (it follows the number of skills) and flow side by side. */
   .bead-strings {
@@ -465,22 +370,18 @@
       flex-wrap: wrap;
       align-items: flex-end;
       column-gap: 3.5rem;
-      row-gap: 2rem;
+      row-gap: 2.25rem;
     }
   }
 
   .bead-string {
-    --string-ink: var(--color-ink);
-    --bead: 18px;
-    --bead-fill: var(--string-ink);
-    --bead-edge: 0 0 0 0 transparent;
+    --bead: 8px;
+    --bead-fill: var(--color-ink);
     --label-size: 1.0625rem;
-    --label-weight: 650;
-    --string-opacity: 1;
-    --mass-gap: 1.75rem;
+    --label-weight: 600;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.35rem;
     min-width: 0;
     margin-bottom: 1.75rem;
     break-inside: avoid;
@@ -491,60 +392,58 @@
   }
 
   .bead-name {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     line-height: 1.3;
-    font-weight: 600;
-    color: var(--color-graphite);
+    font-weight: 500;
+    color: var(--color-pencil);
   }
 
-  /* Narrow pages: the string hangs from a ceiling to a floor, beads down its length, names beside them. */
+  /* Narrow pages: the string hangs beside the names, a bead level with each. */
   .bead-track {
     --vertical: 1;
-    --axis: 20px;
+    --axis: 6px;
     position: relative;
-    padding: 1.4rem 0;
-    touch-action: pan-y;
+    padding: 0.5rem 0;
   }
 
+  /* The fixed ends: a short bar across the string at each end. */
   .bead-track::before,
   .bead-track::after {
     content: "";
     position: absolute;
-    left: calc(var(--axis) - 22px);
-    width: 44px;
-    height: 10px;
-    background-image: repeating-linear-gradient(-45deg, var(--string-ink) 0 2px, transparent 2px 7px);
+    left: calc(var(--axis) - 6px);
+    width: 12px;
+    height: 1.5px;
+    background: var(--color-pencil);
   }
 
   .bead-track::before {
     top: 0;
-    border-bottom: 3px solid var(--string-ink);
   }
 
   .bead-track::after {
     bottom: 0;
-    border-top: 3px solid var(--string-ink);
   }
 
   .bead-track > ul {
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 0.6rem;
   }
 
   .bead-rest,
   .bead-line {
     position: absolute;
     pointer-events: none;
-    opacity: var(--string-opacity);
   }
 
   .bead-rest {
-    top: 10px;
-    bottom: 10px;
-    left: calc(var(--axis) - 1.5px);
-    width: 3px;
-    background: var(--string-ink);
+    top: 0;
+    bottom: 0;
+    left: calc(var(--axis) - 0.75px);
+    width: 1.5px;
+    background: var(--color-pencil);
+    opacity: 0.6;
   }
 
   .bead-line {
@@ -552,15 +451,9 @@
     width: 100%;
     height: 100%;
     overflow: visible;
-    stroke: var(--string-ink);
-    stroke-width: 3px;
-    visibility: hidden;
-  }
-
-  .bead-envelope {
     stroke: var(--color-pencil);
     stroke-width: 1.5px;
-    stroke-dasharray: 4 5;
+    visibility: hidden;
   }
 
   .bead-track[data-moving] .bead-rest {
@@ -575,105 +468,89 @@
     position: relative;
     display: flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.6rem;
     padding-left: calc(var(--axis) - var(--bead) / 2);
     cursor: pointer;
   }
 
-  /* An equal mass: a filled bead on the string. */
   .bead {
     flex: none;
     width: var(--bead);
     height: var(--bead);
     border-radius: 50%;
     background: var(--bead-fill);
-    box-shadow:
-      var(--bead-edge),
-      0 0 0 3px var(--color-paper);
-    transition: box-shadow 150ms;
-  }
-
-  .bead-mass:hover .bead {
-    box-shadow:
-      var(--bead-edge),
-      0 0 0 3px var(--color-paper),
-      0 0 0 8px var(--color-highlighter);
   }
 
   .bead-label {
     min-width: 0;
     font-size: var(--label-size);
     font-weight: var(--label-weight);
-    line-height: 1.2;
-    color: var(--string-ink);
+    line-height: 1.25;
+    color: var(--color-ink);
   }
 
-  /* Soft skills: pencil, hollow beads, smaller names, after the technical ones. */
+  /* Soft skills: graphite names on hollow beads, after the technical ones. */
   .bead-string-soft {
-    --bead: 14px;
     --bead-fill: var(--color-paper);
-    --bead-edge: inset 0 0 0 2.5px var(--string-ink);
-    --label-size: 0.975rem;
     --label-weight: 450;
-    --string-opacity: 0.75;
-    --mass-gap: 1.1rem;
   }
 
-  .bead-string-soft .bead-name {
-    color: var(--color-pencil);
+  .bead-string-soft .bead {
+    box-shadow: inset 0 0 0 1.5px var(--color-pencil);
   }
 
-  /* Wide pages: the string runs between two walls, the names stand above their beads. */
+  .bead-string-soft .bead-label {
+    color: var(--color-graphite);
+  }
+
+  /* Wide pages: the names stand in a row, the string runs under them between its two ends. */
   @media (min-width: 1280px) {
     .bead-track {
       --vertical: 0;
       --axis: auto;
-      padding: 0 2rem 0.9rem;
+      padding: 0 1.25rem 0.5rem;
     }
 
     .bead-track::before,
     .bead-track::after {
       top: auto;
-      bottom: calc(0.9rem + var(--bead) / 2 - 24px);
-      left: auto;
-      width: 10px;
-      height: 48px;
-      border: 0;
+      bottom: calc(0.5rem + var(--bead) / 2 - 6px);
+      width: 1.5px;
+      height: 12px;
     }
 
     .bead-track::before {
       left: 0;
-      border-right: 3px solid var(--string-ink);
     }
 
     .bead-track::after {
+      left: auto;
       right: 0;
-      border-left: 3px solid var(--string-ink);
     }
 
     .bead-track > ul {
       flex-direction: row;
       align-items: flex-end;
-      gap: var(--mass-gap);
+      gap: 1.75rem;
     }
 
     .bead-rest {
       top: auto;
-      bottom: calc(0.9rem + var(--bead) / 2 - 1.5px);
-      left: 10px;
-      right: 10px;
+      bottom: calc(0.5rem + var(--bead) / 2 - 0.75px);
+      left: 0;
+      right: 0;
       width: auto;
-      height: 3px;
+      height: 1.5px;
     }
 
     .bead-mass {
       flex-direction: column-reverse;
-      gap: 0.5rem;
+      gap: 0.45rem;
       padding-left: 0;
     }
 
     .bead-string {
-      --label-size: 1.3125rem;
+      --label-size: 1.1875rem;
     }
 
     .bead-string-soft {
@@ -685,46 +562,7 @@
     }
   }
 
-  /* ——— Result: the answer is underlined twice, the way an exercise ends ——— */
-
-  .answer {
-    position: relative;
-    justify-self: start;
-    max-width: 100%;
-    padding-bottom: 0.3em;
-    color: var(--answer-ink);
-  }
-
-  .answer::before,
-  .answer::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--color-red-pencil);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 260ms ease-out;
-  }
-
-  .answer::before {
-    bottom: 0.14em;
-  }
-
-  .answer::after {
-    bottom: 0;
-    transition-delay: 120ms;
-  }
-
-  a:hover > .answer::before,
-  a:hover > .answer::after,
-  a:focus-visible > .answer::before,
-  a:focus-visible > .answer::after {
-    transform: scaleX(1);
-  }
-
-  /* ——— Fig. 4: waves ——— */
+  /* ——— Fig. 4: a wave travels two wavelengths when pressed, then stops where it began ——— */
 
   @keyframes wave-travel {
     to {
@@ -732,22 +570,13 @@
     }
   }
 
-  /* The waves travel slowly; pointing at one highlights the band it fills. */
   .wave-path {
-    animation: wave-travel var(--wave-period, 8s) linear infinite;
+    animation: wave-travel 1.1s linear 2;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wave-path,
-  .xp-pen-ring,
-  .xp-drawing {
+  .wave-path {
     animation: none;
-  }
-
-  .highlight,
-  .answer::before,
-  .answer::after {
-    transition: none;
   }
 }

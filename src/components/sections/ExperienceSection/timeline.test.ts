@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildTimeline, placements } from './timeline';
+import { buildTimeline } from './timeline';
 
 const job = (id: number, company: string, dateFrom: string, dateTo?: string) => ({
   company,
@@ -45,23 +45,5 @@ describe('buildTimeline', () => {
 
   it('moves the end of the axis with the date', () => {
     expect(buildTimeline(jobs, new Date('2030-06-01T00:00:00Z')).span).toBeGreaterThan(timeline.span);
-  });
-});
-
-describe('placements', () => {
-  const withRoles = [
-    {
-      company: 'Teoresi S.p.A.',
-      id: 2,
-      period: { dateFrom: '2015-01-07', dateTo: '2019-08-31' },
-      position: 'Developer (Consultant for Deltatre)',
-    },
-    { company: 'Deltatre Spa', id: 3, period: { dateFrom: '2019-09-01', dateTo: '2024-12-31' }, position: 'Tech Lead' },
-    { company: 'Prima', id: 5, period: { dateFrom: '2026-05-01' }, position: 'Software Engineer' },
-  ];
-
-  it('finds a job whose role names another employer, and no others', () => {
-    const timeline = buildTimeline(withRoles, new Date('2026-11-11T00:00:00Z'));
-    expect(placements(timeline)).toEqual([{ company: 'Deltatre Spa', employer: 1, index: 0 }]);
   });
 });
