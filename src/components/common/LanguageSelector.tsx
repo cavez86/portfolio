@@ -20,11 +20,15 @@ export const LanguageSelector = () => {
   };
 
   return (
-    <Select onValueChange={handleChange} value={locale}>
-      <SelectTrigger className="w-fit">
-        <SelectValue placeholder="Language" />
+    <Select
+      items={routing.locales.map((loc) => ({ label: loc.toUpperCase(), value: loc }))}
+      onValueChange={handleChange}
+      value={locale}
+    >
+      <SelectTrigger aria-label={t('language_label')} className="ml-1">
+        <SelectValue />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent align="end" alignItemWithTrigger={false}>
         {routing.locales.map((loc) => (
           <SelectItem key={loc} value={loc}>
             {t(`language.${loc}`)}

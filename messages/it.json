@@ -1,40 +1,51 @@
 {
-  "ColorPicker": {
-    "description": "Scegli la tonalità terminale preferita. Il valore predefinito è verde.",
-    "hue_label": "Tonalità: {hue}°",
-    "reset_button": "Ripristina Predefinito",
-    "title": "Personalizza Colore del Tema"
+  "Common": {
+    "figure": "Fig. {number}",
+    "to_top": "Torna su"
   },
   "Contact": {
-    "availability": "Disponibilità",
-    "availability_text": "Disponibile per opportunità lavorative da remoto o ibride.",
-    "description": "Recapiti e informazioni di contatto",
-    "title": "Contatti"
+    "result": "Risultato",
+    "title": "Mettiamoci in contatto"
   },
   "Error": {
     "403": {
-      "description": "Potresti dover effettuare il login o contattare un amministratore per l'accesso.",
-      "subtitle": "Non hai i permessi per accedere a questa risorsa",
-      "title": "Accesso Negato"
+      "description": "Potresti dover effettuare l'accesso o chiedere l'accesso a un amministratore.",
+      "subtitle": "Non hai i permessi per aprire questa pagina",
+      "title": "Accesso negato"
     },
     "404": {
-      "description": "Potrebbe essere stata spostata, cancellata o hai inserito un URL sbagliato.",
-      "subtitle": "La pagina che stai cercando non esiste",
-      "title": "Pagina Non Trovata"
+      "description": "Potrebbe essere stata spostata o cancellata, oppure l'indirizzo contiene un errore.",
+      "subtitle": "La pagina che cerchi non esiste",
+      "title": "Pagina non trovata"
     },
     "500": {
-      "description": "Stiamo riscontrando difficoltà tecniche. Riprova più tardi.",
-      "subtitle": "Qualcosa è andato storto dal nostro lato",
-      "title": "Errore Interno del Server"
+      "description": "Qualcosa non ha funzionato mentre disegnavamo questa pagina. Riprova tra qualche istante.",
+      "subtitle": "Si è verificato un errore da parte nostra",
+      "title": "Errore interno del server"
     },
-    "back_home": "Torna alla Home",
-    "go_back": "Torna Indietro",
+    "back_home": "Torna alla home",
+    "go_back": "Torna indietro",
     "try_again": "Riprova"
   },
   "Experience": {
-    "more": "Altro",
-    "present": "Oggi",
-    "title": "Esperienze Professionali"
+    "caption": "Il tempo sale lungo la pagina; ogni datore di lavoro è una corsia, in ordine di arrivo.",
+    "close": "Chiudi",
+    "details": "{count, plural, one {Leggi # risultato} other {Leggi # risultati}}",
+    "lane_unit": "datore di lavoro",
+    "months": "{count, plural, one {# mese} other {# mesi}}",
+    "note": "Dal {start}, {total} anni di lavoro",
+    "present": "oggi",
+    "t_unit": "anno",
+    "title": "Esperienze",
+    "years": "{count, plural, one {# anno} other {# anni}}"
+  },
+  "Footer": {
+    "pdf_busy": "Preparo il PDF…",
+    "pdf_button": "Scarica il CV (PDF)",
+    "pdf_done": "PDF scaricato",
+    "pdf_done_description": "{filename} è tra i tuoi download.",
+    "pdf_failed": "Non è stato possibile creare il PDF",
+    "pdf_failed_description": "Riprova tra qualche istante."
   },
   "Header": {
     "contact": "Contatti",
@@ -43,26 +54,33 @@
       "en": "Inglese",
       "it": "Italiano"
     },
+    "language_label": "Lingua",
+    "navigation": "Sezioni",
     "skills": "Competenze"
   },
   "Hero": {
-    "contact_me": "Contattami"
+    "caption": "Il nome, appeso come un pendolo di Newton.",
+    "contact_me": "Contattami",
+    "given": "Dati",
+    "release": "Rilascia la {letter} da {angle}°"
   },
   "Languages": {
-    "description": "Abilità comunicative in diverse lingue",
+    "caption": "L'ampiezza di ogni onda è proporzionale al livello.",
+    "play": "Fai partire l'onda: {language}",
     "title": "Lingue"
   },
   "Loading": {
-    "loading": "Caricamento..."
+    "loading": "Caricamento…"
   },
   "Metadata": {
     "description": "Sviluppatore Web Full Stack specializzato in React, Next.js, TypeScript e Tailwind CSS. Con sede a Torino in Italia.",
     "title": "Francesco Caveglia Beatris - Sviluppatore Web Full Stack"
   },
   "Skills": {
-    "description": "Competenze tecniche e soft skills alla base del mio lavoro",
-    "soft": "Competenze Trasversali",
-    "technical": "Competenze Tecniche",
-    "title": "Competenze & Esperienze"
+    "caption": "Ogni gruppo è un filo fissato ai due estremi; ogni competenza è una massa uguale.",
+    "pluck_hint": "Pizzica questo filo.",
+    "soft": "Competenze trasversali",
+    "technical": "Competenze tecniche",
+    "title": "Competenze"
   }
 }

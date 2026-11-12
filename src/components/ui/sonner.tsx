@@ -1,39 +1,36 @@
 'use client';
 
 import { CircleCheckIcon, InfoIcon, Loader2Icon, OctagonXIcon, TriangleAlertIcon } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import { Toaster as Sonner, type ToasterProps } from 'sonner';
 
-const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme();
-
-  return (
-    <Sonner
-      className="toaster group"
-      icons={{
-        error: <OctagonXIcon className="size-4" />,
-        info: <InfoIcon className="size-4" />,
-        loading: <Loader2Icon className="size-4 animate-spin" />,
-        success: <CircleCheckIcon className="size-4" />,
-        warning: <TriangleAlertIcon className="size-4" />,
-      }}
-      style={
-        {
-          '--border-radius': 'var(--radius)',
-          '--normal-bg': 'var(--popover)',
-          '--normal-border': 'var(--border)',
-          '--normal-text': 'var(--popover-foreground)',
-        } as React.CSSProperties
-      }
-      theme={theme as ToasterProps['theme']}
-      toastOptions={{
-        classNames: {
-          toast: 'cn-toast',
-        },
-      }}
-      {...props}
-    />
-  );
-};
+const Toaster = (props: ToasterProps) => (
+  <Sonner
+    icons={{
+      error: <OctagonXIcon className="size-4 text-red-pencil" />,
+      info: <InfoIcon className="size-4 text-ink" />,
+      loading: <Loader2Icon className="size-4 animate-spin text-ink" />,
+      success: <CircleCheckIcon className="size-4 text-green-ink" />,
+      warning: <TriangleAlertIcon className="size-4 text-red-pencil" />,
+    }}
+    position="bottom-center"
+    style={
+      {
+        '--border-radius': '3px',
+        '--normal-bg': 'var(--color-paper)',
+        '--normal-border': 'var(--color-ink)',
+        '--normal-text': 'var(--color-graphite)',
+      } as React.CSSProperties
+    }
+    theme="light"
+    toastOptions={{
+      classNames: {
+        description: '!text-pencil',
+        title: '!font-semibold !text-ink',
+        toast: '!border-2 !font-sans !shadow-none',
+      },
+    }}
+    {...props}
+  />
+);
 
 export { Toaster };

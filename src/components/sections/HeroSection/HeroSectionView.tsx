@@ -1,92 +1,56 @@
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
 import { RichText } from '@payloadcms/richtext-lexical/react';
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-import Icon, { type IconName } from '@/components/common/Icon';
-import { Motion } from '@/components/common/Motion';
-import { Button } from '@/components/ui/button';
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
 
+import { NameCradle } from './NameCradle';
+
 const HeroSection = async () => {
-  const [personalInfoData, summaryInfoData, t] = await Promise.all([
+  const [personalInfo, summaryInfo, t] = await Promise.all([
     getLocalizedGlobal('personal-info'),
     getLocalizedCollection('summary-info'),
     getTranslations('Hero'),
   ]);
 
   return (
-    <section className="px-4 py-8 md:py-16">
-      <div className="container mx-auto">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-linear-to-r from-primary to-accent bg-clip-text text-5xl leading-normal font-bold font-mono uppercase tracking-wider text-transparent md:text-7xl [text-shadow:0_0_30px_var(--color-primary)]"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ duration: 0.5 }}
-            type="h1"
+    <section className="sheet pt-6 pb-6 md:pt-10 md:pb-10">
+      <NameCradle name={personalInfo.name}>
+        <div className="flex flex-col items-start gap-5">
+          <p className="max-w-[26ch] text-[1.5rem] leading-tight font-semibold text-graphite md:text-[1.75rem] xl:text-[1.5rem] 2xl:text-[1.75rem]">
+            {personalInfo.title}
+          </p>
+          <a
+            className="rounded-sm border-2 border-ink bg-ink px-6 py-3 text-lg font-semibold text-paper transition-colors hover:bg-paper hover:text-ink"
+            href="#contact"
           >
-            {personalInfoData.name}
-          </Motion>
+            {t('contact_me')}
+          </a>
+        </div>
+      </NameCradle>
 
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-2xl font-medium font-mono uppercase tracking-wider text-accent md:text-3xl"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            type="h2"
-          >
-            {personalInfoData.title}
-          </Motion>
-
-          <Motion
-            className="mx-auto text-lg text-pretty text-muted-foreground"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <RichText data={personalInfoData.description as SerializedEditorState} />
-          </Motion>
-
-          <Motion
-            className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <Link href="#contact">
-              <Button size="lg" variant="outline">
-                {t('contact_me')}
-              </Button>
-            </Link>
-          </Motion>
+      <div className="mt-12 grid gap-10 md:mt-16 xl:grid-cols-[minmax(0,64ch)_minmax(0,1fr)] xl:gap-16 2xl:gap-24">
+        {/* Only the opening paragraph's key phrases get the highlighter; later ones are just set in bold. */}
+        <div className="order-2 max-w-[64ch] text-body xl:order-1 [&_p+p]:mt-5 [&_p:first-child_strong]:bg-highlighter [&_p:first-child_strong]:px-0.5 [&_p:first-child_strong]:[box-decoration-break:clone] [&_strong]:font-semibold [&_strong]:text-graphite">
+          <RichText data={personalInfo.description as SerializedEditorState} />
         </div>
 
-        <Motion
-          className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4"
-          initial={{ opacity: 0.1, y: 20 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          type="div"
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
-          {summaryInfoData.map((item) => (
-            <div
-              className="bg-card flex flex-col items-center border-2 border-primary/30 p-4 text-center transition-all hover:border-primary/60 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_var(--color-primary)]"
-              key={item.id}
-            >
-              <Icon className="mb-2 h-8 w-8 text-primary" name={item.icon as IconName} />
-              <h3 className="text-sm font-medium font-mono uppercase tracking-wider text-muted-foreground">
-                {t(item.label)}
-              </h3>
-              <p className="text-base font-semibold font-mono text-foreground">{t(item.value)}</p>
-            </div>
-          ))}
-        </Motion>
+        <aside className="order-1 xl:order-2">
+          <h2 className="math mb-4 text-xl text-pencil" id="given">
+            {t('given')}
+          </h2>
+          <dl
+            aria-labelledby="given"
+            className="grid grid-cols-2 gap-x-6 gap-y-6 sm:gap-x-10 md:grid-cols-4 xl:grid-cols-2"
+          >
+            {summaryInfo.map((item) => (
+              <div className="border-t-2 border-ink pt-2" key={item.id}>
+                <dt className="text-caption text-pencil">{item.label}</dt>
+                <dd className="text-xl leading-snug font-bold text-ink">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
       </div>
     </section>
   );

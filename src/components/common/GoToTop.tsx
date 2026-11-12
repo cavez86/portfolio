@@ -1,40 +1,33 @@
 'use client';
 
 import { ArrowUp } from 'lucide-react';
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
-import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 
 export const GoToTop = () => {
+  const t = useTranslations('Common');
   const [isVisible, setIsVisible] = useState(false);
-  const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setIsVisible(latest > 300);
-  });
+  useEffect(() => {
+    const update = () => setIsVisible(window.scrollY > 600);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      behavior: 'smooth',
-      top: 0,
-    });
-  };
+  if (!isVisible) return null;
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.button
-          animate={{ opacity: 1, scale: 1 }}
-          aria-label="Scroll to top"
-          className="bg-primary text-primary-foreground hover:bg-primary/80 fixed right-4 bottom-4 cursor-pointer rounded-full p-2 shadow-lg"
-          exit={{ opacity: 0, scale: 0.5 }}
-          initial={{ opacity: 0, scale: 0.5 }}
-          onClick={scrollToTop}
-          transition={{ duration: 0.2 }}
-          whileHover={{ scale: 1.1 }}
-        >
-          <ArrowUp size={24} />
-        </motion.button>
-      )}
-    </AnimatePresence>
+    <button
+      aria-label={t('to_top')}
+      className="fixed right-4 bottom-4 z-30 inline-flex size-12 cursor-pointer items-center justify-center rounded-sm border-2 border-ink bg-paper text-ink hover:bg-quadretti md:right-6 md:bottom-6"
+      onClick={() => {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ behavior: reducedMotion ? 'auto' : 'smooth', top: 0 });
+      }}
+      type="button"
+    >
+      <ArrowUp aria-hidden="true" className="size-6" strokeWidth={2.5} />
+    </button>
   );
 };

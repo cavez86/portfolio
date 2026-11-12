@@ -2,19 +2,32 @@ import type { ReactNode } from 'react';
 
 import { cn } from '@/lib/utils';
 
+/** One figure of the notebook: its number sits in the margin, its title opens the section. */
 const Section = ({
   id,
+  figure,
+  note,
+  title,
   className,
-  contentClassName,
   children,
 }: {
   id?: string;
+  figure: string;
+  /** A fact about the figure (span, totals, scale) written under its number in the margin. */
+  note?: ReactNode;
+  title: ReactNode;
   className?: string;
-  contentClassName?: string;
   children: ReactNode;
 }) => (
-  <section className={cn('px-4 py-8 border-b border-border', className)} id={id}>
-    <div className={cn('container mx-auto', contentClassName || 'max-w-4xl')}>{children}</div>
+  <section aria-labelledby={id && `${id}-title`} className={cn('sheet py-12 md:py-16', className)} id={id}>
+    <p className="margin-note mb-1 md:mb-0 md:pt-3">
+      {figure}
+      {note && <span className="margin-fact">{note}</span>}
+    </p>
+    <h2 className="text-[2rem] leading-tight md:text-title" id={id && `${id}-title`}>
+      {title}
+    </h2>
+    {children}
   </section>
 );
 

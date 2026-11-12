@@ -2,132 +2,581 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+/* Quaderno: a physicist's squared notebook. Ink strokes on cool white paper with a red margin. */
+@theme {
+  --color-paper: #f8fbff;
+  --color-quadretti: #d3e2f4;
+  --color-ink: #1d3fa0;
+  --color-red-pencil: #c42b38;
+  --color-highlighter: #ffe45c;
+  --color-graphite: #272d3a;
+  --color-pencil: #5a6273;
+
+  /* Names the shared ui primitives (dialog, select, button) expect. */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-graphite);
+  --color-card: var(--color-paper);
+  --color-card-foreground: var(--color-graphite);
+  --color-popover: var(--color-paper);
+  --color-popover-foreground: var(--color-graphite);
+  --color-primary: var(--color-ink);
+  --color-primary-foreground: var(--color-paper);
+  --color-secondary: var(--color-quadretti);
+  --color-secondary-foreground: var(--color-graphite);
+  --color-muted: var(--color-quadretti);
+  --color-muted-foreground: var(--color-pencil);
+  --color-accent: var(--color-quadretti);
+  --color-accent-foreground: var(--color-graphite);
+  --color-destructive: var(--color-red-pencil);
+  --color-border: var(--color-ink);
+  --color-input: var(--color-ink);
+  --color-ring: var(--color-red-pencil);
+
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+
+  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-math: var(--font-stix), "STIX Two Text", "Times New Roman", serif;
+
+  /* Perfect fourth on an 18px body. */
+  --text-caption: 0.9375rem;
+  --text-caption--line-height: 1.4;
+  --text-body: 1.125rem;
+  --text-body--line-height: 1.6;
+  --text-lead: 1.5rem;
+  --text-lead--line-height: 1.3;
+  --text-title: 2.625rem;
+  --text-title--line-height: 1.1;
+}
 
 :root {
-  --theme-color: hsl(145, 100%, 50%); /* Default theme color (green) */
+  /* One square of the quaderno. */
+  --grid: 20px;
+  --page: 1600px;
+  /* Distance of the red margin line from the left edge of the page. */
+  --rule: 18px;
 }
 
-/* Terminal theme with customizable base color using relative colors */
-@theme {
-  /* Base color can be customized by user (default: terminal green) */
-  --color-base: oklch(from var(--theme-color) 0.8 0.18 h); /* Default to green hue */
-
-  /* All theme colors derived from --color-base using CSS relative color syntax */
-  --color-background: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Very dark with subtle hue tint */
-  --color-foreground: oklch(from var(--color-base) 0.85 0.15 h); /* Bright neon text */
-
-  --color-card: oklch(from var(--color-base) 0.18 0.01 calc(h + 5)); /* Slightly lighter than background */
-  --color-card-foreground: oklch(from var(--color-base) 0.85 0.15 h);
-
-  --color-popover: oklch(from var(--color-base) 0.12 0.01 calc(h + 5)); /* Darker than background for depth */
-  --color-popover-foreground: oklch(from var(--color-base) 0.85 0.15 h);
-
-  --color-primary: var(--color-base); /* Bright neon - terminal primary color */
-  --color-primary-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Dark text on primary */
-
-  --color-secondary: oklch(from var(--color-base) 0.25 0.02 calc(h + 5)); /* Dark for secondary elements */
-  --color-secondary-foreground: oklch(from var(--color-base) 0.75 0.12 h); /* Dimmer accent */
-
-  --color-muted: oklch(from var(--color-base) 0.22 0.015 calc(h + 5)); /* Muted background */
-  --color-muted-foreground: oklch(from var(--color-base) 0.55 0.08 h); /* Muted text */
-
-  --color-accent: oklch(from var(--color-base) 0.65 0.18 calc(h + 3)); /* Accent color */
-  --color-accent-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5));
-
-  --color-destructive: oklch(0.6 0.2 25); /* Red-orange for errors */
-  --color-destructive-foreground: oklch(0.95 0.01 120);
-
-  --color-border: oklch(from var(--color-base) 0.35 0.05 h); /* Hue-tinted border */
-  --color-input: oklch(from var(--color-base) 0.2 0.015 calc(h + 5)); /* Dark input background */
-  --color-ring: var(--color-base); /* Bright focus ring */
-
-  --color-radius: 0.25rem; /* Sharper corners for terminal feel */
-
-  --color-chart-1: var(--color-base); /* Primary color */
-  --color-chart-2: oklch(from var(--color-base) 0.75 0.15 calc(h + 50)); /* Shifted hue */
-  --color-chart-3: oklch(from var(--color-base) 0.7 0.12 calc(h + 130)); /* Complementary */
-  --color-chart-4: oklch(from var(--color-base) 0.85 0.15 calc(h - 55)); /* Triadic */
-  --color-chart-5: oklch(0.65 0.2 25); /* Red-orange */
-
-  --animate-scale-x: scale-x linear forwards;
-  @keyframes scale-x {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
-
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  @keyframes accordion-down {
-    from {
-      height: 0;
-      opacity: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-      opacity: 1;
-    }
-  }
-
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-      opacity: 1;
-    }
-    to {
-      height: 0;
-      opacity: 0;
-    }
+@media (min-width: 768px) {
+  :root {
+    --rule: 116px;
   }
 }
 
-@utility animation-timeline-scroll {
-  animation-timeline: scroll();
+@media (min-width: 1280px) {
+  :root {
+    --rule: 148px;
+  }
 }
 
-@utility animation-timeline-view {
-  animation-timeline: view();
+/* Content column of the notebook page: right of the red margin line. */
+@utility sheet {
+  position: relative;
+  width: 100%;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-left: calc(var(--rule) + 14px);
+  padding-right: 16px;
+
+  @media (min-width: 768px) {
+    padding-left: calc(var(--rule) + 32px);
+    padding-right: 40px;
+  }
+
+  @media (min-width: 1280px) {
+    padding-right: 48px;
+  }
 }
 
-/* Add base styles after theme definition */
+/* Quiet notes that live in the margin on wide screens and above the content on phones. */
+@utility margin-note {
+  font-family: var(--font-math);
+  font-style: italic;
+  font-size: var(--text-caption);
+  line-height: 1.35;
+  color: var(--color-red-pencil);
+
+  @media (min-width: 768px) {
+    position: absolute;
+    left: 0;
+    width: calc(var(--rule) - 18px);
+    text-align: right;
+  }
+}
+
+/* The fact under a figure number: span, totals, scale. */
+@utility margin-fact {
+  display: inline;
+  margin-left: 0.5em;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--color-pencil);
+
+  @media (min-width: 768px) {
+    display: block;
+    margin-top: 0.4rem;
+    margin-left: 0;
+    text-wrap: balance;
+  }
+}
+
+/* Physics typesetting: variables, units, captions. */
+@utility math {
+  font-family: var(--font-math);
+  font-style: italic;
+  font-weight: 400;
+}
+
 @layer base {
-  * {
-    @apply border-border outline-ring/50 transition-discrete;
+  html {
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground min-w-[360px] font-mono;
+    position: relative;
+    min-width: 360px;
+    min-height: 100dvh;
+    overflow-x: clip;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    color: var(--color-graphite);
+    background-color: var(--color-paper);
+    background-image:
+      linear-gradient(to right, var(--color-quadretti) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-quadretti) 1px, transparent 1px);
+    background-size: var(--grid) var(--grid);
+    background-position: -1px -1px;
   }
 
-  /* Terminal-style text selection */
+  /* The red margin line of the quaderno, the full height of the page. */
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(max(0px, (100% - var(--page)) / 2) + var(--rule));
+    width: 2px;
+    background: var(--color-red-pencil);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
   ::selection {
-    background-color: oklch(from var(--color-base) l c h / 0.3);
-    color: var(--color-foreground);
+    background-color: var(--color-highlighter);
+    color: var(--color-graphite);
   }
 
-  /* Scrollbar styling for terminal theme */
-  ::-webkit-scrollbar {
+  :focus-visible {
+    outline: 2.5px solid var(--color-red-pencil);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--color-ink);
+    text-wrap: balance;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* ——— Fig. 1: the name as a Newton's cradle ——— */
+
+  /*
+   * Sized so the longest row fills the column: 8.1 em on two rows, 4.85 em on three, plus room on both
+   * sides for the end letters to swing out (0.4 em) without reaching the margin line.
+   */
+  .cradle-frame {
+    --reserve: 0.42em;
+    --cradle-size: clamp(3rem, calc((100vw - 56px) / 5.69), 6rem);
+
+    @media (min-width: 768px) {
+      --reserve: 0.4em;
+      --cradle-size: min(11.5rem, calc((min(100vw, var(--page)) - var(--rule) - 88px) / 8.9));
+    }
+  }
+
+  .cradle {
+    /* From the beam down to the top of the letter's box. */
+    --string: 0.46em;
+    --beam: 0.03em;
+    --ring: 0.08em;
+    display: flex;
+    flex-wrap: wrap;
+    /* Neighbouring words are separate cradles: leave room for both end letters to swing. */
+    column-gap: 0.95em;
+    row-gap: 0.55em;
+    margin: 0;
+    padding: 0.16em var(--reserve) 0;
+    font-size: var(--cradle-size);
+    font-weight: 750;
+    font-variation-settings: "opsz" 96;
+    /* With Bricolage's 0.93/0.27 em ascent and descent, the baseline sits 0.73 em down the box. */
+    line-height: 0.8;
+    letter-spacing: 0;
+    color: var(--color-ink);
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .cradle-word {
+    position: relative;
+    display: inline-flex;
+    padding-top: var(--string);
+  }
+
+  /* The beam every letter of the word hangs from, hatched on the side it is fixed to. */
+  .cradle-word::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -0.08em;
+    right: -0.08em;
+    height: max(4px, var(--beam));
+    background: var(--color-ink);
+  }
+
+  .cradle-word::after {
+    content: "";
+    position: absolute;
+    bottom: calc(100% - 1px);
+    left: -0.08em;
+    right: -0.08em;
+    height: 0.16em;
+    background-image: repeating-linear-gradient(-45deg, var(--color-pencil) 0 1px, transparent 1px 0.1em);
+    opacity: 0.6;
+  }
+
+  .cradle-bob {
+    /* Where the ring rests below the top of the letter's box (glyph top + 0.01 em): capitals by default. */
+    --attach: 0.068em;
+    --theta: 0rad;
+    position: relative;
+    display: inline-block;
+    cursor: grab;
+    transform-origin: 50% calc(-1 * var(--string));
+    /* Physics angles are positive to the right, CSS rotation is positive clockwise. */
+    transform: rotate(calc(-1 * var(--theta)));
+  }
+
+  .cradle-bob[data-top="ascender"] {
+    --attach: 0.037em;
+  }
+
+  .cradle-bob[data-top="t"] {
+    --attach: 0.084em;
+  }
+
+  .cradle-bob[data-top="dot"] {
+    --attach: 0.021em;
+  }
+
+  .cradle-bob[data-top="x"] {
+    --attach: 0.195em;
+  }
+
+  .cradle-bob:active {
+    cursor: grabbing;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cradle-bob,
+    .cradle-bob:active {
+      cursor: default;
+    }
+  }
+
+  /* The string, from the beam to the ring. It rotates with its letter. */
+  .cradle-bob::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: calc(-1 * var(--string));
+    width: max(2.5px, 0.016em);
+    height: calc(var(--string) + var(--attach) - var(--ring));
+    translate: -50% 0;
+    background: var(--color-graphite);
+  }
+
+  /* The ring the string is tied to, resting on the glyph. */
+  .cradle-bob::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: calc(var(--attach) - var(--ring));
+    width: var(--ring);
+    height: var(--ring);
+    translate: -50% 0;
+    border: max(2px, 0.018em) solid var(--color-graphite);
+    border-radius: 50%;
+  }
+
+  /* On wide pages the title sits beside the first row, clear of the last letter's widest swing. */
+  .cradle-title {
+    margin-top: 1.5rem;
+
+    @media (min-width: 1280px) {
+      position: absolute;
+      top: calc(var(--cradle-size) * 0.2);
+      right: 0;
+      width: calc(100% - var(--cradle-size) * 6.1);
+      margin-top: 0;
+    }
+  }
+
+  /* ——— Fig. 2: experience accumulated against time ——— */
+
+  .xp-diagram {
+    position: relative;
+    width: 100%;
+    container-type: inline-size;
+  }
+
+  .xp-label {
+    position: absolute;
+    display: block;
+    border-radius: 2px;
+  }
+
+  /* ——— Fig. 3: skills, each name over an equal mass on a quiet string ——— */
+
+  /* Strings keep their natural length (it follows the number of skills) and flow side by side. */
+  .bead-strings {
+    columns: 2 9.5rem;
+    column-gap: 1.25rem;
+
+    @media (min-width: 768px) {
+      columns: 3 12rem;
+      column-gap: 2.5rem;
+    }
+
+    @media (min-width: 1280px) {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      column-gap: 3.5rem;
+      row-gap: 2.25rem;
+    }
+  }
+
+  .bead-string {
+    --bead: 8px;
+    --bead-fill: var(--color-ink);
+    --label-size: 1.0625rem;
+    --label-weight: 600;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+    margin-bottom: 1.75rem;
+    break-inside: avoid;
+
+    @media (min-width: 1280px) {
+      margin-bottom: 0;
+    }
+  }
+
+  .bead-name {
+    font-size: 0.9375rem;
+    line-height: 1.3;
+    font-weight: 500;
+    color: var(--color-pencil);
+  }
+
+  /* Narrow pages: the string hangs beside the names, a bead level with each. */
+  .bead-track {
+    --vertical: 1;
+    --axis: 6px;
+    position: relative;
+    padding: 0.5rem 0;
+  }
+
+  /* The fixed ends: a short bar across the string at each end. */
+  .bead-track::before,
+  .bead-track::after {
+    content: "";
+    position: absolute;
+    left: calc(var(--axis) - 6px);
     width: 12px;
-    height: 12px;
+    height: 1.5px;
+    background: var(--color-pencil);
   }
 
-  ::-webkit-scrollbar-track {
-    background: var(--color-background);
+  .bead-track::before {
+    top: 0;
   }
 
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border: 2px solid var(--color-background);
+  .bead-track::after {
+    bottom: 0;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary);
+  .bead-track > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
   }
-  html {
-    @apply font-sans;
+
+  .bead-rest,
+  .bead-line {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .bead-rest {
+    top: 0;
+    bottom: 0;
+    left: calc(var(--axis) - 0.75px);
+    width: 1.5px;
+    background: var(--color-pencil);
+    opacity: 0.6;
+  }
+
+  .bead-line {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    stroke: var(--color-pencil);
+    stroke-width: 1.5px;
+    visibility: hidden;
+  }
+
+  .bead-track[data-moving] .bead-rest {
+    visibility: hidden;
+  }
+
+  .bead-track[data-moving] .bead-line {
+    visibility: visible;
+  }
+
+  .bead-mass {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-left: calc(var(--axis) - var(--bead) / 2);
+    cursor: pointer;
+  }
+
+  .bead {
+    flex: none;
+    width: var(--bead);
+    height: var(--bead);
+    border-radius: 50%;
+    background: var(--bead-fill);
+  }
+
+  .bead-label {
+    min-width: 0;
+    font-size: var(--label-size);
+    font-weight: var(--label-weight);
+    line-height: 1.25;
+    color: var(--color-ink);
+  }
+
+  /* Soft skills: graphite names on hollow beads, after the technical ones. */
+  .bead-string-soft {
+    --bead-fill: var(--color-paper);
+    --label-weight: 450;
+  }
+
+  .bead-string-soft .bead {
+    box-shadow: inset 0 0 0 1.5px var(--color-pencil);
+  }
+
+  .bead-string-soft .bead-label {
+    color: var(--color-graphite);
+  }
+
+  /* Wide pages: the names stand in a row, the string runs under them between its two ends. */
+  @media (min-width: 1280px) {
+    .bead-track {
+      --vertical: 0;
+      --axis: auto;
+      padding: 0 1.25rem 0.5rem;
+    }
+
+    .bead-track::before,
+    .bead-track::after {
+      top: auto;
+      bottom: calc(0.5rem + var(--bead) / 2 - 6px);
+      width: 1.5px;
+      height: 12px;
+    }
+
+    .bead-track::before {
+      left: 0;
+    }
+
+    .bead-track::after {
+      left: auto;
+      right: 0;
+    }
+
+    .bead-track > ul {
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 1.75rem;
+    }
+
+    .bead-rest {
+      top: auto;
+      bottom: calc(0.5rem + var(--bead) / 2 - 0.75px);
+      left: 0;
+      right: 0;
+      width: auto;
+      height: 1.5px;
+    }
+
+    .bead-mass {
+      flex-direction: column-reverse;
+      gap: 0.45rem;
+      padding-left: 0;
+    }
+
+    .bead-string {
+      --label-size: 1.1875rem;
+    }
+
+    .bead-string-soft {
+      --label-size: 1.0625rem;
+    }
+
+    .bead-label {
+      white-space: nowrap;
+    }
+  }
+
+  /* ——— Fig. 4: a wave travels two wavelengths when pressed, then stops where it began ——— */
+
+  @keyframes wave-travel {
+    to {
+      transform: translateX(calc(-1 * var(--wavelength)));
+    }
+  }
+
+  .wave-path {
+    animation: wave-travel 1.1s linear 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-path {
+    animation: none;
   }
 }

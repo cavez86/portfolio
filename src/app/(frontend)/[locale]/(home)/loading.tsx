@@ -1,27 +1,19 @@
-'use client';
+import { getTranslations } from 'next-intl/server';
 
-import { motion } from 'motion/react';
-import { useTranslations } from 'next-intl';
-
-export default function Loading() {
-  const t = useTranslations('Loading');
+export default async function Loading() {
+  const t = await getTranslations('Loading');
 
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center">
-      <motion.div animate={{ opacity: 1 }} className="flex flex-col items-center gap-4" initial={{ opacity: 0 }}>
-        <motion.div
-          animate={{
-            rotate: 360,
-          }}
-          className="border-primary h-8 w-8 rounded-full border-2 border-t-transparent"
-          transition={{
-            duration: 1,
-            ease: 'linear',
-            repeat: Infinity,
-          }}
-        />
-        <p className="text-slate-400">{t('loading')}</p>
-      </motion.div>
+    <div className="sheet flex min-h-[60vh] items-center">
+      <p className="flex items-center gap-4 text-lead text-pencil" role="status">
+        {/* A pendulum at rest while the page is drawn. */}
+        <svg aria-hidden="true" className="h-12 w-8 overflow-visible" viewBox="0 0 32 48">
+          <line stroke="var(--color-ink)" strokeWidth="3" x1="2" x2="30" y1="2" y2="2" />
+          <line stroke="var(--color-graphite)" strokeWidth="2" x1="16" x2="16" y1="2" y2="36" />
+          <circle cx="16" cy="40" fill="var(--color-paper)" r="6" stroke="var(--color-ink)" strokeWidth="3" />
+        </svg>
+        {t('loading')}
+      </p>
     </div>
   );
 }

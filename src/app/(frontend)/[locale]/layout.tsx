@@ -3,23 +3,30 @@ import '../../globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
+import { Bricolage_Grotesque, STIX_Two_Text } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
-import { Toaster } from 'sonner';
 import { GoToTop } from '@/components/common/GoToTop';
-import ScrollProgress from '@/components/common/ScrollProgress';
 import MainProvider from '@/components/providers';
 import Footer from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
+import { Toaster } from '@/components/ui/sonner';
 import { routing } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
-const geist = Geist({
-  subsets: ['latin'],
-  variable: '--font-geist',
+const bricolage = Bricolage_Grotesque({
+  axes: ['opsz'],
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-bricolage',
+});
+
+// Only for what physics typesetting sets in italic: variables, units and figure captions.
+const stix = STIX_Two_Text({
+  style: 'italic',
+  subsets: ['latin', 'greek'],
+  variable: '--font-stix',
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -45,10 +52,9 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html className={cn(bricolage.variable, stix.variable)} lang={locale} suppressHydrationWarning>
       <MainProvider>
-        <body className={cn(geist.variable, 'font-sans antialiased')}>
-          <ScrollProgress />
+        <body className="font-sans antialiased">
           <Header />
           {children}
           <Footer />
