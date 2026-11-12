@@ -1,68 +1,80 @@
 {
-  "ColorPicker": {
-    "description": "Choose your preferred terminal hue. The default is green.",
-    "hue_label": "Hue: {hue}°",
-    "reset_button": "Reset to Default",
-    "title": "Customize Theme Color"
+  "About": {
+    "title": "About"
+  },
+  "Background": {
+    "education": "Education",
+    "languages": "Languages",
+    "title": "Education and languages"
   },
   "Contact": {
     "availability": "Availability",
-    "availability_text": "Open to remote and hybrid opportunities.",
-    "description": "Contact Information",
-    "title": "Get In Touch"
+    "title": "Get in touch"
   },
   "Error": {
-    "403": {
-      "description": "You may need to log in or contact an administrator for access.",
-      "subtitle": "You don't have permission to access this resource",
-      "title": "Access Forbidden"
-    },
     "404": {
-      "description": "It might have been moved, deleted, or you entered the wrong URL.",
-      "subtitle": "The page you're looking for doesn't exist",
-      "title": "Page Not Found"
+      "description": "There is no page or release at this address. It may have been moved, or the link has a typo.",
+      "title": "Unknown release"
     },
     "500": {
-      "description": "We're experiencing technical difficulties. Please try again later.",
-      "subtitle": "Something went wrong on our end",
-      "title": "Internal Server Error"
+      "description": "Something failed while building this page. Try again, or come back in a few minutes.",
+      "title": "This page didn't load"
     },
-    "back_home": "Back to Home",
-    "go_back": "Go Back",
-    "try_again": "Try Again"
+    "back_home": "Back to home",
+    "latest_release": "Read the latest release",
+    "path": "Requested path",
+    "try_again": "Try again"
   },
   "Experience": {
-    "more": "More",
-    "present": "Present",
-    "title": "Professional Experience"
+    "latest": "Latest",
+    "present": "present",
+    "release_notes": "{count, plural, one {# release note} other {# release notes}}",
+    "rule": "Versioned like software: the major number goes up with each new employer, the minor number with each change at the same one.",
+    "title": "Releases"
+  },
+  "Footer": {
+    "back_to_top": "Back to top"
   },
   "Header": {
     "contact": "Contact",
-    "experience": "Experience",
+    "experience": "Releases",
     "language": {
       "en": "English",
       "it": "Italian"
     },
-    "skills": "Skills"
+    "language_label": "Language",
+    "skills": "Skills",
+    "theme_dark": "Switch to dark theme",
+    "theme_light": "Switch to light theme"
   },
   "Hero": {
-    "contact_me": "Contact Me"
-  },
-  "Languages": {
-    "description": "Communication skills across multiple languages",
-    "title": "Languages"
+    "contact_me": "Get in touch",
+    "role": "{position} at {company}, {location}",
+    "since": "Since {date}"
   },
   "Loading": {
-    "loading": "Loading..."
+    "loading": "Loading…"
   },
   "Metadata": {
-    "description": "Full Stack Web Developer specializing in React, Next.js, TypeScript, and Tailwind CSS. Based in Turin, Italy.",
-    "title": "Francesco Caveglia Beatris - Full Stack Web Developer"
+    "description": "{position} at {company}. Frontend and full-stack developer working with React, Next.js, TypeScript and .NET.",
+    "title": "{name}, {position}"
+  },
+  "Pdf": {
+    "error": "The PDF couldn't be created. Try again in a moment.",
+    "exporting": "Preparing PDF…",
+    "label": "Download CV as PDF",
+    "success": "{filename} downloaded"
+  },
+  "Permalink": {
+    "copied": "Link copied",
+    "label": "Copy link to “{title}”"
   },
   "Skills": {
-    "description": "Technical proficiencies and soft skills that drive my work",
-    "soft": "Soft Skills",
-    "technical": "Technical Skills",
-    "title": "Skills & Expertise"
+    "soft": "Soft skills",
+    "technical": "Technical",
+    "title": "Skills"
+  },
+  "Toc": {
+    "title": "On this page"
   }
 }

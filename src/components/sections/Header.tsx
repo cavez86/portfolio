@@ -1,55 +1,37 @@
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-import { ColorPicker } from '@/components/ColorPicker';
-import Icon from '@/components/common/Icon';
 import { LanguageSelector } from '@/components/common/LanguageSelector';
-import { buttonVariants } from '@/components/ui/button';
-import { getLocalizedCollection } from '@/components/utils/db';
+import { ThemeToggle } from '@/components/common/ThemeToggle';
+import { getLocalizedGlobal } from '@/components/utils/db';
+import { Link } from '@/i18n/navigation';
+
+const navLinkClass =
+  'rounded-sm px-1 text-[0.9375rem] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline';
 
 export const Header = async () => {
   'use cache';
-  const t = await getTranslations('Header');
-  const contacts = await getLocalizedCollection('contacts');
+  const [t, personalInfo] = await Promise.all([getTranslations('Header'), getLocalizedGlobal('personal-info')]);
 
   return (
-    <header className="bg-background/95 supports-backdrop-filter:bg-background/80 sticky -top-16.5 z-50 border-b-2 border-primary/30 px-6 py-4 backdrop-blur md:top-0 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
-      <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
-        <nav className="hidden items-center gap-8 md:flex">
-          <Link
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
-            href="#experience"
-          >
-            {t('experience')}
-          </Link>
-          <Link
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
-            href="#skills"
-          >
-            {t('skills')}
-          </Link>
-          <Link
-            className="font-mono uppercase tracking-wider text-foreground transition-all hover:text-primary hover:shadow-[0_0_8px_var(--color-primary)]"
-            href="#contact"
-          >
-            {t('contact')}
-          </Link>
-        </nav>
-        <div className="flex flex-1 items-center justify-end gap-4">
-          {contacts.map((contact) => (
-            <a
-              className={buttonVariants({ className: 'md:text-sm', size: 'sm', variant: 'ghost' })}
-              href={contact.url}
-              key={contact.url}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {contact.icon && <Icon className="h-4 w-4 lg:mr-2" name={contact.icon} />}
-              <span className="hidden lg:block">{contact.label}</span>
-            </a>
-          ))}
+    <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md supports-backdrop-filter:bg-background/80">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <Link className="truncate rounded-sm text-[0.9375rem] font-semibold tracking-[-0.01em]" href="/">
+          {personalInfo.name}
+        </Link>
+        <div className="flex items-center gap-1 sm:gap-2">
+          <nav className="mr-3 hidden items-center gap-5 md:flex">
+            <Link className={navLinkClass} href="/#releases">
+              {t('experience')}
+            </Link>
+            <Link className={navLinkClass} href="/#skills">
+              {t('skills')}
+            </Link>
+            <Link className={navLinkClass} href="/#contact">
+              {t('contact')}
+            </Link>
+          </nav>
           <LanguageSelector />
-          <ColorPicker />
+          <ThemeToggle />
         </div>
       </div>
     </header>

@@ -1,15 +1,13 @@
 import { Suspense } from 'react';
 
-import { ExperienceSectionSkeleton } from '@/components/sections/SectionSkeleton';
+import { SectionSkeleton } from '@/components/sections/SectionSkeleton';
 
 import ExperienceSectionView from './ExperienceSectionView';
 
-const ExperienceSection = () => {
-  return (
-    <Suspense fallback={<ExperienceSectionSkeleton />}>
-      <ExperienceSectionView />
-    </Suspense>
-  );
-};
+const ExperienceSection = () => (
+  <Suspense fallback={<SectionSkeleton rows={4} />}>
+    <ExperienceSectionView />
+  </Suspense>
+);
 
 export default ExperienceSection;

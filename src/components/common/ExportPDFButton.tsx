@@ -1,17 +1,18 @@
 'use client';
 
 import { Download } from 'lucide-react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import posthog from 'posthog-js';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { trpc } from '@/lib/trpc/client';
 
-export const ExportPDFButton = () => {
+export const ExportPDFButton = ({ variant = 'outline' }: { variant?: 'outline' | 'link' }) => {
   const locale = useLocale();
+  const t = useTranslations('Pdf');
 
-  const { isLoading, refetch } = trpc.pdf.exportPDF.useQuery(
+  const { isFetching, refetch } = trpc.pdf.exportPDF.useQuery(
     { locale },
     {
       enabled: false, // Don't run on mount
@@ -27,54 +28,34 @@ export const ExportPDFButton = () => {
         throw new Error('Failed to generate PDF');
       }
 
-      // Convert base64 to blob
-      const pdfData = result.data.pdfData;
-      const byteCharacters = atob(pdfData);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: 'application/pdf' });
-
-      // Create a temporary URL for the blob
-      const url = window.URL.createObjectURL(blob);
-
-      // Create a temporary link element and trigger the download
+      const bytes = Uint8Array.from(atob(result.data.pdfData), (char) => char.charCodeAt(0));
+      const url = window.URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }));
       const link = document.createElement('a');
       link.href = url;
       link.download = result.data.filename;
       document.body.appendChild(link);
       link.click();
-
-      // Clean up
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
       posthog.capture('portfolio_pdf_exported', { locale });
-
-      // Show success toast
-      toast.success('PDF exported successfully', {
-        description: `${result.data.filename} has been downloaded.`,
-      });
+      toast.success(t('success', { filename: result.data.filename }));
     } catch (error) {
       console.error('Error exporting PDF:', error);
-      toast.error('Failed to export PDF', {
-        description: 'Please try again or contact support if the problem persists.',
-      });
+      toast.error(t('error'));
     }
   };
 
   return (
     <Button
-      className="text-foreground transition-all hover:text-primary md:text-sm"
-      disabled={isLoading}
+      className={variant === 'link' ? 'h-auto px-0 text-[0.9375rem] font-normal' : undefined}
+      disabled={isFetching}
       onClick={handleExport}
-      size="lg"
-      variant="ghost"
+      size={variant === 'link' ? 'default' : 'lg'}
+      variant={variant}
     >
-      <Download className="h-5 w-5" />
-      <span>{isLoading ? 'Exporting...' : 'Export PDF'}</span>
+      <Download aria-hidden />
+      {isFetching ? t('exporting') : t('label')}
     </Button>
   );
 };
