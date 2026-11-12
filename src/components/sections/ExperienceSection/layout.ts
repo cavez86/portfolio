@@ -33,7 +33,7 @@ export interface Variant {
 export const WIDE: Variant = {
   axisX: 64,
   footroom: 56,
-  headroom: 120,
+  headroom: 60,
   label: { gap: 16, meta: 17, name: 30, placement: 'beside', role: 18, width: 330 },
   lanes: { band: 68, first: 140, last: 1104 },
   tScale: 46,
@@ -119,7 +119,8 @@ export const layoutExperience = <T extends TimelineInput>(
       .map(({ index, segment }, k, all) => ({
         index,
         segment,
-        showPlace: k === 0 || texts[index]?.place !== texts[all[k - 1].index]?.place,
+        // A place is written where the career moved to it, not repeated per employer.
+        showPlace: index === 0 || texts[index]?.place !== texts[index - 1]?.place,
         showRole: k === 0 || texts[index]?.role !== texts[all[k - 1].index]?.role,
       }));
     const t0 = jobs[0].segment.t0;

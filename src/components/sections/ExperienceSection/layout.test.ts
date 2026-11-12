@@ -45,6 +45,15 @@ describe.each([
     expect(layout.lanes[2].jobs.map((j) => j.showRole)).toEqual([true, false]);
   });
 
+  it('writes a place only where the career moved to it', () => {
+    expect(layout.lanes.map((lane) => lane.jobs.map((j) => j.showPlace))).toEqual([
+      [true],
+      [false],
+      [false, false],
+      [true],
+    ]);
+  });
+
   it('never lets two labels overlap', () => {
     for (let i = 0; i < labels.length; i++)
       for (let j = i + 1; j < labels.length; j++) expect(intersects(labels[i], labels[j])).toBe(false);
