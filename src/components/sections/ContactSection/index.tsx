@@ -1,12 +1,14 @@
+import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
 
-import { ContactSectionSkeleton } from '@/components/sections/SectionSkeleton';
+import { SectionSkeleton } from '@/components/sections/SectionSkeleton';
 
 import ContactSectionView from './ContactSectionView';
 
-const ContactSection = () => {
+const ContactSection = async () => {
+  const t = await getTranslations('Contact');
   return (
-    <Suspense fallback={<ContactSectionSkeleton />}>
+    <Suspense fallback={<SectionSkeleton id="contact" lines={3} title={t('title')} />}>
       <ContactSectionView />
     </Suspense>
   );

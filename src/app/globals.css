@@ -1,133 +1,147 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+/* The theme is resolved before paint by the inline script in the locale layout (see components/common/theme.ts). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* Source, light: ink on cool paper. Every syntax colour is AA on both --page and --panel. */
 :root {
-  --theme-color: hsl(145, 100%, 50%); /* Default theme color (green) */
+  color-scheme: light;
+  --page: #f4f4f7;
+  --panel: #ffffff;
+  --ink: #1c1a26;
+  --muted: #57536a;
+  --rule: #dddbe4;
+  --accent: #2343b8;
+  --on-accent: #ffffff;
+  --highlight: #e2e6f8;
+  --band: #2343b8;
+  --on-band: #ffffff;
+  --error: #b3261e;
+  --syn-keyword: #9a2c6a;
+  --syn-string: #8a4b00;
+  --syn-number: #0e6f65;
+  --syn-comment: #686477;
 }
 
-/* Terminal theme with customizable base color using relative colors */
-@theme {
-  /* Base color can be customized by user (default: terminal green) */
-  --color-base: oklch(from var(--theme-color) 0.8 0.18 h); /* Default to green hue */
+/* Source, dark: chalk on plum graphite, warm strings and rose keywords. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #1d1b26;
+  --panel: #26232f;
+  --ink: #ece8f1;
+  --muted: #aba5b8;
+  --rule: #3a3646;
+  --accent: #8fb8ff;
+  --on-accent: #1d1b26;
+  --highlight: #33354d;
+  --band: #2b3b7a;
+  --on-band: #ece8f1;
+  --error: #ff9c8f;
+  --syn-keyword: #f2a6c8;
+  --syn-string: #f5c07a;
+  --syn-number: #9de0d0;
+  --syn-comment: #a8a3b8;
+}
 
-  /* All theme colors derived from --color-base using CSS relative color syntax */
-  --color-background: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Very dark with subtle hue tint */
-  --color-foreground: oklch(from var(--color-base) 0.85 0.15 h); /* Bright neon text */
-
-  --color-card: oklch(from var(--color-base) 0.18 0.01 calc(h + 5)); /* Slightly lighter than background */
-  --color-card-foreground: oklch(from var(--color-base) 0.85 0.15 h);
-
-  --color-popover: oklch(from var(--color-base) 0.12 0.01 calc(h + 5)); /* Darker than background for depth */
-  --color-popover-foreground: oklch(from var(--color-base) 0.85 0.15 h);
-
-  --color-primary: var(--color-base); /* Bright neon - terminal primary color */
-  --color-primary-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5)); /* Dark text on primary */
-
-  --color-secondary: oklch(from var(--color-base) 0.25 0.02 calc(h + 5)); /* Dark for secondary elements */
-  --color-secondary-foreground: oklch(from var(--color-base) 0.75 0.12 h); /* Dimmer accent */
-
-  --color-muted: oklch(from var(--color-base) 0.22 0.015 calc(h + 5)); /* Muted background */
-  --color-muted-foreground: oklch(from var(--color-base) 0.55 0.08 h); /* Muted text */
-
-  --color-accent: oklch(from var(--color-base) 0.65 0.18 calc(h + 3)); /* Accent color */
-  --color-accent-foreground: oklch(from var(--color-base) 0.15 0.01 calc(h + 5));
-
-  --color-destructive: oklch(0.6 0.2 25); /* Red-orange for errors */
-  --color-destructive-foreground: oklch(0.95 0.01 120);
-
-  --color-border: oklch(from var(--color-base) 0.35 0.05 h); /* Hue-tinted border */
-  --color-input: oklch(from var(--color-base) 0.2 0.015 calc(h + 5)); /* Dark input background */
-  --color-ring: var(--color-base); /* Bright focus ring */
-
-  --color-radius: 0.25rem; /* Sharper corners for terminal feel */
-
-  --color-chart-1: var(--color-base); /* Primary color */
-  --color-chart-2: oklch(from var(--color-base) 0.75 0.15 calc(h + 50)); /* Shifted hue */
-  --color-chart-3: oklch(from var(--color-base) 0.7 0.12 calc(h + 130)); /* Complementary */
-  --color-chart-4: oklch(from var(--color-base) 0.85 0.15 calc(h - 55)); /* Triadic */
-  --color-chart-5: oklch(0.65 0.2 25); /* Red-orange */
-
-  --animate-scale-x: scale-x linear forwards;
-  @keyframes scale-x {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
-
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  @keyframes accordion-down {
-    from {
-      height: 0;
-      opacity: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-      opacity: 1;
-    }
-  }
-
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-      opacity: 1;
-    }
-    to {
-      height: 0;
-      opacity: 0;
-    }
+/* One frame for header, sections and footer, so every left edge lines up. */
+@utility page-frame {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1rem;
+  @variant sm {
+    padding-inline: 2rem;
   }
 }
 
-@utility animation-timeline-scroll {
-  animation-timeline: scroll();
+@theme inline {
+  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-intel-one), ui-monospace, monospace;
+
+  --color-background: var(--page);
+  --color-foreground: var(--ink);
+  --color-panel: var(--panel);
+  --color-popover: var(--panel);
+  --color-popover-foreground: var(--ink);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--on-accent);
+  --color-muted: var(--highlight);
+  --color-muted-foreground: var(--muted);
+  --color-accent: var(--highlight);
+  --color-accent-foreground: var(--ink);
+  --color-highlight: var(--highlight);
+  --color-band: var(--band);
+  --color-on-band: var(--on-band);
+  --color-border: var(--rule);
+  --color-input: var(--rule);
+  --color-ring: var(--accent);
+  --color-destructive: var(--error);
+  --color-syn-keyword: var(--syn-keyword);
+  --color-syn-string: var(--syn-string);
+  --color-syn-number: var(--syn-number);
+  --color-syn-comment: var(--syn-comment);
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
 }
 
-@utility animation-timeline-view {
-  animation-timeline: view();
-}
-
-/* Add base styles after theme definition */
 @layer base {
   * {
-    @apply border-border outline-ring/50 transition-discrete;
+    @apply border-border;
+  }
+
+  html {
+    @apply bg-background;
+    scroll-padding-top: 5rem;
   }
 
   body {
-    @apply bg-background text-foreground min-w-[360px] font-mono;
+    @apply bg-background text-foreground min-w-[360px] font-sans text-lg leading-relaxed antialiased;
+    font-kerning: normal;
   }
 
-  /* Terminal-style text selection */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
   ::selection {
-    background-color: oklch(from var(--color-base) l c h / 0.3);
-    color: var(--color-foreground);
+    background-color: var(--highlight);
+    color: var(--ink);
   }
 
-  /* Scrollbar styling for terminal theme */
-  ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+}
+
+/* The hero's one interaction: pointing at a property marks the heading and nav link of the section it documents;
+   following it leaves that heading marked as the URL target. */
+@layer components {
+  .ref-mark {
+    border-radius: 2px;
   }
 
-  ::-webkit-scrollbar-track {
-    background: var(--color-background);
+  :target .ref-mark,
+  :root:has([data-goto="about"]:is(:hover, :focus-visible)) [data-ref="about"],
+  :root:has([data-goto="experience"]:is(:hover, :focus-visible)) [data-ref="experience"],
+  :root:has([data-goto="skills"]:is(:hover, :focus-visible)) [data-ref="skills"],
+  :root:has([data-goto="languages"]:is(:hover, :focus-visible)) [data-ref="languages"],
+  :root:has([data-goto="education"]:is(:hover, :focus-visible)) [data-ref="education"] {
+    background-color: var(--highlight);
+    box-shadow: 0 0 0 0.3em var(--highlight);
   }
+}
 
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border: 2px solid var(--color-background);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary);
-  }
-  html {
-    @apply font-sans;
+/* The inner table column shared by every documentation section, so dates and names line up down the page. */
+@utility doc-columns {
+  display: grid;
+  column-gap: 2rem;
+  @variant sm {
+    grid-template-columns: 12rem minmax(0, 1fr);
   }
 }

@@ -1,93 +1,118 @@
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
-import { RichText } from '@payloadcms/richtext-lexical/react';
-import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
-import Icon, { type IconName } from '@/components/common/Icon';
-import { Motion } from '@/components/common/Motion';
-import { Button } from '@/components/ui/button';
+import { ExportPDFButton } from '@/components/common/ExportPDFButton';
+import { buttonVariants } from '@/components/ui/button';
 import { getLocalizedCollection, getLocalizedGlobal } from '@/components/utils/db';
+import { yearsSince } from '@/components/utils/period';
+import { cn } from '@/lib/utils';
+import type { SummaryInfo } from '@/payload-types';
+
+import { buildSnippet, type SnippetLine, type SnippetProperty, type Token } from './snippet';
+
+const tokenClass: Record<Token['kind'], string> = {
+  comment: 'text-syn-comment italic',
+  keyword: 'text-syn-keyword italic',
+  number: 'text-syn-number',
+  property: 'text-primary group-hover/line:underline group-focus-visible/line:underline',
+  punctuation: 'text-muted-foreground',
+  string: 'text-syn-string',
+  variable: 'font-bold',
+};
+
+// Summary facts carry no stable key besides their icon; the labels are localized.
+const summaryValue = (items: SummaryInfo[], icon: SummaryInfo['icon']) =>
+  items.find((item) => item.icon === icon)?.value;
+
+const SnippetLineView = ({ line }: { line: SnippetLine }) => {
+  const className = cn('block pr-(--pad)', line.depth === 1 ? 'pl-[calc(var(--pad)+4ch)] -indent-[4ch]' : 'pl-(--pad)');
+  const content = (
+    <>
+      {'  '.repeat(line.depth)}
+      {line.tokens.map((token, index) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: tokens are positional and never reorder
+        <span className={tokenClass[token.kind]} key={index}>
+          {token.text}
+        </span>
+      ))}
+    </>
+  );
+
+  if (!line.section) return <span className={className}>{content}</span>;
+  return (
+    <a
+      className={cn(className, 'group/line outline-offset-[-2px] hover:bg-highlight focus-visible:bg-highlight')}
+      data-goto={line.section}
+      href={`#${line.section}`}
+    >
+      {content}
+    </a>
+  );
+};
 
 const HeroSection = async () => {
-  const [personalInfoData, summaryInfoData, t] = await Promise.all([
+  const [personalInfo, summary, experience, languages, locale, t] = await Promise.all([
     getLocalizedGlobal('personal-info'),
     getLocalizedCollection('summary-info'),
+    getLocalizedCollection('experience', ['-period.dateFrom']),
+    getLocalizedCollection('languages'),
+    getLocale(),
     getTranslations('Hero'),
   ]);
 
+  const now = new Date();
+  const latest = experience[0];
+  const first = experience.at(-1);
+  const years = first ? yearsSince(new Date(first.period.dateFrom), now) : undefined;
+  const since =
+    latest && !latest.period.dateTo
+      ? new Intl.DateTimeFormat(locale, { month: 'long', timeZone: 'UTC', year: 'numeric' }).format(
+          new Date(latest.period.dateFrom)
+        )
+      : undefined;
+  const stack = summaryValue(summary, 'Code');
+
+  const properties: SnippetProperty[] = [
+    { key: 'role', section: 'experience', value: latest?.position },
+    { comment: since && t('since', { date: since }), key: 'company', section: 'experience', value: latest?.company },
+    { key: 'location', section: 'experience', value: latest?.location },
+    { key: 'yearsOfExperience', section: 'experience', value: years },
+    { key: 'stack', section: 'skills', value: stack?.split(/\s*,\s*/) },
+    { key: 'languages', section: 'languages', value: languages.map(({ language }) => language) },
+    { key: 'education', section: 'education', value: summaryValue(summary, 'GraduationCap') },
+  ];
+
   return (
-    <section className="px-4 py-8 md:py-16">
-      <div className="container mx-auto">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 text-center">
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-linear-to-r from-primary to-accent bg-clip-text text-5xl leading-normal font-bold font-mono uppercase tracking-wider text-transparent md:text-7xl [text-shadow:0_0_30px_var(--color-primary)]"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ duration: 0.5 }}
-            type="h1"
-          >
-            {personalInfoData.name}
-          </Motion>
-
-          <Motion
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-2xl font-medium font-mono uppercase tracking-wider text-accent md:text-3xl"
-            initial={{ opacity: 0.1, scale: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            type="h2"
-          >
-            {personalInfoData.title}
-          </Motion>
-
-          <Motion
-            className="mx-auto text-lg text-pretty text-muted-foreground"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <RichText data={personalInfoData.description as SerializedEditorState} />
-          </Motion>
-
-          <Motion
-            className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0.1, y: 20 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            type="div"
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <Link href="#contact">
-              <Button size="lg" variant="outline">
-                {t('contact_me')}
-              </Button>
-            </Link>
-          </Motion>
+    <section
+      aria-labelledby="hero-title"
+      className="page-frame grid items-center gap-x-12 gap-y-10 pt-10 pb-14 md:pt-16 md:pb-20 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]"
+    >
+      <div className="flex flex-col items-start gap-6">
+        <h1 className="text-[2.75rem] leading-[1.05] font-bold tracking-tight text-balance md:text-6xl" id="hero-title">
+          {personalInfo.name}
+        </h1>
+        {latest && (
+          <p className="max-w-[34ch] text-xl text-pretty text-muted-foreground">
+            {t('summary', { company: latest.company, role: latest.position, years: years ?? 0 })}
+          </p>
+        )}
+        <div className="flex flex-wrap gap-3 pt-2">
+          <a className={buttonVariants()} href="#contact">
+            {t('contact_me')}
+          </a>
+          <ExportPDFButton />
         </div>
-
-        <Motion
-          className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-6 md:mt-16 md:grid-cols-4"
-          initial={{ opacity: 0.1, y: 20 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          type="div"
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
-          {summaryInfoData.map((item) => (
-            <div
-              className="bg-card flex flex-col items-center border-2 border-primary/30 p-4 text-center transition-all hover:border-primary/60 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_var(--color-primary)]"
-              key={item.id}
-            >
-              <Icon className="mb-2 h-8 w-8 text-primary" name={item.icon as IconName} />
-              <h3 className="text-sm font-medium font-mono uppercase tracking-wider text-muted-foreground">
-                {t(item.label)}
-              </h3>
-              <p className="text-base font-semibold font-mono text-foreground">{t(item.value)}</p>
-            </div>
-          ))}
-        </Motion>
       </div>
+
+      <figure className="-mx-4 sm:mx-0">
+        <pre className="overflow-hidden border-y border-border bg-panel py-5 font-mono text-sm leading-[1.7] whitespace-pre-wrap [--pad:1rem] sm:rounded-lg sm:border sm:py-8 sm:text-[clamp(1rem,0.2rem+2.2vw,1.5rem)] sm:[--pad:2rem] lg:text-[clamp(1rem,0.2rem+1.6vw,1.625rem)]">
+          <code>
+            {buildSnippet(personalInfo.name, properties).map((line) => (
+              <SnippetLineView key={line.tokens.map(({ text }) => text).join('')} line={line} />
+            ))}
+          </code>
+        </pre>
+        <figcaption className="sr-only">{t('snippet_caption')}</figcaption>
+      </figure>
     </section>
   );
 };

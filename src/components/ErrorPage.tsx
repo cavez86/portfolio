@@ -1,108 +1,39 @@
 'use client';
 
-import { Home, RefreshCw } from 'lucide-react';
-import { motion } from 'motion/react';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Link } from '@/i18n/navigation';
 
 interface ErrorPageProps {
-  errorCode: 404 | 500 | 403;
+  errorCode: 404 | 500;
   handleTryAgain?: () => void;
 }
 
+// Errors read like compiler output first, then say plainly what happened and where to go.
 export default function ErrorPage({ errorCode, handleTryAgain }: Readonly<ErrorPageProps>) {
   const t = useTranslations('Error');
-  const router = useRouter();
-
-  const handleGoHome = () => {
-    router.push('/');
-  };
-
-  const handleGoBack = () => {
-    if (window.history.length > 1) {
-      router.back();
-    } else {
-      router.push('/');
-    }
-  };
-
-  const getErrorIcon = () => {
-    switch (errorCode) {
-      case 404:
-        return '🔍';
-      case 500:
-        return '⚠️';
-      case 403:
-        return '🔒';
-      default:
-        return '❌';
-    }
-  };
+  const path = usePathname();
 
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
-      <motion.div
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-md"
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="mb-8 text-6xl">{getErrorIcon()}</div>
-
-        <motion.h1
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-4 text-4xl font-bold font-mono uppercase tracking-wider text-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-        >
-          {t(`${errorCode}.title`)}
-        </motion.h1>
-
-        <motion.h2
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-4 text-xl text-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          {t(`${errorCode}.subtitle`)}
-        </motion.h2>
-
-        <motion.p
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 text-muted-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          {t(`${errorCode}.description`)}
-        </motion.p>
-
-        <motion.div
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col gap-4 sm:flex-row sm:justify-center"
-          initial={{ opacity: 0, y: 10 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <Button className="flex items-center gap-2" onClick={handleGoHome}>
-            <Home className="size-4" />
+    <main className="page-frame py-16 md:py-28" id="main">
+      <div className="max-w-[42rem]">
+        <p className="rounded-md border border-border bg-panel px-4 py-3 font-mono text-base text-destructive [overflow-wrap:anywhere]">
+          {t(`${errorCode}.compiler`, { path })}
+        </p>
+        <h1 className="mt-8 text-4xl leading-tight font-bold text-balance md:text-5xl">{t(`${errorCode}.title`)}</h1>
+        <p className="mt-4 max-w-[52ch] text-xl text-pretty text-muted-foreground">{t(`${errorCode}.description`)}</p>
+        <div className="mt-10 flex flex-wrap gap-3">
+          {handleTryAgain && <Button onClick={handleTryAgain}>{t('try_again')}</Button>}
+          <Link className={buttonVariants({ variant: handleTryAgain ? 'outline' : 'default' })} href="/">
             {t('back_home')}
-          </Button>
-
-          {!!handleTryAgain && (
-            <Button className="flex items-center gap-2" onClick={handleTryAgain} variant="outline">
-              <RefreshCw className="size-4" />
-              {t('try_again')}
-            </Button>
-          )}
-
-          {errorCode === 404 && (
-            <Button onClick={handleGoBack} variant="outline">
-              {t('go_back')}
-            </Button>
-          )}
-        </motion.div>
-      </motion.div>
-    </div>
+          </Link>
+          <Link className={buttonVariants({ variant: 'outline' })} href="/#contact">
+            {t('contact')}
+          </Link>
+        </div>
+      </div>
+    </main>
   );
 }

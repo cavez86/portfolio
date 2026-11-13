@@ -1,68 +1,72 @@
 {
-  "ColorPicker": {
-    "description": "Scegli la tonalità terminale preferita. Il valore predefinito è verde.",
-    "hue_label": "Tonalità: {hue}°",
-    "reset_button": "Ripristina Predefinito",
-    "title": "Personalizza Colore del Tema"
+  "About": {
+    "title": "Chi sono"
   },
   "Contact": {
-    "availability": "Disponibilità",
-    "availability_text": "Disponibile per opportunità lavorative da remoto o ibride.",
-    "description": "Recapiti e informazioni di contatto",
     "title": "Contatti"
   },
+  "Education": {
+    "title": "Formazione"
+  },
   "Error": {
-    "403": {
-      "description": "Potresti dover effettuare il login o contattare un amministratore per l'accesso.",
-      "subtitle": "Non hai i permessi per accedere a questa risorsa",
-      "title": "Accesso Negato"
-    },
     "404": {
-      "description": "Potrebbe essere stata spostata, cancellata o hai inserito un URL sbagliato.",
-      "subtitle": "La pagina che stai cercando non esiste",
-      "title": "Pagina Non Trovata"
+      "compiler": "error TS2307: Non è possibile trovare il modulo ''{path}''.",
+      "description": "L'indirizzo potrebbe contenere un errore di battitura, oppure la pagina è stata spostata. Tutto il sito è nella pagina principale.",
+      "title": "Questa pagina non esiste"
     },
     "500": {
-      "description": "Stiamo riscontrando difficoltà tecniche. Riprova più tardi.",
-      "subtitle": "Qualcosa è andato storto dal nostro lato",
-      "title": "Errore Interno del Server"
+      "compiler": "Uncaught Error: non è stato possibile mostrare la pagina.",
+      "description": "Prova a ricaricarla. Se il problema continua, la pagina principale e i contatti funzionano comunque.",
+      "title": "Qualcosa è andato storto"
     },
-    "back_home": "Torna alla Home",
-    "go_back": "Torna Indietro",
+    "back_home": "Vai alla pagina principale",
+    "contact": "Contattami",
     "try_again": "Riprova"
   },
   "Experience": {
-    "more": "Altro",
-    "present": "Oggi",
-    "title": "Esperienze Professionali"
+    "achievements": "{count, plural, one {# risultato} other {# risultati}}",
+    "duration": "{years, plural, =0 {} one {# anno} other {# anni}} {months, plural, =0 {} one {# mese} other {# mesi}}",
+    "present": "oggi",
+    "title": "Esperienze"
+  },
+  "Footer": {
+    "source": "Codice sorgente:"
   },
   "Header": {
     "contact": "Contatti",
+    "dark_theme": "Tema scuro",
     "experience": "Esperienze",
-    "language": {
-      "en": "Inglese",
-      "it": "Italiano"
-    },
-    "skills": "Competenze"
+    "language": "Lingua",
+    "sections": "Sezioni",
+    "skills": "Competenze",
+    "skip_to_content": "Vai al contenuto"
   },
   "Hero": {
-    "contact_me": "Contattami"
+    "contact_me": "Contattami",
+    "since": "da {date}",
+    "snippet_caption": "Gli stessi dati come oggetto TypeScript. Ogni proprietà porta alla sezione che la descrive.",
+    "summary": "{role} presso {company}, con {years} anni di esperienza nel costruire e modernizzare grandi piattaforme web."
   },
   "Languages": {
-    "description": "Abilità comunicative in diverse lingue",
     "title": "Lingue"
   },
   "Loading": {
-    "loading": "Caricamento..."
+    "loading": "Caricamento…"
   },
   "Metadata": {
     "description": "Sviluppatore Web Full Stack specializzato in React, Next.js, TypeScript e Tailwind CSS. Con sede a Torino in Italia.",
     "title": "Francesco Caveglia Beatris - Sviluppatore Web Full Stack"
   },
+  "PDF": {
+    "download": "Scarica il CV",
+    "downloaded": "CV scaricato",
+    "failed": "Non è stato possibile scaricare il CV",
+    "failed_description": "Riprova tra qualche istante.",
+    "preparing": "Preparazione del CV…"
+  },
   "Skills": {
-    "description": "Competenze tecniche e soft skills alla base del mio lavoro",
-    "soft": "Competenze Trasversali",
-    "technical": "Competenze Tecniche",
-    "title": "Competenze & Esperienze"
+    "soft": "Competenze trasversali",
+    "technical": "Tecniche",
+    "title": "Competenze"
   }
 }

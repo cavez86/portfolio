@@ -7,6 +7,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 
+/** Each language named in itself: English, Italiano. */
+const endonym = (locale: Locale) => {
+  const name = new Intl.DisplayNames([locale], { type: 'language' }).of(locale) ?? locale;
+  return name.charAt(0).toLocaleUpperCase(locale) + name.slice(1);
+};
+
 export const LanguageSelector = () => {
   const t = useTranslations('Header');
   const router = useRouter();
@@ -21,13 +27,13 @@ export const LanguageSelector = () => {
 
   return (
     <Select onValueChange={handleChange} value={locale}>
-      <SelectTrigger className="w-fit">
-        <SelectValue placeholder="Language" />
+      <SelectTrigger aria-label={t('language')} className="font-mono">
+        <SelectValue>{(value: Locale) => value}</SelectValue>
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent align="end" alignItemWithTrigger={false}>
         {routing.locales.map((loc) => (
-          <SelectItem key={loc} value={loc}>
-            {t(`language.${loc}`)}
+          <SelectItem key={loc} lang={loc} value={loc}>
+            {endonym(loc)}
           </SelectItem>
         ))}
       </SelectContent>
